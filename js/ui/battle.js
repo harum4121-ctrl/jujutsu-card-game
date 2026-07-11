@@ -157,6 +157,7 @@ function endTurn() {
 
     gameState.selectedActors = [];
 
+    displayEnemyCharacters();
     displayBattleCharacters();
     displayHand();
     updateDeckCount();
