@@ -52,6 +52,7 @@ for (const id in enemies) {
     });
 
 }
+console.log(gameState.enemyCharacters);
     // 山札作成
     gameState.drawPile = [...gameState.deck];
 
