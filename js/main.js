@@ -6,6 +6,7 @@ console.log(cards);
 const gameState = {
     selectedCharacters: [],
     battleCharacters: [],
+    selectedActors: [],
 
     deck: [],
     drawPile: [],
