@@ -228,7 +228,7 @@ function useCard(index) {
 
 
     // 装備カードの場合
-    if (card.type === "装備") {
+    if (card.type === "呪具") {
 
         showEquipmentTarget(index);
 
