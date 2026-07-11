@@ -549,11 +549,38 @@ function enemyTurn() {
 
 setTimeout(() => {
 
+    // 次のターン開始
+    drawCard();
+
+    gameState.battleCharacters.forEach(character => {
+
+        character.currentCursedPower = Math.min(
+            character.currentCursedPower + character.cursedPowerRecovery,
+            character.maxCursedPower
+        );
+
+        character.hasActed = false;
+
+        for (const skillName in character.cooldowns) {
+
+            character.cooldowns[skillName]--;
+
+            if (character.cooldowns[skillName] <= 0) {
+
+                delete character.cooldowns[skillName];
+
+            }
+
+        }
+
+    });
+
     showBattleScreen();
 
     alert("味方のターン");
 
 }, 500);
+
 }
 function getUltimateCardCount() {
 
