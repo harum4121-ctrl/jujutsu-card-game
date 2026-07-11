@@ -5,10 +5,13 @@ console.log(cards);
 // ゲーム全体の状態
 const gameState = {
     selectedCharacters: [],
+    battleCharacters: [],
+
     deck: [],
     drawPile: [],
     hand: [],
     graveyard: [],
+
     player: null,
     enemy: null
 };
