@@ -218,21 +218,15 @@ if (
     gameState.selectedActors.length
 ) {
 
+    // まだ行動する味方がいる
     showSkillSelect();
 
 } else {
 
     alert("味方の行動終了");
 
-    // 行動したキャラクターを記録
-    gameState.selectedActors.forEach(character => {
-        character.hasActed = true;
-    });
-
-
     // 選択解除
     gameState.selectedActors = [];
-
 
     // 敵ターンへ
     enemyTurn();
