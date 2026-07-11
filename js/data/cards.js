@@ -360,9 +360,17 @@ const cards = {
                 type: "allDamageDown",
                 value: 30
             }
-        ]
+        }
+   ],
+ultimate: [
+
+    {
+        id: "ultimate_card",
+
+        name: "必殺カード",
+
+        type: "必殺"
     }
 
 ]
-
 };
