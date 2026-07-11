@@ -1,55 +1,81 @@
-console.log(characters);
 let selectedCharacters = [];
 
 
 // キャラクター一覧表示
-function showCharacterList(){
+
+function showCharacters(){
 
     const list = document.getElementById("characterList");
 
-    list.innerHTML = "";
 
-    Object.keys(characters).forEach(id => {
+    for(let key in characters){
 
-        const char = characters[id];
+        const char = characters[key];
+
 
         const card = document.createElement("div");
 
         card.className = "character";
 
+
         card.innerHTML = `
+
             <h3>${char.name}</h3>
+
             <p>タイプ：${char.type}</p>
-            <p>HP：${char.hp}</p>
-            <p>呪力：${char.cursedPower}</p>
+
+            <p class="hp">
+            HP：${char.hp}
+            </p>
+
+            <p class="cursed">
+            呪力：${char.cursedPower}
+            </p>
+
+            <button>
+            選択
+            </button>
+
         `;
 
-        card.onclick = () => {
-            selectCharacter(id);
-        };
+
+        card.querySelector("button")
+        .addEventListener("click",()=>{
+
+            selectCharacter(key);
+
+        });
+
 
         list.appendChild(card);
 
-    });
+    }
 
 }
 
 
+
 // キャラクター選択
+
 function selectCharacter(id){
+
+
+    // 3体制限
 
     if(selectedCharacters.length >= 3){
 
-        alert("3体まで選択できます");
+        alert("キャラクターは3体までです");
 
         return;
 
     }
 
 
+    // 同じキャラ重複防止
+
     if(selectedCharacters.includes(id)){
 
-        alert("すでに選択しています");
+        alert("このキャラクターは選択済みです");
 
         return;
 
@@ -65,7 +91,9 @@ function selectCharacter(id){
 
 
 
+
 // 選択中表示
+
 function updateSelected(){
 
     const area =
@@ -77,23 +105,45 @@ function updateSelected(){
 
     selectedCharacters.forEach(id=>{
 
+
         const char = characters[id];
 
 
-        const div =
-        document.createElement("div");
+        const div=document.createElement("div");
 
 
         div.className="character";
 
 
-        div.innerHTML =
-        `
+        div.innerHTML=`
+
         <h3>${char.name}</h3>
+
+        <button>
+        解除
+        </button>
+
         `;
 
 
+        div.querySelector("button")
+        .addEventListener("click",()=>{
+
+
+            selectedCharacters =
+            selectedCharacters.filter(
+                x=>x!==id
+            );
+
+
+            updateSelected();
+
+
+        });
+
+
         area.appendChild(div);
+
 
     });
 
@@ -102,32 +152,43 @@ function updateSelected(){
 
 
 // バトル開始
+
 document
 .getElementById("startBattle")
-.onclick=function(){
+.addEventListener("click",()=>{
+
 
     if(selectedCharacters.length !== 3){
 
-        alert("キャラクターを3体選択してください");
+        alert("3体選択してください");
 
         return;
 
     }
 
 
-    document.getElementById("selectScreen")
+
+    document
+    .getElementById("selectScreen")
     .style.display="none";
 
 
-    document.getElementById("game")
+    document
+    .getElementById("game")
     .style.display="block";
 
 
-    console.log("編成完了",selectedCharacters);
 
-};
+    console.log(
+        "編成:",
+        selectedCharacters
+    );
+
+
+});
 
 
 
 // 起動
-showCharacterList();
+
+showCharacters();
