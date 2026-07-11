@@ -305,6 +305,64 @@ const cards = {
 
     domains: [
 
-    ]
+    {
+        id: "curtain",
+
+        name: "帳",
+
+        type: "領域",
+
+        effect: {
+            type: "allDamageDown",
+            value: 10
+        }
+    },
+
+    {
+        id: "sendai_barrier",
+
+        name: "仙台結界",
+
+        type: "領域",
+
+        effect: {
+            type: "techniqueDamageUp",
+            value: 10
+        }
+    },
+
+    {
+        id: "tokyo_barrier",
+
+        name: "東京結界",
+
+        type: "領域",
+
+        effect: {
+            type: "bodyDamageUp",
+            value: 10
+        }
+    },
+
+    {
+        id: "tokyo_jujutsu_high",
+
+        name: "東京都立呪術高等専門学校",
+
+        type: "領域",
+
+        effect: [
+            {
+                type: "allCursedPowerRecovery",
+                value: 10
+            },
+            {
+                type: "allDamageDown",
+                value: 30
+            }
+        ]
+    }
+
+]
 
 };
