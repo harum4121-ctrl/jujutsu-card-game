@@ -31,7 +31,9 @@ function startBattle() {
 
         });
         
-        // 敵キャラクター作成
+    });
+
+// 敵キャラクター作成
 gameState.enemyCharacters = [];
 
 for (const id in enemies) {
@@ -50,9 +52,6 @@ for (const id in enemies) {
     });
 
 }
-
-    });
-
     // 山札作成
     gameState.drawPile = [...gameState.deck];
 
