@@ -1,23 +1,16 @@
 const enemies = {
 
-    curse1: {
+    sukuna: {
 
-        name: "呪霊（低級）",
+        name: "両面宿儺",
 
-        hp: 150,
+        hp: 800,
 
-        attack: 20
+        attack: 100,
 
-    },
+        skills: [],
 
-
-    curse2: {
-
-        name: "呪霊（中級）",
-
-        hp: 300,
-
-        attack: 35
+        ultimate: null
 
     },
 
@@ -28,7 +21,11 @@ const enemies = {
 
         hp: 600,
 
-        attack: 60
+        attack: 60,
+
+        skills: [],
+
+        ultimate: null
 
     },
 
@@ -39,18 +36,11 @@ const enemies = {
 
         hp: 500,
 
-        attack: 45
+        attack: 45,
 
-    },
+        skills: [],
 
-
-    sukuna: {
-
-        name: "両面宿儺",
-
-        hp: 800,
-
-        attack: 100
+        ultimate: null
 
     }
 
