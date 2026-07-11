@@ -233,7 +233,50 @@ function healCharacter(index) {
 
 function selectUltimate() {
 
-    alert("必殺技は次に実装します。");
+    const actor =
+        gameState.selectedActors[
+            gameState.currentActorIndex
+        ];
+
+    const ultimate =
+        characters[actor.id].ultimate;
+
+    if (
+        getUltimateCardCount() <
+        ultimate.costCard
+    ) {
+
+        alert("必殺カードが足りません");
+
+        return;
+
+    }
+
+    gameState.selectedSkill = ultimate;
+
+    if (
+        ultimate.target === "自身" ||
+        ultimate.target === "味方単体" ||
+        ultimate.target === "味方全体"
+    ) {
+
+        if (
+            ultimate.target === "味方全体"
+        ) {
+
+            healAllCharacters();
+
+        } else {
+
+            showHealTarget();
+
+        }
+
+    } else {
+
+        showEnemySelect();
+
+    }
 
 }
 
