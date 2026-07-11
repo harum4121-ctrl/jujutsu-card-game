@@ -30,6 +30,26 @@ function startBattle() {
             cooldowns: {}
 
         });
+        
+        // 敵キャラクター作成
+gameState.enemyCharacters = [];
+
+for (const id in enemies) {
+
+    const enemy = enemies[id];
+
+    gameState.enemyCharacters.push({
+
+        id: id,
+
+        name: enemy.name,
+
+        maxHp: enemy.hp,
+        currentHp: enemy.hp
+
+    });
+
+}
 
     });
 
