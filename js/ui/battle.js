@@ -108,9 +108,10 @@ for (const id in enemies) {
         </div>
     `;
 
-    displayBattleCharacters();
-    displayHand();
-    updateDeckCount();
+  displayEnemyCharacters();
+  displayBattleCharacters();
+  displayHand();
+  updateDeckCount();
 
     document
         .getElementById("endTurn")
