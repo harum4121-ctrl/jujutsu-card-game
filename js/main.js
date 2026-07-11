@@ -4,19 +4,23 @@ console.log(cards);
 
 // ゲーム全体の状態
 const gameState = {
+
     selectedCharacters: [],
     battleCharacters: [],
     selectedActors: [],
-    
-    enemyCharacters: [],
+
+    selectedEnemy: "",
 
     deck: [],
     drawPile: [],
     hand: [],
     graveyard: [],
 
+    enemyCharacters: [],
+
     player: null,
     enemy: null
+
 };
 
 // ゲーム開始
