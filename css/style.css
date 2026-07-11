@@ -1,0 +1,95 @@
+body {
+    font-family: sans-serif;
+    background: #222;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+
+h1 {
+    text-align: center;
+}
+
+
+#game {
+    max-width: 1000px;
+    margin: auto;
+}
+
+
+/* キャラクターエリア */
+
+#player,
+#enemy {
+    border: 2px solid white;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+
+#playerCharacters,
+#enemyCharacters {
+    display: flex;
+    gap: 15px;
+}
+
+
+/* キャラクターカード */
+
+.character {
+    width: 180px;
+    min-height: 220px;
+    border: 1px solid white;
+    padding: 10px;
+    background: #333;
+}
+
+
+.character h3 {
+    margin-top: 0;
+}
+
+
+.hp {
+    color: red;
+}
+
+
+.cursed {
+    color: yellow;
+}
+
+
+/* 手札 */
+
+#hand {
+    border: 2px solid white;
+    padding: 15px;
+}
+
+
+#cards {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+.card {
+    width: 130px;
+    min-height: 170px;
+    border: 1px solid white;
+    padding: 10px;
+    background: #444;
+}
+
+
+/* ボタン */
+
+button {
+    margin-top: 20px;
+    padding: 10px 30px;
+    font-size: 18px;
+    cursor: pointer;
+}
