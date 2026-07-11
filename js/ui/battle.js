@@ -1,16 +1,43 @@
 function startBattle() {
 
-    // 山札を作る
+    // バトル用キャラクター作成
+    gameState.battleCharacters = [];
+
+    gameState.selectedCharacters.forEach(id => {
+
+        const char = characters[id];
+
+        gameState.battleCharacters.push({
+
+            id: id,
+
+            name: char.name,
+
+            maxHp: char.hp,
+            currentHp: char.hp,
+
+            currentCursedPower: char.cursedPower,
+
+            cursedPowerRecovery: char.cursedPowerRecovery,
+
+            hasActed: false,
+
+            equipment: [],
+
+            cooldowns: {}
+
+        });
+
+    });
+
+    // 山札作成
     gameState.drawPile = [...gameState.deck];
 
-    // シャッフル
     gameState.drawPile.sort(() => Math.random() - 0.5);
 
-    // 手札・墓地を初期化
     gameState.hand = [];
     gameState.graveyard = [];
 
-    // 初期手札5枚
     for (let i = 0; i < 5; i++) {
         drawCard();
     }
@@ -22,12 +49,17 @@ function startBattle() {
 
             <h1>バトル</h1>
 
-            <p>山札：<span id="deckCount"></span>枚</p>
+            <p>
+                山札：
+                <span id="deckCount"></span>枚
+            </p>
 
             <h2>味方キャラクター</h2>
+
             <div id="playerCharacters"></div>
 
             <h2>手札</h2>
+
             <div id="hand"></div>
 
             <br>
@@ -65,11 +97,21 @@ function endTurn() {
 
     drawCard();
 
-    displayHand();
+    gameState.battleCharacters.forEach(character => {
 
+        character.currentCursedPower +=
+            character.cursedPowerRecovery;
+
+        character.hasActed = false;
+
+    });
+
+    displayBattleCharacters();
+    displayHand();
     updateDeckCount();
 
-    alert("次のターン開始！");
+    alert("次のターン開始");
+
 }
 
 function updateDeckCount() {
@@ -81,22 +123,32 @@ function updateDeckCount() {
 
 function displayBattleCharacters() {
 
-    const area = document.getElementById("playerCharacters");
+    const area =
+        document.getElementById("playerCharacters");
 
     area.innerHTML = "";
 
-    gameState.selectedCharacters.forEach(id => {
+    gameState.battleCharacters.forEach(character => {
 
-        const char = characters[id];
-
-        const div = document.createElement("div");
+        const div =
+            document.createElement("div");
 
         div.className = "character";
 
         div.innerHTML = `
-            <h3>${char.name}</h3>
-            <p>HP：${char.hp}</p>
-            <p>呪力：${char.cursedPower}</p>
+            <h3>${character.name}</h3>
+
+            <p>
+                HP：
+                ${character.currentHp}
+                /
+                ${character.maxHp}
+            </p>
+
+            <p>
+                呪力：
+                ${character.currentCursedPower}
+            </p>
         `;
 
         area.appendChild(div);
@@ -107,18 +159,21 @@ function displayBattleCharacters() {
 
 function displayHand() {
 
-    const hand = document.getElementById("hand");
+    const hand =
+        document.getElementById("hand");
 
     hand.innerHTML = "";
 
     gameState.hand.forEach(card => {
 
-        const div = document.createElement("div");
+        const div =
+            document.createElement("div");
 
         div.className = "card";
 
         div.innerHTML = `
             <h3>${card.name}</h3>
+
             <p>${card.type}</p>
         `;
 
