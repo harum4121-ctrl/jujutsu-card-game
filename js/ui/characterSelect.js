@@ -1,5 +1,16 @@
 function showCharacterSelect() {
+document
+    .getElementById("startDeck")
+    .addEventListener("click", () => {
 
+        if (gameState.selectedCharacters.length !== 3) {
+            alert("キャラクターを3体選択してください");
+            return;
+        }
+
+        alert("次はデッキ編集画面を作ります！");
+
+    });
     const app = document.getElementById("app");
 
     app.innerHTML = `
@@ -55,5 +66,55 @@ function displayCharacters() {
         list.appendChild(card);
 
     }
+
+}
+function selectCharacter(id) {
+
+    if (gameState.selectedCharacters.length >= 3) {
+        alert("キャラクターは3体までです");
+        return;
+    }
+
+    if (gameState.selectedCharacters.includes(id)) {
+        alert("このキャラクターは選択済みです");
+        return;
+    }
+
+    gameState.selectedCharacters.push(id);
+
+    updateSelectedCharacters();
+
+}
+function updateSelectedCharacters() {
+
+    const area = document.getElementById("selectedCharacters");
+
+    area.innerHTML = "";
+
+    gameState.selectedCharacters.forEach(id => {
+
+        const char = characters[id];
+
+        const div = document.createElement("div");
+
+        div.className = "character";
+
+        div.innerHTML = `
+            <h3>${char.name}</h3>
+            <button>解除</button>
+        `;
+
+        div.querySelector("button").onclick = () => {
+
+            gameState.selectedCharacters =
+                gameState.selectedCharacters.filter(x => x !== id);
+
+            updateSelectedCharacters();
+
+        };
+
+        area.appendChild(div);
+
+    });
 
 }
