@@ -100,12 +100,7 @@ function startBattle() {
                 return;
             }
 
-            alert(
-                gameState.selectedActors
-                    .map(c => c.name)
-                    .join(" と ")
-                + " が行動します。"
-            );
+            startActionPhase();
 
         });
 
