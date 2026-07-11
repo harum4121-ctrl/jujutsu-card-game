@@ -104,6 +104,17 @@ function endTurn() {
 
         character.hasActed = false;
 
+        for (const skillName in character.cooldowns) {
+
+            character.cooldowns[skillName]--;
+
+            if (character.cooldowns[skillName] <= 0) {
+
+                delete character.cooldowns[skillName];
+
+            }
+
+        }
     });
 
 
