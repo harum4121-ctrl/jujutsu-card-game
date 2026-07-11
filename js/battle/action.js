@@ -168,9 +168,27 @@ function attackEnemy(enemyIndex) {
     if (enemy.currentHp < 0) {
         enemy.currentHp = 0;
     }
-    if (enemy.currentHp === 0) {
+if (enemy.currentHp === 0) {
 
     alert(enemy.name + " を撃破！");
+
+}
+
+
+// 勝利判定
+const aliveEnemies =
+    gameState.enemyCharacters.filter(
+        enemy => enemy.currentHp > 0
+    );
+
+
+if (aliveEnemies.length === 0) {
+
+    alert("勝利！");
+
+    showBattleResult("win");
+
+    return;
 
 }
 
@@ -209,5 +227,28 @@ actor.hasActed = true;
         
 
 }
+
+}
+function showBattleResult(result) {
+
+    const app = document.getElementById("app");
+
+    if (result === "win") {
+
+        app.innerHTML = `
+
+            <div class="battle">
+
+                <h1>勝利！</h1>
+
+                <button onclick="showTitle()">
+                    タイトルへ戻る
+                </button>
+
+            </div>
+
+        `;
+
+    }
 
 }
