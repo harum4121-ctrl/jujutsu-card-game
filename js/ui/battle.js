@@ -292,3 +292,57 @@ function showBattleScreen() {
         });
 
 }
+function enemyTurn() {
+
+    gameState.enemyCharacters.forEach(enemy => {
+
+        if (enemy.currentHp <= 0) {
+            return;
+        }
+
+        const aliveCharacters =
+            gameState.battleCharacters.filter(
+                character => character.currentHp > 0
+            );
+
+        if (aliveCharacters.length === 0) {
+            return;
+        }
+
+
+        const target =
+            aliveCharacters[
+                Math.floor(
+                    Math.random() *
+                    aliveCharacters.length
+                )
+            ];
+
+
+        const damage = 30;
+
+
+        target.currentHp -= damage;
+
+
+        if (target.currentHp < 0) {
+            target.currentHp = 0;
+        }
+
+
+        alert(
+            enemy.name +
+            " の攻撃！\n\n" +
+            target.name +
+            " に " +
+            damage +
+            " ダメージ！"
+        );
+
+    });
+
+
+    showBattleScreen();
+
+    alert("味方のターン");
+}
