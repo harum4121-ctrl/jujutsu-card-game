@@ -431,3 +431,328 @@ const characters = {
         }
 
     }
+    
+
+    panda:{
+
+        name:"パンダ",
+        type:"体",
+
+        hp:400,
+        maxHp:400,
+
+        cursedPower:70,
+        maxCursedPower:70,
+
+        recovery:10,
+
+
+        skills:[
+
+            {
+                name:"打撃",
+                type:"近接",
+                target:"単体",
+                damage:40,
+                cost:5
+            },
+
+            {
+                name:"パンダは強い",
+                type:"特殊",
+                target:"自身",
+
+                cost:35,
+
+                effect:{
+                    type:"damageBuffPermanent",
+                    value:10
+                }
+            },
+
+            {
+                name:"栄養補給",
+                type:"回復",
+                target:"自身",
+
+                heal:40,
+
+                ct:4
+            }
+
+        ],
+
+
+        ultimate:{
+
+            name:"激震掌",
+
+            type:"近接",
+            target:"単体",
+
+            damage:50,
+
+            costCard:1,
+
+            effect:{
+                type:"cursedUp",
+                value:30
+            }
+
+        }
+
+    },
+
+
+    shoko:{
+
+        name:"家入硝子",
+        type:"術",
+
+        hp:310,
+        maxHp:310,
+
+        cursedPower:40,
+        maxCursedPower:40,
+
+        recovery:10,
+
+
+        skills:[
+
+            {
+                name:"集中治療",
+                type:"回復",
+
+                target:"味方単体",
+
+                cost:15,
+
+                heal:60
+            },
+
+
+            {
+                name:"釘飛ばし",
+                type:"回復",
+
+                target:"味方全体",
+
+                cost:30,
+
+                heal:50,
+
+                ct:3
+            },
+
+
+            {
+                name:"メス投げ",
+
+                type:"遠距離",
+
+                target:"単体",
+
+                damage:10
+            }
+
+        ],
+
+
+        ultimate:{
+
+            name:"反転術式(出力最大)",
+
+            type:"回復",
+
+            target:"味方",
+
+            heal:180,
+
+            costCard:1
+
+        }
+
+    },
+
+
+    sukuna:{
+
+        name:"両面宿儺",
+        type:"術",
+
+        hp:400,
+        maxHp:400,
+
+        cursedPower:60,
+        maxCursedPower:60,
+
+        recovery:10,
+
+
+        skills:[
+
+            {
+                name:"解",
+
+                type:"遠距離",
+
+                target:"全体",
+
+                damage:50,
+
+                cost:40
+            },
+
+
+            {
+                name:"捌",
+
+                type:"近接",
+
+                target:"単体",
+
+                damage:80,
+
+                cost:20,
+
+                ct:1
+            },
+
+
+            {
+                name:"打撃",
+
+                type:"近接",
+
+                target:"単体",
+
+                damage:20
+            }
+
+        ],
+
+
+        ultimate:{
+
+            name:"開",
+
+            type:"遠距離",
+
+            target:"単体",
+
+            damage:250,
+
+            costCard:1,
+
+            effect:{
+                type:"cursedUp",
+                value:20
+            }
+
+        }
+
+    },
+
+
+    yuta:{
+
+        name:"乙骨憂太",
+
+        type:"術/体",
+
+        hp:370,
+        maxHp:370,
+
+        cursedPower:90,
+        maxCursedPower:90,
+
+        recovery:15,
+
+
+        skills:[
+
+            {
+                name:"斬撃",
+
+                type:"遠距離",
+
+                target:"単体",
+
+                damage:80,
+
+                cost:40
+            },
+
+
+            {
+                name:"反転術式",
+
+                type:"回復",
+
+                target:"味方",
+
+                heal:40,
+
+                cost:40
+            },
+
+
+            {
+                name:"黒閃",
+
+                type:"近接",
+
+                target:"単体",
+
+                damage:80,
+
+                cost:30,
+
+                costCard:1
+            },
+
+
+            {
+                name:"合わせろ、里香",
+
+                type:"複合",
+
+                target:"単体",
+
+                damage:[
+                    {
+                        type:"近接",
+                        value:30
+                    },
+                    {
+                        type:"遠距離",
+                        value:40
+                    }
+                ],
+
+                ct:2
+            }
+
+        ],
+
+
+        ultimate:{
+
+            name:"来い、里香！",
+
+            type:"特殊",
+
+            target:"自身",
+
+            costCard:2,
+
+            effect:{
+                type:"damageBuff",
+                value:90,
+                duration:3
+            }
+
+        }
+
+    }
