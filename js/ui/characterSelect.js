@@ -1,3 +1,4 @@
+console.log("characterSelect.js 読み込み成功");
 function showCharacterSelect() {
 
     const app = document.getElementById("app");
