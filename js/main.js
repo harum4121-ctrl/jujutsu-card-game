@@ -5,46 +5,34 @@ let selectedCharacters = [];
 // キャラクター一覧表示
 function showCharacterList(){
 
-    const list =
-    document.getElementById("characterList");
+    const list = document.getElementById("characterList");
 
+    list.innerHTML = "";
 
-    for(let id in characters){
+    Object.keys(characters).forEach(id => {
 
         const char = characters[id];
-
 
         const card = document.createElement("div");
 
         card.className = "character";
 
-
         card.innerHTML = `
-
             <h3>${char.name}</h3>
-
             <p>タイプ：${char.type}</p>
-
             <p>HP：${char.hp}</p>
-
             <p>呪力：${char.cursedPower}</p>
-
         `;
 
-
-        card.onclick = function(){
-
+        card.onclick = () => {
             selectCharacter(id);
-
         };
-
 
         list.appendChild(card);
 
-    }
+    });
 
 }
-
 
 
 // キャラクター選択
