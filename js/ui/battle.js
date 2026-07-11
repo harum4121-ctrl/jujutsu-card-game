@@ -224,23 +224,148 @@ function useCard(index) {
         gameState.hand[index];
 
 
+    // 装備カードの場合
+    if (card.type === "装備") {
+
+        showEquipmentTarget(index);
+
+        return;
+
+    }
+
+
     alert(
         card.name +
         " を使用しました！"
     );
 
 
-    // カード効果処理（後で増やす場所）
     applyCardEffect(card);
 
 
-    // 手札から墓地へ
     gameState.graveyard.push(card);
 
     gameState.hand.splice(index,1);
 
 
     displayHand();
+
+}
+function showEquipmentTarget(cardIndex) {
+
+    const app =
+        document.getElementById("app");
+
+
+    let html = `
+
+        <div class="battle">
+
+        <h2>装備するキャラクターを選択</h2>
+
+    `;
+
+
+    gameState.battleCharacters.forEach((character,index)=>{
+
+
+        html += `
+
+        <div class="character">
+
+            <h3>${character.name}</h3>
+
+            <button onclick="equipCard(${cardIndex},${index})">
+
+                装備する
+
+            </button>
+
+        </div>
+
+        `;
+
+
+    });
+
+
+    html += `</div>`;
+
+
+    app.innerHTML = html;
+
+}
+function equipCard(cardIndex, characterIndex) {
+
+
+    const card =
+        gameState.hand[cardIndex];
+
+
+    const character =
+        gameState.battleCharacters[characterIndex];
+
+
+    character.equipment.push(card);
+
+
+    alert(
+        character.name +
+        " に " +
+        card.name +
+        " を装備しました！"
+    );
+
+
+    gameState.hand.splice(cardIndex,1);
+
+
+    gameState.graveyard.push(card);
+
+
+    showBattleScreen();
+
+}
+
+}
+function applyCardEffect(card) {
+
+
+    if (card.type === "装備") {
+
+        alert(
+            card.name + " を装備しました"
+        );
+
+    }
+
+
+    else if (card.type === "領域") {
+
+        alert(
+            card.name + " を展開しました"
+        );
+
+    }
+
+
+    else if (card.type === "サポート") {
+
+        alert(
+            card.name + " の効果発動！"
+        );
+
+    }
+
+
+    else if (card.type === "必殺") {
+
+        alert(
+            card.name + " 必殺カードを使用！"
+        );
+
+    }
+
 
 }
 
