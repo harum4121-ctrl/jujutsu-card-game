@@ -1,16 +1,5 @@
 function showCharacterSelect() {
-document
-    .getElementById("startDeck")
-    .addEventListener("click", () => {
 
-        if (gameState.selectedCharacters.length !== 3) {
-            alert("キャラクターを3体選択してください");
-            return;
-        }
-
-        alert("次はデッキ編集画面を作ります！");
-
-    });
     const app = document.getElementById("app");
 
     app.innerHTML = `
@@ -35,6 +24,18 @@ document
 
     displayCharacters();
 
+document
+    .getElementById("startDeck")
+    .addEventListener("click", () => {
+
+        if (gameState.selectedCharacters.length !== 3) {
+            alert("キャラクターを3体選択してください");
+            return;
+        }
+
+        alert("次はデッキ編集画面を作ります！");
+
+    });
 }
 function displayCharacters() {
 
