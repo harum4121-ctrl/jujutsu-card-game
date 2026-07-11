@@ -71,6 +71,12 @@ for (const id in enemies) {
         <div class="battle">
 
             <h1>バトル</h1>
+            
+            <h2>敵チーム</h2>
+
+            <div id="enemyCharacters"></div>
+
+            <hr>
 
             <p>
                 山札：
@@ -244,6 +250,35 @@ function displayHand() {
         `;
 
         hand.appendChild(div);
+
+    });
+
+}
+
+function displayEnemyCharacters() {
+
+    const area = document.getElementById("enemyCharacters");
+
+    area.innerHTML = "";
+
+    gameState.enemyCharacters.forEach(enemy => {
+
+        const div = document.createElement("div");
+
+        div.className = "character";
+
+        div.innerHTML = `
+            <h3>${enemy.name}</h3>
+
+            <p>
+                HP：
+                ${enemy.currentHp}
+                /
+                ${enemy.maxHp}
+            </p>
+        `;
+
+        area.appendChild(div);
 
     });
 
