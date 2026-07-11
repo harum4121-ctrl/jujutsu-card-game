@@ -226,6 +226,7 @@ function healCharacter(index) {
     }
 
 }
+
 function selectUltimate() {
 
     const actor =
@@ -248,11 +249,17 @@ function selectUltimate() {
 
     gameState.selectedSkill = ultimate;
 
- if (
-    ultimate.attackType === "回復" ||
-    ultimate.target === "味方単体" ||
-    ultimate.target === "味方全体"
-){
+    if (ultimate.target === "味方全体") {
+
+        healAllCharacters();
+        return;
+
+    }
+
+    if (
+        ultimate.attackType === "回復" ||
+        ultimate.target === "味方単体"
+    ) {
 
         showHealTarget();
         return;
@@ -552,6 +559,94 @@ function attackAllEnemies() {
     }
 
     // 次の味方へ
+    if (
+        gameState.currentActorIndex <
+        gameState.selectedActors.length
+    ) {
+
+        showSkillSelect();
+
+    } else {
+
+        gameState.selectedActors = [];
+
+        enemyTurn();
+
+    }
+
+}
+
+function healAllCharacters() {
+
+    const actor =
+        gameState.selectedActors[
+            gameState.currentActorIndex
+        ];
+
+    const skill =
+        gameState.selectedSkill;
+
+    if (
+        actor.currentCursedPower <
+        (skill.cost ?? 0)
+    ) {
+
+        alert("呪力が足りません");
+
+        showSkillSelect();
+
+        return;
+
+    }
+
+    actor.currentCursedPower -=
+        (skill.cost ?? 0);
+
+    if (skill.costCard) {
+
+        consumeUltimateCards(
+            skill.costCard
+        );
+
+    }
+
+    if (skill.ct) {
+
+        actor.cooldowns[skill.name] =
+            skill.ct;
+
+    }
+
+    gameState.battleCharacters.forEach(character => {
+
+        if (character.currentHp <= 0) return;
+
+        character.currentHp +=
+            skill.heal;
+
+        if (
+            character.currentHp >
+            character.maxHp
+        ) {
+
+            character.currentHp =
+                character.maxHp;
+
+        }
+
+    });
+
+    alert(
+        actor.name +
+        " の " +
+        skill.name +
+        "！\n\n味方全員のHPが回復した！"
+    );
+
+    actor.hasActed = true;
+
+    gameState.currentActorIndex++;
+
     if (
         gameState.currentActorIndex <
         gameState.selectedActors.length
