@@ -8,7 +8,7 @@ const characters = {
         maxHp: 320,
 
         cursedPower: 30,
-        maxCursedPower: 30,
+        maxCursedPower: 100,
 
         recovery: 15,
 
@@ -62,7 +62,7 @@ const characters = {
         maxHp: 420,
 
         cursedPower: 40,
-        maxCursedPower: 40,
+        maxCursedPower: 100,
 
         recovery: 10,
 
@@ -130,7 +130,7 @@ const characters = {
         maxHp: 320,
 
         cursedPower: 40,
-        maxCursedPower: 40,
+        maxCursedPower: 100,
 
         recovery: 10,
 
@@ -177,7 +177,7 @@ const characters = {
         maxHp: 400,
 
         cursedPower: 60,
-        maxCursedPower: 60,
+        maxCursedPower: 100,
 
         recovery: 10,
 
@@ -314,7 +314,7 @@ const characters = {
         maxHp: 350,
 
         cursedPower: 40,
-        maxCursedPower: 40,
+        maxCursedPower: 100,
 
         recovery: 10,
 
@@ -375,7 +375,7 @@ const characters = {
         maxHp: 400,
 
         cursedPower: 70,
-        maxCursedPower: 70,
+        maxCursedPower: 100,
 
         recovery: 10,
 
@@ -432,7 +432,7 @@ const characters = {
         maxHp: 310,
 
         cursedPower: 40,
-        maxCursedPower: 40,
+        maxCursedPower: 100,
 
         recovery: 10,
 
@@ -478,7 +478,7 @@ const characters = {
         maxHp: 400,
 
         cursedPower: 60,
-        maxCursedPower: 60,
+        maxCursedPower: 100,
 
         recovery: 10,
 
@@ -587,8 +587,8 @@ const characters = {
             effects: [
                 {
                     type: "damageBuff",
-                    value: 90,
-                    duration: 3
+                    value: 80,
+                    duration: 5
                 }
             ]
         }
