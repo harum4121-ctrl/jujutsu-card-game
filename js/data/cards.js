@@ -360,8 +360,11 @@ const cards = {
                 type: "allDamageDown",
                 value: 30
             }
-        }
-   ],
+        ]
+    }
+
+],
+
 ultimate: [
 
     {
@@ -373,4 +376,5 @@ ultimate: [
     }
 
 ]
+
 };
