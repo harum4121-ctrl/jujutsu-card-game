@@ -90,12 +90,146 @@ function selectSkill(index) {
             gameState.currentActorIndex
         ];
 
-    gameState.selectedSkill =
+    const skill =
         characters[actor.id].skills[index];
+
+    gameState.selectedSkill = skill;
+
+    if (skill.heal) {
+
+        showHealTarget();
+
+        return;
+
+    }
 
     showEnemySelect();
 
 }
+function showHealTarget() {
+
+    const app =
+        document.getElementById("app");
+
+    const skill =
+        gameState.selectedSkill;
+
+    let html = `
+        <div class="battle">
+
+        <h2>回復する味方を選択</h2>
+    `;
+
+    gameState.battleCharacters.forEach((character,index)=>{
+
+        if(character.currentHp<=0){
+            return;
+        }
+
+        html += `
+            <div class="character">
+
+                <h3>${character.name}</h3>
+
+                <p>
+                    HP：
+                    ${character.currentHp}
+                    /
+                    ${character.maxHp}
+                </p>
+
+                <button onclick="healCharacter(${index})">
+
+                    回復
+
+                </button>
+
+            </div>
+        `;
+
+    });
+
+    html += `</div>`;
+
+    app.innerHTML = html;
+
+}
+function healCharacter(index) {
+
+    const actor =
+        gameState.selectedActors[
+            gameState.currentActorIndex
+        ];
+
+    const skill =
+        gameState.selectedSkill;
+
+    const target =
+        gameState.battleCharacters[index];
+
+    // 呪力チェック
+    if(actor.currentCursedPower < (skill.cost ?? 0)){
+
+        alert("呪力が足りません");
+
+        showSkillSelect();
+
+        return;
+
+    }
+
+    // 呪力消費
+    actor.currentCursedPower -=
+        (skill.cost ?? 0);
+
+    // CT開始
+    if(skill.ct){
+
+        actor.cooldowns[skill.name]=skill.ct;
+
+    }
+
+    // 回復
+    target.currentHp += skill.heal;
+
+    if(target.currentHp > target.maxHp){
+
+        target.currentHp = target.maxHp;
+
+    }
+
+    alert(
+        actor.name +
+        " の " +
+        skill.name +
+        "！\n\n" +
+        target.name +
+        " は " +
+        skill.heal +
+        " 回復した！"
+    );
+
+    actor.hasActed = true;
+
+    gameState.currentActorIndex++;
+
+    if(
+        gameState.currentActorIndex <
+        gameState.selectedActors.length
+    ){
+
+        showSkillSelect();
+
+    }else{
+
+        gameState.selectedActors=[];
+
+        enemyTurn();
+
+    }
+
+}
+
 
 function selectUltimate() {
 
