@@ -1,5 +1,10 @@
 function startActionPhase() {
 
+    gameState.selectedActors =
+        gameState.selectedActors.filter(
+            character => !character.hasActed
+        );
+
     gameState.currentActorIndex = 0;
 
     showSkillSelect();
