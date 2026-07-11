@@ -183,22 +183,64 @@ function displayHand() {
 
     const hand = document.getElementById("hand");
 
+    if (!hand) return;
+
     hand.innerHTML = "";
 
-    gameState.hand.forEach(card => {
+    gameState.hand.forEach((card, index) => {
 
         const div = document.createElement("div");
 
         div.className = "card";
 
         div.innerHTML = `
+
             <h3>${card.name}</h3>
+
             <p>${card.type}</p>
+
+            <button>
+                使用
+            </button>
+
         `;
+
+
+        div.querySelector("button").onclick = () => {
+
+            useCard(index);
+
+        };
+
 
         hand.appendChild(div);
 
     });
+
+}
+function useCard(index) {
+
+    const card =
+        gameState.hand[index];
+
+
+    alert(
+        card.name +
+        " を使用しました！"
+    );
+
+
+    // カード効果処理（後で増やす場所）
+    applyCardEffect(card);
+
+
+    // 手札から墓地へ
+    gameState.graveyard.push(card);
+
+    gameState.hand.splice(index,1);
+
+
+    displayHand();
 
 }
 
