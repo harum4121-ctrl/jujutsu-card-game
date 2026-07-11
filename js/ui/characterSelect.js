@@ -33,21 +33,10 @@ document
             return;
         }
 
-        document
-    .getElementById("startDeck")
-    .addEventListener("click", () => {
-
-        if (gameState.selectedCharacters.length !== 3) {
-            alert("キャラクターを3体選択してください");
-            return;
-        }
-
         gameState.deck = [];
         showDeckBuilder();
 
     });
-
-}
 function displayCharacters() {
 
     const list = document.getElementById("characterList");
