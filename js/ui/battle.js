@@ -325,7 +325,6 @@ function equipCard(cardIndex, characterIndex) {
 
     showBattleScreen();
 
-}
 
 }
 function applyCardEffect(card) {
