@@ -24,20 +24,21 @@ function showCharacterSelect() {
 
     displayCharacters();
 
-document
-    .getElementById("startDeck")
-    .addEventListener("click", () => {
+    document
+        .getElementById("startDeck")
+        .addEventListener("click", () => {
 
-        if (gameState.selectedCharacters.length !== 3) {
-            alert("キャラクターを3体選択してください");
-            return;
-        }
+            if (gameState.selectedCharacters.length !== 3) {
+                alert("キャラクターを3体選択してください");
+                return;
+            }
 
-        gameState.deck = [];
-        showDeckBuilder();
+            gameState.deck = [];
+            showDeckBuilder();
 
-    });
-function displayCharacters() {
+        });
+
+}
 
     const list = document.getElementById("characterList");
 
