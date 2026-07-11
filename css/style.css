@@ -146,3 +146,11 @@ button {
     border: 3px solid blue;
 
 }
+
+#cardList {
+
+    max-height: 500px;
+
+    overflow-y: auto;
+
+}
