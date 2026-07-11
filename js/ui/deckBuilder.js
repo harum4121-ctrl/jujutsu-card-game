@@ -143,10 +143,12 @@ function updateDeck() {
         div.className = "card";
 
         div.innerHTML = `
-            ${card.name}
+    <h3>${card.name}</h3>
 
-            <button>削除</button>
-        `;
+    <p>${card.type}</p>
+
+    <button>削除</button>
+`;
 
         div.querySelector("button").onclick = () => {
 
