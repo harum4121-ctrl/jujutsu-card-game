@@ -293,6 +293,118 @@ function attackEnemy(enemyIndex) {
 
     const skill =
         gameState.selectedSkill;
+        
+        // 全体攻撃なら専用処理
+if (skill.target === "全体") {
+
+    attackAllEnemies();
+
+    return;
+
+}
+
+function attackAllEnemies() {
+
+    const actor =
+        gameState.selectedActors[
+            gameState.currentActorIndex
+        ];
+
+    const skill =
+        gameState.selectedSkill;
+
+    // 呪力チェック
+    if (
+        actor.currentCursedPower <
+        (skill.cost ?? 0)
+    ) {
+
+        alert("呪力が足りません");
+
+        showSkillSelect();
+
+        return;
+
+    }
+
+    // 呪力消費
+    actor.currentCursedPower -=
+        (skill.cost ?? 0);
+
+    // CT開始
+    if (skill.ct) {
+
+        actor.cooldowns[skill.name] =
+            skill.ct;
+
+    }
+
+    gameState.enemyCharacters.forEach(enemy => {
+
+        if (enemy.currentHp <= 0) return;
+
+        let damage =
+            skill.damage ?? 0;
+
+        if (skill.hits) {
+
+            damage *= skill.hits;
+
+        }
+
+        enemy.currentHp -= damage;
+
+        if (enemy.currentHp < 0) {
+
+            enemy.currentHp = 0;
+
+        }
+
+    });
+
+    alert(
+        actor.name +
+        " の " +
+        skill.name +
+        "！\n\n敵全体に攻撃！"
+    );
+
+    // 勝利判定
+    const aliveEnemies =
+        gameState.enemyCharacters.filter(
+            enemy => enemy.currentHp > 0
+        );
+
+    if (aliveEnemies.length === 0) {
+
+        alert("勝利！");
+
+        showBattleResult("win");
+
+        return;
+
+    }
+
+    actor.hasActed = true;
+
+    gameState.currentActorIndex++;
+
+    if (
+        gameState.currentActorIndex <
+        gameState.selectedActors.length
+    ) {
+
+        showSkillSelect();
+
+    } else {
+
+        gameState.selectedActors = [];
+
+        enemyTurn();
+
+    }
+
+}
 
     const enemy =
         gameState.enemyCharacters[
