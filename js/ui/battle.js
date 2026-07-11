@@ -562,3 +562,30 @@ function getUltimateCardCount() {
     ).length;
 
 }
+function consumeUltimateCards(count) {
+
+    let used = 0;
+
+    for (let i = gameState.hand.length - 1; i >= 0; i--) {
+
+        if (
+            gameState.hand[i].type === "必殺"
+        ) {
+
+            gameState.graveyard.push(
+                gameState.hand[i]
+            );
+
+            gameState.hand.splice(i,1);
+
+            used++;
+
+            if (used >= count) {
+                break;
+            }
+
+        }
+
+    }
+
+}
