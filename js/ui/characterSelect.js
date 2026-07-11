@@ -1,5 +1,7 @@
 console.log("characterSelect.js 読み込み成功");
 function showCharacterSelect() {
+    
+console.log("キャラクター選択画面開始");
 
     const app = document.getElementById("app");
 
