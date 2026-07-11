@@ -45,7 +45,7 @@ document
         }
 
     console.log("対戦開始ボタン押された");
-startBattle();
+    showEnemySelectScreen();
 
     });
     document
