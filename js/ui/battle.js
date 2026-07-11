@@ -1,3 +1,5 @@
+console.log("battle.js 読み込み成功");
+
 function startBattle() {
 
     const app = document.getElementById("app");
