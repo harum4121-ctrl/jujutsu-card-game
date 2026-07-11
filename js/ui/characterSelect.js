@@ -33,7 +33,7 @@ document
             return;
         }
 
-        alert("次はデッキ編集画面を作ります！");
+        showDeckBuilder();
 
     });
 }
