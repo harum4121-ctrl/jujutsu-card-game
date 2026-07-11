@@ -361,6 +361,7 @@ const characters = {
             effects: [
                 {
                     type: "heal",
+                    target: "self",
                     value: 80
                 }
             ]
