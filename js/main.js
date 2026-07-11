@@ -1,3 +1,4 @@
+console.log(characters);
 let selectedCharacters = [];
 
 
