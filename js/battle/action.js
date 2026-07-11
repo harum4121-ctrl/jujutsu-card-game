@@ -159,7 +159,23 @@ function attackEnemy(enemyIndex) {
     actor.currentCursedPower -= (skill.cost ?? 0);
 
     // ダメージ計算
-    let damage = skill.damage ?? 0;
+let damage = skill.damage ?? 0;
+
+
+// 装備効果
+actor.equipment.forEach(equipment => {
+
+    if(
+        equipment.effect.type === "meleeDamageUp"
+        &&
+        skill.attackType === "近接"
+    ){
+
+        damage += equipment.effect.value;
+
+    }
+
+});
 
     // 多段攻撃対応
     if (skill.hits) {
