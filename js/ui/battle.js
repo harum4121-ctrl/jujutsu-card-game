@@ -27,7 +27,10 @@ function startBattle() {
 
             equipment: [],
 
-            cooldowns: {}
+            cooldowns: {},
+            
+            attackBonus:0,
+            damageReduction:0,
 
         });
         
@@ -295,6 +298,7 @@ function showEquipmentTarget(cardIndex) {
     app.innerHTML = html;
 
 }
+
 function equipCard(cardIndex, characterIndex) {
 
 
@@ -309,6 +313,24 @@ function equipCard(cardIndex, characterIndex) {
     character.equipment.push(card);
 
 
+    // 装備効果を適用
+    if(card.effect){
+
+        if(card.effect.type === "attackUp"){
+
+            character.attackBonus += card.effect.value;
+
+        }
+
+        if(card.effect.type === "damageReduction"){
+
+            character.damageReduction += card.effect.value;
+
+        }
+
+    }
+
+
     alert(
         character.name +
         " に " +
@@ -319,14 +341,13 @@ function equipCard(cardIndex, characterIndex) {
 
     gameState.hand.splice(cardIndex,1);
 
-
     gameState.graveyard.push(card);
 
 
     showBattleScreen();
 
-
 }
+
 function applyCardEffect(card) {
 
 
