@@ -210,24 +210,32 @@ actor.hasActed = true;
 // 行動済みにする
 actor.hasActed = true;
 
-    // 次のキャラクターへ
-    gameState.currentActorIndex++;
+// 次のキャラクターへ
+gameState.currentActorIndex++;
 
-    if (
-        gameState.currentActorIndex <
-        gameState.selectedActors.length
-    ) {
+if (
+    gameState.currentActorIndex <
+    gameState.selectedActors.length
+) {
 
-        showSkillSelect();
+    showSkillSelect();
 
-    } else {
+} else {
 
-        alert("味方の行動終了");
-        
-        gameState.selectedActors = [];
-        
-        showBattleScreen();
-        
+    alert("味方の行動終了");
+
+    // 行動したキャラクターを記録
+    gameState.selectedActors.forEach(character => {
+        character.hasActed = true;
+    });
+
+
+    // 選択解除
+    gameState.selectedActors = [];
+
+
+    // 敵ターンへ
+    enemyTurn();
 
 }
 
