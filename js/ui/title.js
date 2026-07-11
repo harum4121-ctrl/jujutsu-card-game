@@ -24,12 +24,14 @@ function showTitle() {
         </div>
     `;
 
-    document
-        .getElementById("battleButton")
-        .addEventListener("click", () => {
+document
+    .getElementById("battleButton")
+    .addEventListener("click", () => {
 
-            showCharacterSelect();
+        console.log("バトル開始ボタン押された");
 
-        });
+        showCharacterSelect();
+
+    });
 
 }
