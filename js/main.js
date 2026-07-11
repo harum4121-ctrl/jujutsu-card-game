@@ -7,6 +7,8 @@ const gameState = {
     selectedCharacters: [],
     battleCharacters: [],
     selectedActors: [],
+    
+    enemyCharacters: [],
 
     deck: [],
     drawPile: [],
