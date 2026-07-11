@@ -1,5 +1,7 @@
 function startBattle() {
 
+    gameState.selectedActors = [];
+
     // バトル用キャラクター作成
     gameState.battleCharacters = [];
 
@@ -16,6 +18,7 @@ function startBattle() {
             maxHp: char.hp,
             currentHp: char.hp,
 
+            maxCursedPower: char.maxCursedPower,
             currentCursedPower: char.cursedPower,
 
             cursedPowerRecovery: char.cursedPowerRecovery,
@@ -56,7 +59,16 @@ function startBattle() {
 
             <h2>味方キャラクター</h2>
 
+            <p>
+                行動選択：
+                <span id="actorCount">0</span>/2
+            </p>
+
             <div id="playerCharacters"></div>
+
+            <button id="startAction">
+                行動開始
+            </button>
 
             <h2>手札</h2>
 
@@ -79,17 +91,32 @@ function startBattle() {
         .getElementById("endTurn")
         .addEventListener("click", endTurn);
 
-}
+    document
+        .getElementById("startAction")
+        .addEventListener("click", () => {
 
+            if (gameState.selectedActors.length !== 2) {
+                alert("行動するキャラクターを2人選択してください");
+                return;
+            }
+
+            alert(
+                gameState.selectedActors
+                    .map(c => c.name)
+                    .join(" と ")
+                + " が行動します。"
+            );
+
+        });
+
+}
 function drawCard() {
 
     if (gameState.drawPile.length === 0) {
         return;
     }
 
-    gameState.hand.push(
-        gameState.drawPile.shift()
-    );
+    gameState.hand.push(gameState.drawPile.shift());
 
 }
 
@@ -99,12 +126,16 @@ function endTurn() {
 
     gameState.battleCharacters.forEach(character => {
 
-        character.currentCursedPower +=
-            character.cursedPowerRecovery;
+        character.currentCursedPower = Math.min(
+            character.currentCursedPower + character.cursedPowerRecovery,
+            character.maxCursedPower
+        );
 
         character.hasActed = false;
 
     });
+
+    gameState.selectedActors = [];
 
     displayBattleCharacters();
     displayHand();
@@ -123,33 +154,56 @@ function updateDeckCount() {
 
 function displayBattleCharacters() {
 
-    const area =
-        document.getElementById("playerCharacters");
+    const area = document.getElementById("playerCharacters");
 
     area.innerHTML = "";
 
+    document.getElementById("actorCount").textContent =
+        gameState.selectedActors.length;
+
     gameState.battleCharacters.forEach(character => {
 
-        const div =
-            document.createElement("div");
+        const div = document.createElement("div");
 
         div.className = "character";
+
+        if (gameState.selectedActors.includes(character)) {
+            div.classList.add("selected");
+        }
 
         div.innerHTML = `
             <h3>${character.name}</h3>
 
-            <p>
-                HP：
-                ${character.currentHp}
-                /
-                ${character.maxHp}
-            </p>
+            <p>HP：${character.currentHp}/${character.maxHp}</p>
 
-            <p>
-                呪力：
-                ${character.currentCursedPower}
-            </p>
+            <p>呪力：${character.currentCursedPower}/${character.maxCursedPower}</p>
+
+            <button>
+                ${gameState.selectedActors.includes(character) ? "選択解除" : "選択"}
+            </button>
         `;
+
+        div.querySelector("button").onclick = () => {
+
+            if (gameState.selectedActors.includes(character)) {
+
+                gameState.selectedActors =
+                    gameState.selectedActors.filter(c => c !== character);
+
+            } else {
+
+                if (gameState.selectedActors.length >= 2) {
+                    alert("行動できるのは2人までです");
+                    return;
+                }
+
+                gameState.selectedActors.push(character);
+
+            }
+
+            displayBattleCharacters();
+
+        };
 
         area.appendChild(div);
 
@@ -159,21 +213,18 @@ function displayBattleCharacters() {
 
 function displayHand() {
 
-    const hand =
-        document.getElementById("hand");
+    const hand = document.getElementById("hand");
 
     hand.innerHTML = "";
 
     gameState.hand.forEach(card => {
 
-        const div =
-            document.createElement("div");
+        const div = document.createElement("div");
 
         div.className = "card";
 
         div.innerHTML = `
             <h3>${card.name}</h3>
-
             <p>${card.type}</p>
         `;
 
