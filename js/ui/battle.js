@@ -96,9 +96,9 @@ function endTurn() {
 
     });
 
+
     gameState.selectedActors = [];
 
-    showBattleScreen();
 
     alert("敵のターン");
 
@@ -342,7 +342,11 @@ function enemyTurn() {
     });
 
 
+setTimeout(() => {
+
     showBattleScreen();
 
     alert("味方のターン");
+
+}, 500);
 }
