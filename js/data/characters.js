@@ -10,7 +10,7 @@ const characters = {
         cursedPower: 30,
         maxCursedPower: 100,
 
-        recovery: 15,
+        cursedPowerRecovery: 15,
 
         skills: [
             {
@@ -64,7 +64,7 @@ const characters = {
         cursedPower: 40,
         maxCursedPower: 100,
 
-        recovery: 10,
+        cursedPowerRecovery: 10,
 
         skills: [
             {
@@ -132,7 +132,7 @@ const characters = {
         cursedPower: 40,
         maxCursedPower: 100,
 
-        recovery: 10,
+        cursedPowerRecovery: 10,
 
         skills: [
             {
@@ -179,7 +179,7 @@ const characters = {
         cursedPower: 60,
         maxCursedPower: 100,
 
-        recovery: 10,
+        cursedPowerRecovery: 10,
 
         skills: [
             {
@@ -254,7 +254,7 @@ const characters = {
         cursedPower: 1,
         maxCursedPower: 1,
 
-        recovery: 0,
+        cursedPowerRecovery: 0,
 
         skills: [
             {
@@ -316,7 +316,7 @@ const characters = {
         cursedPower: 40,
         maxCursedPower: 100,
 
-        recovery: 10,
+        cursedPowerRecovery: 10,
 
         skills: [
             {
@@ -377,7 +377,7 @@ const characters = {
         cursedPower: 70,
         maxCursedPower: 100,
 
-        recovery: 10,
+        cursedPowerRecovery: 10,
 
         skills: [
             {
@@ -434,7 +434,7 @@ const characters = {
         cursedPower: 40,
         maxCursedPower: 100,
 
-        recovery: 10,
+        cursedPowerRecovery: 10,
 
         skills: [
             {
@@ -480,7 +480,7 @@ const characters = {
         cursedPower: 60,
         maxCursedPower: 100,
 
-        recovery: 10,
+        cursedPowerRecovery: 10,
 
         skills: [
             {
@@ -533,7 +533,7 @@ const characters = {
         cursedPower: 90,
         maxCursedPower: 90,
 
-        recovery: 15,
+        cursedPowerRecovery: 15,
 
         skills: [
             {
