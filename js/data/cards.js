@@ -151,7 +151,155 @@ const cards = {
 
     support: [
 
-    ],
+    {
+        id: "king_of_curses",
+        name: "呪いの王",
+        type: "サポート",
+
+        effect: {
+            type: "allCursedPowerDown",
+            value: 30
+        }
+    },
+
+    {
+        id: "domain_amplification",
+        name: "領域展延",
+        type: "サポート",
+
+        effect: {
+            type: "ignoreInvincible",
+            duration: 3
+        }
+    },
+
+    {
+        id: "we_are_the_strongest",
+        name: "私たちは最強なんだ",
+        type: "サポート",
+
+        effect: {
+            type: "damageReduction",
+
+            targets: 2,
+
+            value: 30,
+
+            duration: 2
+        }
+    },
+
+    {
+        id: "big_brother",
+        name: "全力でお兄ちゃんを遂行する！",
+        type: "サポート",
+
+        effect: {
+            type: "allCursedPowerUp",
+            value: 15
+        }
+    },
+
+    {
+        id: "not_words",
+        name: "ここまで来たら言葉じゃねぇだろ！",
+        type: "サポート",
+
+        effect: {
+            type: "searchUltimate"
+        }
+    },
+
+    {
+        id: "save_people",
+        name: "俺は不平等に人を助ける",
+        type: "サポート",
+
+        effect: {
+            type: "healSelf",
+            value: 30
+        }
+    },
+
+    {
+        id: "endure",
+        name: "耐えろ！",
+        type: "サポート",
+
+        effect: {
+            type: "allDamageReduction",
+
+            value: 10,
+
+            duration: 5
+        }
+    },
+
+    {
+        id: "go_ahead",
+        name: "先に逝く せいぜい頑張れ",
+        type: "サポート",
+
+        effect: [
+            {
+                type: "selfDamage",
+                value: 100
+            },
+            {
+                type: "allyDamageUp",
+                targets: 2,
+                value: 70,
+                duration: 1
+            }
+        ]
+    },
+
+    {
+        id: "retry",
+        name: "やり直しだ",
+        type: "サポート",
+
+        effect: {
+            type: "recoverPreviousSingleDamage"
+        }
+    },
+
+    {
+        id: "no_regret",
+        name: "生き様で後悔はしたくない",
+        type: "サポート",
+
+        effect: {
+            type: "damageReduction",
+            value: 50,
+            duration: 1
+        }
+    },
+
+    {
+        id: "power_battle",
+        name: "火力勝負といこう",
+        type: "サポート",
+
+        effect: {
+            type: "skillCostZero",
+            duration: 1
+        }
+    },
+
+    {
+        id: "thank_you",
+        name: "今はただ君に感謝を",
+        type: "サポート",
+
+        effect: {
+            type: "ultimateIgnoreCondition",
+
+            hpLimit: 100
+        }
+    }
+
+],
 
 
 
