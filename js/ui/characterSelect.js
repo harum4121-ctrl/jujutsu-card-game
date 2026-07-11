@@ -39,7 +39,7 @@ function showCharacterSelect() {
         });
 
 }
-
+function displayCharacters() {
     const list = document.getElementById("characterList");
 
     list.innerHTML = "";
