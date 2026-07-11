@@ -180,6 +180,10 @@ function attackEnemy(enemyIndex) {
         " ダメージ！"
     );
 
+
+// 行動済みにする
+actor.hasActed = true;
+
     // 次のキャラクターへ
     gameState.currentActorIndex++;
 
