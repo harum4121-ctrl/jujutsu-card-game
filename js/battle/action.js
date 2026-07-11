@@ -32,7 +32,28 @@ function showSkillSelect() {
             <h2>使用するスキルを選択</h2>
     `;
 
-    actorData.skills.forEach((skill, index) => {
+     actorData.skills.forEach((skill, index) => {
+
+    const ct =
+        actor.cooldowns[skill.name] ?? 0;
+
+    html += `
+        <button
+            onclick="selectSkill(${index})"
+            ${ct > 0 ? "disabled" : ""}
+        >
+
+            ${skill.name}
+
+            （消費呪力 ${skill.cost ?? 0}）
+
+            ${ct > 0 ? `【CT:${ct}】` : ""}
+
+        </button>
+
+        <br><br>
+    `;
+});
 
         html += `
             <button onclick="selectSkill(${index})">
