@@ -555,3 +555,10 @@ setTimeout(() => {
 
 }, 500);
 }
+function getUltimateCardCount() {
+
+    return gameState.hand.filter(
+        card => card.type === "必殺"
+    ).length;
+
+}
