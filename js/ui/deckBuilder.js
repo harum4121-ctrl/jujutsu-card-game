@@ -44,7 +44,8 @@ document
             return;
         }
 
-        startBattle();
+    console.log("対戦開始ボタン押された");
+startBattle();
 
     });
     document
