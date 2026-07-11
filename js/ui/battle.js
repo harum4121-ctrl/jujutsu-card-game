@@ -100,7 +100,9 @@ function endTurn() {
 
     showBattleScreen();
 
-    alert("次のターン開始");
+    alert("敵のターン");
+
+    enemyTurn();
 
 }
 
