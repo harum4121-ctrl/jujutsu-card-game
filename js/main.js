@@ -1,3 +1,4 @@
+console.log(cards);
 console.log(characters);
 let selectedCharacters = [];
 
