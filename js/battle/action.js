@@ -163,6 +163,11 @@ function attackEnemy(enemyIndex) {
     if (enemy.currentHp < 0) {
         enemy.currentHp = 0;
     }
+    if (enemy.currentHp === 0) {
+
+    alert(enemy.name + " を撃破！");
+
+}
 
     alert(
         actor.name +
@@ -188,9 +193,11 @@ function attackEnemy(enemyIndex) {
     } else {
 
         alert("味方の行動終了");
-        showBattleScreen();
-
+        
         gameState.selectedActors = [];
+        
+        showBattleScreen();
+        
 
 }
 
