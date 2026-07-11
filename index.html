@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8">
+<title>呪術カードゲーム</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<h1>呪術カードゲーム</h1>
+
+<div id="game">
+
+    <div id="player">
+        <h2>自分</h2>
+        <div id="playerCharacters"></div>
+    </div>
+
+    <div id="enemy">
+        <h2>相手</h2>
+        <div id="enemyCharacters"></div>
+    </div>
+
+    <div id="hand">
+        <h2>手札</h2>
+        <div id="cards"></div>
+    </div>
+
+    <button id="endTurn">
+        ターン終了
+    </button>
+
+</div>
+
+
+<script src="js/data/characters.js"></script>
+<script src="js/data/cards.js"></script>
+<script src="js/data/effects.js"></script>
+
+<script src="js/battle/damage.js"></script>
+<script src="js/battle/turn.js"></script>
+<script src="js/battle/battle.js"></script>
+
+<script src="js/main.js"></script>
+
+</body>
+</html>
