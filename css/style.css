@@ -104,7 +104,8 @@ button {
 /* カード表示エリア */
 
 #hand,
-#deckCards {
+#cardList,
+#deckList {
 
     display: flex;
 
