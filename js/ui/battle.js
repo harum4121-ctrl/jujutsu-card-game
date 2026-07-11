@@ -316,6 +316,15 @@ function equipCard(cardIndex, characterIndex) {
     const card =
         gameState.hand[cardIndex];
 
+if (character.equipment.length >= 1) {
+
+    alert("このキャラクターは既に呪具を装備しています");
+
+    showBattleScreen();
+
+    return;
+
+}
 
     const character =
         gameState.battleCharacters[characterIndex];
