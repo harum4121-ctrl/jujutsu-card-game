@@ -93,7 +93,11 @@ function showEnemySelect() {
             <h2>攻撃する敵を選択してください</h2>
     `;
 
-    gameState.enemyCharacters.forEach((enemy, index) => {
+gameState.enemyCharacters.forEach((enemy, index) => {
+
+    if(enemy.currentHp <= 0){
+        return;
+    }
 
         html += `
             <div class="character">
@@ -204,8 +208,6 @@ if (aliveEnemies.length === 0) {
     return;
 
 }
-
-actor.hasActed = true;
 
 // 行動済みにする
 actor.hasActed = true;
