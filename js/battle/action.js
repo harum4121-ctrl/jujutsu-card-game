@@ -24,7 +24,7 @@ function showSkillSelect() {
         <h2>使用するスキルを選択</h2>
     `;
 
-    actorData =
+    const actorData =
         characters[actor.id];
 
     actorData.skills.forEach((skill, index) => {
