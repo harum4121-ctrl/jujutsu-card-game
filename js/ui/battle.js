@@ -40,16 +40,23 @@ for (const id in enemies) {
 
     const enemy = enemies[id];
 
-    gameState.enemyCharacters.push({
+gameState.enemyCharacters.push({
 
-        id: id,
+    id: id,
 
-        name: enemy.name,
+    name: enemy.name,
 
-        maxHp: enemy.hp,
-        currentHp: enemy.hp
+    maxHp: enemy.hp,
 
-    });
+    currentHp: enemy.hp,
+
+    attack: enemy.attack,
+
+    skills: enemy.skills,
+
+    ultimate: enemy.ultimate
+
+});
 
 }
 
