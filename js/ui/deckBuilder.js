@@ -35,7 +35,27 @@ function showDeckBuilder() {
     displayAllCards();
 
     updateDeck();
+document
+    .getElementById("startGame")
+    .addEventListener("click", () => {
 
+        if (gameState.deck.length !== 40) {
+            alert("デッキを40枚作成してください");
+            return;
+        }
+
+        startBattle();
+
+    });
+    document
+    .getElementById("backCharacter")
+    .addEventListener("click", () => {
+
+        gameState.deck = [];
+
+        showCharacterSelect();
+
+    });
 }
 function displayAllCards() {
 
