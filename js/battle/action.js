@@ -168,6 +168,19 @@ function attackEnemy(enemyIndex) {
     if (enemy.currentHp < 0) {
         enemy.currentHp = 0;
     }
+
+alert(
+    actor.name +
+    " の " +
+    skill.name +
+    "！\n\n" +
+    enemy.name +
+    " に " +
+    damage +
+    " ダメージ！"
+);
+
+
 if (enemy.currentHp === 0) {
 
     alert(enemy.name + " を撃破！");
@@ -192,17 +205,7 @@ if (aliveEnemies.length === 0) {
 
 }
 
-    alert(
-        actor.name +
-        " の " +
-        skill.name +
-        "！\n\n" +
-        enemy.name +
-        " に " +
-        damage +
-        " ダメージ！"
-    );
-
+actor.hasActed = true;
 
 // 行動済みにする
 actor.hasActed = true;
