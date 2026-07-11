@@ -188,78 +188,10 @@ function attackEnemy(enemyIndex) {
     } else {
 
         alert("味方の行動終了");
-
-        displayBattleCharacters();
-        displayEnemyCharacters();
-        displayHand();
-        updateDeckCount();
-
-        document.getElementById("app").innerHTML = `
-            <div class="battle">
-
-                <h1>バトル</h1>
-
-                <h2>敵チーム</h2>
-
-                <div id="enemyCharacters"></div>
-
-                <hr>
-
-                <p>
-                    山札：
-                    <span id="deckCount"></span>枚
-                </p>
-
-                <h2>味方キャラクター</h2>
-
-                <p>
-                    行動選択：
-                    <span id="actorCount">0</span>/2
-                </p>
-
-                <div id="playerCharacters"></div>
-
-                <button id="startAction">
-                    行動開始
-                </button>
-
-                <h2>手札</h2>
-
-                <div id="hand"></div>
-
-                <br>
-
-                <button id="endTurn">
-                    ターン終了
-                </button>
-
-            </div>
-        `;
-
-        displayEnemyCharacters();
-        displayBattleCharacters();
-        displayHand();
-        updateDeckCount();
-
-        document
-            .getElementById("endTurn")
-            .addEventListener("click", endTurn);
-
-        document
-            .getElementById("startAction")
-            .addEventListener("click", () => {
-
-                if (gameState.selectedActors.length !== 2) {
-                    alert("行動するキャラクターを2人選択してください");
-                    return;
-                }
-
-                startActionPhase();
-
-            });
+        showBattleScreen();
 
         gameState.selectedActors = [];
 
-    }
+}
 
 }
