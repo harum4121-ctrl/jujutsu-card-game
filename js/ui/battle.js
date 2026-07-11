@@ -81,55 +81,35 @@ console.log(gameState.enemyCharacters);
 showBattleScreen();
 
 }
-function drawCard() {
 
-    if (gameState.drawPile.length === 0) {
-
-        showBattleResult("lose");
-
-        return;
-
-    }
-
-    gameState.hand.push(gameState.drawPile.shift());
-
-}
 
 function endTurn() {
 
-    drawCard();
-
-    gameState.battleCharacters.forEach(character => {
-
-        character.currentCursedPower = Math.min(
-            character.currentCursedPower + character.cursedPowerRecovery,
-            character.maxCursedPower
-        );
-
-        character.hasActed = false;
-
-        for (const skillName in character.cooldowns) {
-
-            character.cooldowns[skillName]--;
-
-            if (character.cooldowns[skillName] <= 0) {
-
-                delete character.cooldowns[skillName];
-
-            }
-
-        }
-    });
-
-
     gameState.selectedActors = [];
-
 
     alert("敵のターン");
 
     enemyTurn();
 
 }
+
+function drawCard() {
+
+    if (gameState.drawPile.length === 0) {
+
+        showBattleResult("lose");
+
+        return false;
+
+    }
+
+    gameState.hand.push(gameState.drawPile.shift());
+
+    return true;
+
+}
+
+
 
 function updateDeckCount() {
 
@@ -326,7 +306,7 @@ function showEquipmentTarget(cardIndex) {
 function equipCard(cardIndex, characterIndex) {
 
 
-    const card =
+const card =
     gameState.hand[cardIndex];
 
 const character =
@@ -341,12 +321,6 @@ if (character.equipment.length >= 1) {
     return;
 
 }
-
-character.equipment.push(card);
-
-    const character =
-        gameState.battleCharacters[characterIndex];
-
 
     character.equipment.push(card);
 
@@ -526,6 +500,7 @@ function showBattleScreen() {
 }
 function enemyTurn() {
 
+
     gameState.enemyCharacters.forEach(enemy => {
 
         if (enemy.currentHp <= 0) {
@@ -589,30 +564,32 @@ if (aliveCharacters.length === 0) {
 setTimeout(() => {
 
     // 次のターン開始
-    drawCard();
+    if (!drawCard()) {
+    return;
+}
 
-    gameState.battleCharacters.forEach(character => {
+gameState.battleCharacters.forEach(character => {
 
-        character.currentCursedPower = Math.min(
-            character.currentCursedPower + character.cursedPowerRecovery,
-            character.maxCursedPower
-        );
+    character.currentCursedPower = Math.min(
+        character.currentCursedPower + character.cursedPowerRecovery,
+        character.maxCursedPower
+    );
 
-        character.hasActed = false;
+    character.hasActed = false;
 
-        for (const skillName in character.cooldowns) {
+    for (const skillName in character.cooldowns) {
 
-            character.cooldowns[skillName]--;
+        character.cooldowns[skillName]--;
 
-            if (character.cooldowns[skillName] <= 0) {
+        if (character.cooldowns[skillName] <= 0) {
 
-                delete character.cooldowns[skillName];
-
-            }
+            delete character.cooldowns[skillName];
 
         }
 
-    });
+    }
+
+});
 
     showBattleScreen();
 
