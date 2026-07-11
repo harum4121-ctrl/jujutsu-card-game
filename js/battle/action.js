@@ -590,3 +590,17 @@ function showBattleResult(result) {
     }
 
 }
+if (skill.costCard) {
+
+    consumeUltimateCards(
+        skill.costCard
+    );
+
+}
+if (skill.costCard) {
+
+    consumeUltimateCards(
+        skill.costCard
+    );
+
+}
