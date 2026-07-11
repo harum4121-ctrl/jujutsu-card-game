@@ -84,7 +84,11 @@ showBattleScreen();
 function drawCard() {
 
     if (gameState.drawPile.length === 0) {
+
+        showBattleResult("lose");
+
         return;
+
     }
 
     gameState.hand.push(gameState.drawPile.shift());
@@ -160,32 +164,41 @@ function displayBattleCharacters() {
 
             <p>呪力：${character.currentCursedPower}/${character.maxCursedPower}</p>
 
-            <button>
+            <button ${character.currentHp <= 0 ? "disabled" : ""}>
                 ${gameState.selectedActors.includes(character) ? "選択解除" : "選択"}
             </button>
         `;
 
         div.querySelector("button").onclick = () => {
 
-            if (gameState.selectedActors.includes(character)) {
+    // 戦闘不能なら選択できない
+    if (character.currentHp <= 0) {
 
-                gameState.selectedActors =
-                    gameState.selectedActors.filter(c => c !== character);
+        alert("このキャラクターは戦闘不能です");
 
-            } else {
+        return;
 
-                if (gameState.selectedActors.length >= 2) {
-                    alert("行動できるのは2人までです");
-                    return;
-                }
+    }
 
-                gameState.selectedActors.push(character);
+    if (gameState.selectedActors.includes(character)) {
 
-            }
+        gameState.selectedActors =
+            gameState.selectedActors.filter(c => c !== character);
 
-            displayBattleCharacters();
+    } else {
 
-        };
+        if (gameState.selectedActors.length >= 2) {
+            alert("行動できるのは2人までです");
+            return;
+        }
+
+        gameState.selectedActors.push(character);
+
+    }
+
+    displayBattleCharacters();
+
+};
 
         area.appendChild(div);
 
@@ -314,7 +327,10 @@ function equipCard(cardIndex, characterIndex) {
 
 
     const card =
-        gameState.hand[cardIndex];
+    gameState.hand[cardIndex];
+
+const character =
+    gameState.battleCharacters[characterIndex];
 
 if (character.equipment.length >= 1) {
 
@@ -325,6 +341,8 @@ if (character.equipment.length >= 1) {
     return;
 
 }
+
+character.equipment.push(card);
 
     const character =
         gameState.battleCharacters[characterIndex];
@@ -555,6 +573,18 @@ function enemyTurn() {
 
     });
 
+const aliveCharacters =
+    gameState.battleCharacters.filter(
+        character => character.currentHp > 0
+    );
+
+if (aliveCharacters.length === 0) {
+
+    showBattleResult("lose");
+
+    return;
+
+}
 
 setTimeout(() => {
 
