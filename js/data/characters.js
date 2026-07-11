@@ -573,7 +573,7 @@ const characters = {
                         damage: 40
                     }
                 ],
-
+                cost:10,
                 ct: 2
             }
         ],
