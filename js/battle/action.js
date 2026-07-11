@@ -157,6 +157,11 @@ function attackEnemy(enemyIndex) {
 
     // 呪力消費
     actor.currentCursedPower -= (skill.cost ?? 0);
+    
+    // CT開始
+if (skill.ct) {
+    actor.cooldowns[skill.name] = skill.ct;
+}
 
     // ダメージ計算
 let damage = skill.damage ?? 0;
