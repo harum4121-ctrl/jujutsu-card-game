@@ -755,4 +755,4 @@ const characters = {
 
         }
 
-    }
+    };
