@@ -82,22 +82,30 @@ alert("敵生成完了");
     gameState.hand = [];
     gameState.graveyard = [];
 
-    // 初期手札5枚
-    for (let i = 0; i < 5; i++) {
+// 初期手札5枚
+for (let i = 0; i < 5; i++) {
 
-        drawCard();
+    drawCard();
 
-    }
+}
 
-    // 行動状態リセット
-    gameState.battleCharacters.forEach(character => {
+alert("手札作成完了");
 
-        character.hasActed = false;
 
-    });
+// 行動状態リセット
+gameState.battleCharacters.forEach(character => {
 
-    // バトル画面表示
-    showBattleScreen();
+    character.hasActed = false;
+
+});
+
+alert("状態リセット完了");
+
+
+// バトル画面表示
+alert("showBattleScreen前");
+
+showBattleScreen();
 
 }
 // ===============================
