@@ -479,20 +479,25 @@ app.innerHTML=html;
 
 function selectSkill(index){
 
+console.log("selectSkill実行", index);
 
 const actor =
 gameState.selectedActors[
 gameState.currentActorIndex
 ];
 
+console.log("行動キャラ", actor);
 
 const skill =
 characters[actor.id].skills[index];
 
+console.log("スキル", skill);
 
 gameState.selectedSkill = skill;
 
+showEnemySelect();
 
+}
 
 // 必殺カード消費
 if(skill.costCard){
