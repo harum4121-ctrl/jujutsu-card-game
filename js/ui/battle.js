@@ -438,7 +438,7 @@ data.skills.forEach((skill,index)=>{
 
 html+=`
 
-<button onclick="selectSkill(${index})">
+<button id="skillButton${index}">
 
 ${skill.name}
 
@@ -451,7 +451,6 @@ ${skill.name}
 <br><br>
 
 `;
-
 
 });
 
@@ -471,6 +470,19 @@ html+=`
 
 app.innerHTML=html;
 
+data.skills.forEach((skill,index)=>{
+
+    document
+    .getElementById("skillButton"+index)
+    .onclick=()=>{
+
+        console.log("スキルボタン押された", index);
+
+        selectSkill(index);
+
+    };
+
+});
 
 }
 // ===============================
