@@ -396,95 +396,152 @@ function displayHand(){
     });
 
 }
+
 // ===============================
 // 敵ターン
 // ===============================
 
 function enemyTurn() {
 
-    alert("敵ターン");
+    const enemiesAlive =
+        gameState.enemyCharacters.filter(
+            enemy => enemy.currentHp > 0
+        );
 
-    // 生きている味方だけ
-    const targets =
+    if (enemiesAlive.length === 0) {
+
+        showBattleResult("win");
+        return;
+
+    }
+
+    const playersAlive =
         gameState.battleCharacters.filter(
             character => character.currentHp > 0
         );
 
-    if (targets.length === 0) {
+    if (playersAlive.length === 0) {
 
         showBattleResult("lose");
         return;
 
     }
 
-    gameState.enemyCharacters.forEach(enemy => {
+    enemiesAlive.forEach(enemy => {
 
-        if (enemy.currentHp <= 0) return;
-        
+        // ターン数
         enemy.turnCount++;
 
-let skill;
+        let skill;
 
-if (enemy.turnCount % 5 === 0) {
+        // 5ターンごとに必殺技
+        if (
+            enemy.turnCount % 5 === 0 &&
+            enemy.ultimate
+        ) {
 
-    // 5ターンごとに開
-    skill = enemy.ultimate;
+            skill = enemy.ultimate;
 
-} else {
+        } else {
 
-    const r = Math.random() * 100;
+            const r = Math.random() * 100;
 
-    if (r < 20) {
+            if (r < 20) {
 
-        skill = enemy.skills[0]; // 打撃
+                skill = enemy.skills[0];
 
-    } else if (r < 60) {
+            } else if (r < 60) {
 
-        skill = enemy.skills[1]; // 捌
+                skill = enemy.skills[1];
 
-    } else {
+            } else {
 
-        skill = enemy.skills[2]; // 解
+                skill = enemy.skills[2];
 
-    }
-
-}
-
-        // ランダムな味方を攻撃
-        const target =
-            targets[Math.floor(Math.random() * targets.length)];
-
-        target.currentHp -= enemy.attack;
-
-        if (target.currentHp < 0) {
-
-            target.currentHp = 0;
+            }
 
         }
 
-        alert(
-            enemy.name +
-            " の攻撃！\n\n" +
-            target.name +
-            " に " +
-            enemy.attack +
-            " ダメージ！"
-        );
+        // 次はここから攻撃処理を書く
+        // 攻撃対象
+        if (skill.target === "単体") {
 
+            const target =
+                playersAlive[
+                    Math.floor(
+                        Math.random() * playersAlive.length
+                    )
+                ];
+
+            const damage =
+                calculateDamage(enemy, target, skill);
+
+            target.currentHp -= damage;
+
+            if (target.currentHp < 0) {
+
+                target.currentHp = 0;
+
+            }
+
+            applyEffects(
+                enemy,
+                target,
+                skill.effects
+            );
+
+            alert(
+                enemy.name +
+                " の " +
+                skill.name +
+                "！\n\n" +
+                target.name +
+                " に " +
+                damage +
+                " ダメージ！"
+            );
+
+        }
+
+        // 全体攻撃
+        else if (skill.target === "全体") {
+
+            playersAlive.forEach(target => {
+
+                const damage =
+                    calculateDamage(enemy, target, skill);
+
+                target.currentHp -= damage;
+
+                if (target.currentHp < 0) {
+
+                    target.currentHp = 0;
+
+                }
+
+                applyEffects(
+                    enemy,
+                    target,
+                    skill.effects
+                );
+
+            });
+
+            alert(
+                enemy.name +
+                " の " +
+                skill.name +
+                "！\n\n味方全体に攻撃！"
+            );
+
+        }
     });
-
-    // 敵の攻撃後に敗北チェック
-    if (checkBattleEnd()) {
-
-        return;
-
-    }
-
-    // 次のターン準備
+    // プレイヤー側ターン開始処理
     gameState.battleCharacters.forEach(character => {
 
-        character.hasActed = false;
+        if (character.currentHp <= 0) return;
 
+        // 呪力回復
         character.currentCursedPower +=
             character.cursedPowerRecovery;
 
@@ -498,7 +555,7 @@ if (enemy.turnCount % 5 === 0) {
 
         }
 
-        // CTを1減らす
+        // CT減少
         for (const skill in character.cooldowns) {
 
             if (character.cooldowns[skill] > 0) {
@@ -509,10 +566,16 @@ if (enemy.turnCount % 5 === 0) {
 
         }
 
+        // 行動可能に戻す
+        character.hasActed = false;
+
     });
 
-    gameState.selectedActors = [];
+    // 1枚ドロー
+    drawCard();
 
+    // バトル画面へ
     showBattleScreen();
 
+}
 }
