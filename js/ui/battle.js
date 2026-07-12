@@ -1158,15 +1158,16 @@ if (skill.costCard) {
 
 }
 
-    if (skill.attackType === "回復") {
+if (skill.attackType === "回復") {
+
+    if (skill.target === "味方全体") {
+        healAllCharacters();
+    } else {
         showHealTarget();
-        return;
     }
 
-    if (skill.target === "全体") {
-        attackAllEnemies();
-        return;
-    }
+    return;
+}
 
     showEnemySelect();
 
@@ -1703,15 +1704,11 @@ gameState.selectedSkill = ultimate;
 // 味方単体回復
 if (ultimate.attackType === "回復") {
 
-    showHealTarget();
-
-    return;
-
-}
-
-if (ultimate.target === "味方全体") {
-
-    healAllCharacters();
+    if (ultimate.target === "味方全体") {
+        healAllCharacters();
+    } else {
+        showHealTarget();
+    }
 
     return;
 
