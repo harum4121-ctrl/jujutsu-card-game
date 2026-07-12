@@ -8,6 +8,7 @@ const gameState = {
     selectedCharacters: [],
     battleCharacters: [],
     selectedActors: [],
+    currentField: null,
 
     selectedEnemy: "",
 
