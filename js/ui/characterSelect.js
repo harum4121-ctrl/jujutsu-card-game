@@ -1,17 +1,16 @@
 console.log("characterSelect.js 読み込み成功");
+
 function showCharacterSelect() {
-    
-    function showCharacterSelect() {
+
+    console.log("リセット前", gameState.selectedCharacters);
 
     gameState.selectedCharacters = [];
 
-    console.log("キャラクター選択画面開始");
+    console.log("リセット後", gameState.selectedCharacters);
 
     const app = document.getElementById("app");
     
 console.log("キャラクター選択画面開始");
-
-    const app = document.getElementById("app");
 
     app.innerHTML = `
         <div class="character-select">
