@@ -446,7 +446,7 @@ const characters = {
                 cost: 15
             },
             {
-                name: "全体治療",
+                name: "反転術式",
                 attackType: "回復",
                 target: "味方全体",
                 heal: 50,
