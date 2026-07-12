@@ -491,81 +491,39 @@ data.skills.forEach((skill,index)=>{
 
 function selectSkill(index){
 
-console.log("selectSkill実行", index);
+    alert("スキル押された");
 
+    const actor =
+    gameState.selectedActors[
+        gameState.currentActorIndex
+    ];
 
-const actor =
-gameState.selectedActors[
-gameState.currentActorIndex
-];
-
-
-const skill =
-characters[actor.id].skills[index];
-
-
-console.log("選択スキル", skill);
-
-
-gameState.selectedSkill = skill;
-
-
-
-// 必殺カード消費
-if(skill.costCard){
-
-
-    if(getUltimateCardCount() < skill.costCard){
-
-        alert("必殺カード不足");
-
+    if(!actor){
+        alert("行動キャラがありません");
         return;
-
     }
 
 
-    consumeUltimateCards(skill.costCard);
-
-}
-
+    const skill =
+    characters[actor.id].skills[index];
 
 
-// 回復
-if(skill.attackType==="回復"){
-
-
-    if(skill.target==="味方全体"){
-
-        healAllCharacters();
-
-    }
-    else{
-
-        showHealTarget();
-
+    if(!skill){
+        alert("スキルが見つかりません");
+        return;
     }
 
 
-    return;
-
-}
+    alert(skill.name+"を選択");
 
 
-
-// 全体攻撃
-if(skill.target==="全体"){
-
-    attackAllEnemies();
-
-    return;
-
-}
+    gameState.selectedSkill = skill;
 
 
+    alert("敵選択画面へ");
 
-// 単体攻撃
-showEnemySelect();
 
+    showEnemySelect();
 
 }
 
