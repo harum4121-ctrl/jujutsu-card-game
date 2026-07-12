@@ -1136,30 +1136,17 @@ characters[actor.id].skills[index];
 gameState.selectedSkill = skill;
 
 
+    if (skill.attackType === "回復") {
+        showHealTarget();
+        return;
+    }
 
-if (skill.attackType === "回復") {
-    showHealTarget();
-    return;
-}
+    if (skill.target === "全体") {
+        attackAllEnemies();
+        return;
+    }
 
-if (skill.target === "全体") {
-    attackAllEnemies();
-    return;
-}
-
-showEnemySelect();
-
-
-showHealTarget();
-
-
-}else{
-
-
-showEnemySelect();
-
-
-}
+    showEnemySelect();
 
 
 }
@@ -1433,6 +1420,155 @@ if (checkBattleEnd()) {
 
 nextActor();
 
+
+}
+// ===============================
+// 単体回復
+// ===============================
+
+function showHealTarget(){
+
+    const app = document.getElementById("app");
+
+    let html = `
+    <div class="battle">
+        <h2>回復する味方を選択</h2>
+    `;
+
+    gameState.battleCharacters.forEach((character,index)=>{
+
+        if(character.currentHp<=0) return;
+
+        html += `
+        <div class="character">
+            <h3>${character.name}</h3>
+
+            <p>
+            HP：
+            ${character.currentHp}
+            /
+            ${character.maxHp}
+            </p>
+
+            <button onclick="healCharacter(${index})">
+            回復
+            </button>
+
+        </div>
+        `;
+    });
+
+    html += "</div>";
+
+    app.innerHTML = html;
+
+}
+
+
+
+function healCharacter(index){
+
+    const actor =
+        gameState.selectedActors[
+            gameState.currentActorIndex
+        ];
+
+    const skill = gameState.selectedSkill;
+
+// 呪力不足
+if(actor.currentCursedPower < (skill.cost || 0)){
+    alert("呪力不足");
+    showSkillSelect();
+    return;
+}
+
+// 呪力消費
+actor.currentCursedPower -= (skill.cost || 0);
+
+// CT設定
+if(skill.ct){
+    actor.cooldowns[skill.name] = skill.ct;
+}
+
+    const target =
+        gameState.battleCharacters[index];
+
+    target.currentHp += skill.heal;
+
+    if(target.currentHp > target.maxHp){
+
+        target.currentHp = target.maxHp;
+
+    }
+
+    alert(
+        actor.name +
+        "の" +
+        skill.name +
+        "！\n\n" +
+        target.name +
+        "が" +
+        skill.heal +
+        "回復！"
+    );
+
+    nextActor();
+
+}
+
+
+
+// ===============================
+// 全体回復
+// ===============================
+
+function healAllCharacters(){
+
+    const actor =
+        gameState.selectedActors[
+            gameState.currentActorIndex
+        ];
+
+    const skill =
+        gameState.selectedSkill;
+        
+        // 呪力不足
+if(actor.currentCursedPower < (skill.cost || 0)){
+    alert("呪力不足");
+    showSkillSelect();
+    return;
+}
+
+// 呪力消費
+actor.currentCursedPower -= (skill.cost || 0);
+
+// CT設定
+if(skill.ct){
+    actor.cooldowns[skill.name] = skill.ct;
+}
+
+    gameState.battleCharacters.forEach(character=>{
+
+        if(character.currentHp<=0) return;
+
+        character.currentHp += skill.heal;
+
+        if(character.currentHp > character.maxHp){
+
+            character.currentHp = character.maxHp;
+
+        }
+
+    });
+
+    alert(
+        actor.name +
+        "の" +
+        skill.name +
+        "！\n\n味方全体が回復！"
+    );
+
+    nextActor();
 
 }
 
