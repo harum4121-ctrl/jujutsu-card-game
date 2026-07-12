@@ -45,9 +45,12 @@ alert("startBattle開始");
 
     });
 
+alert("味方生成完了");
 // 敵生成
 const enemy =
     enemies[gameState.selectedEnemy];
+    
+    alert("敵データ確認：" + enemy.name);
 
 gameState.enemyCharacters = [
 
@@ -68,6 +71,8 @@ gameState.enemyCharacters = [
     }
 
 ];
+
+alert("敵生成完了");
 
     // デッキ作成
     gameState.drawPile = [...gameState.deck];
