@@ -1070,9 +1070,7 @@ html+=`
 
 <button
 
-onclick="
-selectSkill(${index})
-"
+onclick="selectSkill(${index});"
 
 ${ct>0?"disabled":""}
 
