@@ -571,11 +571,10 @@ function enemyTurn() {
 
     });
 
-    // 1枚ドロー
-    drawCard();
-
-    // バトル画面へ
-    showBattleScreen();
+alert("ドロー前");
+drawCard();
+alert("ドロー後");
+showBattleScreen();
 
 
 }
