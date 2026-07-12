@@ -572,28 +572,16 @@ document
 
 document
 .getElementById("startAction")
-.onclick=()=>{
+.addEventListener("click", () => {
 
+    if (gameState.selectedActors.length === 0) {
+        endTurn();
+        return;
+    }
 
-if(
-gameState.selectedActors.length!==2
-){
+    startActionPhase();
 
-alert(
-"行動するキャラクターを2人選択してください"
-);
-
-return;
-
-}
-
-
-
-startActionPhase();
-
-
-
-};
+});
 
 
 
@@ -1323,32 +1311,7 @@ skill.ct;
 
 }
 
-
-
-
-
-let damage =
-skill.damage || 0;
-
-
-
-if(skill.hits){
-
-damage *= skill.hits;
-
-}
-
-
-
-
-// 装備補正
-
-damage +=
-actor.attackBonus;
-
-
-
-
+const damage = calculateDamage(actor, skill);
 
 const enemy =
 gameState.enemyCharacters[index];
@@ -1377,8 +1340,9 @@ damage+
 
 );
 
-
-
+if (checkBattleEnd()) {
+    return;
+}
 
 nextActor();
 
@@ -1433,13 +1397,7 @@ enemy=>{
 if(enemy.currentHp<=0)
 return;
 
-
-let damage =
-skill.damage || 0;
-
-
-damage += actor.attackBonus;
-
+const damage = calculateDamage(actor, skill);
 
 
 enemy.currentHp-=damage;
@@ -1459,7 +1417,9 @@ skill.name+
 "で敵全体を攻撃！"
 );
 
-
+if (checkBattleEnd()) {
+    return;
+}
 
 nextActor();
 
@@ -1559,16 +1519,38 @@ return;
 
 
 consumeUltimateCards(
-ultimate.costCard
+    ultimate.costCard
 );
 
+gameState.selectedSkill = ultimate;
 
+// 味方単体回復
+if (ultimate.attackType === "回復") {
 
-gameState.selectedSkill =
-ultimate;
+    showHealTarget();
 
+    return;
 
+}
 
+if (ultimate.target === "味方全体") {
+
+    healAllCharacters();
+
+    return;
+
+}
+
+// 敵全体攻撃
+if (ultimate.target === "全体") {
+
+    attackAllEnemies();
+
+    return;
+
+}
+
+// 単体攻撃
 showEnemySelect();
 
 
