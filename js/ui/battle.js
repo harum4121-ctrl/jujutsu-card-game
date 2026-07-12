@@ -577,5 +577,5 @@ function enemyTurn() {
     // バトル画面へ
     showBattleScreen();
 
-}
+
 }
