@@ -1137,7 +1137,17 @@ gameState.selectedSkill = skill;
 
 
 
-if(skill.attackType==="回復"){
+if (skill.attackType === "回復") {
+    showHealTarget();
+    return;
+}
+
+if (skill.target === "全体") {
+    attackAllEnemies();
+    return;
+}
+
+showEnemySelect();
 
 
 showHealTarget();
