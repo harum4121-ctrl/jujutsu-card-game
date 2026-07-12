@@ -5,6 +5,8 @@
 function startBattle() {
 
     gameState.selectedActors = [];
+    
+    gameState.currentField = null;
 
     gameState.battleCharacters = [];
 
