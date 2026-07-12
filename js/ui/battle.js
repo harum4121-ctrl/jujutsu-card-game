@@ -493,39 +493,43 @@ function selectSkill(index){
 
     alert("① スキル押された");
 
-
     const actor =
+
     gameState.selectedActors[
+
         gameState.currentActorIndex
+
     ];
 
-
     alert(
-        "② actor確認：" +
-        (actor ? actor.name : "なし")
-    );
 
+        "② キャラ：" +
+
+        (actor ? actor.name : "なし")
+
+    );
 
     if(!actor){
+
         return;
+
     }
 
-
     const skill =
+
     characters[actor.id].skills[index];
 
-
     alert(
-        "③ skill確認：" +
-        (skill ? skill.name : "なし")
-    );
 
+        "③ スキル：" +
+
+        (skill ? skill.name : "なし")
+
+    );
 
     gameState.selectedSkill = skill;
 
-
     alert("④ 敵選択へ");
-
 
     showEnemySelect();
 
