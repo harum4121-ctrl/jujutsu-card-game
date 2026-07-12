@@ -1132,51 +1132,47 @@ app.innerHTML=html;
 
 function selectSkill(index){
 
-    alert("selectSkill");
-
     const actor =
         gameState.selectedActors[
             gameState.currentActorIndex
         ];
 
-    alert(actor.name);
-
     const skill =
         characters[actor.id].skills[index];
 
-    alert(skill.name);
-
     gameState.selectedSkill = skill;
 
+    // 必殺カード消費
+    if (skill.costCard) {
 
-if (skill.costCard) {
+        if (getUltimateCardCount() < skill.costCard) {
+            alert("必殺カード不足");
+            return;
+        }
 
-    if (getUltimateCardCount() < skill.costCard) {
-        alert("必殺カード不足");
+        consumeUltimateCards(skill.costCard);
+    }
+
+    // 回復
+    if (skill.attackType === "回復") {
+
+        if (skill.target === "味方全体") {
+            healAllCharacters();
+        } else {
+            showHealTarget();
+        }
+
         return;
     }
 
-    consumeUltimateCards(skill.costCard);
-
-}
-
-    if (skill.attackType === "回復") {
-
-    if (skill.target === "味方全体") {
-        healAllCharacters();
-    } else {
-        showHealTarget();
+    // 全体攻撃
+    if (skill.target === "全体") {
+        attackAllEnemies();
+        return;
     }
 
-    if (skill.target === "全体") {
-    attackAllEnemies();
-
-    return;
-}
-
+    // 単体攻撃
     showEnemySelect();
-
-
 }
 
 
