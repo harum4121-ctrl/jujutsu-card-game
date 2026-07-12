@@ -1,13 +1,21 @@
+// ===============================
+// 行動開始
+// ===============================
+
 function startActionPhase() {
 
     gameState.selectedActors =
         gameState.selectedActors.filter(
-            character => !character.hasActed
+            character =>
+                character.currentHp > 0 &&
+                !character.hasActed
         );
 
     if (gameState.selectedActors.length === 0) {
+
         showBattleScreen();
         return;
+
     }
 
     gameState.currentActorIndex = 0;
@@ -15,6 +23,10 @@ function startActionPhase() {
     showSkillSelect();
 
 }
+
+// ===============================
+// スキル選択
+// ===============================
 
 function showSkillSelect() {
 
@@ -32,9 +44,25 @@ function showSkillSelect() {
     let html = `
         <div class="battle">
 
-            <h1>${actor.name}</h1>
+            <h2>${actor.name}</h2>
 
-            <h2>使用するスキルを選択</h2>
+            <p>
+                HP :
+                ${actor.currentHp}
+                /
+                ${actor.maxHp}
+            </p>
+
+            <p>
+                呪力 :
+                ${actor.currentCursedPower}
+                /
+                ${actor.maxCursedPower}
+            </p>
+
+            <h3>
+                スキルを選択
+            </h3>
     `;
 
     actorData.skills.forEach((skill, index) => {
@@ -43,35 +71,62 @@ function showSkillSelect() {
             actor.cooldowns[skill.name] ?? 0;
 
         html += `
+
             <button
                 onclick="selectSkill(${index})"
                 ${ct > 0 ? "disabled" : ""}
             >
+
                 ${skill.name}
 
-                （消費呪力 ${skill.cost ?? 0}）
+                <br>
 
-                ${ct > 0 ? `【CT:${ct}】` : ""}
+                消費呪力 :
+                ${skill.cost ?? 0}
+
+                ${ct > 0 ? `<br>CT:${ct}` : ""}
+
             </button>
 
             <br><br>
+
         `;
 
     });
 
     html += `
-        <button onclick="selectUltimate()">
+
+        <button
+            onclick="selectUltimate()"
+        >
+
             必殺技
+
+        </button>
+
+        <br><br>
+
+        <button
+            onclick="showBattleScreen()"
+        >
+
+            戻る
+
         </button>
 
         </div>
+
     `;
 
     app.innerHTML = html;
 
 }
 
-function selectSkill(index){
+// ===============================
+// スキル選択
+// ===============================
+
+function selectSkill(index) {
 
     const actor =
         gameState.selectedActors[
@@ -79,174 +134,69 @@ function selectSkill(index){
         ];
 
     const skill =
-        characters[actor.id].skills[index];
+        characters[
+            actor.id
+        ].skills[index];
 
-    gameState.selectedSkill = skill;
+    gameState.selectedSkill =
+        skill;
 
-    if(skill.costCard){
+    // 必殺カードチェック
+    if (skill.costCard) {
 
-        if(getUltimateCardCount() < skill.costCard){
+        if (
+            getUltimateCardCount() <
+            skill.costCard
+        ) {
 
             alert("必殺カード不足");
+
             return;
 
         }
 
-        consumeUltimateCards(skill.costCard);
-
     }
 
-    if(skill.attackType==="回復"){
+    // 回復
+    if (
+        skill.attackType === "回復"
+    ) {
 
-        if(skill.target==="味方全体"){
+        if (
+            skill.target ===
+            "味方全体"
+        ) {
+
             healAllCharacters();
-        }else{
+
+        } else {
+
             showHealTarget();
+
         }
 
         return;
+
     }
 
-    if(skill.target==="全体"){
+    // 全体攻撃
+    if (
+        skill.target === "全体"
+    ) {
+
         attackAllEnemies();
+
         return;
+
     }
 
+    // 単体攻撃
     showEnemySelect();
-}
-
-function showHealTarget() {
-
-    const app =
-        document.getElementById("app");
-
-    let html = `
-        <div class="battle">
-
-            <h2>回復する味方を選択</h2>
-    `;
-
-    gameState.battleCharacters.forEach((character, index) => {
-
-        if (character.currentHp <= 0) return;
-
-        html += `
-            <div class="character">
-
-                <h3>${character.name}</h3>
-
-                <p>
-                    HP：
-                    ${character.currentHp}
-                    /
-                    ${character.maxHp}
-                </p>
-
-                <button
-                    onclick="healCharacter(${index})"
-                >
-                    回復
-                </button>
-
-            </div>
-        `;
-
-    });
-
-    html += `</div>`;
-
-    app.innerHTML = html;
 
 }
-
-function healCharacter(index) {
-
-    const actor =
-        gameState.selectedActors[
-            gameState.currentActorIndex
-        ];
-
-    const skill =
-        gameState.selectedSkill;
-
-    const target =
-        gameState.battleCharacters[index];
-
-    if (
-        actor.currentCursedPower <
-        (skill.cost ?? 0)
-    ) {
-
-        alert("呪力が足りません");
-
-        showSkillSelect();
-
-        return;
-
-    }
-
-    actor.currentCursedPower -=
-        (skill.cost ?? 0);
-
-    if (skill.costCard) {
-
-        consumeUltimateCards(
-            skill.costCard
-        );
-
-    }
-
-    if (skill.ct) {
-
-        actor.cooldowns[skill.name] =
-            skill.ct;
-
-    }
-
-    target.currentHp +=
-        skill.heal;
-
-    if (
-        target.currentHp >
-        target.maxHp
-    ) {
-
-        target.currentHp =
-            target.maxHp;
-
-    }
-
-    alert(
-        actor.name +
-        " の " +
-        skill.name +
-        "！\n\n" +
-        target.name +
-        " は " +
-        skill.heal +
-        " 回復した！"
-    );
-
-    actor.hasActed = true;
-
-    gameState.currentActorIndex++;
-
-    if (
-        gameState.currentActorIndex <
-        gameState.selectedActors.length
-    ) {
-
-        showSkillSelect();
-
-    } else {
-
-        gameState.selectedActors = [];
-
-        enemyTurn();
-
-    }
-
-}
+// ===============================
+// 必殺技
+// ===============================
 
 function selectUltimate() {
 
@@ -260,29 +210,42 @@ function selectUltimate() {
 
     if (
         getUltimateCardCount() <
-        ultimate.costCard
+        (ultimate.costCard ?? 0)
     ) {
 
-        alert("必殺カードが足りません");
+        alert("必殺カード不足");
         return;
 
     }
 
     gameState.selectedSkill = ultimate;
 
-    if (ultimate.target === "味方全体") {
+    if (
+        ultimate.attackType === "回復"
+    ) {
 
-        healAllCharacters();
+        if (
+            ultimate.target === "味方全体"
+        ) {
+
+            healAllCharacters();
+
+        } else {
+
+            showHealTarget();
+
+        }
+
         return;
 
     }
 
     if (
-        ultimate.attackType === "回復" ||
-        ultimate.target === "味方単体"
+        ultimate.target === "全体"
     ) {
 
-        showHealTarget();
+        attackAllEnemies();
+
         return;
 
     }
@@ -290,6 +253,10 @@ function selectUltimate() {
     showEnemySelect();
 
 }
+
+// ===============================
+// 敵選択
+// ===============================
 
 function showEnemySelect() {
 
@@ -299,7 +266,7 @@ function showEnemySelect() {
     let html = `
         <div class="battle">
 
-            <h2>攻撃する敵を選択してください</h2>
+            <h2>攻撃する敵を選択</h2>
     `;
 
     gameState.enemyCharacters.forEach((enemy, index) => {
@@ -312,7 +279,7 @@ function showEnemySelect() {
                 <h3>${enemy.name}</h3>
 
                 <p>
-                    HP：
+                    HP :
                     ${enemy.currentHp}
                     /
                     ${enemy.maxHp}
@@ -331,11 +298,25 @@ function showEnemySelect() {
 
     });
 
-    html += `</div>`;
+    html += `
+        <br>
+
+        <button onclick="showSkillSelect()">
+
+            戻る
+
+        </button>
+
+        </div>
+    `;
 
     app.innerHTML = html;
 
 }
+
+// ===============================
+// 単体攻撃
+// ===============================
 
 function attackEnemy(enemyIndex) {
 
@@ -347,19 +328,12 @@ function attackEnemy(enemyIndex) {
     const skill =
         gameState.selectedSkill;
 
-    if (skill.target === "全体") {
-
-        attackAllEnemies();
-        return;
-
-    }
-
     if (
         actor.currentCursedPower <
         (skill.cost ?? 0)
     ) {
 
-        alert("呪力が足りません");
+        alert("呪力不足");
 
         showSkillSelect();
 
@@ -380,15 +354,11 @@ function attackEnemy(enemyIndex) {
 
     if (skill.ct) {
 
-        actor.cooldowns[skill.name] =
-            skill.ct;
+        actor.cooldowns[
+            skill.name
+        ] = skill.ct;
 
     }
-
-    const enemy =
-        gameState.enemyCharacters[
-            enemyIndex
-        ];
 
     let damage =
         skill.damage ?? 0;
@@ -399,20 +369,13 @@ function attackEnemy(enemyIndex) {
 
     }
 
-    actor.equipment.forEach(equipment => {
+    damage +=
+        actor.attackBonus;
 
-        if (
-            equipment.effect.type ===
-            "meleeDamageUp" &&
-            skill.attackType === "近接"
-        ) {
-
-            damage +=
-                equipment.effect.value;
-
-        }
-
-    });
+    const enemy =
+        gameState.enemyCharacters[
+            enemyIndex
+        ];
 
     enemy.currentHp -= damage;
 
@@ -433,44 +396,13 @@ function attackEnemy(enemyIndex) {
         " ダメージ！"
     );
 
-    if (enemy.currentHp === 0) {
-
-        alert(enemy.name + " を撃破！");
-
-    }
-
-    actor.hasActed = true;
-
-    gameState.currentActorIndex++;
-
-    const aliveEnemies =
-        gameState.enemyCharacters.filter(
-            enemy => enemy.currentHp > 0
-        );
-
-    if (aliveEnemies.length === 0) {
-
-        showBattleResult("win");
-        return;
-
-    }
-
-    if (
-        gameState.currentActorIndex <
-        gameState.selectedActors.length
-    ) {
-
-        showSkillSelect();
-
-    } else {
-
-        gameState.selectedActors = [];
-
-        enemyTurn();
-
-    }
+    nextActor();
 
 }
+// ===============================
+// 全体攻撃
+// ===============================
+
 function attackAllEnemies() {
 
     const actor =
@@ -481,13 +413,12 @@ function attackAllEnemies() {
     const skill =
         gameState.selectedSkill;
 
-    // 呪力チェック
     if (
         actor.currentCursedPower <
         (skill.cost ?? 0)
     ) {
 
-        alert("呪力が足りません");
+        alert("呪力不足");
 
         showSkillSelect();
 
@@ -495,11 +426,9 @@ function attackAllEnemies() {
 
     }
 
-    // 呪力消費
     actor.currentCursedPower -=
         (skill.cost ?? 0);
 
-    // 必殺カード消費
     if (skill.costCard) {
 
         consumeUltimateCards(
@@ -508,15 +437,14 @@ function attackAllEnemies() {
 
     }
 
-    // CT開始
     if (skill.ct) {
 
-        actor.cooldowns[skill.name] =
-            skill.ct;
+        actor.cooldowns[
+            skill.name
+        ] = skill.ct;
 
     }
 
-    // 全体攻撃
     gameState.enemyCharacters.forEach(enemy => {
 
         if (enemy.currentHp <= 0) return;
@@ -530,19 +458,7 @@ function attackAllEnemies() {
 
         }
 
-        // 屠坐魔
-        actor.equipment.forEach(equipment => {
-
-            if (
-                equipment.effect.type === "meleeDamageUp" &&
-                skill.attackType === "近接"
-            ) {
-
-                damage += equipment.effect.value;
-
-            }
-
-        });
+        damage += actor.attackBonus;
 
         enemy.currentHp -= damage;
 
@@ -561,43 +477,15 @@ function attackAllEnemies() {
         "！\n\n敵全体に攻撃！"
     );
 
-    actor.hasActed = true;
-
-    gameState.currentActorIndex++;
-
-    // 勝利判定
-    const aliveEnemies =
-        gameState.enemyCharacters.filter(
-            enemy => enemy.currentHp > 0
-        );
-
-    if (aliveEnemies.length === 0) {
-
-        showBattleResult("win");
-
-        return;
-
-    }
-
-    // 次の味方へ
-    if (
-        gameState.currentActorIndex <
-        gameState.selectedActors.length
-    ) {
-
-        showSkillSelect();
-
-    } else {
-
-        gameState.selectedActors = [];
-
-        enemyTurn();
-
-    }
+    nextActor();
 
 }
 
-function healAllCharacters() {
+// ===============================
+// 単体回復
+// ===============================
+
+function healCharacter(index) {
 
     const actor =
         gameState.selectedActors[
@@ -607,18 +495,8 @@ function healAllCharacters() {
     const skill =
         gameState.selectedSkill;
 
-    if (
-        actor.currentCursedPower <
-        (skill.cost ?? 0)
-    ) {
-
-        alert("呪力が足りません");
-
-        showSkillSelect();
-
-        return;
-
-    }
+    const target =
+        gameState.battleCharacters[index];
 
     actor.currentCursedPower -=
         (skill.cost ?? 0);
@@ -633,8 +511,66 @@ function healAllCharacters() {
 
     if (skill.ct) {
 
-        actor.cooldowns[skill.name] =
-            skill.ct;
+        actor.cooldowns[
+            skill.name
+        ] = skill.ct;
+
+    }
+
+    target.currentHp +=
+        skill.heal;
+
+    if (
+        target.currentHp >
+        target.maxHp
+    ) {
+
+        target.currentHp =
+            target.maxHp;
+
+    }
+
+    alert(
+        actor.name +
+        " の " +
+        skill.name +
+        "！"
+    );
+
+    nextActor();
+
+}
+
+// ===============================
+// 全体回復
+// ===============================
+
+function healAllCharacters() {
+
+    const actor =
+        gameState.selectedActors[
+            gameState.currentActorIndex
+        ];
+
+    const skill =
+        gameState.selectedSkill;
+
+    actor.currentCursedPower -=
+        (skill.cost ?? 0);
+
+    if (skill.costCard) {
+
+        consumeUltimateCards(
+            skill.costCard
+        );
+
+    }
+
+    if (skill.ct) {
+
+        actor.cooldowns[
+            skill.name
+        ] = skill.ct;
 
     }
 
@@ -661,12 +597,32 @@ function healAllCharacters() {
         actor.name +
         " の " +
         skill.name +
-        "！\n\n味方全員のHPが回復した！"
+        "！"
     );
 
-    actor.hasActed = true;
+    nextActor();
+
+}
+
+// ===============================
+// 次のキャラ
+// ===============================
+
+function nextActor() {
+
+    gameState.selectedActors[
+        gameState.currentActorIndex
+    ].hasActed = true;
 
     gameState.currentActorIndex++;
+
+    if (
+        checkBattleEnd()
+    ) {
+
+        return;
+
+    }
 
     if (
         gameState.currentActorIndex <
@@ -685,43 +641,40 @@ function healAllCharacters() {
 
 }
 
-function showBattleResult(result) {
+// ===============================
+// 勝敗判定
+// ===============================
 
-    const app =
-        document.getElementById("app");
+function checkBattleEnd() {
 
-    if (result === "win") {
+    const enemyAlive =
+        gameState.enemyCharacters.some(
+            enemy =>
+                enemy.currentHp > 0
+        );
 
-        app.innerHTML = `
+    if (!enemyAlive) {
 
-            <div class="battle">
+        showBattleResult("win");
 
-                <h1>勝利！</h1>
-
-                <button onclick="showTitle()">
-                    タイトルへ戻る
-                </button>
-
-            </div>
-
-        `;
-
-    } else if (result === "lose") {
-
-        app.innerHTML = `
-
-            <div class="battle">
-
-                <h1>敗北…</h1>
-
-                <button onclick="showTitle()">
-                    タイトルへ戻る
-                </button>
-
-            </div>
-
-        `;
+        return true;
 
     }
+
+    const playerAlive =
+        gameState.battleCharacters.some(
+            character =>
+                character.currentHp > 0
+        );
+
+    if (!playerAlive) {
+
+        showBattleResult("lose");
+
+        return true;
+
+    }
+
+    return false;
 
 }
