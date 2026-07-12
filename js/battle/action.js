@@ -360,13 +360,13 @@ function attackEnemy(enemyIndex) {
 
     }
 
+const enemy =
+    gameState.enemyCharacters[
+        enemyIndex
+    ];
+
 let damage =
     calculateDamage(actor, enemy, skill);
-
-    const enemy =
-        gameState.enemyCharacters[
-            enemyIndex
-        ];
 
     enemy.currentHp -= damage;
 
