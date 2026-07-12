@@ -1147,6 +1147,16 @@ characters[actor.id].skills[index];
 
 gameState.selectedSkill = skill;
 
+if (skill.costCard) {
+
+    if (getUltimateCardCount() < skill.costCard) {
+        alert("必殺カード不足");
+        return;
+    }
+
+    consumeUltimateCards(skill.costCard);
+
+}
 
     if (skill.attackType === "回復") {
         showHealTarget();
