@@ -1187,7 +1187,7 @@ if (skill.costCard) {
 
 function showEnemySelect(){
 
-
+console.log("showEnemySelect");
 
 const app =
 document.getElementById("app");
