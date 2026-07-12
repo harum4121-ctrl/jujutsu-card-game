@@ -385,3 +385,94 @@ function displayHand(){
     });
 
 }
+// ===============================
+// 敵ターン
+// ===============================
+
+function enemyTurn() {
+
+    alert("敵ターン");
+
+    // 生きている味方だけ
+    const targets =
+        gameState.battleCharacters.filter(
+            character => character.currentHp > 0
+        );
+
+    if (targets.length === 0) {
+
+        showBattleResult("lose");
+        return;
+
+    }
+
+    gameState.enemyCharacters.forEach(enemy => {
+
+        if (enemy.currentHp <= 0) return;
+
+        // ランダムな味方を攻撃
+        const target =
+            targets[Math.floor(Math.random() * targets.length)];
+
+        target.currentHp -= enemy.attack;
+
+        if (target.currentHp < 0) {
+
+            target.currentHp = 0;
+
+        }
+
+        alert(
+            enemy.name +
+            " の攻撃！\n\n" +
+            target.name +
+            " に " +
+            enemy.attack +
+            " ダメージ！"
+        );
+
+    });
+
+    // 敵の攻撃後に敗北チェック
+    if (checkBattleEnd()) {
+
+        return;
+
+    }
+
+    // 次のターン準備
+    gameState.battleCharacters.forEach(character => {
+
+        character.hasActed = false;
+
+        character.currentCursedPower +=
+            character.cursedPowerRecovery;
+
+        if (
+            character.currentCursedPower >
+            character.maxCursedPower
+        ) {
+
+            character.currentCursedPower =
+                character.maxCursedPower;
+
+        }
+
+        // CTを1減らす
+        for (const skill in character.cooldowns) {
+
+            if (character.cooldowns[skill] > 0) {
+
+                character.cooldowns[skill]--;
+
+            }
+
+        }
+
+    });
+
+    gameState.selectedActors = [];
+
+    showBattleScreen();
+
+}
