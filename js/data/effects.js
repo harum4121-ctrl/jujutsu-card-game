@@ -109,3 +109,46 @@ function applyEffects(user, target, effects) {
     });
 
 }
+// ===============================
+// ターン経過
+// ===============================
+
+function updateStatus(character) {
+
+    if (character.damageBuffTurn > 0) {
+
+        character.damageBuffTurn--;
+
+        if (character.damageBuffTurn === 0) {
+
+            character.damageBuff = 0;
+
+        }
+
+    }
+
+    if (character.damageTakenUpTurn > 0) {
+
+        character.damageTakenUpTurn--;
+
+        if (character.damageTakenUpTurn === 0) {
+
+            character.damageTakenUp = 0;
+
+        }
+
+    }
+
+    if (character.invincible > 0) {
+
+        character.invincible--;
+
+    }
+
+    if (character.stun > 0) {
+
+        character.stun--;
+
+    }
+
+}
