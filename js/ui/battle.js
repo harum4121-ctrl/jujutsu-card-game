@@ -219,3 +219,130 @@ function drawCard(){
     gameState.hand.push(card);
 
 }
+// ===============================
+// 敵表示
+// ===============================
+
+function displayEnemyCharacters(){
+
+    const area =
+        document.getElementById("enemyCharacters");
+
+
+    if(!area) return;
+
+
+    area.innerHTML = "";
+
+
+    gameState.enemyCharacters.forEach(enemy=>{
+
+        area.innerHTML += `
+
+        <div class="character">
+
+            <h3>${enemy.name}</h3>
+
+            <p>
+                HP：
+                ${enemy.currentHp}
+                /
+                ${enemy.maxHp}
+            </p>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+// ===============================
+// 味方表示
+// ===============================
+
+function displayBattleCharacters(){
+
+    const area =
+        document.getElementById("playerCharacters");
+
+
+    if(!area) return;
+
+
+    area.innerHTML = "";
+
+
+    gameState.battleCharacters.forEach(character=>{
+
+
+        area.innerHTML += `
+
+        <div class="character">
+
+            <h3>${character.name}</h3>
+
+            <p>
+                HP：
+                ${character.currentHp}
+                /
+                ${character.maxHp}
+            </p>
+
+            <p>
+                呪力：
+                ${character.currentCursedPower}
+                /
+                ${character.maxCursedPower}
+            </p>
+
+
+        </div>
+
+        `;
+
+
+    });
+
+}
+
+
+// ===============================
+// 手札表示
+// ===============================
+
+function displayHand(){
+
+    const area =
+        document.getElementById("hand");
+
+
+    if(!area) return;
+
+
+    area.innerHTML = "";
+
+
+    gameState.hand.forEach(card=>{
+
+
+        area.innerHTML += `
+
+        <div class="card">
+
+            <h3>${card.name}</h3>
+
+            <p>
+                ${card.type}
+            </p>
+
+        </div>
+
+        `;
+
+
+    });
+
+}
