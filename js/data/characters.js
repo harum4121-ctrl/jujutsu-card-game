@@ -526,7 +526,7 @@ const characters = {
 
     yuta: {
         name: "乙骨憂太",
-        type: "術/体",
+        type: "術",
 
         hp: 370,
         maxHp: 370,
