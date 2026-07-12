@@ -574,10 +574,14 @@ document
 .getElementById("startAction")
 .addEventListener("click", () => {
 
-    if (gameState.selectedActors.length === 0) {
-        endTurn();
+if(gameState.selectedActors.length===0){
+
+    if(!confirm("行動せずターン終了しますか？")){
         return;
     }
+
+    endTurn();
+}
 
     startActionPhase();
 
