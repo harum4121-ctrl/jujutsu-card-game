@@ -190,3 +190,23 @@ function showBattleScreen() {
     };
 
 }
+// ===============================
+// カードを引く
+// ===============================
+
+function drawCard(){
+
+    if(gameState.drawPile.length === 0){
+
+        return;
+
+    }
+
+
+    const card =
+        gameState.drawPile.shift();
+
+
+    gameState.hand.push(card);
+
+}
