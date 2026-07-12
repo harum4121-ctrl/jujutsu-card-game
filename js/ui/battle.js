@@ -159,9 +159,16 @@ function showBattleScreen() {
         </div>
     `;
 
-    displayEnemyCharacters();
-    displayBattleCharacters();
-    displayHand();
+alert("敵表示前");
+displayEnemyCharacters();
+
+alert("味方表示前");
+displayBattleCharacters();
+
+alert("手札表示前");
+displayHand();
+
+alert("表示完了");
 
     document.getElementById("startAction").onclick = () => {
 
