@@ -10,60 +10,37 @@ function applyEffects(user, target, effects) {
 
         switch (effect.type) {
 
-            // -----------------------
-            // 与ダメージアップ
-            // -----------------------
+            // 与ダメアップ
             case "damageBuff":
 
-                if (!user.damageBuff) {
-
-                    user.damageBuff = 0;
-
-                }
-
-                user.damageBuff += effect.value;
+                user.damageBuff =
+                    (user.damageBuff ?? 0) + effect.value;
 
                 user.damageBuffTurn =
                     effect.duration ?? 0;
 
                 break;
 
-            // -----------------------
-            // 永続与ダメアップ
-            // -----------------------
+            // 永続攻撃アップ
             case "damageBuffPermanent":
 
-                if (!user.attackBonus) {
-
-                    user.attackBonus = 0;
-
-                }
-
-                user.attackBonus += effect.value;
+                user.attackBonus =
+                    (user.attackBonus ?? 0) + effect.value;
 
                 break;
 
-            // -----------------------
             // 被ダメアップ
-            // -----------------------
             case "damageTakenUp":
 
-                if (!target.damageTakenUp) {
-
-                    target.damageTakenUp = 0;
-
-                }
-
-                target.damageTakenUp += effect.value;
+                target.damageTakenUp =
+                    (target.damageTakenUp ?? 0) + effect.value;
 
                 target.damageTakenUpTurn =
                     effect.duration ?? 0;
 
                 break;
 
-            // -----------------------
             // スタン
-            // -----------------------
             case "stun":
 
                 target.stun =
@@ -71,9 +48,7 @@ function applyEffects(user, target, effects) {
 
                 break;
 
-            // -----------------------
             // 無敵
-            // -----------------------
             case "invincible":
 
                 target.invincible =
@@ -81,43 +56,53 @@ function applyEffects(user, target, effects) {
 
                 break;
 
-            // -----------------------
             // 呪力減少
-            // -----------------------
             case "cursedDown":
 
-                target.currentCursedPower -=
-                    effect.value;
-
-                if (
-                    target.currentCursedPower < 0
-                ) {
-
-                    target.currentCursedPower = 0;
-
-                }
-
-                break;
-
-            // -----------------------
-            // 呪力回復
-            // -----------------------
-            case "cursedUp":
-
-                target.currentCursedPower +=
-                    effect.value;
-
-                if (
-                    target.currentCursedPower >
-                    target.maxCursedPower
-                ) {
+                if (target.currentCursedPower != null) {
 
                     target.currentCursedPower =
-                        target.maxCursedPower;
+                        Math.max(
+                            0,
+                            target.currentCursedPower - effect.value
+                        );
 
                 }
 
                 break;
+
+            // 呪力回復
+            case "cursedUp":
+
+                if (target.currentCursedPower != null) {
+
+                    target.currentCursedPower =
+                        Math.min(
+                            target.maxCursedPower,
+                            target.currentCursedPower + effect.value
+                        );
+
+                }
+
+                break;
+
+            // HP回復
+            case "heal":
+
+                target.currentHp =
+                    Math.min(
+                        target.maxHp,
+                        target.currentHp + effect.value
+                    );
+
+                break;
+
+            default:
+
+                console.log(
+                    "未対応効果:",
+                    effect.type
+                );
 
         }
 
