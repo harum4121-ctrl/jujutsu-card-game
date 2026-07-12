@@ -269,19 +269,22 @@ function displayEnemyCharacters(){
 // 味方表示
 // ===============================
 
-function displayBattleCharacters(){
+function displayBattleCharacters() {
 
-    const area =
-        document.getElementById("playerCharacters");
+    const area = document.getElementById("playerCharacters");
 
-    if(!area) return;
+    if (!area) return;
 
     area.innerHTML = "";
 
-    gameState.battleCharacters.forEach(character=>{
+    gameState.battleCharacters.forEach((character) => {
 
         const selected =
             gameState.selectedActors.includes(character);
+
+        const disabled =
+            character.currentHp <= 0 ||
+            character.hasActed;
 
         area.innerHTML += `
 
@@ -289,24 +292,15 @@ function displayBattleCharacters(){
 
             <h3>${character.name}</h3>
 
-            <p>
-                HP：
-                ${character.currentHp}
-                /
-                ${character.maxHp}
-            </p>
+            <p>HP：${character.currentHp}/${character.maxHp}</p>
 
-            <p>
-                呪力：
-                ${character.currentCursedPower}
-                /
-                ${character.maxCursedPower}
-            </p>
+            <p>呪力：${character.currentCursedPower}/${character.maxCursedPower}</p>
 
-            <button onclick="toggleActor('${character.id}')">
-
+            <button
+                onclick="toggleActor('${character.id}')"
+                ${disabled ? "disabled" : ""}
+            >
                 ${selected ? "選択解除" : "選択"}
-
             </button>
 
         </div>
@@ -319,7 +313,6 @@ function displayBattleCharacters(){
 
     document.getElementById("actorCount").textContent =
         gameState.selectedActors.length;
-
 }
 
 // ===============================
