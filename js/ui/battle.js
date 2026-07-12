@@ -617,10 +617,8 @@ HP:${enemy.currentHp}
 </p>
 
 
-<button onclick="attackEnemy(${index})">
-
+<button id="enemyButton${index}">
 攻撃
-
 </button>
 
 
@@ -643,6 +641,24 @@ html+=`
 
 app.innerHTML=html;
 
+gameState.enemyCharacters.forEach((enemy,index)=>{
+
+    const button =
+    document.getElementById("enemyButton"+index);
+
+    if(button){
+
+        button.onclick = () => {
+
+            console.log("敵選択", index);
+
+            attackEnemy(index);
+
+        };
+
+    }
+
+});
 
 }
 
