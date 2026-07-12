@@ -678,3 +678,41 @@ function checkBattleEnd() {
     return false;
 
 }
+// ===============================
+// ダメージ計算
+// ===============================
+
+function calculateDamage(actor, target, skill) {
+
+    let damage = skill.damage ?? 0;
+
+    // 多段攻撃
+    if (skill.hits) {
+        damage *= skill.hits;
+    }
+
+    // 永続攻撃アップ
+    damage += actor.attackBonus ?? 0;
+
+    // 一時的な与ダメアップ
+    damage += actor.damageBuff ?? 0;
+
+    // 被ダメアップ
+    damage += target.damageTakenUp ?? 0;
+
+    // ダメージ軽減
+    damage -= target.damageReduction ?? 0;
+
+    // 無敵
+    if (target.invincible) {
+        damage = 0;
+    }
+
+    // 最低0ダメージ
+    if (damage < 0) {
+        damage = 0;
+    }
+
+    return damage;
+
+}
