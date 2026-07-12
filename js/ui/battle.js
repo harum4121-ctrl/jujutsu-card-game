@@ -4,6 +4,8 @@
 
 function startBattle() {
 
+alert("startBattle開始");
+
     // 初期化
     gameState.battleCharacters = [];
     gameState.enemyCharacters = [];
@@ -98,6 +100,8 @@ gameState.enemyCharacters = [
 // ===============================
 
 function showBattleScreen() {
+    
+    alert("showBattleScreen");
 
     const app = document.getElementById("app");
 
