@@ -73,6 +73,20 @@ function showSkillSelect() {
 
 function selectSkill(index) {
 
+if(skill.costCard){
+
+    if(getUltimateCardCount() < skill.costCard){
+
+        alert("必殺カード不足");
+
+        return;
+
+    }
+
+    consumeUltimateCards(skill.costCard);
+
+}
+
     const actor =
         gameState.selectedActors[
             gameState.currentActorIndex
@@ -83,12 +97,21 @@ function selectSkill(index) {
 
     gameState.selectedSkill = skill;
 
-    if (skill.attackType === "回復") {
+if(skill.attackType==="回復"){
+
+    if(skill.target==="味方全体"){
+
+        healAllCharacters();
+
+    }else{
 
         showHealTarget();
-        return;
 
     }
+
+    return;
+
+}
 
     showEnemySelect();
 
