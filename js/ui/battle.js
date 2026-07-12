@@ -67,7 +67,9 @@ gameState.enemyCharacters = [
         attack: enemy.attack,
 
         skills: enemy.skills ?? [],
-        ultimate: enemy.ultimate ?? null
+        ultimate: enemy.ultimate ?? null,
+
+        turnCount: 0
 
     }
 
