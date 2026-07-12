@@ -66,10 +66,19 @@ gameState.enemyCharacters = [
 
         attack: enemy.attack,
 
+        maxCursedPower: enemy.maxCursedPower,
+        currentCursedPower: enemy.cursedPower,
+        cursedPowerRecovery: enemy.cursedPowerRecovery,
+
         skills: enemy.skills ?? [],
         ultimate: enemy.ultimate ?? null,
 
-        turnCount: 0
+        cooldowns: {},
+
+        turnCount: 0,
+
+        attackBonus: 0,
+        damageReduction: 0
 
     }
 
@@ -411,6 +420,35 @@ function enemyTurn() {
     gameState.enemyCharacters.forEach(enemy => {
 
         if (enemy.currentHp <= 0) return;
+        
+        enemy.turnCount++;
+
+let skill;
+
+if (enemy.turnCount % 5 === 0) {
+
+    // 5ターンごとに開
+    skill = enemy.ultimate;
+
+} else {
+
+    const r = Math.random() * 100;
+
+    if (r < 20) {
+
+        skill = enemy.skills[0]; // 打撃
+
+    } else if (r < 60) {
+
+        skill = enemy.skills[1]; // 捌
+
+    } else {
+
+        skill = enemy.skills[2]; // 解
+
+    }
+
+}
 
         // ランダムな味方を攻撃
         const target =
