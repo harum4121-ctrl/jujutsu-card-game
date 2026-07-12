@@ -265,7 +265,6 @@ function displayEnemyCharacters(){
 
 }
 
-
 // ===============================
 // 味方表示
 // ===============================
@@ -275,15 +274,14 @@ function displayBattleCharacters(){
     const area =
         document.getElementById("playerCharacters");
 
-
     if(!area) return;
-
 
     area.innerHTML = "";
 
-
     gameState.battleCharacters.forEach(character=>{
 
+        const selected =
+            gameState.selectedActors.includes(character);
 
         area.innerHTML += `
 
@@ -305,16 +303,57 @@ function displayBattleCharacters(){
                 ${character.maxCursedPower}
             </p>
 
+            <button onclick="toggleActor('${character.id}')">
+
+                ${selected ? "選択解除" : "選択"}
+
+            </button>
 
         </div>
 
-        `;
+        <br>
 
+        `;
 
     });
 
+    document.getElementById("actorCount").textContent =
+        gameState.selectedActors.length;
+
 }
 
+// ===============================
+// 行動キャラ選択
+// ===============================
+
+function toggleActor(id){
+
+    const character =
+        gameState.battleCharacters.find(c => c.id === id);
+
+    if(!character) return;
+
+    if(gameState.selectedActors.includes(character)){
+
+        gameState.selectedActors =
+            gameState.selectedActors.filter(c => c !== character);
+
+    }else{
+
+        if(gameState.selectedActors.length >= 2){
+
+            alert("行動できるのは2人までです。");
+            return;
+
+        }
+
+        gameState.selectedActors.push(character);
+
+    }
+
+    displayBattleCharacters();
+
+}
 
 // ===============================
 // 手札表示
