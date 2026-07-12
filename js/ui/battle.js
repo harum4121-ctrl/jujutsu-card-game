@@ -190,14 +190,18 @@ function showBattleScreen() {
     };
 
 }
+
 // ===============================
 // カードを引く
 // ===============================
 
 function drawCard(){
 
+    alert("drawCard開始");
+
     if(gameState.drawPile.length === 0){
 
+        alert("山札がありません");
         return;
 
     }
@@ -205,6 +209,11 @@ function drawCard(){
 
     const card =
         gameState.drawPile.shift();
+
+
+    alert(
+        "引いたカード：" + card.name
+    );
 
 
     gameState.hand.push(card);
