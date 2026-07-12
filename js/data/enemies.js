@@ -1,50 +1,20 @@
 const enemies = {
 
-    sukuna: {
 
-        name: "両面宿儺",
 
-        hp: 800,
+        sukuna: {
 
-        attack: 30,
+    name: "両面宿儺",
 
-        skills: [
+    hp: 800,
 
-            {
-                name: "打撃",
-                damage: 30,
-                target: "単体"
-            },
+    attack: 100,
 
-            {
-                name: "捌",
-                damage: 80,
-                target: "単体",
-                cost: 20
-            },
+    skills: characters.sukuna.skills,
 
-            {
-                name: "解",
-                damage: 50,
-                target: "全体",
-                cost: 40
-            }
+    ultimate: characters.sukuna.ultimate
 
-        ],
-
-        ultimate: {
-
-            name: "開",
-
-            damage: 250,
-
-            target: "単体"
-
-        }
-
-    }
-
-};
+},
 
 
     jogo: {
