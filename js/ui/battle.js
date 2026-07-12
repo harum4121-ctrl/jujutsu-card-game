@@ -491,15 +491,22 @@ data.skills.forEach((skill,index)=>{
 
 function selectSkill(index){
 
-    alert("スキル押された");
+    alert("① スキル押された");
+
 
     const actor =
     gameState.selectedActors[
         gameState.currentActorIndex
     ];
 
+
+    alert(
+        "② actor確認：" +
+        (actor ? actor.name : "なし")
+    );
+
+
     if(!actor){
-        alert("行動キャラがありません");
         return;
     }
 
@@ -508,19 +515,16 @@ function selectSkill(index){
     characters[actor.id].skills[index];
 
 
-    if(!skill){
-        alert("スキルが見つかりません");
-        return;
-    }
-
-
-    alert(skill.name+"を選択");
+    alert(
+        "③ skill確認：" +
+        (skill ? skill.name : "なし")
+    );
 
 
     gameState.selectedSkill = skill;
 
 
-    alert("敵選択画面へ");
+    alert("④ 敵選択へ");
 
 
     showEnemySelect();
