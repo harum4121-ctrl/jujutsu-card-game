@@ -1159,13 +1159,16 @@ if (skill.costCard) {
 
 }
 
-if (skill.attackType === "回復") {
+    if (skill.attackType === "回復") {
 
     if (skill.target === "味方全体") {
         healAllCharacters();
     } else {
         showHealTarget();
     }
+
+    if (skill.target === "全体") {
+    attackAllEnemies();
 
     return;
 }
