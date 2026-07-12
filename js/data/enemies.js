@@ -9,6 +9,12 @@ const enemies = {
     hp: 800,
 
     attack: 100,
+    
+    maxCursedPower: 100,
+
+    cursedPower: 100,
+
+    cursedPowerRecovery: 20,
 
     skills: characters.sukuna.skills,
 
