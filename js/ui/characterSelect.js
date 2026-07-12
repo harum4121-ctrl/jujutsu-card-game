@@ -1,6 +1,8 @@
 console.log("characterSelect.js 読み込み成功");
 
 function showCharacterSelect() {
+    
+    alert("showCharacterSelect開始");
 
     console.log("リセット前", gameState.selectedCharacters);
 
