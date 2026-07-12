@@ -1132,13 +1132,14 @@ app.innerHTML=html;
 
 function selectSkill(index){
 
+console.log("selectSkill", index);
 
 const actor =
 gameState.selectedActors[
 gameState.currentActorIndex
 ];
 
-
+console.log(actor);
 
 const skill =
 characters[actor.id].skills[index];
