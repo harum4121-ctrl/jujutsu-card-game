@@ -43,27 +43,29 @@ function startBattle() {
 
     });
 
-    // 敵生成
-    for (const id in enemies) {
+// 敵生成
+const enemy =
+    enemies[gameState.selectedEnemy];
 
-        const enemy = enemies[id];
+gameState.enemyCharacters = [
 
-        gameState.enemyCharacters.push({
+    {
 
-            id: id,
+        id: gameState.selectedEnemy,
 
-            name: enemy.name,
+        name: enemy.name,
 
-            maxHp: enemy.hp,
-            currentHp: enemy.hp,
+        maxHp: enemy.hp,
+        currentHp: enemy.hp,
 
-            attack: enemy.attack,
+        attack: enemy.attack,
 
-            cooldowns: {}
-
-        });
+        skills: enemy.skills ?? [],
+        ultimate: enemy.ultimate ?? null
 
     }
+
+];
 
     // デッキ作成
     gameState.drawPile = [...gameState.deck];
