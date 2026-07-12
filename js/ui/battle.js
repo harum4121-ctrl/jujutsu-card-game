@@ -1384,7 +1384,10 @@ return;
 actor.currentCursedPower -=
 (skill.cost || 0);
 
-
+// CT
+if(skill.ct){
+    actor.cooldowns[skill.name] = skill.ct;
+}
 
 
 gameState.enemyCharacters.forEach(
@@ -1659,6 +1662,11 @@ alert(
 return;
 
 
+}
+
+if(actor.currentCursedPower < (ultimate.cost || 0)){
+    alert("呪力不足");
+    return;
 }
 
 
