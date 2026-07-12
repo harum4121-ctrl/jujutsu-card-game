@@ -360,17 +360,8 @@ function attackEnemy(enemyIndex) {
 
     }
 
-    let damage =
-        skill.damage ?? 0;
-
-    if (skill.hits) {
-
-        damage *= skill.hits;
-
-    }
-
-    damage +=
-        actor.attackBonus;
+let damage =
+    calculateDamage(actor, enemy, skill);
 
     const enemy =
         gameState.enemyCharacters[
@@ -384,6 +375,12 @@ function attackEnemy(enemyIndex) {
         enemy.currentHp = 0;
 
     }
+    
+    applyEffects(
+    actor,
+    enemy,
+    skill.effects
+);
 
     alert(
         actor.name +
