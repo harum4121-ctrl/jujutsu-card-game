@@ -1132,17 +1132,25 @@ app.innerHTML=html;
 
 function selectSkill(index){
 
+    console.log("通常スキル押された", index);
+
     const actor =
         gameState.selectedActors[
             gameState.currentActorIndex
         ];
 
+    console.log("行動キャラ", actor);
+
+
     const skill =
         characters[actor.id].skills[index];
 
+    console.log("選択スキル", skill);
+
+
     gameState.selectedSkill = skill;
 
-    // 必殺カード消費
+
     if (skill.costCard) {
 
         if (getUltimateCardCount() < skill.costCard) {
@@ -1153,7 +1161,7 @@ function selectSkill(index){
         consumeUltimateCards(skill.costCard);
     }
 
-    // 回復
+
     if (skill.attackType === "回復") {
 
         if (skill.target === "味方全体") {
@@ -1165,14 +1173,15 @@ function selectSkill(index){
         return;
     }
 
-    // 全体攻撃
+
     if (skill.target === "全体") {
         attackAllEnemies();
         return;
     }
 
-    // 単体攻撃
+
     showEnemySelect();
+
 }
 
 
