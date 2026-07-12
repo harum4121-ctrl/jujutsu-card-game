@@ -1130,9 +1130,9 @@ app.innerHTML=html;
 // スキル決定
 // ===============================
 
-function selectSkill(index){
+function selectSkill(
 
-console.log("selectSkill", index);
+alert("selectSkillが呼ばれた");
 
 const actor =
 gameState.selectedActors[
