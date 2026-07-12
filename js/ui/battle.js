@@ -846,6 +846,12 @@ switch(card.type){
 
 case "領域":
 
+    gameState.currentField = card;
+
+    alert(card.name + "を展開しました！");
+
+    break;
+
 
 alert(
 
@@ -1879,7 +1885,30 @@ return;
 
 }
 
+if(gameState.currentField){
 
+    const effects = Array.isArray(gameState.currentField.effect)
+        ? gameState.currentField.effect
+        : [gameState.currentField.effect];
+
+    effects.forEach(effect=>{
+
+        if(effect.type==="allCursedPowerRecovery"){
+
+            gameState.battleCharacters.forEach(character=>{
+
+                character.currentCursedPower = Math.min(
+                    character.maxCursedPower,
+                    character.currentCursedPower + effect.value
+                );
+
+            });
+
+        }
+
+    });
+
+}
 
 
 
@@ -1995,7 +2024,37 @@ damage *= skill.hits;
 damage +=
 actor.attackBonus;
 
+if(gameState.currentField){
 
+    const effects = Array.isArray(gameState.currentField.effect)
+        ? gameState.currentField.effect
+        : [gameState.currentField.effect];
+
+    effects.forEach(effect=>{
+
+        switch(effect.type){
+
+            case "allDamageDown":
+                damage -= effect.value;
+                break;
+
+            case "techniqueDamageUp":
+                if(characters[actor.id].type==="術"){
+                    damage += effect.value;
+                }
+                break;
+
+            case "bodyDamageUp":
+                if(characters[actor.id].type==="体"){
+                    damage += effect.value;
+                }
+                break;
+
+        }
+
+    });
+
+}
 
 
 return damage;
