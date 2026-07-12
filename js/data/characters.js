@@ -188,14 +188,14 @@ const characters = {
                 target: "単体",
                 damage: 50,
                 cost: 0,
-                ct: 1
+                ct: 2
             },
             {
                 name: "無下限呪術",
                 attackType: "特殊",
                 target: "味方全体",
                 cost: 10,
-                ct: 5,
+                ct: 6,
 
                 effects: [
                     {
@@ -209,7 +209,7 @@ const characters = {
                 attackType: "特殊",
                 target: "敵全体",
                 cost: 10,
-                ct: 1,
+                ct: 2,
 
                 effects: [
                     {
@@ -263,7 +263,7 @@ const characters = {
                 target: "単体",
                 damage: 60,
                 cost: 0,
-                ct: 1
+                ct: 2
             },
             {
                 name: "薙ぎ払い",
@@ -271,7 +271,7 @@ const characters = {
                 target: "全体",
                 damage: 50,
                 cost: 0,
-                ct: 3
+                ct: 4
             },
             {
                 name: "骨砕き",
@@ -279,7 +279,7 @@ const characters = {
                 target: "単体",
                 damage: 20,
                 cost: 0,
-                ct: 1,
+                ct: 2,
                 effects: [
                     {
                         type: "damageTakenUp",
@@ -332,7 +332,7 @@ const characters = {
                 attackType: "特殊",
                 target: "2体",
                 cost: 30,
-                ct: 2,
+                ct: 3,
                 selfDamage: 40,
                 effects: [
                     {
@@ -406,7 +406,7 @@ const characters = {
                 target: "自身",
                 heal: 40,
                 cost: 0,
-                ct: 4
+                ct: 5
             }
         ],
 
@@ -497,7 +497,7 @@ const characters = {
                 target: "単体",
                 damage: 80,
                 cost: 20,
-                ct: 1
+                ct: 2
             },
             {
                 name: "打撃",
@@ -513,7 +513,7 @@ const characters = {
             attackType: "遠距離",
             target: "単体",
             damage: 250,
-            costCard: 1,
+            costCard: 2,
 
             effects: [
                 {
