@@ -56,6 +56,8 @@ function showEnemySelectScreen() {
 
 function selectEnemy(id) {
 
+    alert("selectEnemy実行：" + id);
+
     gameState.selectedEnemy = id;
 
     startBattle();
