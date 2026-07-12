@@ -402,6 +402,8 @@ function displayHand(){
 // ===============================
 
 function enemyTurn() {
+    
+    alert(skill.name);
 
     const enemiesAlive =
         gameState.enemyCharacters.filter(
@@ -446,24 +448,25 @@ function enemyTurn() {
 
             const r = Math.random() * 100;
 
-            if (r < 20) {
+if (r < 20) {
 
-                skill = enemy.skills[0];
+    skill = enemy.skills[2]; // 打撃
 
-            } else if (r < 60) {
+} else if (r < 60) {
 
-                skill = enemy.skills[1];
+    skill = enemy.skills[1]; // 捌
 
-            } else {
+} else {
 
-                skill = enemy.skills[2];
+    skill = enemy.skills[0]; // 解
 
-            }
+}
 
         }
 
         // 次はここから攻撃処理を書く
         // 攻撃対象
+alert("宿儺は " + skill.name + " を選択");
         if (skill.target === "単体") {
 
             const target =
