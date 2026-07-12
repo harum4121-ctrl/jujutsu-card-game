@@ -8,28 +8,12 @@ function showCharacterSelect() {
 
     console.log("リセット後", gameState.selectedCharacters);
 
+    console.log("キャラクター選択画面開始");
+
     const app = document.getElementById("app");
-    
-console.log("キャラクター選択画面開始");
 
     app.innerHTML = `
-        <div class="character-select">
-
-            <h1>キャラクター選択</h1>
-
-            <p>使用するキャラクターを3体選択してください</p>
-
-            <div id="characterList"></div>
-
-            <h2>選択中</h2>
-
-            <div id="selectedCharacters"></div>
-
-            <button id="startDeck">
-                デッキ編集へ
-            </button>
-
-        </div>
+        ...
     `;
 
     displayCharacters();
