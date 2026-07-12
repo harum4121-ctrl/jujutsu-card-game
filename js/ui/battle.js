@@ -1130,23 +1130,24 @@ app.innerHTML=html;
 // スキル決定
 // ===============================
 
-function selectSkill(
+function selectSkill(index){
 
-alert("selectSkillが呼ばれた");
+    alert("selectSkill");
 
-const actor =
-gameState.selectedActors[
-gameState.currentActorIndex
-];
+    const actor =
+        gameState.selectedActors[
+            gameState.currentActorIndex
+        ];
 
-console.log(actor);
+    alert(actor.name);
 
-const skill =
-characters[actor.id].skills[index];
+    const skill =
+        characters[actor.id].skills[index];
 
+    alert(skill.name);
 
+    gameState.selectedSkill = skill;
 
-gameState.selectedSkill = skill;
 
 if (skill.costCard) {
 
