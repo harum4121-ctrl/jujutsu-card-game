@@ -1,6 +1,14 @@
 console.log("characterSelect.js 読み込み成功");
 function showCharacterSelect() {
     
+    function showCharacterSelect() {
+
+    gameState.selectedCharacters = [];
+
+    console.log("キャラクター選択画面開始");
+
+    const app = document.getElementById("app");
+    
 console.log("キャラクター選択画面開始");
 
     const app = document.getElementById("app");
@@ -26,6 +34,7 @@ console.log("キャラクター選択画面開始");
     `;
 
     displayCharacters();
+    updateSelectedCharacters();
 
     document
         .getElementById("startDeck")
