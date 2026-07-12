@@ -72,15 +72,19 @@ gameState.enemyCharacters = [
 
 ];
 
-alert("敵生成完了");
+alert("デッキ処理開始");
 
     // デッキ作成
     gameState.drawPile = [...gameState.deck];
 
     gameState.drawPile.sort(() => Math.random() - 0.5);
 
+alert("シャッフル完了");
+
     gameState.hand = [];
     gameState.graveyard = [];
+
+alert("手札初期化完了");
 
 // 初期手札5枚
 for (let i = 0; i < 5; i++) {
