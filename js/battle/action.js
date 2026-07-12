@@ -71,21 +71,7 @@ function showSkillSelect() {
 
 }
 
-function selectSkill(index) {
-
-if(skill.costCard){
-
-    if(getUltimateCardCount() < skill.costCard){
-
-        alert("必殺カード不足");
-
-        return;
-
-    }
-
-    consumeUltimateCards(skill.costCard);
-
-}
+function selectSkill(index){
 
     const actor =
         gameState.selectedActors[
@@ -97,24 +83,36 @@ if(skill.costCard){
 
     gameState.selectedSkill = skill;
 
-if(skill.attackType==="回復"){
+    if(skill.costCard){
 
-    if(skill.target==="味方全体"){
+        if(getUltimateCardCount() < skill.costCard){
 
-        healAllCharacters();
+            alert("必殺カード不足");
+            return;
 
-    }else{
+        }
 
-        showHealTarget();
+        consumeUltimateCards(skill.costCard);
 
     }
 
-    return;
+    if(skill.attackType==="回復"){
 
-}
+        if(skill.target==="味方全体"){
+            healAllCharacters();
+        }else{
+            showHealTarget();
+        }
+
+        return;
+    }
+
+    if(skill.target==="全体"){
+        attackAllEnemies();
+        return;
+    }
 
     showEnemySelect();
-
 }
 
 function showHealTarget() {
