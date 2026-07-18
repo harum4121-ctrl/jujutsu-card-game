@@ -418,7 +418,6 @@ let damage =
 
     }
     
-    nailStock: 0,
     
     applyEffects(
     actor,
