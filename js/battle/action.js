@@ -221,24 +221,43 @@ function selectUltimate() {
     gameState.selectedSkill = ultimate;
 
     if (
-        ultimate.attackType === "回復"
-    ) {
+    ultimate.attackType === "回復"
+) {
 
-        if (
-            ultimate.target === "味方全体"
-        ) {
+    // 自身回復
+    if (ultimate.target === "自身") {
 
-            healAllCharacters();
+        const actor =
+            gameState.selectedActors[
+                gameState.currentActorIndex
+            ];
 
-        } else {
+        const index =
+            gameState.battleCharacters.indexOf(actor);
 
-            showHealTarget();
-
-        }
-
-        return;
+        healCharacter(index);
 
     }
+
+    // 全体回復
+    else if (
+        ultimate.target === "味方全体"
+    ) {
+
+        healAllCharacters();
+
+    }
+
+    // 単体回復
+    else {
+
+        showHealTarget();
+
+    }
+
+    return;
+
+}
 
     if (
         ultimate.target === "全体"
