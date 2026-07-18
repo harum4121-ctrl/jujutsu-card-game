@@ -421,48 +421,47 @@ function useCard(index) {
 
 function showCardTarget() {
 
-    const app = document.getElementById("app");
+    const card = gameState.selectedCard;
 
-    let html = `
-        <div class="battle">
+    // 味方単体
+    if (card.target === "味方単体") {
 
-        <h2>対象を選択</h2>
-    `;
+        showAllyTarget();
+        return;
 
-    gameState.battleCharacters.forEach((character, index) => {
+    }
 
-        if (character.currentHp <= 0) return;
+    // 敵単体
+    if (card.target === "敵単体") {
 
-        html += `
-            <div class="character">
+        showSupportEnemyTarget();
+        return;
 
-                <h3>${character.name}</h3>
+    }
 
-                <p>
-                    呪力：
-                    ${character.currentCursedPower}
-                    /
-                    ${character.maxCursedPower}
-                </p>
+    // 味方全体
+    if (card.target === "味方全体") {
 
-                <button onclick="useSupportCard(${index})">
+        useSupportCardAllies();
+        return;
 
-                    選択
+    }
 
-                </button>
+    // 敵全体
+    if (card.target === "敵全体") {
 
-            </div>
+        useSupportCardEnemies();
+        return;
 
-            <br>
-        `;
+    }
 
-    });
+    // 自身
+    if (card.target === "自身") {
 
-    html += `
-        </div>
-    `;
+        useSupportCardSelf();
+        return;
 
-    app.innerHTML = html;
+    }
 
 }
 
