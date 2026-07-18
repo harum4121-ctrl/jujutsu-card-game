@@ -10,10 +10,10 @@ function applyEffects(user, target, effects) {
 
         switch (effect.type) {
             
-            case "skillCostDownPermanent":
+           case "skillCostDownPermanent":
 
-    user.skillCostDown =
-        (user.skillCostDown ?? 0) + effect.value;
+    actor.skillCostDown =
+        (actor.skillCostDown ?? 0) + effect.value;
 
     break;
 
