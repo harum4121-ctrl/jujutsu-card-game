@@ -1,11 +1,9 @@
-alert("battle.js読み込み成功");
+
 // ===============================
 // バトル開始
 // ===============================
 
 function startBattle() {
-
-alert("startBattle開始");
 
     // 初期化
     gameState.battleCharacters = [];
@@ -46,12 +44,9 @@ alert("startBattle開始");
 
     });
 
-alert("味方生成完了");
 // 敵生成
 const enemy =
     enemies[gameState.selectedEnemy];
-    
-    alert("敵データ確認：" + enemy.name);
 
 gameState.enemyCharacters = [
 
@@ -84,19 +79,17 @@ gameState.enemyCharacters = [
 
 ];
 
-alert("デッキ処理開始");
 
     // デッキ作成
     gameState.drawPile = [...gameState.deck];
 
     gameState.drawPile.sort(() => Math.random() - 0.5);
 
-alert("シャッフル完了");
 
     gameState.hand = [];
     gameState.graveyard = [];
 
-alert("手札初期化完了");
+
 
 // 初期手札5枚
 for (let i = 0; i < 5; i++) {
@@ -105,7 +98,6 @@ for (let i = 0; i < 5; i++) {
 
 }
 
-alert("手札作成完了");
 
 
 // 行動状態リセット
@@ -115,11 +107,11 @@ gameState.battleCharacters.forEach(character => {
 
 });
 
-alert("状態リセット完了");
+
 
 
 // バトル画面表示
-alert("showBattleScreen前");
+
 
 showBattleScreen();
 
@@ -130,7 +122,6 @@ showBattleScreen();
 
 function showBattleScreen() {
     
-    alert("showBattleScreen");
 
     const app = document.getElementById("app");
 
@@ -170,16 +161,12 @@ function showBattleScreen() {
         </div>
     `;
 
-alert("敵表示前");
 displayEnemyCharacters();
 
-alert("味方表示前");
 displayBattleCharacters();
 
-alert("手札表示前");
 displayHand();
 
-alert("表示完了");
 
     document.getElementById("startAction").onclick = () => {
 
@@ -215,11 +202,9 @@ alert("表示完了");
 
 function drawCard(){
 
-    alert("drawCard開始");
 
     if(gameState.drawPile.length === 0){
 
-        alert("山札がありません");
         return;
 
     }
@@ -227,11 +212,6 @@ function drawCard(){
 
     const card =
         gameState.drawPile.shift();
-
-
-    alert(
-        "引いたカード：" + card.name
-    );
 
 
     gameState.hand.push(card);
@@ -403,7 +383,6 @@ function displayHand(){
 
 function enemyTurn() {
 
-    alert("敵ターン①");
 
     const enemiesAlive =
 
@@ -413,7 +392,6 @@ function enemyTurn() {
 
         );
 
-    alert("敵ターン②");
 
     const playersAlive =
 
@@ -423,15 +401,11 @@ function enemyTurn() {
 
         );
 
-    alert("敵ターン③");
 
     enemiesAlive.forEach(enemy => {
 
-        alert("敵：" + enemy.name);
-
         enemy.turnCount++;
 
-        alert("turnCount=" + enemy.turnCount);
 
         let skill;
 
@@ -573,9 +547,8 @@ alert("宿儺は " + skill.name + " を選択");
 
     });
 
-alert("ドロー前");
 drawCard();
-alert("ドロー後");
+
 showBattleScreen();
 
 
