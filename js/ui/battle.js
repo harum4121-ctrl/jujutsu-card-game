@@ -580,3 +580,40 @@ showBattleScreen();
 
 
 }
+
+// ===============================
+// 必殺カード枚数取得
+// ===============================
+
+function getUltimateCardCount() {
+
+    return gameState.hand.filter(card =>
+        card.type === "必殺"
+    ).length;
+
+}
+
+// ===============================
+// 必殺カード消費
+// ===============================
+
+function consumeUltimateCards(count) {
+
+    let remain = count;
+
+    gameState.hand = gameState.hand.filter(card => {
+
+        if (remain > 0 && card.type === "必殺") {
+
+            gameState.graveyard.push(card);
+            remain--;
+
+            return false;
+
+        }
+
+        return true;
+
+    });
+
+}
