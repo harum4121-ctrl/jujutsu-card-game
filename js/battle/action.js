@@ -727,7 +727,22 @@ function checkBattleEnd() {
 
 function calculateDamage(actor, target, skill) {
 
-    let damage = skill.damage ?? 0;
+    let damage = 0;
+
+if (skill.damage != null) {
+
+    damage = skill.damage;
+
+}
+else if (skill.attacks) {
+
+    skill.attacks.forEach(attack => {
+
+        damage += attack.damage;
+
+    });
+
+}
 
     // 多段攻撃
     if (skill.hits) {
