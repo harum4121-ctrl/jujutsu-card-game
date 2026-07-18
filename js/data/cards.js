@@ -160,13 +160,13 @@ const cards = {
 
     target: "味方単体",
 
-    effects: [
+    effect: [
         {
             type: "cursedUp",
             value: 20
         }
     ]
-}
+},
     {
         id: "king_of_curses",
         name: "呪いの王",
