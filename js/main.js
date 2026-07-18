@@ -5,7 +5,7 @@ console.log(characters);
 alert("②");
 console.log(cards);
 alert("③");
-alert("④");
+
 // ゲーム全体の状態
 const gameState = {
 
@@ -27,6 +27,8 @@ const gameState = {
     enemy: null
 
 };
+
+alert("④");
 
 // ゲーム開始
 window.onload = () => {
