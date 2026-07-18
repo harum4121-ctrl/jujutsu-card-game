@@ -1,11 +1,13 @@
 alert("main.js");
 // データ確認
+alert("①");
 console.log(characters);
+alert("②");
 console.log(cards);
-
+alert("③");
 // ゲーム全体の状態
 const gameState = {
-
+alert("④");
     selectedCharacters: [],
     battleCharacters: [],
     selectedActors: [],
@@ -27,6 +29,7 @@ const gameState = {
 
 // ゲーム開始
 window.onload = () => {
+    alert("⑤");
     alert("main.jsは動いています");
     showTitle();
 };
