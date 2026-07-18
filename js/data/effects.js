@@ -12,8 +12,8 @@ function applyEffects(user, target, effects) {
             
            case "skillCostDownPermanent":
 
-    actor.skillCostDown =
-        (actor.skillCostDown ?? 0) + effect.value;
+    user.skillCostDown =
+        (user.skillCostDown ?? 0) + effect.value;
 
     break;
 
