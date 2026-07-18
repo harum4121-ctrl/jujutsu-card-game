@@ -653,15 +653,8 @@ function nextActor() {
 
         alert("⑦ enemyTurn呼び出し");
 
-try {
-
     enemyTurn();
 
-} catch (e) {
-
-    alert("エラー：" + e);
-
-}
 
     }
 
