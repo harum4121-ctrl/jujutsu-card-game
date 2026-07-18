@@ -356,7 +356,7 @@ function displayHand(){
     area.innerHTML = "";
 
 
-    gameState.hand.forEach(card=>{
+gameState.hand.forEach((card, index) => {
 
 
         area.innerHTML += `
@@ -385,44 +385,35 @@ function displayHand(){
 function useCard(index) {
 
     const card = gameState.hand[index];
-    
-    if (card.type === "サポート") {
-gameState.selectedCard = card;
 
+    if (card.type === "サポート") {
+
+        gameState.selectedCard = card;
         gameState.selectedCardIndex = index;
 
         showCardTarget();
-
         return;
+
+    } else if (card.type === "呪具") {
+
+        // 呪具カード処理
+
+    } else if (card.type === "領域") {
+
+        // 領域カード処理
+
+    } else if (card.type === "呪物") {
+
+        // 呪物カード処理
 
     }
 
-}
-else if (card.type === "呪具") {
-
-    // 呪具カード処理
-
-}
-else if (card.type === "領域") {
-
-    // 領域カード処理
-
-}
-else if (card.type === "呪物") {
-
-    // 呪物カード処理
-
-}
-
     alert(card.name + " を使用しました");
 
-    // 墓地へ送る
     gameState.graveyard.push(card);
 
-    // 手札から削除
     gameState.hand.splice(index, 1);
 
-    // 手札を更新
     displayHand();
 
 }
