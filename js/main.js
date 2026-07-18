@@ -1,4 +1,4 @@
-alert("main.js");
+alert("テスト");
 // データ確認
 alert("①");
 console.log(characters);
