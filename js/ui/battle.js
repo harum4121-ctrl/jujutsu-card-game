@@ -387,8 +387,15 @@ function useCard(index) {
     const card = gameState.hand[index];
     
     if (card.type === "サポート") {
+gameState.selectedCard = card;
 
-    // サポートカード処理
+        gameState.selectedCardIndex = index;
+
+        showCardTarget();
+
+        return;
+
+    }
 
 }
 else if (card.type === "呪具") {
@@ -417,6 +424,85 @@ else if (card.type === "呪物") {
 
     // 手札を更新
     displayHand();
+
+}
+
+function showCardTarget() {
+
+    const app = document.getElementById("app");
+
+    let html = `
+        <div class="battle">
+
+        <h2>対象を選択</h2>
+    `;
+
+    gameState.battleCharacters.forEach((character, index) => {
+
+        if (character.currentHp <= 0) return;
+
+        html += `
+            <div class="character">
+
+                <h3>${character.name}</h3>
+
+                <p>
+                    呪力：
+                    ${character.currentCursedPower}
+                    /
+                    ${character.maxCursedPower}
+                </p>
+
+                <button onclick="useSupportCard(${index})">
+
+                    選択
+
+                </button>
+
+            </div>
+
+            <br>
+        `;
+
+    });
+
+    html += `
+        </div>
+    `;
+
+    app.innerHTML = html;
+
+}
+
+function useSupportCard(index) {
+
+    const card = gameState.selectedCard;
+
+    const target =
+        gameState.battleCharacters[index];
+
+    applyEffects(
+        null,
+        target,
+        card.effects
+    );
+
+    alert(
+        card.name +
+        " を使用！"
+    );
+
+    gameState.graveyard.push(card);
+
+    gameState.hand.splice(
+        gameState.selectedCardIndex,
+        1
+    );
+
+    gameState.selectedCard = null;
+    gameState.selectedCardIndex = null;
+
+    showBattleScreen();
 
 }
 
