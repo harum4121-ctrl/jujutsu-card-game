@@ -363,18 +363,30 @@ function displayHand(){
 
         <div class="card">
 
-            <h3>${card.name}</h3>
+    <h3>${card.name}</h3>
 
-            <p>
-                ${card.type}
-            </p>
+    <p>${card.type}</p>
 
-        </div>
+    <button onclick="useCard(${index})">
+
+        使用
+
+    </button>
+
+</div>
 
         `;
 
 
     });
+
+}
+
+function useCard(index) {
+
+    const card = gameState.hand[index];
+
+    alert(card.name + " を使用しました");
 
 }
 
