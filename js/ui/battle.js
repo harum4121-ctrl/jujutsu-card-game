@@ -474,10 +474,12 @@ function useSupportCard(index) {
         gameState.battleCharacters[index];
 
     applyEffects(
-        null,
-        target,
-        card.effects
-    );
+    null,
+    target,
+    Array.isArray(card.effect)
+        ? card.effect
+        : [card.effect]
+);
 
     alert(
         card.name +
