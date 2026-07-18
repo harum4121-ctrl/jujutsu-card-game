@@ -158,26 +158,26 @@ function selectSkill(index) {
     }
 
     // 回復
+   if (
+    skill.attackType === "回復"
+) {
+
     if (
-        skill.attackType === "回復"
+        skill.target ===
+        "味方全体"
     ) {
 
-        if (
-            skill.target ===
-            "味方全体"
-        ) {
+        healAllCharacters();
 
-            healAllCharacters();
+    } else {
 
-        } else {
-
-            showHealTarget();
-
-        }
-
-        return;
+        showHealTarget();
 
     }
+
+    return;
+
+}
 
     // 全体攻撃
     if (
