@@ -26,5 +26,6 @@ const gameState = {
 
 // ゲーム開始
 window.onload = () => {
+    alert("main.jsは動いています");
     showTitle();
 };
