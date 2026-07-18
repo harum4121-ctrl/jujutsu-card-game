@@ -38,6 +38,7 @@ function startBattle() {
 
             attackBonus: 0,
             damageReduction: 0,
+            skillCostDown: 0,
 
             hasActed: false
 
