@@ -127,6 +127,11 @@ function showSkillSelect() {
 // ===============================
 
 function selectSkill(index) {
+    
+
+    return;
+
+}
 
     const actor =
         gameState.selectedActors[
@@ -137,6 +142,17 @@ function selectSkill(index) {
         characters[
             actor.id
         ].skills[index];
+        
+        if (
+    skill.name === "簪" &&
+    actor.nailStock <= 0
+) {
+
+    alert("先に釘飛ばしを使用してください");
+
+    return;
+
+}
 
     gameState.selectedSkill =
         skill;
@@ -402,6 +418,8 @@ let damage =
 
     }
     
+    nailStock: 0,
+    
     applyEffects(
     actor,
     enemy,
@@ -428,6 +446,12 @@ if (skill.selfDamage) {
         actor.currentHp = 0;
 
     }
+
+}
+
+if (skill.name === "簪") {
+
+    actor.nailStock--;
 
 }
 
@@ -526,6 +550,12 @@ actor.currentCursedPower -= cost;
         actor.currentHp = 0;
 
     }
+
+}
+
+if (skill.name === "釘飛ばし") {
+
+    actor.nailStock++;
 
 }
 
