@@ -402,37 +402,36 @@ function displayHand(){
 // ===============================
 
 function enemyTurn() {
-    
-    alert(skill.name);
+
+    alert("敵ターン①");
 
     const enemiesAlive =
+
         gameState.enemyCharacters.filter(
+
             enemy => enemy.currentHp > 0
+
         );
 
-    if (enemiesAlive.length === 0) {
-
-        showBattleResult("win");
-        return;
-
-    }
+    alert("敵ターン②");
 
     const playersAlive =
+
         gameState.battleCharacters.filter(
+
             character => character.currentHp > 0
+
         );
 
-    if (playersAlive.length === 0) {
-
-        showBattleResult("lose");
-        return;
-
-    }
+    alert("敵ターン③");
 
     enemiesAlive.forEach(enemy => {
 
-        // ターン数
+        alert("敵：" + enemy.name);
+
         enemy.turnCount++;
+
+        alert("turnCount=" + enemy.turnCount);
 
         let skill;
 
