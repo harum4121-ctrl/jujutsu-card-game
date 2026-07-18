@@ -552,13 +552,20 @@ const characters = {
                 cost: 40
             },
             {
-                name: "黒閃",
-                attackType: "近接",
-                target: "単体",
-                damage: 80,
-                cost: 30,
-                costCard: 1
-            },
+    name: "黒閃",
+    attackType: "近接",
+    target: "単体",
+    damage: 80,
+    cost: 30,
+    costCard: 1,
+
+    effects: [
+        {
+            type: "skillCostDownPermanent",
+            value: 10
+        }
+    ]
+}
             {
                 name: "合わせろ、里香",
                 attackType: "複合",
