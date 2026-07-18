@@ -607,33 +607,51 @@ function healAllCharacters() {
 
 function nextActor() {
 
+    alert("① nextActor開始");
+
     gameState.selectedActors[
+
         gameState.currentActorIndex
+
     ].hasActed = true;
+
+    alert("② hasActed完了");
 
     gameState.currentActorIndex++;
 
-    if (
-        checkBattleEnd()
-    ) {
+    alert("③ index=" + gameState.currentActorIndex);
+
+    if (checkBattleEnd()) {
+
+        alert("④ 勝敗判定");
 
         return;
 
     }
 
     if (
+
         gameState.currentActorIndex <
+
         gameState.selectedActors.length
+
     ) {
+
+        alert("⑤ 次の味方");
 
         showSkillSelect();
 
     } else {
 
+        alert("⑥ 敵ターンへ");
+
         gameState.selectedActors = [];
-        
+
         gameState.battleCharacters.forEach(updateStatus);
+
         gameState.enemyCharacters.forEach(updateStatus);
+
+        alert("⑦ enemyTurn呼び出し");
 
         enemyTurn();
 
