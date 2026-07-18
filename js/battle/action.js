@@ -505,6 +505,68 @@ function attackAllEnemies() {
 }
 
 // ===============================
+// 回復対象選択
+// ===============================
+
+function showHealTarget() {
+
+    const app =
+        document.getElementById("app");
+
+    let html = `
+        <div class="battle">
+
+            <h2>回復する味方を選択</h2>
+    `;
+
+    gameState.battleCharacters.forEach((character, index) => {
+
+        if (character.currentHp <= 0) return;
+
+        html += `
+
+            <div class="character">
+
+                <h3>${character.name}</h3>
+
+                <p>
+                    HP :
+                    ${character.currentHp}
+                    /
+                    ${character.maxHp}
+                </p>
+
+                <button onclick="healCharacter(${index})">
+
+                    回復
+
+                </button>
+
+            </div>
+
+            <br>
+
+        `;
+
+    });
+
+    html += `
+
+        <button onclick="showSkillSelect()">
+
+            戻る
+
+        </button>
+
+        </div>
+
+    `;
+
+    app.innerHTML = html;
+
+}
+
+// ===============================
 // 単体回復
 // ===============================
 
