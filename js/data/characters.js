@@ -565,7 +565,7 @@ const characters = {
             value: 10
         }
     ]
-}
+},
             {
                 name: "合わせろ、里香",
                 attackType: "複合",
