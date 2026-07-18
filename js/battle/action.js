@@ -367,6 +367,8 @@ const enemy =
 
 let damage =
     calculateDamage(actor, enemy, skill);
+    
+    alert(JSON.stringify(skill));
 
     enemy.currentHp -= damage;
 
