@@ -393,6 +393,18 @@ let damage =
         " ダメージ！"
     );
 
+if (skill.selfDamage) {
+
+    actor.currentHp -= skill.selfDamage;
+
+    if (actor.currentHp < 0) {
+
+        actor.currentHp = 0;
+
+    }
+
+}
+
     nextActor();
 
 }
@@ -473,6 +485,18 @@ function attackAllEnemies() {
         skill.name +
         "！\n\n敵全体に攻撃！"
     );
+    
+    if (skill.selfDamage) {
+
+    actor.currentHp -= skill.selfDamage;
+
+    if (actor.currentHp < 0) {
+
+        actor.currentHp = 0;
+
+    }
+
+}
 
     nextActor();
 
