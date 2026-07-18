@@ -479,7 +479,7 @@ const characters = {
         maxHp: 400,
 
         cursedPower: 60,
-        maxCursedPower: 100,
+        maxCursedPower: 120,
 
         cursedPowerRecovery: 10,
 
@@ -532,7 +532,7 @@ const characters = {
         maxHp: 370,
 
         cursedPower: 90,
-        maxCursedPower: 90,
+        maxCursedPower: 120,
 
         cursedPowerRecovery: 15,
 
