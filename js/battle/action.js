@@ -127,11 +127,6 @@ function showSkillSelect() {
 // ===============================
 
 function selectSkill(index) {
-    
-
-    return;
-
-}
 
     const actor =
         gameState.selectedActors[
