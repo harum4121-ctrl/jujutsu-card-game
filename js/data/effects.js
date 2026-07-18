@@ -9,6 +9,13 @@ function applyEffects(user, target, effects) {
     effects.forEach(effect => {
 
         switch (effect.type) {
+            
+            case "skillCostDownPermanent":
+
+    user.skillCostDown =
+        (user.skillCostDown ?? 0) + effect.value;
+
+    break;
 
             // 与ダメアップ
             case "damageBuff":
