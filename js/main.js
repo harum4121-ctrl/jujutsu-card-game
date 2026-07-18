@@ -1,3 +1,4 @@
+alert("main.js");
 // データ確認
 console.log(characters);
 console.log(cards);
