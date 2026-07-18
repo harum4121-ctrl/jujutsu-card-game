@@ -465,6 +465,72 @@ function showCardTarget() {
 
 }
 
+function showAllyTarget() {
+
+    const app = document.getElementById("app");
+
+    let html = `
+        <div class="battle">
+
+        <h2>対象を選択</h2>
+    `;
+
+    gameState.battleCharacters.forEach((character, index) => {
+
+        if (character.currentHp <= 0) return;
+
+        html += `
+
+            <div class="character">
+
+                <h3>${character.name}</h3>
+
+                <p>
+                    HP：
+                    ${character.currentHp}
+                    /
+                    ${character.maxHp}
+                </p>
+
+                <p>
+                    呪力：
+                    ${character.currentCursedPower}
+                    /
+                    ${character.maxCursedPower}
+                </p>
+
+                <button onclick="useSupportCard(${index})">
+
+                    選択
+
+                </button>
+
+            </div>
+
+            <br>
+
+        `;
+
+    });
+
+
+    html += `
+
+        <button onclick="showBattleScreen()">
+
+            戻る
+
+        </button>
+
+        </div>
+
+    `;
+
+
+    app.innerHTML = html;
+
+}
+
 function useSupportCard(index) {
 
     const card = gameState.selectedCard;
