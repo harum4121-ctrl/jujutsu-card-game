@@ -23,6 +23,7 @@ function startBattle() {
             id: id,
             name: data.name,
             type: data.type,
+            nailStock: 0,
 
             maxHp: data.hp,
             currentHp: data.hp,
