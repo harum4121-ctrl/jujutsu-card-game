@@ -5,9 +5,10 @@ console.log(characters);
 alert("②");
 console.log(cards);
 alert("③");
+alert("④");
 // ゲーム全体の状態
 const gameState = {
-alert("④");
+
     selectedCharacters: [],
     battleCharacters: [],
     selectedActors: [],
