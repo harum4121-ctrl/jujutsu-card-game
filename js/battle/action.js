@@ -359,12 +359,8 @@ function attackEnemy(enemyIndex) {
     const skill =
         gameState.selectedSkill;
 
-    if (
-        actor.currentCursedPower <
-        (skill.cost ?? 0)
-    ) {
-
-        alert("呪力不足");
+    // 呪力・CT・必殺カード
+    if (!useSkillCost(actor, skill)) {
 
         showSkillSelect();
 
@@ -372,67 +368,30 @@ function attackEnemy(enemyIndex) {
 
     }
 
-   let cost;
+    // 蛇の目と牙のスピーカー
+    if (
+        hasEquipment(actor, "speaker") &&
+        skill.attackType === "遠距離" &&
+        skill.target === "単体"
+    ) {
 
-if (actor.nextSkillFree) {
+        attackAllEnemies(true);
 
-    cost = 0;
-    actor.nextSkillFree = false;
+        return;
 
-} else {
+    }
 
-    cost = Math.max(
-        0,
-        (skill.cost ?? 0) -
-        (actor.skillCostDown ?? 0)
-    );
+    const enemy =
+        gameState.enemyCharacters[
+            enemyIndex
+        ];
 
-}
-
-if (
-    hasEquipment(actor, "speaker") &&
-    skill.attackType === "遠距離"
-) {
-
-    attackAllEnemies();
-
-    return;
-
-}
-
-actor.currentCursedPower -= cost;
-
-    if (skill.costCard) {
-
-    if (!actor.freeUltimate) {
-
-        consumeUltimateCards(
-            skill.costCard
+    const damage =
+        calculateDamage(
+            actor,
+            enemy,
+            skill
         );
-
-    }
-
-    actor.freeUltimate = false;
-
-}
-
-    if (skill.ct) {
-
-        actor.cooldowns[
-            skill.name
-        ] = skill.ct;
-
-    }
-
-const enemy =
-    gameState.enemyCharacters[
-        enemyIndex
-    ];
-
-let damage =
-    calculateDamage(actor, enemy, skill);
-    
-    alert(JSON.stringify(skill));
 
     enemy.currentHp -= damage;
 
@@ -441,13 +400,12 @@ let damage =
         enemy.currentHp = 0;
 
     }
-    
-    
+
     applyEffects(
-    actor,
-    enemy,
-    skill.effects
-);
+        actor,
+        enemy,
+        skill.effects
+    );
 
     alert(
         actor.name +
@@ -460,27 +418,37 @@ let damage =
         " ダメージ！"
     );
 
-if (skill.selfDamage) {
+    // 自傷
+    if (skill.selfDamage) {
 
-    actor.currentHp -= skill.selfDamage;
+        actor.currentHp -=
+            skill.selfDamage;
 
-    if (actor.currentHp < 0) {
+        if (actor.currentHp < 0) {
 
-        actor.currentHp = 0;
+            actor.currentHp = 0;
+
+        }
 
     }
 
-}
+    // 野薔薇
+    if (skill.name === "簪") {
 
-if (skill.name === "簪") {
+        actor.nailStock--;
 
-    actor.nailStock--;
+    }
 
-}
+    if (skill.name === "釘飛ばし") {
+
+        actor.nailStock++;
+
+    }
 
     nextActor();
 
 }
+
 // ===============================
 // 全体攻撃
 // ===============================
