@@ -465,6 +465,184 @@ function showCardTarget() {
 
 }
 
+function showSupportEnemyTarget() {
+
+    const app = document.getElementById("app");
+
+    let html = `
+        <div class="battle">
+
+            <h2>対象の敵を選択</h2>
+    `;
+
+    gameState.enemyCharacters.forEach((enemy, index) => {
+
+        if (enemy.currentHp <= 0) return;
+
+        html += `
+            <div class="character">
+
+                <h3>${enemy.name}</h3>
+
+                <p>
+                    HP：
+                    ${enemy.currentHp}
+                    /
+                    ${enemy.maxHp}
+                </p>
+
+                <button onclick="useSupportCardEnemy(${index})">
+                    選択
+                </button>
+
+            </div>
+
+            <br>
+        `;
+
+    });
+
+    html += `
+        <button onclick="showBattleScreen()">
+            戻る
+        </button>
+
+        </div>
+    `;
+
+    app.innerHTML = html;
+
+}
+
+function useSupportCardEnemy(index) {
+
+    const card = gameState.selectedCard;
+
+    const target = gameState.enemyCharacters[index];
+
+    applyEffects(
+        null,
+        target,
+        Array.isArray(card.effect)
+            ? card.effect
+            : [card.effect]
+    );
+
+    alert(card.name + " を使用！");
+
+    gameState.graveyard.push(card);
+
+    gameState.hand.splice(
+        gameState.selectedCardIndex,
+        1
+    );
+
+    gameState.selectedCard = null;
+    gameState.selectedCardIndex = null;
+
+    showBattleScreen();
+
+}
+
+function useSupportCardAllies() {
+
+    const card = gameState.selectedCard;
+
+    gameState.battleCharacters.forEach(character => {
+
+        if (character.currentHp <= 0) return;
+
+        applyEffects(
+            null,
+            character,
+            Array.isArray(card.effect)
+                ? card.effect
+                : [card.effect]
+        );
+
+    });
+
+    alert(card.name + " を使用！");
+
+    gameState.graveyard.push(card);
+
+    gameState.hand.splice(
+        gameState.selectedCardIndex,
+        1
+    );
+
+    gameState.selectedCard = null;
+    gameState.selectedCardIndex = null;
+
+    showBattleScreen();
+
+}
+
+function useSupportCardEnemies() {
+
+    const card = gameState.selectedCard;
+
+    gameState.enemyCharacters.forEach(enemy => {
+
+        if (enemy.currentHp <= 0) return;
+
+        applyEffects(
+            null,
+            enemy,
+            Array.isArray(card.effect)
+                ? card.effect
+                : [card.effect]
+        );
+
+    });
+
+    alert(card.name + " を使用！");
+
+    gameState.graveyard.push(card);
+
+    gameState.hand.splice(
+        gameState.selectedCardIndex,
+        1
+    );
+
+    gameState.selectedCard = null;
+    gameState.selectedCardIndex = null;
+
+    showBattleScreen();
+
+}
+
+function useSupportCardSelf() {
+
+    const card = gameState.selectedCard;
+
+    const target =
+        gameState.selectedActors[0];
+
+    applyEffects(
+        target,
+        target,
+        Array.isArray(card.effect)
+            ? card.effect
+            : [card.effect]
+    );
+
+    alert(card.name + " を使用！");
+
+    gameState.graveyard.push(card);
+
+    gameState.hand.splice(
+        gameState.selectedCardIndex,
+        1
+    );
+
+    gameState.selectedCard = null;
+    gameState.selectedCardIndex = null;
+
+    showBattleScreen();
+
+}
+
 function useSupportCardAllies(){
 
     const card = gameState.selectedCard;
