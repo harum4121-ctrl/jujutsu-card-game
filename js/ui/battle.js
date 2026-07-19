@@ -1291,3 +1291,81 @@ function showBattleResult(result) {
     }
 
 }
+
+function showEquipmentTarget() {
+
+    const app = document.getElementById("app");
+
+    let html = `
+    <div class="battle">
+
+    <h2>装備するキャラを選択</h2>
+    `;
+
+    gameState.battleCharacters.forEach((character, index) => {
+
+        if (character.currentHp <= 0) return;
+
+        html += `
+
+        <div class="character">
+
+            <h3>${character.name}</h3>
+
+            <button onclick="equipCard(${index})">
+
+                装備
+
+            </button>
+
+        </div>
+
+        <br>
+
+        `;
+
+    });
+
+    html += `
+    <button onclick="showBattleScreen()">
+
+    戻る
+
+    </button>
+
+    </div>
+    `;
+
+    app.innerHTML = html;
+
+}
+
+function equipCard(index) {
+
+    const card = gameState.selectedCard;
+
+    const character =
+        gameState.battleCharacters[index];
+
+    character.equipment.push(card);
+
+    alert(
+        character.name +
+        " に " +
+        card.name +
+        " を装備！"
+    );
+
+    gameState.graveyard.push(card);
+
+    gameState.hand.splice(
+        gameState.selectedCardIndex,
+        1
+    );
+
+    gameState.selectedCard = null;
+    gameState.selectedCardIndex = null;
+
+    showBattleScreen();
+
+}
