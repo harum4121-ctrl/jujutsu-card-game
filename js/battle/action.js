@@ -926,9 +926,14 @@ else if (skill.attacks) {
     damage -= target.damageReduction ?? 0;
 
     // 無敵
-    if (target.invincible) {
-        damage = 0;
-    }
+if (
+    target.invincible > 0 &&
+    actor.ignoreInvincible <= 0
+) {
+
+    damage = 0;
+
+}
 
     // 最低0ダメージ
     if (damage < 0) {
