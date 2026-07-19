@@ -10,6 +10,12 @@ function applyEffects(user, target, effects) {
 
         switch (effect.type) {
             
+            case "searchUltimate":
+
+    searchUltimateCard();
+
+    break;
+            
             case "skillCostZero":
 
     target.nextSkillFree = true;
