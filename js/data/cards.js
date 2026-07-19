@@ -313,16 +313,17 @@ const cards = {
 },
 
     {
-        id: "thank_you",
-        name: "今はただ君に感謝を",
-        type: "サポート",
-        target: "味方単体",
-        effect: {
-type: "freeUltimate",
+    id: "thank_you",
+    name: "今はただ君に感謝を",
+    type: "サポート",
+    target: "味方単体",
 
-            hpLimit: 100
-        }
+    hpLimit: 100,
+
+    effect: {
+        type: "freeUltimate"
     }
+}
 
 ],
 
