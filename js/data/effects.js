@@ -10,6 +10,29 @@ function applyEffects(user, target, effects) {
 
         switch (effect.type) {
             
+            case "searchUltimate":
+
+    const index = gameState.drawPile.findIndex(
+        card => card.type === "必殺"
+    );
+
+    if (index !== -1) {
+
+        const ultimate =
+            gameState.drawPile.splice(index, 1)[0];
+
+        gameState.hand.push(ultimate);
+
+        alert("必殺カードを手札に加えた！");
+
+    } else {
+
+        alert("山札に必殺カードがありません");
+
+    }
+
+    break;
+            
            case "skillCostDownPermanent":
 
     user.skillCostDown =
