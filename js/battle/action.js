@@ -371,11 +371,22 @@ function attackEnemy(enemyIndex) {
 
     }
 
-    const cost = Math.max(
-    0,
-    (skill.cost ?? 0) -
-    (actor.skillCostDown ?? 0)
-);
+    let cost;
+
+if (actor.freeSkill) {
+
+    cost = 0;
+    actor.freeSkill = false;
+
+} else {
+
+    cost = Math.max(
+        0,
+        (skill.cost ?? 0) -
+        (actor.skillCostDown ?? 0)
+    );
+
+}
 
 actor.currentCursedPower -= cost;
 
@@ -479,11 +490,22 @@ function attackAllEnemies() {
 
     }
 
-    const cost = Math.max(
-    0,
-    (skill.cost ?? 0) -
-    (actor.skillCostDown ?? 0)
-);
+    let cost;
+
+if (actor.freeSkill) {
+
+    cost = 0;
+    actor.freeSkill = false;
+
+} else {
+
+    cost = Math.max(
+        0,
+        (skill.cost ?? 0) -
+        (actor.skillCostDown ?? 0)
+    );
+
+}
 
 actor.currentCursedPower -= cost;
 
@@ -636,11 +658,22 @@ function healCharacter(index) {
     const target =
         gameState.battleCharacters[index];
 
-    const cost = Math.max(
-    0,
-    (skill.cost ?? 0) -
-    (actor.skillCostDown ?? 0)
-);
+let cost;
+
+if (actor.freeSkill) {
+
+    cost = 0;
+    actor.freeSkill = false;
+
+} else {
+
+    cost = Math.max(
+        0,
+        (skill.cost ?? 0) -
+        (actor.skillCostDown ?? 0)
+    );
+
+}
 
 actor.currentCursedPower -= cost;
 
@@ -698,11 +731,22 @@ function healAllCharacters() {
     const skill =
         gameState.selectedSkill;
 
-    const cost = Math.max(
-    0,
-    (skill.cost ?? 0) -
-    (actor.skillCostDown ?? 0)
-);
+    let cost;
+
+if (actor.freeSkill) {
+
+    cost = 0;
+    actor.freeSkill = false;
+
+} else {
+
+    cost = Math.max(
+        0,
+        (skill.cost ?? 0) -
+        (actor.skillCostDown ?? 0)
+    );
+
+}
 
 actor.currentCursedPower -= cost;
 
