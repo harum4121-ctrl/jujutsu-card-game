@@ -372,12 +372,12 @@ function attackEnemy(enemyIndex) {
 
     }
 
-    let cost;
+   let cost;
 
-if (actor.freeSkill) {
+if (actor.nextSkillFree) {
 
     cost = 0;
-    actor.freeSkill = false;
+    actor.nextSkillFree = false;
 
 } else {
 
@@ -499,10 +499,10 @@ function attackAllEnemies() {
 
     let cost;
 
-if (actor.freeSkill) {
+if (actor.nextSkillFree) {
 
     cost = 0;
-    actor.freeSkill = false;
+    actor.nextSkillFree = false;
 
 } else {
 
@@ -673,10 +673,10 @@ function healCharacter(index) {
 
 let cost;
 
-if (actor.freeSkill) {
+if (actor.nextSkillFree) {
 
     cost = 0;
-    actor.freeSkill = false;
+    actor.nextSkillFree = false;
 
 } else {
 
@@ -752,10 +752,10 @@ function healAllCharacters() {
 
     let cost;
 
-if (actor.freeSkill) {
+if (actor.nextSkillFree) {
 
     cost = 0;
-    actor.freeSkill = false;
+    actor.nextSkillFree = false;
 
 } else {
 
