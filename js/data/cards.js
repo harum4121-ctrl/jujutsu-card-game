@@ -171,6 +171,7 @@ const cards = {
         id: "king_of_curses",
         name: "呪いの王",
         type: "サポート",
+        target: "敵全体",
 
         effect: {
             type: "allCursedPowerDown",
@@ -243,7 +244,7 @@ const cards = {
         id: "endure",
         name: "耐えろ！",
         type: "サポート",
-
+        target: "味方全体",
         effect: {
             type: "allDamageReduction",
 
@@ -290,7 +291,7 @@ const cards = {
         id: "no_regret",
         name: "生き様で後悔はしたくない",
         type: "サポート",
-
+        target: "味方単体",
         effect: {
             type: "damageReduction",
             value: 50,
@@ -315,7 +316,7 @@ const cards = {
         id: "thank_you",
         name: "今はただ君に感謝を",
         type: "サポート",
-
+        target: "味方単体"
         effect: {
 type: "freeUltimate",
 
