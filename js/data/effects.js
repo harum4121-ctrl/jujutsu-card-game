@@ -182,7 +182,7 @@ function applyEffects(user, target, effects) {
 
 function updateStatus(character) {
     
-    if (character.damageReductionTurn > 0) {
+    if ((character.damageReductionTurn ?? 0) > 0) {
 
     character.damageReductionTurn--;
 
