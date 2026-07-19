@@ -463,77 +463,29 @@ function attackAllEnemies(skipCost = false) {
     const skill =
         gameState.selectedSkill;
 
-    if (
-        actor.currentCursedPower <
-        (skill.cost ?? 0)
-    ) {
-
-        alert("呪力不足");
-
-        showSkillSelect();
-
-        return;
-
-    }
-
+    // 通常使用時だけ消費
     if (!skipCost) {
-    let cost;
 
-if (actor.nextSkillFree) {
+        if (!useSkillCost(actor, skill)) {
 
-    cost = 0;
-    actor.nextSkillFree = false;
+            showSkillSelect();
 
-} else {
+            return;
 
-    cost = Math.max(
-        0,
-        (skill.cost ?? 0) -
-        (actor.skillCostDown ?? 0)
-    );
-
-}
-
-actor.currentCursedPower -= cost;
-
-    if (skill.costCard) {
-
-    if (!actor.freeUltimate) {
-
-        consumeUltimateCards(
-            skill.costCard
-        );
+        }
 
     }
-
-    actor.freeUltimate = false;
-
-}
-
-    if (skill.ct) {
-
-        actor.cooldowns[
-            skill.name
-        ] = skill.ct;
-
-    }
-
-}
 
     gameState.enemyCharacters.forEach(enemy => {
 
         if (enemy.currentHp <= 0) return;
 
-        let damage =
-            skill.damage ?? 0;
-
-        if (skill.hits) {
-
-            damage *= skill.hits;
-
-        }
-
-        damage += actor.attackBonus;
+        const damage =
+            calculateDamage(
+                actor,
+                enemy,
+                skill
+            );
 
         enemy.currentHp -= damage;
 
@@ -543,6 +495,12 @@ actor.currentCursedPower -= cost;
 
         }
 
+        applyEffects(
+            actor,
+            enemy,
+            skill.effects
+        );
+
     });
 
     alert(
@@ -551,24 +509,27 @@ actor.currentCursedPower -= cost;
         skill.name +
         "！\n\n敵全体に攻撃！"
     );
-    
+
+    // 自傷
     if (skill.selfDamage) {
 
-    actor.currentHp -= skill.selfDamage;
+        actor.currentHp -=
+            skill.selfDamage;
 
-    if (actor.currentHp < 0) {
+        if (actor.currentHp < 0) {
 
-        actor.currentHp = 0;
+            actor.currentHp = 0;
+
+        }
 
     }
 
-}
+    // 野薔薇
+    if (skill.name === "釘飛ばし") {
 
-if (skill.name === "釘飛ばし") {
+        actor.nailStock++;
 
-    actor.nailStock++;
-
-}
+    }
 
     nextActor();
 
