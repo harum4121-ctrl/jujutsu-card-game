@@ -179,16 +179,18 @@ const cards = {
         }
     },
 
-    {
-        id: "domain_amplification",
-        name: "領域展延",
-        type: "サポート",
+   {
+    id: "domain_amplification",
+    name: "領域展延",
+    type: "サポート",
 
-        effect: {
-            type: "ignoreInvincible",
-            duration: 3
-        }
-    },
+    target: "味方単体",
+
+    effect: {
+        type: "ignoreInvincible",
+        duration: 3
+    }
+},
 
     {
         id: "we_are_the_strongest",
