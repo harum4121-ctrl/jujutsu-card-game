@@ -611,62 +611,28 @@ function healCharacter(index) {
     const skill =
         gameState.selectedSkill;
 
+    if (!useSkillCost(actor, skill)) {
+
+        showSkillSelect();
+
+        return;
+
+    }
+
     const target =
         gameState.battleCharacters[index];
 
-let cost;
-
-if (actor.nextSkillFree) {
-
-    cost = 0;
-    actor.nextSkillFree = false;
-
-} else {
-
-    cost = Math.max(
-        0,
-        (skill.cost ?? 0) -
-        (actor.skillCostDown ?? 0)
-    );
-
-}
-
-actor.currentCursedPower -= cost;
-
-    if (skill.costCard) {
-
-    if (!actor.freeUltimate) {
-
-        consumeUltimateCards(
-            skill.costCard
+    target.currentHp =
+        Math.min(
+            target.maxHp,
+            target.currentHp + skill.heal
         );
 
-    }
-
-    actor.freeUltimate = false;
-
-}
-
-    if (skill.ct) {
-
-        actor.cooldowns[
-            skill.name
-        ] = skill.ct;
-
-    }
-
-    target.currentHp +=
-        skill.heal;
-
-    if (
-        target.currentHp >
-        target.maxHp
-    ) {
-
-        target.currentHp =
-            target.maxHp;
-
-    }
+    applyEffects(
+        actor,
+        target,
+        skill.effects
+    );
 
     alert(
         actor.name +
@@ -693,44 +659,11 @@ function healAllCharacters() {
     const skill =
         gameState.selectedSkill;
 
-    let cost;
+    if (!useSkillCost(actor, skill)) {
 
-if (actor.nextSkillFree) {
+        showSkillSelect();
 
-    cost = 0;
-    actor.nextSkillFree = false;
-
-} else {
-
-    cost = Math.max(
-        0,
-        (skill.cost ?? 0) -
-        (actor.skillCostDown ?? 0)
-    );
-
-}
-
-actor.currentCursedPower -= cost;
-
-    if (skill.costCard) {
-
-    if (!actor.freeUltimate) {
-
-        consumeUltimateCards(
-            skill.costCard
-        );
-
-    }
-
-    actor.freeUltimate = false;
-
-}
-
-    if (skill.ct) {
-
-        actor.cooldowns[
-            skill.name
-        ] = skill.ct;
+        return;
 
     }
 
@@ -738,18 +671,17 @@ actor.currentCursedPower -= cost;
 
         if (character.currentHp <= 0) return;
 
-        character.currentHp +=
-            skill.heal;
+        character.currentHp =
+            Math.min(
+                character.maxHp,
+                character.currentHp + skill.heal
+            );
 
-        if (
-            character.currentHp >
-            character.maxHp
-        ) {
-
-            character.currentHp =
-                character.maxHp;
-
-        }
+        applyEffects(
+            actor,
+            character,
+            skill.effects
+        );
 
     });
 
