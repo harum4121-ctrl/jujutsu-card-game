@@ -16,6 +16,13 @@ function applyEffects(user, target, effects) {
 
     break;
     
+    case "ignoreInvincible":
+
+    target.ignoreInvincible =
+        effect.duration;
+
+    break;
+    
     case "freeUltimate":
 
     target.freeUltimate = true;
@@ -244,6 +251,12 @@ function updateStatus(character) {
         character.damageReduction = 0;
 
     }
+
+}
+
+if (character.ignoreInvincible > 0) {
+
+    character.ignoreInvincible--;
 
 }
 
