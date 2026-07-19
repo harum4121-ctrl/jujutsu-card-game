@@ -890,7 +890,7 @@ alert("宿儺は " + skill.name + " を選択");
                 calculateDamage(enemy, target, skill);
 
             target.currentHp -= damage;
-
+            target.lastSingleDamage = damage;
             if (target.currentHp < 0) {
 
                 target.currentHp = 0;
