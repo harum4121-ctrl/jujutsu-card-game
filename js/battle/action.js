@@ -940,6 +940,23 @@ else if (skill.attacks) {
 
     // 永続攻撃アップ
     damage += actor.attackBonus ?? 0;
+    // 屠坐魔
+if (actor.equipment) {
+
+    actor.equipment.forEach(card => {
+
+        if (
+            card.id === "tojima" &&
+            skill.attackType === "近接"
+        ) {
+
+            damage += 10;
+
+        }
+
+    });
+
+}
 
     // 一時的な与ダメアップ
     damage += actor.damageBuff ?? 0;
