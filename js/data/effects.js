@@ -16,7 +16,7 @@ function applyEffects(user, target, effects) {
 
     break;
     
-    case "ultimateIgnoreCondition":
+    case "freeUltimate":
 
     target.freeUltimate = true;
 
