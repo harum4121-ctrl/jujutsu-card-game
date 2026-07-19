@@ -256,24 +256,25 @@ const cards = {
         }
     },
 
-    {
-        id: "go_ahead",
-        name: "先に逝く せいぜい頑張れ",
-        type: "サポート",
+   {
+    id: "go_ahead",
+    name: "先に逝く せいぜい頑張れ",
+    type: "サポート",
 
-        effect: [
-            {
-                type: "selfDamage",
-                value: 100
-            },
-            {
-                type: "allyDamageUp",
-                targets: 2,
-                value: 70,
-                duration: 1
-            }
-        ]
-    },
+    target: "味方2体",
+
+    effect: [
+        {
+            type: "selfDamage",
+            value: 100
+        },
+        {
+            type: "allyDamageUp",
+            value: 70,
+            duration: 1
+        }
+    ]
+},
 
    {
     id: "retry",
