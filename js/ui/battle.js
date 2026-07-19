@@ -791,6 +791,17 @@ function useSupportCard(index) {
     const target =
         gameState.battleCharacters[index];
 
+if (
+    card.hpLimit != null &&
+    target.currentHp > card.hpLimit
+) {
+
+    alert("HPが条件を満たしていません");
+
+    return;
+
+}
+
     applyEffects(
     null,
     target,
