@@ -220,14 +220,15 @@ function selectUltimate() {
         characters[actor.id].ultimate;
 
     if (
-        getUltimateCardCount() <
-        (ultimate.costCard ?? 0)
-    ) {
+    !actor.freeUltimate &&
+    getUltimateCardCount() <
+    (ultimate.costCard ?? 0)
+) {
 
-        alert("必殺カード不足");
-        return;
+    alert("必殺カード不足");
+    return;
 
-    }
+}
 
     gameState.selectedSkill = ultimate;
 
@@ -390,13 +391,13 @@ if (actor.freeSkill) {
 
 actor.currentCursedPower -= cost;
 
-    if (skill.costCard) {
+    if (skill.costCard && !actor.freeUltimate) {
 
-        consumeUltimateCards(
-            skill.costCard
-        );
+    consumeUltimateCards(
+        skill.costCard
+    );
 
-    }
+}
 
     if (skill.ct) {
 
@@ -509,13 +510,13 @@ if (actor.freeSkill) {
 
 actor.currentCursedPower -= cost;
 
-    if (skill.costCard) {
+    if (skill.costCard && !actor.freeUltimate) {
 
-        consumeUltimateCards(
-            skill.costCard
-        );
+    consumeUltimateCards(
+        skill.costCard
+    );
 
-    }
+}
 
     if (skill.ct) {
 
@@ -677,13 +678,13 @@ if (actor.freeSkill) {
 
 actor.currentCursedPower -= cost;
 
-    if (skill.costCard) {
+    if (skill.costCard && !actor.freeUltimate) {
 
-        consumeUltimateCards(
-            skill.costCard
-        );
+    consumeUltimateCards(
+        skill.costCard
+    );
 
-    }
+}
 
     if (skill.ct) {
 
@@ -750,13 +751,13 @@ if (actor.freeSkill) {
 
 actor.currentCursedPower -= cost;
 
-    if (skill.costCard) {
+    if (skill.costCard && !actor.freeUltimate) {
 
-        consumeUltimateCards(
-            skill.costCard
-        );
+    consumeUltimateCards(
+        skill.costCard
+    );
 
-    }
+}
 
     if (skill.ct) {
 
