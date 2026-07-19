@@ -391,11 +391,17 @@ if (actor.freeSkill) {
 
 actor.currentCursedPower -= cost;
 
-    if (skill.costCard && !actor.freeUltimate) {
+    if (skill.costCard) {
 
-    consumeUltimateCards(
-        skill.costCard
-    );
+    if (!actor.freeUltimate) {
+
+        consumeUltimateCards(
+            skill.costCard
+        );
+
+    }
+
+    actor.freeUltimate = false;
 
 }
 
@@ -510,11 +516,17 @@ if (actor.freeSkill) {
 
 actor.currentCursedPower -= cost;
 
-    if (skill.costCard && !actor.freeUltimate) {
+    if (skill.costCard) {
 
-    consumeUltimateCards(
-        skill.costCard
-    );
+    if (!actor.freeUltimate) {
+
+        consumeUltimateCards(
+            skill.costCard
+        );
+
+    }
+
+    actor.freeUltimate = false;
 
 }
 
@@ -678,11 +690,17 @@ if (actor.freeSkill) {
 
 actor.currentCursedPower -= cost;
 
-    if (skill.costCard && !actor.freeUltimate) {
+    if (skill.costCard) {
 
-    consumeUltimateCards(
-        skill.costCard
-    );
+    if (!actor.freeUltimate) {
+
+        consumeUltimateCards(
+            skill.costCard
+        );
+
+    }
+
+    actor.freeUltimate = false;
 
 }
 
@@ -751,11 +769,17 @@ if (actor.freeSkill) {
 
 actor.currentCursedPower -= cost;
 
-    if (skill.costCard && !actor.freeUltimate) {
+    if (skill.costCard) {
 
-    consumeUltimateCards(
-        skill.costCard
-    );
+    if (!actor.freeUltimate) {
+
+        consumeUltimateCards(
+            skill.costCard
+        );
+
+    }
+
+    actor.freeUltimate = false;
 
 }
 
