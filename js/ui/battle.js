@@ -4,7 +4,7 @@
 // ===============================
 
 function startBattle() {
-
+alert("①");
     // 初期化
     gameState.battleCharacters = [];
     gameState.enemyCharacters = [];
@@ -12,7 +12,7 @@ function startBattle() {
     gameState.currentActorIndex = 0;
     gameState.selectedSkill = null;
     gameState.currentField = null;
-
+alert("②");
     // 味方生成
     gameState.selectedCharacters.forEach(id => {
 
@@ -61,7 +61,7 @@ freeUltimate: false,
         });
 
     });
-
+alert("③");
 // 敵生成
 const enemy =
     enemies[gameState.selectedEnemy];
@@ -145,7 +145,7 @@ gameState.battleCharacters.forEach(character => {
 
 // バトル画面表示
 
-
+alert("④");
 showBattleScreen();
 
 }
