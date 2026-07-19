@@ -272,15 +272,19 @@ const cards = {
         ]
     },
 
-    {
-        id: "retry",
-        name: "やり直しだ",
-        type: "サポート",
+   {
+    id: "retry",
 
-        effect: {
-            type: "recoverPreviousSingleDamage"
-        }
-    },
+    name: "やり直しだ",
+
+    type: "サポート",
+
+    target: "味方単体",
+
+    effect: {
+        type: "recoverPreviousSingleDamage"
+    }
+},
 
     {
         id: "no_regret",
