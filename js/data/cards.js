@@ -317,7 +317,7 @@ const cards = {
         type: "サポート",
 
         effect: {
-            type: "ultimateIgnoreCondition",
+type: "freeUltimate",
 
             hpLimit: 100
         }
