@@ -226,16 +226,18 @@ const cards = {
         }
     },
 
-    {
-        id: "save_people",
-        name: "俺は不平等に人を助ける",
-        type: "サポート",
+   {
+    id: "save_people",
+    name: "俺は不平等に人を助ける",
 
-        effect: {
-            type: "healSelf",
-            value: 30
-        }
-    },
+    type: "サポート",
+    target: "味方単体",
+
+    effect: {
+        type: "heal",
+        value: 30
+    }
+},
 
     {
         id: "endure",
