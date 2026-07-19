@@ -912,6 +912,132 @@ if (
 
 }
 
+function showTwoAllyTarget() {
+
+    gameState.selectedSupportTargets = [];
+
+    const app = document.getElementById("app");
+
+    let html = `
+    <div class="battle">
+
+        <h2>強化する味方を2人選択</h2>
+    `;
+
+    gameState.battleCharacters.forEach((character, index) => {
+
+        if (character.currentHp <= 0) return;
+
+        html += `
+
+        <div class="character">
+
+            <h3>${character.name}</h3>
+
+            <p>HP：${character.currentHp}/${character.maxHp}</p>
+
+            <button onclick="selectSupportTarget(${index})">
+
+                選択
+
+            </button>
+
+        </div>
+
+        <br>
+
+        `;
+
+    });
+
+    html += `
+        <button onclick="showBattleScreen()">
+
+            戻る
+
+        </button>
+
+    </div>
+    `;
+
+    app.innerHTML = html;
+
+}
+
+function selectSupportTarget(index) {
+
+    if (gameState.selectedSupportTargets.includes(index)) {
+
+        return;
+
+    }
+
+    gameState.selectedSupportTargets.push(index);
+
+    if (gameState.selectedSupportTargets.length < 2) {
+
+        alert("あと1人選択してください");
+
+        return;
+
+    }
+
+    useSupportCardTwoTargets();
+
+}
+
+function useSupportCardTwoTargets() {
+
+    const card = gameState.selectedCard;
+
+    // カードを使ったキャラ
+    const user = gameState.selectedActors[0];
+
+    // 自傷ダメージ
+    user.currentHp -= 100;
+
+    if (user.currentHp < 0) {
+
+        user.currentHp = 0;
+
+    }
+
+    // 選ばれた2人を強化
+    gameState.selectedSupportTargets.forEach(index => {
+
+        const target = gameState.battleCharacters[index];
+
+        applyEffects(
+            target,
+            target,
+            [
+                {
+                    type: "damageBuff",
+                    value: 70,
+                    duration: 1
+                }
+            ]
+        );
+
+    });
+
+    alert(card.name + " を使用！");
+
+    gameState.graveyard.push(card);
+
+    gameState.hand.splice(
+        gameState.selectedCardIndex,
+        1
+    );
+
+    gameState.selectedCard = null;
+    gameState.selectedCardIndex = null;
+    gameState.selectedSupportTargets = [];
+
+    showBattleScreen();
+
+}
+
 // ===============================
 // 敵ターン
 // ===============================
