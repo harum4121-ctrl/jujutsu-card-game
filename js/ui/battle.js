@@ -537,6 +537,13 @@ function showCardTarget() {
         return;
 
     }
+    
+    if (card.target === "味方2体") {
+
+    showTwoAllyTarget();
+    return;
+
+}
 
     // 敵単体
     if (card.target === "敵単体") {
