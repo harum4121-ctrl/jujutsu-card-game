@@ -37,9 +37,21 @@ function startBattle() {
             equipment: [],
 
             attackBonus: 0,
-            damageReduction: 0,
-            skillCostDown: 0,
 
+damageBuff: 0,
+damageBuffTurn: 0,
+
+damageReduction: 0,
+damageReductionTurn: 0,
+
+damageTakenUp: 0,
+damageTakenUpTurn: 0,
+
+invincible: 0,
+stun: 0,
+
+skillCostDown: 0
+            
             hasActed: false
 
         });
