@@ -15,6 +15,13 @@ function applyEffects(user, target, effects) {
     target.freeSkill = true;
 
     break;
+    
+    case "ignoreInvincible":
+
+    target.ignoreInvincible =
+        effect.duration;
+
+    break;
             
             case "searchUltimate":
 
