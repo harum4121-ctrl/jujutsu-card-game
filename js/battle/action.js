@@ -389,6 +389,17 @@ if (actor.nextSkillFree) {
 
 }
 
+if (
+    hasEquipment(actor, "speaker") &&
+    skill.attackType === "遠距離"
+) {
+
+    attackAllEnemies();
+
+    return;
+
+}
+
 actor.currentCursedPower -= cost;
 
     if (skill.costCard) {
@@ -474,7 +485,7 @@ if (skill.name === "簪") {
 // 全体攻撃
 // ===============================
 
-function attackAllEnemies() {
+function attackAllEnemies(skipCost = false) {
 
     const actor =
         gameState.selectedActors[
