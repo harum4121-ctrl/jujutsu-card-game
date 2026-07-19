@@ -99,6 +99,7 @@ damageReductionTurn: 0,
 damageTakenUp: 0,
 damageTakenUpTurn: 0,
 lastSingleDamage: 0,
+
 invincible: 0,
 stun: 0,
 
