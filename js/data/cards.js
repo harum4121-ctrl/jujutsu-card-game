@@ -209,9 +209,9 @@ const cards = {
         id: "big_brother",
         name: "全力でお兄ちゃんを遂行する！",
         type: "サポート",
-
+        target: "味方全体",
         effect: {
-            type: "allCursedPowerUp",
+            type: "cursedUp",
             value: 15
         }
     },
