@@ -45,6 +45,17 @@ function applyEffects(user, target, effects) {
         (user.skillCostDown ?? 0) + effect.value;
 
     break;
+    
+    case "recoverPreviousSingleDamage":
+
+    target.currentHp = Math.min(
+        target.maxHp,
+        target.currentHp + target.lastSingleDamage
+    );
+
+    target.lastSingleDamage = 0;
+
+    break;
 
             // 与ダメアップ
             case "damageBuff":
