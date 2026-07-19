@@ -294,16 +294,18 @@ const cards = {
         }
     },
 
-    {
-        id: "power_battle",
-        name: "火力勝負といこう",
-        type: "サポート",
+   {
+    id: "power_battle",
 
-        effect: {
-            type: "skillCostZero",
-            duration: 1
-        }
-    },
+    name: "火力勝負といこう",
+
+    type: "サポート",
+    target: "味方単体",
+
+    effect: {
+        type: "skillCostZero"
+    }
+},
 
     {
         id: "thank_you",
