@@ -10,6 +10,12 @@ function applyEffects(user, target, effects) {
 
         switch (effect.type) {
             
+            case "skillCostZero":
+
+    target.freeSkill = true;
+
+    break;
+            
             case "searchUltimate":
 
     const index = gameState.drawPile.findIndex(
