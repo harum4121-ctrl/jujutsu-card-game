@@ -12,7 +12,7 @@ function applyEffects(user, target, effects) {
             
             case "skillCostZero":
 
-    target.freeSkill = true;
+    target.nextSkillFree = true;
 
     break;
     
