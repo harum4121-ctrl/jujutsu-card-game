@@ -16,6 +16,12 @@ function applyEffects(user, target, effects) {
 
     break;
     
+    case "ultimateIgnoreCondition":
+
+    target.freeUltimate = true;
+
+    break;
+    
     case "ignoreInvincible":
 
     target.ignoreInvincible =
