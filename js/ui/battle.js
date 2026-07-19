@@ -502,11 +502,15 @@ function useCard(index) {
         showCardTarget();
         return;
 
-    } else if (card.type === "呪具") {
+    }else if (card.type === "呪具") {
 
-        // 呪具カード処理
+    gameState.selectedCard = card;
+    gameState.selectedCardIndex = index;
 
-    } else if (card.type === "領域") {
+    showEquipmentTarget();
+
+    return;
+} else if (card.type === "領域") {
 
         // 領域カード処理
 
