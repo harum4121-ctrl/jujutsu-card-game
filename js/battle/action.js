@@ -508,6 +508,7 @@ function attackAllEnemies(skipCost = false) {
 
     }
 
+    if (!skipCost) {
     let cost;
 
 if (actor.nextSkillFree) {
@@ -548,6 +549,8 @@ actor.currentCursedPower -= cost;
         ] = skill.ct;
 
     }
+
+}
 
     gameState.enemyCharacters.forEach(enemy => {
 
