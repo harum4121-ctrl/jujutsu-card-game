@@ -1369,3 +1369,11 @@ function equipCard(index) {
     showBattleScreen();
 
 }
+
+function hasEquipment(character, equipmentId) {
+
+    return character.equipment.some(
+        card => card.id === equipmentId
+    );
+
+}
