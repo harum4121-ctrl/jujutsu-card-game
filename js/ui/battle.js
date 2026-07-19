@@ -53,7 +53,7 @@ invincible: 0,
 stun: 0,
 
 skillCostDown: 0
-freeSkill: false,
+nextSkillFree: false,
 freeUltimate: false,
             
             hasActed: false
