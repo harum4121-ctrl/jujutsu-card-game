@@ -1377,3 +1377,76 @@ function hasEquipment(character, equipmentId) {
     );
 
 }
+
+// ===============================
+// スキル使用処理
+// ===============================
+
+function useSkillCost(actor, skill) {
+
+    // 呪力不足
+    let cost;
+
+    if (actor.nextSkillFree) {
+
+        cost = 0;
+        actor.nextSkillFree = false;
+
+    } else {
+
+        cost = Math.max(
+            0,
+            (skill.cost ?? 0) -
+            (actor.skillCostDown ?? 0)
+        );
+
+    }
+
+    if (actor.currentCursedPower < cost) {
+
+        alert("呪力不足");
+
+        return false;
+
+    }
+
+    actor.currentCursedPower -= cost;
+
+    // 必殺カード
+    if (skill.costCard) {
+
+        if (!actor.freeUltimate) {
+
+            if (
+                getUltimateCardCount() <
+                skill.costCard
+            ) {
+
+                alert("必殺カード不足");
+
+                return false;
+
+            }
+
+            consumeUltimateCards(
+                skill.costCard
+            );
+
+        }
+
+        actor.freeUltimate = false;
+
+    }
+
+    // CT
+    if (skill.ct) {
+
+        actor.cooldowns[
+            skill.name
+        ] = skill.ct;
+
+    }
+
+    return true;
+
+}
