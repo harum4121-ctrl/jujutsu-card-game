@@ -149,6 +149,82 @@ alert("④");
 showBattleScreen();
 
 }
+
+function searchUltimateCard() {
+
+    const app = document.getElementById("app");
+
+    let html = `
+        <div class="battle">
+
+        <h2>手札に加える必殺カードを選択</h2>
+    `;
+
+    const ultimateCards =
+        gameState.drawPile.filter(card => card.type === "必殺");
+
+    if (ultimateCards.length === 0) {
+
+        alert("山札に必殺カードがありません");
+        showBattleScreen();
+        return;
+
+    }
+
+    ultimateCards.forEach(card => {
+
+        html += `
+
+            <div class="card">
+
+                <h3>${card.name}</h3>
+
+                <button onclick="addUltimateCard('${card.id}')">
+
+                    手札に加える
+
+                </button>
+
+            </div>
+
+            <br>
+
+        `;
+
+    });
+
+    html += `
+        <button onclick="showBattleScreen()">
+
+            戻る
+
+        </button>
+
+        </div>
+    `;
+
+    app.innerHTML = html;
+
+}
+
+function addUltimateCard(id) {
+
+    const index =
+        gameState.drawPile.findIndex(card => card.id === id);
+
+    if (index === -1) return;
+
+    const card =
+        gameState.drawPile.splice(index, 1)[0];
+
+    gameState.hand.push(card);
+
+    alert(card.name + " を手札に加えた！");
+
+    showBattleScreen();
+
+}
+
 // ===============================
 // バトル画面
 // ===============================
