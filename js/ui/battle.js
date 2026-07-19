@@ -52,7 +52,7 @@ ignoreInvincible: 0,
 invincible: 0,
 stun: 0,
 
-skillCostDown: 0
+skillCostDown: 0,
 nextSkillFree: false,
 freeUltimate: false,
             
