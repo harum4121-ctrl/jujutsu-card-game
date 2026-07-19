@@ -54,6 +54,7 @@ stun: 0,
 
 skillCostDown: 0
 freeSkill: false,
+freeUltimate: false,
             
             hasActed: false
 
