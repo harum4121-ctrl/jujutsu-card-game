@@ -92,6 +92,66 @@ function applyEffects(user, target, effects) {
                 }
 
                 break;
+                
+                case "allCursedPowerUp":
+
+    gameState.battleCharacters.forEach(character => {
+
+        if (character.currentHp <= 0) return;
+
+        character.currentCursedPower = Math.min(
+            character.maxCursedPower,
+            character.currentCursedPower + effect.value
+        );
+
+    });
+
+    break;
+    
+    case "allCursedPowerDown":
+
+    gameState.enemyCharacters.forEach(enemy => {
+
+        if (enemy.currentHp <= 0) return;
+
+        enemy.currentCursedPower = Math.max(
+            0,
+            enemy.currentCursedPower - effect.value
+        );
+
+    });
+
+    break;
+    
+    case "damageReduction":
+
+    target.damageReduction =
+        (target.damageReduction ?? 0)
+        + effect.value;
+
+    target.damageReductionTurn =
+        effect.duration ?? 0;
+
+    break;
+    
+    case "allDamageReduction":
+
+    gameState.battleCharacters.forEach(character => {
+
+        if (character.currentHp <= 0) return;
+
+        character.damageReduction =
+            (character.damageReduction ?? 0)
+            + effect.value;
+
+        character.damageReductionTurn =
+            effect.duration ?? 0;
+
+    });
+
+    break;
+    
+    
 
             // HP回復
             case "heal":
@@ -121,6 +181,18 @@ function applyEffects(user, target, effects) {
 // ===============================
 
 function updateStatus(character) {
+    
+    if (character.damageReductionTurn > 0) {
+
+    character.damageReductionTurn--;
+
+    if (character.damageReductionTurn === 0) {
+
+        character.damageReduction = 0;
+
+    }
+
+}
 
     if (character.damageBuffTurn > 0) {
 
