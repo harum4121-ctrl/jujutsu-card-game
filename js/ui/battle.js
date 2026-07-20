@@ -44,6 +44,9 @@ damageBuffTurn: 0,
 damageReduction: 0,
 damageReductionTurn: 0,
 
+damageDown: 0,
+damageDownTurn: 0,
+
 damageTakenUp: 0,
 damageTakenUpTurn: 0,
 lastSingleDamage: 0,
@@ -99,6 +102,9 @@ damageBuffTurn: 0,
 
 damageReduction: 0,
 damageReductionTurn: 0,
+
+damageDown: 0,
+damageDownTurn: 0,
 
 damageTakenUp: 0,
 damageTakenUpTurn: 0,
