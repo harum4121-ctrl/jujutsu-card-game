@@ -266,6 +266,18 @@ if (character.ignoreInvincible > 0) {
         }
 
     }
+    
+    if (character.damageDownTurn > 0) {
+
+    character.damageDownTurn--;
+
+    if (character.damageDownTurn === 0) {
+
+        character.damageDown = 0;
+
+    }
+
+}
 
     if (character.damageTakenUpTurn > 0) {
 
