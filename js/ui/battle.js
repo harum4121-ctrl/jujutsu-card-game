@@ -916,6 +916,10 @@ if (
 
 }
 
+// ===============================
+// 味方2体選択
+// ===============================
+
 function showTwoAllyTarget() {
 
     gameState.selectedSupportTargets = [];
@@ -923,48 +927,35 @@ function showTwoAllyTarget() {
     const app = document.getElementById("app");
 
     let html = `
-    <div class="battle">
+        <div class="battle">
 
-        <h2>強化する味方を2人選択</h2>
-    `;
+            <h2>味方を2体選択</h2>
 
-    gameState.battleCharacters.forEach((character, index) => {
+            <div id="twoTargetArea"></div>
 
-        if (character.currentHp <= 0) return;
+            <button
+                id="confirmTwoTarget"
+                disabled
+            >
+                決定
+            </button>
 
-        html += `
+            <br><br>
 
-        <div class="character">
-
-            <h3>${character.name}</h3>
-
-            <p>HP：${character.currentHp}/${character.maxHp}</p>
-
-            <button onclick="selectSupportTarget(${index})">
-
-                選択
-
+            <button onclick="showBattleScreen()">
+                戻る
             </button>
 
         </div>
-
-        <br>
-
-        `;
-
-    });
-
-    html += `
-        <button onclick="showBattleScreen()">
-
-            戻る
-
-        </button>
-
-    </div>
     `;
 
     app.innerHTML = html;
+
+    updateTwoTargetArea();
+
+    document.getElementById(
+        "confirmTwoTarget"
+    ).onclick = useSupportCardTwoTargets;
 
 }
 
