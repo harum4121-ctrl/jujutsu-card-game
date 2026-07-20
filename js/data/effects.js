@@ -4,6 +4,27 @@
 
 function applyEffects(user, target, effects) {
 
+// 黒縄
+if (
+    hasEquipment(actor, "black_rope") &&
+    skill.attackType === "遠距離"
+) {
+
+    applyEffects(
+        actor,
+        enemy,
+        [
+            {
+                type: "damageDown",
+                value: 10,
+                duration: 1
+            }
+        ]
+    );
+
+    alert(enemy.name + " の与ダメージが1ターン10下がった！");
+}
+
     if (!effects) return;
 
     effects.forEach(effect => {
