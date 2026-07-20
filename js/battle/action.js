@@ -561,6 +561,14 @@ function attackAllEnemies(skipCost = false) {
             skill.effects
         );
         
+        if (actor.doubleNextDamageStun) {
+
+    actor.stun = 2;
+
+    actor.doubleNextDamageStun = false;
+
+}
+        
         if (
     hasEquipment(actor, "black_rope") &&
     skill.attackType === "遠距離"
