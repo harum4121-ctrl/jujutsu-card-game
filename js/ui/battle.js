@@ -1263,6 +1263,27 @@ alert("宿儺は " + skill.name + " を選択");
 
         }
     });
+    
+    // ===============================
+// 敵のスキル封印ターン減少
+// ===============================
+
+gameState.enemyCharacters.forEach(enemy => {
+
+    for (const key in enemy.sealedSkills) {
+
+        enemy.sealedSkills[key]--;
+
+        if (enemy.sealedSkills[key] <= 0) {
+
+            delete enemy.sealedSkills[key];
+
+        }
+
+    }
+
+});
+
     // プレイヤー側ターン開始処理
     gameState.battleCharacters.forEach(character => {
 
