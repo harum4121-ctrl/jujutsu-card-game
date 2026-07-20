@@ -451,6 +451,14 @@ function toggleActor(id){
         gameState.battleCharacters.find(c => c.id === id);
 
     if(!character) return;
+    
+    if (character.stun > 0) {
+
+    alert(character.name + " は行動不能です！");
+
+    return;
+
+}
 
     if(gameState.selectedActors.includes(character)){
 
