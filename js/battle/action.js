@@ -815,17 +815,26 @@ else if (skill.attacks) {
 
     // 永続攻撃アップ
     damage += actor.attackBonus ?? 0;
-    // 屠坐魔
+  
+// 呪具効果
 if (actor.equipment) {
 
     actor.equipment.forEach(card => {
 
-        if (
-            card.id === "tojima" &&
-            skill.attackType === "近接"
-        ) {
+        if (!card.effect) return;
 
-            damage += 10;
+        switch (card.effect.type) {
+
+            // 屠坐魔
+            case "meleeDamageUp":
+
+                if (skill.attackType === "近接") {
+
+                    damage += card.effect.value;
+
+                }
+
+                break;
 
         }
 
