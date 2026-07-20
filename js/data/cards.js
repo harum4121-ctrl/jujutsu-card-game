@@ -196,7 +196,7 @@ const cards = {
         id: "we_are_the_strongest",
         name: "私たちは最強なんだ",
         type: "サポート",
-
+        target: "味方2体",
         effect: {
             type: "damageReduction",
 
