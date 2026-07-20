@@ -1324,6 +1324,10 @@ gameState.enemyCharacters.forEach(enemy => {
         character.hasActed = false;
 
     });
+    
+    // 状態異常ターン経過
+gameState.battleCharacters.forEach(updateStatus);
+gameState.enemyCharacters.forEach(updateStatus);
 
 drawCard();
 
