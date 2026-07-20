@@ -554,9 +554,14 @@ if (card.id === "not_words") {
 
     } else if (card.type === "呪物") {
 
-        // 呪物カード処理
+    gameState.selectedCard = card;
+    gameState.selectedCardIndex = index;
 
-    }
+    showCardTarget();
+
+    return;
+
+}
 
     alert(card.name + " を使用しました");
 
