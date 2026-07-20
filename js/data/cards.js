@@ -125,6 +125,8 @@ const cards = {
             name: "受胎九相図 三番",
 
             type: "呪物",
+            
+            target: "味方単体",
 
             effect: {
                 type: "doubleNextDamage"
