@@ -1041,14 +1041,47 @@ function selectSupportTarget(index) {
 
 }
 
+// ===============================
+// 味方2体対象カード使用
+// ===============================
+
 function useSupportCardTwoTargets() {
 
     const card = gameState.selectedCard;
 
-    // カードを使ったキャラ
-    const user = gameState.selectedActors[0];
+    switch (card.id) {
 
-    // 自傷ダメージ
+        case "go_ahead":
+            useGoAheadCard();
+            break;
+
+        case "we_are_the_strongest":
+            useStrongestCard();
+            break;
+
+        default:
+
+            alert("未対応のカードです");
+
+    }
+
+}
+
+// ===============================
+// 先に逝く せいぜい頑張れ
+// ===============================
+
+function useGoAheadCard() {
+
+    const card = gameState.selectedCard;
+
+    // カード使用者
+    const user =
+        gameState.battleCharacters.find(c => c.currentHp > 0);
+
+    if (!user) return;
+
+    // 自傷100
     user.currentHp -= 100;
 
     if (user.currentHp < 0) {
@@ -1057,10 +1090,11 @@ function useSupportCardTwoTargets() {
 
     }
 
-    // 選ばれた2人を強化
+    // 選んだ2人を強化
     gameState.selectedSupportTargets.forEach(index => {
 
-        const target = gameState.battleCharacters[index];
+        const target =
+            gameState.battleCharacters[index];
 
         applyEffects(
             target,
@@ -1070,6 +1104,50 @@ function useSupportCardTwoTargets() {
                     type: "damageBuff",
                     value: 70,
                     duration: 1
+                }
+            ]
+        );
+
+    });
+
+    alert(card.name + " を使用！");
+
+    gameState.graveyard.push(card);
+
+    gameState.hand.splice(
+        gameState.selectedCardIndex,
+        1
+    );
+
+    gameState.selectedCard = null;
+    gameState.selectedCardIndex = null;
+    gameState.selectedSupportTargets = [];
+
+    showBattleScreen();
+
+}
+
+// ===============================
+// 私たちは最強なんだ
+// ===============================
+
+function useStrongestCard() {
+
+    const card = gameState.selectedCard;
+
+    gameState.selectedSupportTargets.forEach(index => {
+
+        const target =
+            gameState.battleCharacters[index];
+
+        applyEffects(
+            target,
+            target,
+            [
+                {
+                    type: "damageReduction",
+                    value: 30,
+                    duration: 2
                 }
             ]
         );
