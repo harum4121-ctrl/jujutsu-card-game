@@ -29,19 +29,6 @@ function applyEffects(user, target, effects) {
     target.freeUltimate = true;
 
     break;
-    
-            
-            case "searchUltimate":
-
-    if (cards.ultimate.length > 0) {
-
-        gameState.hand.push(
-            structuredClone(cards.ultimate[0])
-        );
-
-    }
-
-    break;
             
            case "skillCostDownPermanent":
 
