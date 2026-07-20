@@ -959,6 +959,91 @@ function showTwoAllyTarget() {
 
 }
 
+function updateTwoTargetArea() {
+
+    const area =
+        document.getElementById("twoTargetArea");
+
+    area.innerHTML = "";
+
+    gameState.battleCharacters.forEach((character, index) => {
+
+        if (character.currentHp <= 0) return;
+
+        const selected =
+            gameState.selectedSupportTargets.includes(index);
+
+        area.innerHTML += `
+
+        <div class="character">
+
+            <h3>${character.name}</h3>
+
+            <p>
+                HP：
+                ${character.currentHp}
+                /
+                ${character.maxHp}
+            </p>
+
+            <button
+                onclick="toggleSupportTarget(${index})"
+            >
+
+                ${
+                    selected
+                    ? "選択解除"
+                    : "選択"
+                }
+
+            </button>
+
+        </div>
+
+        <br>
+
+        `;
+
+    });
+
+    document.getElementById(
+        "confirmTwoTarget"
+    ).disabled =
+        gameState.selectedSupportTargets.length !== 2;
+
+}
+
+function toggleSupportTarget(index) {
+
+    if (
+        gameState.selectedSupportTargets.includes(index)
+    ) {
+
+        gameState.selectedSupportTargets =
+            gameState.selectedSupportTargets.filter(
+                i => i !== index
+            );
+
+    } else {
+
+        if (
+            gameState.selectedSupportTargets.length >= 2
+        ) {
+
+            alert("2人までです");
+
+            return;
+
+        }
+
+        gameState.selectedSupportTargets.push(index);
+
+    }
+
+    updateTwoTargetArea();
+
+}
+
 function selectSupportTarget(index) {
 
     if (gameState.selectedSupportTargets.includes(index)) {
