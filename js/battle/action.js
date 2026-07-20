@@ -889,3 +889,39 @@ if (
     return damage;
 
 }
+
+function showSealSkillSelect(enemy) {
+
+    const app = document.getElementById("app");
+
+    let html = `
+    <div class="battle">
+
+        <h2>封印するスキルを選択</h2>
+    `;
+
+    enemy.skills.forEach((skill, index) => {
+
+        html += `
+
+        <button
+            onclick="sealEnemySkill(${index})"
+        >
+
+            ${skill.name}
+
+        </button>
+
+        <br><br>
+
+        `;
+
+    });
+
+    html += `
+    </div>
+    `;
+
+    app.innerHTML = html;
+
+}
