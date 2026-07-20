@@ -88,23 +88,25 @@ const cards = {
         },
 
         {
-            id: "death_painting_1",
+    id: "death_painting_1",
 
-            name: "受胎九相図 一番",
+    name: "受胎九相図 一番",
 
-            type: "呪物",
+    type: "呪物",
 
-            effect: [
-                {
-                    type: "enemyCursedDown",
-                    value: 10
-                },
-                {
-                    type: "allyCursedUp",
-                    value: 10
-                }
-            ]
+    target: "敵全体",
+
+    effect: [
+        {
+            type: "allCursedPowerDown",
+            value: 10
         },
+        {
+            type: "allCursedPowerUp",
+            value: 10
+        }
+    ]
+},
 
         {
             id: "death_painting_2",
