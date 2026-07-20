@@ -662,40 +662,6 @@ function useSupportCardEnemy(index) {
 
 }
 
-function useSupportCardAllies() {
-
-    const card = gameState.selectedCard;
-
-    gameState.battleCharacters.forEach(character => {
-
-        if (character.currentHp <= 0) return;
-
-        applyEffects(
-            null,
-            character,
-            Array.isArray(card.effect)
-                ? card.effect
-                : [card.effect]
-        );
-
-    });
-
-    alert(card.name + " を使用！");
-
-    gameState.graveyard.push(card);
-
-    gameState.hand.splice(
-        gameState.selectedCardIndex,
-        1
-    );
-
-    gameState.selectedCard = null;
-    gameState.selectedCardIndex = null;
-
-    showBattleScreen();
-
-}
-
 function useSupportCardEnemies() {
 
     const card = gameState.selectedCard;
