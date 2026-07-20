@@ -218,7 +218,9 @@ function searchUltimateCard() {
 function addUltimateCard(id) {
 
     const index =
-        gameState.drawPile.findIndex(card => card.id === id);
+        gameState.drawPile.findIndex(
+            card => card.id === id
+        );
 
     if (index === -1) return;
 
@@ -226,6 +228,19 @@ function addUltimateCard(id) {
         gameState.drawPile.splice(index, 1)[0];
 
     gameState.hand.push(card);
+
+    // サポートカードを墓地へ
+    gameState.graveyard.push(
+        gameState.selectedCard
+    );
+
+    gameState.hand.splice(
+        gameState.selectedCardIndex,
+        1
+    );
+
+    gameState.selectedCard = null;
+    gameState.selectedCardIndex = null;
 
     alert(card.name + " を手札に加えた！");
 
