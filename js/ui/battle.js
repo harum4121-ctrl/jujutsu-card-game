@@ -1433,8 +1433,6 @@ function equipCard(index) {
         " を装備！"
     );
 
-    gameState.graveyard.push(card);
-
     gameState.hand.splice(
         gameState.selectedCardIndex,
         1
