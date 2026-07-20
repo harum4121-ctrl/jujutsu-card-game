@@ -1051,10 +1051,6 @@ function useSupportCardTwoTargets() {
 
     switch (card.id) {
 
-        case "go_ahead":
-            useGoAheadCard();
-            break;
-
         case "we_are_the_strongest":
             useStrongestCard();
             break;
