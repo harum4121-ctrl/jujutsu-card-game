@@ -10,12 +10,6 @@ function applyEffects(user, target, effects) {
 
         switch (effect.type) {
             
-            case "searchUltimate":
-
-    searchUltimateCard();
-
-    break;
-            
             case "skillCostZero":
 
     target.nextSkillFree = true;
@@ -44,22 +38,11 @@ function applyEffects(user, target, effects) {
             
             case "searchUltimate":
 
-    const index = gameState.drawPile.findIndex(
-        card => card.type === "必殺"
-    );
+    if (cards.ultimate.length > 0) {
 
-    if (index !== -1) {
-
-        const ultimate =
-            gameState.drawPile.splice(index, 1)[0];
-
-        gameState.hand.push(ultimate);
-
-        alert("必殺カードを手札に加えた！");
-
-    } else {
-
-        alert("山札に必殺カードがありません");
+        gameState.hand.push(
+            structuredClone(cards.ultimate[0])
+        );
 
     }
 
