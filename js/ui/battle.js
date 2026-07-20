@@ -503,6 +503,18 @@ function useCard(index) {
     const card = gameState.hand[index];
 
     if (card.type === "サポート") {
+        
+        // 対象不要カード
+if (card.id === "not_words") {
+
+    gameState.selectedCard = card;
+    gameState.selectedCardIndex = index;
+
+    searchUltimateCard();
+
+    return;
+
+}
 
         gameState.selectedCard = card;
         gameState.selectedCardIndex = index;
