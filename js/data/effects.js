@@ -280,12 +280,6 @@ if (character.ignoreInvincible > 0) {
 
 }
 
-if (character.ignoreInvincible > 0) {
-
-    character.ignoreInvincible--;
-
-}
-
     if (character.damageBuffTurn > 0) {
 
         character.damageBuffTurn--;
