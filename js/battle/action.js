@@ -869,15 +869,3 @@ if (
     return damage;
 
 }
-
-// ===============================
-// 装備判定
-// ===============================
-
-function hasEquipment(character, id) {
-
-    return character.equipment.some(
-        card => card.id === id
-    );
-
-}
