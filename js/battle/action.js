@@ -419,6 +419,8 @@ function attackEnemy(enemyIndex) {
     if (actor.doubleNextDamageStun) {
 
     actor.stun = 2;
+    
+    alert(actor.stun);
 
     actor.doubleNextDamageStun = false;
 
