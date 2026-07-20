@@ -416,6 +416,14 @@ function attackEnemy(enemyIndex) {
         skill.effects
     );
     
+    if (actor.doubleNextDamageStun) {
+
+    actor.stun = 2;
+
+    actor.doubleNextDamageStun = false;
+
+}
+    
     // 黒縄
 if (
     hasEquipment(actor, "black_rope") &&
