@@ -1078,7 +1078,7 @@ function useStrongestCard() {
             gameState.battleCharacters[index];
 
         applyEffects(
-            target,
+            null,
             target,
             [
                 {
