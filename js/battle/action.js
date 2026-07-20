@@ -973,6 +973,14 @@ else if (skill.attacks) {
 
     // 永続攻撃アップ
     damage += actor.attackBonus ?? 0;
+    
+    if (actor.doubleNextDamage) {
+
+    damage *= 2;
+
+    actor.doubleNextDamage = false;
+
+}
   
 // 呪具効果
 if (actor.equipment) {
