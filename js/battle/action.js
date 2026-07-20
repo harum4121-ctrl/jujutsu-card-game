@@ -416,6 +416,31 @@ function attackEnemy(enemyIndex) {
         skill.effects
     );
     
+    // 黒縄
+if (
+    hasEquipment(actor, "black_rope") &&
+    skill.attackType === "遠距離"
+) {
+
+    applyEffects(
+        actor,
+        enemy,
+        [
+            {
+                type: "damageDown",
+                value: 10,
+                duration: 1
+            }
+        ]
+    );
+
+    alert(
+        enemy.name +
+        " の与ダメージが10下がった！"
+    );
+
+}
+    
     // 天逆鉾
 
 if (
@@ -528,8 +553,7 @@ function attackAllEnemies(skipCost = false) {
             skill.effects
         );
         
-        // 黒縄
-if (
+        if (
     hasEquipment(actor, "black_rope") &&
     skill.attackType === "遠距離"
 ) {
@@ -545,6 +569,7 @@ if (
             }
         ]
     );
+
 }
 
     });
