@@ -29,6 +29,13 @@ function applyEffects(user, target, effects) {
     target.freeUltimate = true;
 
     break;
+    
+    case "doubleNextDamage":
+
+    target.doubleNextDamage = true;
+    target.doubleNextDamageStun = true;
+
+    break;
             
            case "skillCostDownPermanent":
 
