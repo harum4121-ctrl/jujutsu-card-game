@@ -1075,20 +1075,6 @@ function useGoAheadCard() {
 
     const card = gameState.selectedCard;
 
-    // カード使用者
-    const user =
-        gameState.battleCharacters.find(c => c.currentHp > 0);
-
-    if (!user) return;
-
-    // 自傷100
-    user.currentHp -= 100;
-
-    if (user.currentHp < 0) {
-
-        user.currentHp = 0;
-
-    }
 
     // 選んだ2人を強化
     gameState.selectedSupportTargets.forEach(index => {
