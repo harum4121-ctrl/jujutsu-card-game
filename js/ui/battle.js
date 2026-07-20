@@ -783,6 +783,31 @@ function useSupportCardAllies(){
 
     const card = gameState.selectedCard;
 
+    if (card.id === "death_painting_1") {
+
+    applyEffects(
+        null,
+        null,
+        card.effect
+    );
+
+    alert(card.name + " を使用！");
+
+    gameState.graveyard.push(card);
+
+    gameState.hand.splice(
+        gameState.selectedCardIndex,
+        1
+    );
+
+    gameState.selectedCard = null;
+    gameState.selectedCardIndex = null;
+
+    showBattleScreen();
+
+    return;
+
+}
 
     gameState.battleCharacters.forEach(character=>{
 
