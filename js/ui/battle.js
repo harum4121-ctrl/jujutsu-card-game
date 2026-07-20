@@ -1058,6 +1058,7 @@ function useSupportCardTwoTargets() {
         default:
 
             alert("未対応のカードです");
+            return;
 
     }
 
