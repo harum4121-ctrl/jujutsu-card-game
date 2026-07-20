@@ -200,7 +200,14 @@ function selectSkill(index) {
         return;
 
     }
+// 無下限呪術
+if (skill.name === "無下限呪術") {
 
+    showInfinityTarget();
+
+    return;
+
+}
     // 単体攻撃
     showEnemySelect();
 
