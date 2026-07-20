@@ -874,11 +874,6 @@ function nextActor() {
 
         gameState.selectedActors = [];
 
-        gameState.battleCharacters.forEach(updateStatus);
-
-        gameState.enemyCharacters.forEach(updateStatus);
-
-
     enemyTurn();
 
 
