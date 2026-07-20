@@ -409,8 +409,9 @@ function displayBattleCharacters() {
             gameState.selectedActors.includes(character);
 
         const disabled =
-            character.currentHp <= 0 ||
-            character.hasActed;
+    character.currentHp <= 0 ||
+    character.hasActed ||
+    character.stun > 0;
 
         area.innerHTML += `
 
