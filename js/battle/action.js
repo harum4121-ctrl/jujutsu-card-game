@@ -520,6 +520,25 @@ function attackAllEnemies(skipCost = false) {
             enemy,
             skill.effects
         );
+        
+        // 黒縄
+if (
+    hasEquipment(actor, "black_rope") &&
+    skill.attackType === "遠距離"
+) {
+
+    applyEffects(
+        actor,
+        enemy,
+        [
+            {
+                type: "damageDown",
+                value: 10,
+                duration: 1
+            }
+        ]
+    );
+}
 
     });
 
