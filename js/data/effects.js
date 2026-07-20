@@ -76,6 +76,16 @@ function applyEffects(user, target, effects) {
                     effect.duration ?? 0;
 
                 break;
+                
+            case "damageDown":
+
+    target.damageDown =
+        effect.value;
+
+    target.damageDownTurn =
+        effect.duration;
+
+    break;
 
             // 永続攻撃アップ
             case "damageBuffPermanent":
