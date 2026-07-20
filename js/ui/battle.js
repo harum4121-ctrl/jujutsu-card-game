@@ -41,6 +41,9 @@ function startBattle() {
 damageBuff: 0,
 damageBuffTurn: 0,
 
+doubleNextDamage: false,
+doubleNextDamageStun: false,
+
 damageReduction: 0,
 damageReductionTurn: 0,
 
