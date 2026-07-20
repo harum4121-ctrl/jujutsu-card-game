@@ -87,6 +87,8 @@ gameState.enemyCharacters = [
         ultimate: enemy.ultimate ?? null,
 
         cooldowns: {},
+        
+        sealedSkills: {},
 
         turnCount: 0,
 
