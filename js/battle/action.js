@@ -408,6 +408,24 @@ function attackEnemy(enemyIndex) {
         enemy,
         skill.effects
     );
+    
+    // 天逆鉾
+
+if (
+
+    hasEquipment(actor, "heavenly_spear") &&
+
+    skill.attackType === "近接"
+
+) {
+
+    gameState.heavenlyTarget = enemy;
+
+    showSealSkillSelect(enemy);
+
+    return;
+
+}
 
     alert(
         actor.name +
