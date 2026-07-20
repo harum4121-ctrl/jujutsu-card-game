@@ -864,6 +864,9 @@ if (actor.equipment) {
 
     // 一時的な与ダメアップ
     damage += actor.damageBuff ?? 0;
+    
+    // 与ダメージダウン
+    damage -= actor.damageDown ?? 0;
 
     // 被ダメアップ
     damage += target.damageTakenUp ?? 0;
