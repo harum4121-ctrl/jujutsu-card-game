@@ -1117,35 +1117,76 @@ function enemyTurn() {
         enemy.turnCount++;
 
 
-        let skill;
+        let skill = null;
 
-        // 5ターンごとに必殺技
-        if (
-            enemy.turnCount % 5 === 0 &&
-            enemy.ultimate
-        ) {
+// 5ターンごとなら必殺技を優先
+if (
+    enemy.turnCount % 5 === 0 &&
+    enemy.ultimate &&
+    !enemy.sealedSkills["ultimate"]
+) {
 
-            skill = enemy.ultimate;
-
-        } else {
-
-            const r = Math.random() * 100;
-
-if (r < 20) {
-
-    skill = enemy.skills[2]; // 打撃
-
-} else if (r < 60) {
-
-    skill = enemy.skills[1]; // 捌
+    skill = enemy.ultimate;
 
 } else {
 
-    skill = enemy.skills[0]; // 解
+    // 使用可能な通常技だけ集める
+    let usable = [];
 
-}
+    if (!enemy.sealedSkills[0]) {
+
+        usable.push({
+            skill: enemy.skills[0],
+            weight: 40
+        });
+
+    }
+
+    if (!enemy.sealedSkills[1]) {
+
+        usable.push({
+            skill: enemy.skills[1],
+            weight: 40
+        });
+
+    }
+
+    if (!enemy.sealedSkills[2]) {
+
+        usable.push({
+            skill: enemy.skills[2],
+            weight: 20
+        });
+
+    }
+
+    if (usable.length === 0) {
+
+        alert(enemy.name + " は使用できる技がない！");
+        return;
+
+    }
+
+    // 重み付き抽選
+    const total =
+        usable.reduce((sum, s) => sum + s.weight, 0);
+
+    let r = Math.random() * total;
+
+    for (const s of usable) {
+
+        if (r < s.weight) {
+
+            skill = s.skill;
+            break;
 
         }
+
+        r -= s.weight;
+
+    }
+
+}
 
         // 次はここから攻撃処理を書く
         // 攻撃対象
