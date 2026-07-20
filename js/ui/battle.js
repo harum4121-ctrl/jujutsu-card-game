@@ -1068,52 +1068,6 @@ function useSupportCardTwoTargets() {
 }
 
 // ===============================
-// 先に逝く せいぜい頑張れ
-// ===============================
-
-function useGoAheadCard() {
-
-    const card = gameState.selectedCard;
-
-
-    // 選んだ2人を強化
-    gameState.selectedSupportTargets.forEach(index => {
-
-        const target =
-            gameState.battleCharacters[index];
-
-        applyEffects(
-            target,
-            target,
-            [
-                {
-                    type: "damageBuff",
-                    value: 70,
-                    duration: 1
-                }
-            ]
-        );
-
-    });
-
-    alert(card.name + " を使用！");
-
-    gameState.graveyard.push(card);
-
-    gameState.hand.splice(
-        gameState.selectedCardIndex,
-        1
-    );
-
-    gameState.selectedCard = null;
-    gameState.selectedCardIndex = null;
-    gameState.selectedSupportTargets = [];
-
-    showBattleScreen();
-
-}
-
-// ===============================
 // 私たちは最強なんだ
 // ===============================
 
