@@ -696,6 +696,45 @@ function showInfinityTarget() {
 
 }
 
+function useInfinity(index) {
+
+    const actor =
+        gameState.selectedActors[
+            gameState.currentActorIndex
+        ];
+
+    const skill =
+        gameState.selectedSkill;
+
+    if (!useSkillCost(actor, skill)) {
+
+        showSkillSelect();
+        return;
+
+    }
+
+    const target =
+        gameState.battleCharacters[index];
+
+    // 選択した味方
+    target.invincible = 1;
+
+    // 五条自身
+    actor.invincible = 1;
+
+    alert(
+        actor.name +
+        " は無下限呪術を発動！\n\n" +
+        actor.name +
+        " と " +
+        target.name +
+        " が1ターン無敵になった！"
+    );
+
+    nextActor();
+
+}
+
 // ===============================
 // 単体回復
 // ===============================
