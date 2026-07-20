@@ -13,6 +13,7 @@ const gameState = {
     selectedActors: [],
     selectedSupportTargets: [],
     currentField: null,
+    selectedSupportTargets: [],
 
     selectedEnemy: "",
 
