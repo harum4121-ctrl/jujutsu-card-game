@@ -925,3 +925,19 @@ function showSealSkillSelect(enemy) {
     app.innerHTML = html;
 
 }
+
+function sealEnemySkill(index) {
+
+    const enemy =
+        gameState.heavenlyTarget;
+
+    enemy.sealedSkills[index] = 1;
+
+    alert(
+        enemy.skills[index].name +
+        " を封印した！"
+    );
+
+    nextActor();
+
+}
