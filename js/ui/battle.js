@@ -1734,7 +1734,20 @@ function useFieldCard() {
 
     };
 
-    alert(card.name + " を展開した！");
+    const oldField = gameState.currentField;
+
+gameState.currentField = {
+
+    card: card,
+    turn: 0
+
+};
+
+alert(
+    oldField
+        ? oldField.card.name + " を " + card.name + " で上書きした！"
+        : card.name + " を展開した！"
+);
 
     gameState.graveyard.push(card);
 
