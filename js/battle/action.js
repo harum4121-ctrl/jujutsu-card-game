@@ -1007,6 +1007,22 @@ function checkBattleEnd() {
         return true;
 
     }
+    
+    // 敵の山札切れ（勝利）
+
+    if (
+
+        gameState.enemyDrawPile &&
+
+        gameState.enemyDrawPile.length === 0
+
+    ) {
+
+        showBattleResult("win");
+
+        return true;
+
+    }
 
     const playerAlive =
         gameState.battleCharacters.some(
