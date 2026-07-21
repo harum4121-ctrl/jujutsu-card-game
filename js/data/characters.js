@@ -330,14 +330,14 @@ const characters = {
             {
                 name: "動くな",
                 attackType: "特殊",
-                target: "2体",
+                target: "単体",
                 cost: 30,
                 ct: 3,
                 selfDamage: 40,
                 effects: [
                     {
                         type: "stun",
-                        duration: 1
+                        duration: 2
                     }
                 ]
             },
