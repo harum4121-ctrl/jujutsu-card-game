@@ -1596,14 +1596,6 @@ function equipCard(index) {
 
 }
 
-function hasEquipment(character, equipmentId) {
-
-    return character.equipment.some(
-        card => card.id === equipmentId
-    );
-
-}
-
 function useFieldCard() {
 
     const card = gameState.selectedCard;
