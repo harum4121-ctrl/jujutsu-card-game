@@ -75,17 +75,19 @@ const cards = {
     cursedObjects: [
 
         {
-            id: "sukuna_finger",
+    id: "sukunas_finger",
 
-            name: "宿儺の指",
+    name: "宿儺の指",
 
-            type: "呪物",
+    type: "呪物",
 
-            effect: {
-                type: "taunt",
-                duration: 1
-            }
-        },
+    target: "味方単体",
+
+    effect: {
+        type: "taunt",
+        duration: 2
+    }
+},
 
         {
     id: "death_painting_1",
