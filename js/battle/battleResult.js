@@ -48,20 +48,6 @@ function checkBattleEnd() {
 
 }
 
-function drawCard() {
-
-    if (gameState.drawPile.length === 0) {
-        return false;
-    }
-
-    const card = gameState.drawPile.shift();
-
-    gameState.hand.push(card);
-
-    return true;
-
-}
-
 function showBattleResult(result) {
 
     const app = document.getElementById("app");
