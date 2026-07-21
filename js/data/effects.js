@@ -37,6 +37,28 @@ function applyEffects(user, target, effects) {
 
     break;
     
+    case "teamCursedPowerUp":
+
+    gameState.battleCharacters.forEach(character => {
+
+        if(character.currentHp <= 0) return;
+
+        character.currentCursedPower += effect.value;
+
+        if(
+            character.currentCursedPower >
+            character.maxCursedPower
+        ){
+
+            character.currentCursedPower =
+                character.maxCursedPower;
+
+        }
+
+    });
+
+    break;
+    
     case "selfHeal":
 
     user.currentHp =
