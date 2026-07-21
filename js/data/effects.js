@@ -17,6 +17,12 @@ function applyEffects(user, target, effects) {
 
     break;
     
+    case "taunt":
+
+    target.taunt = effect.duration;
+
+    break;
+    
     case "extraAction":
 
     target.extraAction = true;
