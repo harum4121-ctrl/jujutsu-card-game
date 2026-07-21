@@ -1508,10 +1508,11 @@ if (checkBattleEnd()) {
     return;
 }
 
-drawCard();
+if (!drawCard()) {
 
-if (checkBattleEnd()) {
+    showBattleResult("lose");
     return;
+
 }
 
 showBattleScreen();
