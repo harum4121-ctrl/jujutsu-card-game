@@ -308,5 +308,11 @@ if (character.ignoreInvincible > 0) {
         character.stun--;
 
     }
+    
+    if (character.taunt > 0) {
+
+    character.taunt--;
+
+}
 
 }
