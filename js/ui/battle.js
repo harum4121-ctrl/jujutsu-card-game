@@ -344,11 +344,11 @@ fieldText.textContent =
 // ===============================
 // カードを引く
 // ===============================
-
 function drawCard(){
 
-
     if(gameState.drawPile.length === 0){
+
+        showBattleResult("lose");
 
         return;
 
@@ -362,6 +362,7 @@ function drawCard(){
     gameState.hand.push(card);
 
 }
+
 // ===============================
 // 敵表示
 // ===============================
