@@ -1411,7 +1411,7 @@ gameState.enemyCharacters.forEach(enemy => {
         // 受胎九相図 二番
 if (character.extraActionStun) {
 
-    character.stun = 1;
+    character.stun = 2;
     character.extraActionStun = false;
 
 }
