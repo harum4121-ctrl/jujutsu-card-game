@@ -1037,6 +1037,20 @@ function checkBattleEnd() {
         return true;
 
     }
+    
+    // 自分の山札切れ（敗北）
+
+    if (
+
+        gameState.drawPile.length === 0
+
+    ) {
+
+        showBattleResult("lose");
+
+        return true;
+
+    }
 
     return false;
 
