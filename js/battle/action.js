@@ -884,14 +884,29 @@ function healAllCharacters() {
 function nextActor() {
 
 
+    const actor =
     gameState.selectedActors[
-
         gameState.currentActorIndex
+    ];
 
-    ].hasActed = true;
+// 受胎九相図 二番
+if (
+    actor.extraAction &&
+    !actor.extraActionUsed
+) {
 
+    actor.extraActionUsed = true;
+    actor.extraAction = false;
 
-    gameState.currentActorIndex++;
+    showSkillSelect();
+
+    return;
+
+}
+
+actor.hasActed = true;
+
+gameState.currentActorIndex++;
 
 
     if (checkBattleEnd()) {
