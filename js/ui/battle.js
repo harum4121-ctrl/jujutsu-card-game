@@ -1,4 +1,3 @@
-alert("battle.js読み込み");
 // ===============================
 // バトル開始
 // ===============================
@@ -57,6 +56,7 @@ ignoreInvincible: 0,
 
 invincible: 0,
 stun: 0,
+taunt: 0,
 
 skillCostDown: 0,
 nextSkillFree: false,
