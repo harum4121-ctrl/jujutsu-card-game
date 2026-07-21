@@ -114,7 +114,7 @@ const characters = {
 
             effects: [
                 {
-                    type: "enemyDamageDown",
+                    type: "damageDown",
                     value: 15,
                     duration: 3
                 }
