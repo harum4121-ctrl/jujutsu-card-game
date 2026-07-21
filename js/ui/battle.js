@@ -1407,6 +1407,14 @@ gameState.enemyCharacters.forEach(enemy => {
             }
 
         }
+        
+        // 受胎九相図 二番
+if (character.extraActionStun) {
+
+    character.stun = 1;
+    character.extraActionStun = false;
+
+}
 
         // 行動可能に戻す
         character.hasActed = false;
