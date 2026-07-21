@@ -62,21 +62,16 @@ function checkBattleEnd() {
 
 }
 
-function drawCard(){
+function drawCard() {
 
-    if(gameState.drawPile.length === 0){
-
-        showBattleResult("lose");
-
-        return;
-
+    if (gameState.drawPile.length === 0) {
+        return false;
     }
 
-
-    const card =
-        gameState.drawPile.shift();
-
+    const card = gameState.drawPile.shift();
 
     gameState.hand.push(card);
+
+    return true;
 
 }
