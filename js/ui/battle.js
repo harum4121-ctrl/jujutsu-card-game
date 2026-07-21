@@ -1716,13 +1716,16 @@ function useFieldCard() {
     const card = gameState.selectedCard;
 
     // すでに領域があるなら使用不可
-    if (gameState.currentField) {
+    if (
+    gameState.currentField &&
+    gameState.currentField.turn < 2
+) {
 
-        alert("すでに領域が展開されています");
+    alert("まだ領域を上書きできません");
 
-        return;
+    return;
 
-    }
+}
 
     gameState.currentField = {
 
