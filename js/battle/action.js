@@ -34,6 +34,16 @@ function showSkillSelect() {
         gameState.selectedActors[
             gameState.currentActorIndex
         ];
+        
+        if (actor.stun > 0) {
+
+    alert(actor.name + " は行動不能！");
+
+    nextActor();
+
+    return;
+
+}
 
     const actorData =
         characters[actor.id];
