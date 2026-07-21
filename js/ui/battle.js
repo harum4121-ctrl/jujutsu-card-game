@@ -1210,7 +1210,15 @@ function enemyTurn() {
     enemiesAlive.forEach(enemy => {
 
         enemy.turnCount++;
+        
+// スタン中なら行動できない
+if (enemy.stun > 0) {
 
+    alert(enemy.name + " は行動不能！");
+
+    return;
+
+}
 
         let skill = null;
 
