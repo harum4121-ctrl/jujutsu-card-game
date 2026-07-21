@@ -111,10 +111,15 @@ function applyEffects(user, target, effects) {
             // スタン
             case "stun":
 
-                target.stun =
-                    effect.duration ?? 1;
+    target.stun = effect.duration ?? 1;
 
-                break;
+    alert(
+        target.name +
+        " のスタン：" +
+        target.stun
+    );
+
+    break;
 
             // 無敵
             case "invincible":
