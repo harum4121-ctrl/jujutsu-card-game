@@ -138,16 +138,16 @@ skillCostDown: 0
     gameState.hand = [];
     gameState.graveyard = [];
 
-
-
-// 初期手札5枚
 for (let i = 0; i < 5; i++) {
 
-    drawCard();
+    if (!drawCard()) {
+
+        showBattleResult("lose");
+        return;
+
+    }
 
 }
-
-
 
 // 行動状態リセット
 gameState.battleCharacters.forEach(character => {
