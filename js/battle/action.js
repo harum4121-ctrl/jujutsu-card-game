@@ -947,6 +947,14 @@ if (
 
 actor.hasActed = true;
 
+console.log(
+
+        actor.name + " acted:",
+
+        actor.hasActed
+
+    );
+
 gameState.currentActorIndex++;
 
 
