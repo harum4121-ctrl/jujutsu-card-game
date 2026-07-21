@@ -360,8 +360,7 @@ const characters = {
 
             effects: [
                 {
-                    type: "heal",
-                    target: "self",
+                    type: "selfheal",
                     value: 80
                 }
             ]
