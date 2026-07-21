@@ -1287,12 +1287,22 @@ if (
 alert("宿儺は " + skill.name + " を選択");
         if (skill.target === "単体") {
 
-            const target =
-                playersAlive[
-                    Math.floor(
-                        Math.random() * playersAlive.length
-                    )
-                ];
+            let target =
+    playersAlive.find(
+        character => character.taunt > 0
+    );
+
+if (!target) {
+
+    target =
+        playersAlive[
+            Math.floor(
+                Math.random() *
+                playersAlive.length
+            )
+        ];
+
+}
 
             const damage =
                 calculateDamage(enemy, target, skill);
