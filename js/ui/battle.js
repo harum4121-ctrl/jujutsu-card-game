@@ -269,6 +269,8 @@ function showBattleScreen() {
         <div class="battle">
 
             <h1>バトル</h1>
+            
+            <p id="fieldName"></p>
 
             <h2>敵</h2>
             <div id="enemyCharacters"></div>
