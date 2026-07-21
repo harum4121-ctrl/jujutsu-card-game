@@ -367,6 +367,8 @@ function showEnemySelect() {
 // ===============================
 
 function attackEnemy(enemyIndex) {
+    
+    alert("attackEnemy開始");
 
     const actor =
         gameState.selectedActors[
@@ -991,6 +993,8 @@ function checkBattleEnd() {
 // ===============================
 
 function calculateDamage(actor, target, skill) {
+
+alert("calculateDamage開始");
 
     let damage = 0;
 
