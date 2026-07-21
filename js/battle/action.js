@@ -988,46 +988,6 @@ gameState.currentActorIndex++;
 
 }
 
-// ===============================
-// ダメージ計算
-// ===============================
-
-function calculateDamage(actor, target, skill) {
-
-alert("calculateDamage開始");
-
-    let damage = 0;
-
-if (skill.damage != null) {
-
-    damage = skill.damage;
-
-}
-else if (skill.attacks) {
-
-    skill.attacks.forEach(attack => {
-
-        damage += attack.damage;
-
-    });
-
-}
-
-    // 多段攻撃
-    if (skill.hits) {
-        damage *= skill.hits;
-    }
-
-    // 永続攻撃アップ
-    damage += actor.attackBonus ?? 0;
-    
-    if (actor.doubleNextDamage) {
-
-    damage *= 2;
-
-    actor.doubleNextDamage = false;
-
-}
 
 // ===============================
 // 領域効果
