@@ -75,3 +75,35 @@ function drawCard() {
     return true;
 
 }
+
+function showBattleResult(result) {
+
+    const app = document.getElementById("app");
+
+    if (result === "win") {
+
+        app.innerHTML = `
+            <div class="battle">
+                <h1>勝利！</h1>
+
+                <button onclick="showTitle()">
+                    タイトルへ戻る
+                </button>
+            </div>
+        `;
+
+    } else {
+
+        app.innerHTML = `
+            <div class="battle">
+                <h1>敗北...</h1>
+
+                <button onclick="showTitle()">
+                    タイトルへ戻る
+                </button>
+            </div>
+        `;
+
+    }
+
+}
