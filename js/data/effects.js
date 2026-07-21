@@ -37,6 +37,16 @@ function applyEffects(user, target, effects) {
 
     break;
     
+    case "selfHeal":
+
+    user.currentHp =
+        Math.min(
+            user.maxHp,
+            user.currentHp + effect.value
+        );
+
+    break;
+    
     case "freeUltimate":
 
     target.freeUltimate = true;
