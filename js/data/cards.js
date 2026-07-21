@@ -139,27 +139,36 @@ const cards = {
         },
 
         {
-    id: "prison_realm",
 
-    name: "獄門疆",
+            id: "prison_realm",
 
-    type: "呪物",
+            name: "獄門疆",
 
-    target: "敵単体",
+            type: "呪物",
 
-    effect: [
-        {
-            type: "stun",
-            duration: 5
+            target: "敵単体",
+
+            effect: [
+
+                {
+
+                    type: "stun",
+
+                    duration: 5
+
+                },
+
+                {
+
+                    type: "invincible",
+
+                    duration: 5
+
+                }
+
+            ]
+
         },
-        {
-            type: "invincible",
-            duration: 5
-        }
-    ]
-},
-
-
 
     support: [
 
