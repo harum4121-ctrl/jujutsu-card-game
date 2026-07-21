@@ -108,18 +108,19 @@ const cards = {
     ]
 },
 
-        {
-            id: "death_painting_2",
+       {
+    id: "death_painting_2",
 
-            name: "受胎九相図 二番",
+    name: "受胎九相図 二番",
 
-            type: "呪物",
+    type: "呪物",
 
-            effect: {
-                type: "extraAction",
-                penalty: "stunNextTurn"
-            }
-        },
+    target: "味方単体",
+
+    effect: {
+        type: "extraAction"
+    }
+},
 
         {
             id: "death_painting_3",
