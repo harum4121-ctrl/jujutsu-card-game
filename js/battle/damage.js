@@ -35,6 +35,12 @@ else if (skill.attacks) {
 
 }
 
+    if (damage < 0) {
+        damage = 0;
+    }
+
+    return damage;
+
 }
 
 function useSkillCost(actor, skill) {
@@ -103,14 +109,6 @@ function useSkillCost(actor, skill) {
     }
 
     return true;
-}
-// 最低0ダメージ
-    if (damage < 0) {
-        damage = 0;
-    }
-
-    return damage;
-
 }
 
 function getUltimateCardCount() {
