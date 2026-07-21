@@ -574,6 +574,9 @@ if (card.id === "not_words") {
     return;
 }else if (card.type === "領域") {
 
+    gameState.selectedCard = card;
+    gameState.selectedCardIndex = index;
+
     useFieldCard();
 
     return;
@@ -1715,39 +1718,28 @@ function useFieldCard() {
 
     const card = gameState.selectedCard;
 
-    // すでに領域があるなら使用不可
-    if (
-    gameState.currentField &&
-    gameState.currentField.turn < 2
-) {
-
-    alert("まだ領域を上書きできません");
-
-    return;
-
-}
-
-    gameState.currentField = {
-
-        card: card,
-        turn: 0
-
-    };
-
     const oldField = gameState.currentField;
 
-gameState.currentField = {
+    if (
+        oldField &&
+        oldField.turn < 2
+    ) {
 
-    card: card,
-    turn: 0
+        alert("まだ領域を上書きできません");
+        return;
 
-};
+    }
 
-alert(
-    oldField
-        ? oldField.card.name + " を " + card.name + " で上書きした！"
-        : card.name + " を展開した！"
-);
+    gameState.currentField = {
+        card: card,
+        turn: 0
+    };
+
+    alert(
+        oldField
+            ? oldField.card.name + " を " + card.name + " で上書きした！"
+            : card.name + " を展開した！"
+    );
 
     gameState.graveyard.push(card);
 
@@ -1760,5 +1752,4 @@ alert(
     gameState.selectedCardIndex = null;
 
     showBattleScreen();
-
 }
