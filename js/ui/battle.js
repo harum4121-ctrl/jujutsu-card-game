@@ -1693,3 +1693,39 @@ function useSkillCost(actor, skill) {
     return true;
 
 }
+
+function useFieldCard() {
+
+    const card = gameState.selectedCard;
+
+    // すでに領域があるなら使用不可
+    if (gameState.currentField) {
+
+        alert("すでに領域が展開されています");
+
+        return;
+
+    }
+
+    gameState.currentField = {
+
+        card: card,
+        turn: 0
+
+    };
+
+    alert(card.name + " を展開した！");
+
+    gameState.graveyard.push(card);
+
+    gameState.hand.splice(
+        gameState.selectedCardIndex,
+        1
+    );
+
+    gameState.selectedCard = null;
+    gameState.selectedCardIndex = null;
+
+    showBattleScreen();
+
+}
