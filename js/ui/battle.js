@@ -1213,8 +1213,6 @@ function enemyTurn() {
 
     }
 
-
-
     const enemiesAlive =
 
         gameState.enemyCharacters.filter(
