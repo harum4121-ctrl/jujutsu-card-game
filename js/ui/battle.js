@@ -1265,6 +1265,13 @@ if (
         });
 
     }
+    
+    // 領域ターン経過
+if (gameState.currentField) {
+
+    gameState.currentField.turn++;
+
+}
 
     if (!enemy.sealedSkills[2]) {
 
