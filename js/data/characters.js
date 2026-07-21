@@ -417,7 +417,7 @@ const characters = {
             costCard: 1,
             effects: [
                 {
-                    type: "cursedUp",
+                    type: "teamCursedPowerUp",
                     value: 30
                 }
             ]
