@@ -62,7 +62,11 @@ skillCostDown: 0,
 nextSkillFree: false,
 freeUltimate: false,
             
-            hasActed: false
+hasActed: false,
+
+extraAction: false,
+extraActionUsed: false,
+extraActionStun: false
 
         });
 
