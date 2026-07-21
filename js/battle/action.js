@@ -989,59 +989,6 @@ gameState.currentActorIndex++;
 }
 
 // ===============================
-// 勝敗判定
-// ===============================
-
-function checkBattleEnd() {
-
-    const enemyAlive =
-        gameState.enemyCharacters.some(
-            enemy =>
-                enemy.currentHp > 0
-        );
-
-    if (!enemyAlive) {
-
-        showBattleResult("win");
-
-        return true;
-
-    }
-    
-    // 敵の山札切れ（勝利）
-
-    if (
-
-        gameState.enemyDrawPile &&
-
-        gameState.enemyDrawPile.length === 0
-
-    ) {
-
-        showBattleResult("win");
-
-        return true;
-
-    }
-
-    const playerAlive =
-        gameState.battleCharacters.some(
-            character =>
-                character.currentHp > 0
-        );
-
-    if (!playerAlive) {
-
-        showBattleResult("lose");
-
-        return true;
-
-    }
-
-    return false;
-
-}
-// ===============================
 // ダメージ計算
 // ===============================
 
