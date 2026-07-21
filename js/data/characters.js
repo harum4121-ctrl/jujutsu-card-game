@@ -515,16 +515,10 @@ const characters = {
             costCard: 2,
 
             effects:[
-    {
-        type:"damageBuff",
-        value:50,
-        duration:3
-    },
-    {
-        type:"cursedUp",
-        value:100
-    }
-]
+                {
+                    type:"sukunaOpen"
+                }
+            ]
         }
     },
 
