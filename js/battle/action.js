@@ -428,6 +428,35 @@ function attackEnemy(enemyIndex) {
         skill.effects
     );
     
+    // 宿儺「開」
+if(skill.name === "開"){
+
+    // 与ダメージアップ
+    actor.damageBuff = 50;
+    actor.damageBuffTurn = 3;
+
+
+    // 呪力回復
+    actor.currentCursedPower += 100;
+
+    if(
+        actor.currentCursedPower >
+        actor.maxCursedPower
+    ){
+
+        actor.currentCursedPower =
+            actor.maxCursedPower;
+
+    }
+
+    alert(
+        "宿儺の『開』！\n\n" +
+        "与ダメージが50上昇！\n" +
+        "呪力が100回復した！"
+    );
+
+}
+    
     if (actor.doubleNextDamageStun) {
 
     actor.stun = 2;
