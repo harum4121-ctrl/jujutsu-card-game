@@ -1,7 +1,5 @@
 function calculateDamage(actor, target, skill) {
 
-alert("calculateDamage開始");
-
     let damage = 0;
 
 if (skill.damage != null) {
