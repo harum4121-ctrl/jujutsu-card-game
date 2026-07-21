@@ -1510,6 +1510,10 @@ if (checkBattleEnd()) {
 
 drawCard();
 
+if (checkBattleEnd()) {
+    return;
+}
+
 showBattleScreen();
 
 
