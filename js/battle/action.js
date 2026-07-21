@@ -947,7 +947,7 @@ if (
 
 actor.hasActed = true;
 
-console.log(
+Alert(
 
         actor.name + " acted:",
 
