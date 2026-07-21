@@ -1719,6 +1719,8 @@ function useFieldCard() {
     const card = gameState.selectedCard;
 
     const oldField = gameState.currentField;
+    
+    alert(JSON.stringify(gameState.currentField));
 
     if (
         oldField &&
