@@ -35,6 +35,8 @@ else if (skill.attacks) {
 
 }
 
+}
+
 function useSkillCost(actor, skill) {
 
     // 呪力不足
