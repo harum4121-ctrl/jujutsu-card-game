@@ -562,11 +562,13 @@ if (card.id === "not_words") {
     showEquipmentTarget();
 
     return;
-} else if (card.type === "領域") {
+}else if (card.type === "領域") {
 
-        // 領域カード処理
+    useFieldCard();
 
-    } else if (card.type === "呪物") {
+    return;
+
+}else if (card.type === "呪物") {
 
     gameState.selectedCard = card;
     gameState.selectedCardIndex = index;
