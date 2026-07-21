@@ -327,13 +327,6 @@ fieldText.textContent =
 
         }
 
-        // 行動済みフラグをリセット
-        gameState.selectedActors.forEach(character => {
-
-            character.hasActed = false;
-
-        });
-
         startActionPhase();
 
     };
