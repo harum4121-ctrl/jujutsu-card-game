@@ -1204,6 +1204,15 @@ function useStrongestCard() {
 // ===============================
 
 function enemyTurn() {
+    
+// 領域ターン経過
+
+    if (gameState.currentField) {
+
+        gameState.currentField.turn++;
+
+    }
+
 
 
     const enemiesAlive =
