@@ -515,12 +515,17 @@ const characters = {
             damage: 250,
             costCard: 2,
 
-            effects: [
-                {
-                    type: "cursedUp",
-                    value: 20
-                }
-            ]
+            effects:[
+    {
+        type:"damageBuff",
+        value:50,
+        duration:3
+    },
+    {
+        type:"cursedUp",
+        value:100
+    }
+]
         }
     },
 
