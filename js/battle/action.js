@@ -1024,6 +1024,44 @@ else if (skill.attacks) {
     actor.doubleNextDamage = false;
 
 }
+
+// ===============================
+// 領域効果
+// ===============================
+
+if (gameState.currentField) {
+
+    switch (gameState.currentField.card.id) {
+
+        // 帳
+        case "curtain":
+            damage -= 10;
+            break;
+
+        // 仙台結界
+        case "sendai_barrier":
+            if (attacker.type === "術") {
+                damage += 10;
+            }
+            break;
+
+        // 東京結界
+        case "tokyo_barrier":
+            if (attacker.type === "体") {
+                damage += 10;
+            }
+            break;
+
+        // 東京都立呪術高等専門学校
+        case "tokyo_jujutsu_high":
+            damage -= 30;
+            break;
+
+    }
+
+}
+
+damage = Math.max(0, damage);
   
 // 呪具効果
 if (actor.equipment) {
