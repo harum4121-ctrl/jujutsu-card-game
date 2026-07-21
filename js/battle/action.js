@@ -947,7 +947,7 @@ if (
 
 actor.hasActed = true;
 
-Alert(
+alert(
 
         actor.name + " acted:",
 
