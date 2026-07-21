@@ -1040,14 +1040,14 @@ if (gameState.currentField) {
 
         // 仙台結界
         case "sendai_barrier":
-            if (attacker.type === "術") {
+            if (actor.type === "術") {
                 damage += 10;
             }
             break;
 
         // 東京結界
         case "tokyo_barrier":
-            if (attacker.type === "体") {
+            if (actor.type === "体") {
                 damage += 10;
             }
             break;
