@@ -1520,31 +1520,6 @@ showBattleScreen();
 
 }
 
-// ===============================
-// 必殺カード消費
-// ===============================
-
-function consumeUltimateCards(count) {
-
-    let remain = count;
-
-    gameState.hand = gameState.hand.filter(card => {
-
-        if (remain > 0 && card.type === "必殺") {
-
-            gameState.graveyard.push(card);
-            remain--;
-
-            return false;
-
-        }
-
-        return true;
-
-    });
-
-}
-
 function showEquipmentTarget() {
 
     const app = document.getElementById("app");
