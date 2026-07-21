@@ -1442,6 +1442,17 @@ if (character.extraActionStun) {
     
     // 状態異常ターン経過
 gameState.battleCharacters.forEach(updateStatus);
+
+gameState.enemyCharacters.forEach(enemy => {
+
+    alert(
+        enemy.name +
+        " stun=" +
+        enemy.stun
+    );
+
+});
+
 gameState.enemyCharacters.forEach(updateStatus);
 
 drawCard();
