@@ -17,6 +17,13 @@ function applyEffects(user, target, effects) {
 
     break;
     
+    case "extraAction":
+
+    target.extraAction = true;
+    target.extraActionStun = true;
+
+    break;
+    
     case "ignoreInvincible":
 
     target.ignoreInvincible =
