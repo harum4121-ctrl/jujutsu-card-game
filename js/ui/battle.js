@@ -1479,12 +1479,6 @@ gameState.enemyCharacters.forEach(enemy => {
 
 gameState.enemyCharacters.forEach(updateStatus);
 
-if (gameState.currentField) {
-
-    gameState.currentField.turn++;
-
-}
-
 drawCard();
 
 showBattleScreen();
