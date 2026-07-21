@@ -1,7 +1,3 @@
-// ===============================
-// ターン経過
-// ===============================
-
 function updateStatus(character) {
     
     if ((character.damageReductionTurn ?? 0) > 0) {
