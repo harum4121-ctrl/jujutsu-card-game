@@ -1504,6 +1504,10 @@ gameState.enemyCharacters.forEach(enemy => {
 
 gameState.enemyCharacters.forEach(updateStatus);
 
+if (checkBattleEnd()) {
+    return;
+}
+
 drawCard();
 
 showBattleScreen();
