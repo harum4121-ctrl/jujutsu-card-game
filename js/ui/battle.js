@@ -1212,6 +1212,37 @@ function enemyTurn() {
         gameState.currentField.turn++;
 
     }
+    
+    if (
+    gameState.currentField &&
+    gameState.currentField.card.id === "tokyo_jujutsu_high"
+) {
+
+    // 味方
+    gameState.battleCharacters.forEach(character => {
+
+        if (character.currentHp <= 0) return;
+
+        character.currentCursedPower = Math.min(
+            character.maxCursedPower,
+            character.currentCursedPower + 10
+        );
+
+    });
+
+    // 敵
+    gameState.enemyCharacters.forEach(enemy => {
+
+        if (enemy.currentHp <= 0) return;
+
+        enemy.currentCursedPower = Math.min(
+            enemy.maxCursedPower,
+            enemy.currentCursedPower + 10
+        );
+
+    });
+
+}
 
     const enemiesAlive =
 
