@@ -59,7 +59,7 @@ function applyEffects(user, target, effects) {
 
     break;
     
-    case "selfHeal":
+    case "healSelf":
 
     user.currentHp =
         Math.min(
