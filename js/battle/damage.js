@@ -103,6 +103,13 @@ function useSkillCost(actor, skill) {
     }
 
     return true;
+}
+// 最低0ダメージ
+    if (damage < 0) {
+        damage = 0;
+    }
+
+    return damage;
 
 }
 
