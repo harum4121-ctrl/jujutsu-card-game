@@ -338,6 +338,14 @@ displayHand();
 
 }
 
+const fieldText =
+    document.getElementById("fieldName");
+
+fieldText.textContent =
+    gameState.currentField
+        ? "領域：" + gameState.currentField.card.name
+        : "領域：なし";
+
 // ===============================
 // カードを引く
 // ===============================
