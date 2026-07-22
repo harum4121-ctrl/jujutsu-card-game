@@ -303,11 +303,16 @@ function showBattleScreen() {
         </div>
     `;
 
+alert("敵表示");
 displayEnemyCharacters();
 
+alert("味方表示");
 displayBattleCharacters();
 
+alert("手札表示");
 displayHand();
+
+alert("ここまでOK");
 
 const fieldText =
     document.getElementById("fieldName");
