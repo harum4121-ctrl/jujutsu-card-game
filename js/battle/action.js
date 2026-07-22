@@ -369,9 +369,6 @@ function showEnemySelect() {
 function attackEnemy(enemyIndex) {
     
     alert("attackEnemy開始");
-    alert("actor=" + actor.name);
-alert("skill=" + skill.name);
-alert("costOK=" + useSkillCost(actor, skill));
 
     const actor =
         gameState.selectedActors[
