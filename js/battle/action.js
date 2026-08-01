@@ -369,6 +369,32 @@ function showEnemySelect() {
 function attackEnemy(enemyIndex) {
     
     alert("attackEnemy開始");
+    
+    alert(
+
+    "currentActorIndex = " +
+
+    gameState.currentActorIndex
+
+);
+
+alert(
+
+    "selectedActors = " +
+
+    JSON.stringify(gameState.selectedActors)
+
+);
+
+alert(
+
+    "selectedSkill = " +
+
+    JSON.stringify(gameState.selectedSkill)
+
+);
+
+
 
     const actor =
         gameState.selectedActors[
