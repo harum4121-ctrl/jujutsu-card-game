@@ -378,6 +378,8 @@ function attackEnemy(enemyIndex) {
     const skill =
         gameState.selectedSkill;
 
+alert("① attackEnemy開始");
+
     // 呪力・CT・必殺カード
     if (!useSkillCost(actor, skill)) {
 
@@ -386,6 +388,8 @@ function attackEnemy(enemyIndex) {
         return;
 
     }
+
+alert("② useSkillCost OK");
 
     // 蛇の目と牙のスピーカー
     if (
@@ -405,6 +409,8 @@ function attackEnemy(enemyIndex) {
             enemyIndex
         ];
 
+alert("③ hasEquipment OK");
+
     const damage =
         calculateDamage(
             actor,
@@ -422,11 +428,15 @@ function attackEnemy(enemyIndex) {
 
     }
 
+alert("④ calculateDamage OK");
+
     applyEffects(
         actor,
         enemy,
         skill.effects
     );
+    
+    alert("⑤ applyEffects OK");
     
     // 宿儺「開」
 if(skill.name === "開"){
