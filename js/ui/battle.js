@@ -1488,10 +1488,11 @@ if (character.extraActionStun) {
     });
     
     // 状態異常ターン経過
+alert("① updateStatus前");
 gameState.battleCharacters.forEach(updateStatus);
 
 gameState.enemyCharacters.forEach(enemy => {
-
+alert("② updateStatus後");
     alert(
         enemy.name +
         " stun=" +
@@ -1506,6 +1507,8 @@ if (checkBattleEnd()) {
     return;
 }
 
+alert("③ checkBattleEnd後");
+
 if (!drawCard()) {
 
     showBattleResult("lose");
@@ -1513,8 +1516,11 @@ if (!drawCard()) {
 
 }
 
+alert("④ drawCard後");
+
 showBattleScreen();
 
+alert("⑤ showBattleScreen後");
 
 }
 
