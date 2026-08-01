@@ -1491,10 +1491,18 @@ if (character.extraActionStun) {
     
     // 状態異常ターン経過
 alert("① updateStatus前");
-gameState.battleCharacters.forEach(updateStatus);
+
+gameState.battleCharacters.forEach((character) => {
+
+    alert("updateStatus開始：" + character.name);
+
+    updateStatus(character);
+
+    alert("updateStatus終了：" + character.name);
+
+});
 
 gameState.enemyCharacters.forEach(enemy => {
-alert("② updateStatus後");
     alert(
         enemy.name +
         " stun=" +
@@ -1504,7 +1512,7 @@ alert("② updateStatus後");
 });
 
 gameState.enemyCharacters.forEach(updateStatus);
-
+alert("② updateStatus後");
 if (checkBattleEnd()) {
     return;
 }
