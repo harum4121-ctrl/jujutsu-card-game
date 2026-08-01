@@ -1393,26 +1393,26 @@ if (!target) {
         // 全体攻撃
         else if (skill.target === "全体") {
 
-            playersAlive.forEach(target => {
+            playersAlive.forEach((target, index) => {
 
-                const damage =
-                    calculateDamage(enemy, target, skill);
+    alert("攻撃対象 " + index + " : " + target.name);
 
-                target.currentHp -= damage;
+    const damage =
+        calculateDamage(enemy, target, skill);
 
-                if (target.currentHp < 0) {
+    alert("calculateDamage OK");
 
-                    target.currentHp = 0;
+    target.currentHp -= damage;
 
-                }
+    applyEffects(
+        enemy,
+        target,
+        skill.effects
+    );
 
-                applyEffects(
-                    enemy,
-                    target,
-                    skill.effects
-                );
+    alert("applyEffects OK");
 
-            });
+});
 
             alert(
                 enemy.name +
