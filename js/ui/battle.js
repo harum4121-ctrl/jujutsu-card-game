@@ -1492,6 +1492,10 @@ if (character.extraActionStun) {
     // 状態異常ターン経過
 alert("① updateStatus前");
 
+alert(gameState.battleCharacters);
+
+alert(gameState.battleCharacters.length);
+
 gameState.battleCharacters.forEach((character) => {
 
     alert("updateStatus開始：" + character.name);
