@@ -273,6 +273,8 @@ function applyEffects(user, target, effects) {
 
 function updateStatus(character) {
 
+alert("A");
+
     if ((character.damageReductionTurn ?? 0) > 0) {
 
         character.damageReductionTurn--;
@@ -282,10 +284,14 @@ function updateStatus(character) {
         }
 
     }
+    
+    alert("B");
 
     if ((character.ignoreInvincible ?? 0) > 0) {
         character.ignoreInvincible--;
     }
+    
+    alert("C");
 
     if ((character.damageBuffTurn ?? 0) > 0) {
 
@@ -296,6 +302,8 @@ function updateStatus(character) {
         }
 
     }
+    
+    alert("D");
 
     if ((character.damageDownTurn ?? 0) > 0) {
 
@@ -306,6 +314,8 @@ function updateStatus(character) {
         }
 
     }
+    
+    alert("E");
 
     if ((character.damageTakenUpTurn ?? 0) > 0) {
 
@@ -316,17 +326,24 @@ function updateStatus(character) {
         }
 
     }
+    
+    alert("F");
 
     if ((character.invincible ?? 0) > 0) {
         character.invincible--;
     }
+    
+    alert("G");
 
     if ((character.stun ?? 0) > 0) {
         character.stun--;
     }
+    
+    alert("H");
 
     if ((character.taunt ?? 0) > 0) {
         character.taunt--;
     }
-
+    
+alert("I");
 }
