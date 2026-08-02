@@ -1728,3 +1728,47 @@ function useFieldCard() {
 
     showBattleScreen();
 }
+
+function getStatusList(character){
+
+    const list=[];
+
+    if(character.invincible>0){
+
+        list.push("🛡無敵");
+
+    }
+
+    if(character.stun>0){
+
+        list.push("⚡スタン");
+
+    }
+
+    if(character.damageBuff>0){
+
+        list.push("🔥与ダメ+" + character.damageBuff);
+
+    }
+
+    if(character.damageDown>0){
+
+        list.push("⬇与ダメ-" + character.damageDown);
+
+    }
+
+    if(character.damageTakenUp>0){
+
+        list.push("💥被ダメ+" + character.damageTakenUp);
+
+    }
+
+    if(character.taunt>0){
+
+        list.push("🎯挑発");
+
+    }
+
+    return list;
+
+}
