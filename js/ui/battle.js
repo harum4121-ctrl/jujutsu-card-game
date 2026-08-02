@@ -577,9 +577,16 @@ function displayBattleCharacters() {
 
             <div class="character-panel">
 
-                <div class="character-name">
-                    ${character.name}
-                </div>
+               <img
+    src="${character.cardImage}"
+    class="battle-card"
+>
+
+<div class="character-name">
+
+${character.name}
+
+</div>
 
                 <div>
                     HP：
