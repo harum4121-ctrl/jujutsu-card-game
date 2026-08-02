@@ -546,3 +546,15 @@ button {
     border-radius:5px;
 
 }
+
+.battle-card{
+
+    width:170px;
+
+    border-radius:12px;
+
+    margin-bottom:10px;
+
+    box-shadow:0 0 15px rgba(0,0,0,.5);
+
+}
