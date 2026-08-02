@@ -438,38 +438,114 @@ function drawCard() {
 // 敵表示
 // ===============================
 
-function displayEnemyCharacters(){
+function displayBattleCharacters() {
 
     const area =
-        document.getElementById("enemyCharacters");
+        document.getElementById("playerCharacters");
 
-
-    if(!area) return;
-
+    if (!area) return;
 
     area.innerHTML = "";
 
+    gameState.battleCharacters.forEach(character => {
 
-    gameState.enemyCharacters.forEach(enemy=>{
+        const selected =
+            gameState.selectedActors.includes(character);
+
+        const disabled =
+            character.currentHp <= 0 ||
+            character.hasActed ||
+            character.stun > 0;
+
+        const hpRate =
+            Math.max(
+                0,
+                character.currentHp /
+                character.maxHp *
+                100
+            );
+
+        const cpRate =
+            Math.max(
+                0,
+                character.currentCursedPower /
+                character.maxCursedPower *
+                100
+            );
+
+        const statuses =
+            getStatusList(character)
+                .map(status =>
+                    `<span class="status">${status}</span>`
+                )
+                .join("");
 
         area.innerHTML += `
 
-        <div class="character">
+            <div class="character-panel">
 
-            <h3>${enemy.name}</h3>
+                <div class="character-name">
+                    ${character.name}
+                </div>
 
-            <p>
-                HP：
-                ${enemy.currentHp}
-                /
-                ${enemy.maxHp}
-            </p>
+                <div>
+                    HP：
+                    ${character.currentHp}
+                    /
+                    ${character.maxHp}
+                </div>
 
-        </div>
+                <div class="bar">
+                    <div
+                        class="bar-fill hp"
+                        style="width:${hpRate}%"
+                    ></div>
+                </div>
+
+                <div>
+                    呪力：
+                    ${character.currentCursedPower}
+                    /
+                    ${character.maxCursedPower}
+                </div>
+
+                <div class="bar">
+                    <div
+                        class="bar-fill cp"
+                        style="width:${cpRate}%"
+                    ></div>
+                </div>
+
+                <div class="status-list">
+                    ${statuses}
+                </div>
+
+                <button
+                    onclick="toggleActor('${character.id}')"
+                    ${disabled ? "disabled" : ""}
+                >
+                    ${
+                        selected
+                            ? "選択解除"
+                            : "選択"
+                    }
+                </button>
+
+            </div>
 
         `;
 
     });
+
+    const actorCount =
+        document.getElementById("actorCount");
+
+    if (actorCount) {
+
+        actorCount.textContent =
+            gameState.selectedActors.length;
+
+    }
 
 }
 
@@ -479,49 +555,113 @@ function displayEnemyCharacters(){
 
 function displayBattleCharacters() {
 
-    const area = document.getElementById("playerCharacters");
+    const area =
+        document.getElementById("playerCharacters");
 
     if (!area) return;
 
     area.innerHTML = "";
 
-    gameState.battleCharacters.forEach((character) => {
+    gameState.battleCharacters.forEach(character => {
 
         const selected =
             gameState.selectedActors.includes(character);
 
         const disabled =
-    character.currentHp <= 0 ||
-    character.hasActed ||
-    character.stun > 0;
+            character.currentHp <= 0 ||
+            character.hasActed ||
+            character.stun > 0;
+
+        const hpRate =
+            Math.max(
+                0,
+                character.currentHp /
+                character.maxHp *
+                100
+            );
+
+        const cpRate =
+            Math.max(
+                0,
+                character.currentCursedPower /
+                character.maxCursedPower *
+                100
+            );
+
+        const statuses =
+            getStatusList(character)
+                .map(status =>
+                    `<span class="status">${status}</span>`
+                )
+                .join("");
 
         area.innerHTML += `
 
-        <div class="character">
+            <div class="character-panel">
 
-            <h3>${character.name}</h3>
+                <div class="character-name">
+                    ${character.name}
+                </div>
 
-            <p>HP：${character.currentHp}/${character.maxHp}</p>
+                <div>
+                    HP：
+                    ${character.currentHp}
+                    /
+                    ${character.maxHp}
+                </div>
 
-            <p>呪力：${character.currentCursedPower}/${character.maxCursedPower}</p>
+                <div class="bar">
+                    <div
+                        class="bar-fill hp"
+                        style="width:${hpRate}%"
+                    ></div>
+                </div>
 
-            <button
-                onclick="toggleActor('${character.id}')"
-                ${disabled ? "disabled" : ""}
-            >
-                ${selected ? "選択解除" : "選択"}
-            </button>
+                <div>
+                    呪力：
+                    ${character.currentCursedPower}
+                    /
+                    ${character.maxCursedPower}
+                </div>
 
-        </div>
+                <div class="bar">
+                    <div
+                        class="bar-fill cp"
+                        style="width:${cpRate}%"
+                    ></div>
+                </div>
 
-        <br>
+                <div class="status-list">
+                    ${statuses}
+                </div>
+
+                <button
+                    onclick="toggleActor('${character.id}')"
+                    ${disabled ? "disabled" : ""}
+                >
+                    ${
+                        selected
+                            ? "選択解除"
+                            : "選択"
+                    }
+                </button>
+
+            </div>
 
         `;
 
     });
 
-    document.getElementById("actorCount").textContent =
-        gameState.selectedActors.length;
+    const actorCount =
+        document.getElementById("actorCount");
+
+    if (actorCount) {
+
+        actorCount.textContent =
+            gameState.selectedActors.length;
+
+    }
+
 }
 
 // ===============================
