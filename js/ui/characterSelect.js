@@ -1,38 +1,90 @@
 console.log("characterSelect.js 読み込み成功");
 
+// ===============================
+// キャラクター選択画面
+// ===============================
+
 function showCharacterSelect() {
-    
-    alert("showCharacterSelect開始");
 
-    console.log("リセット前", gameState.selectedCharacters);
-
+    // 選択状態をリセット
     gameState.selectedCharacters = [];
 
-    console.log("リセット後", gameState.selectedCharacters);
-
-    console.log("キャラクター選択画面開始");
-
-    const app = document.getElementById("app");
+    const app =
+        document.getElementById("app");
 
     app.innerHTML = `
-<div class="character-select">
+        <div class="character-select-screen">
 
-    <h1>キャラクター選択</h1>
+            <header class="character-select-header">
 
-    <p>使用するキャラクターを3体選択してください</p>
+                <div>
+                    <h1>キャラクター選択</h1>
 
-    <div id="characterList"></div>
+                    <p>
+                        バトルに参加するキャラクターを
+                        3体選択してください
+                    </p>
+                </div>
 
-    <h2>選択中</h2>
+                <div class="select-count-panel">
 
-    <div id="selectedCharacters"></div>
+                    <span>選択中</span>
 
-    <button id="startDeck">
-        デッキ編集へ
-    </button>
+                    <strong id="selectedCount">
+                        0 / 3
+                    </strong>
 
-</div>
-`;
+                </div>
+
+            </header>
+
+
+            <main class="character-select-main">
+
+                <!-- 左：キャラクター一覧 -->
+                <section class="character-list-section">
+
+                    <h2>キャラクター一覧</h2>
+
+                    <div
+                        id="characterList"
+                        class="character-select-list"
+                    ></div>
+
+                </section>
+
+
+                <!-- 右：選択中 -->
+                <section class="selected-team-section">
+
+                    <h2>選択中のチーム</h2>
+
+                    <div
+                        id="selectedCharacters"
+                        class="selected-team-list"
+                    ></div>
+
+                    <button
+                        id="startDeck"
+                        class="start-deck-button"
+                        disabled
+                    >
+                        デッキ編集へ
+                    </button>
+
+                    <button
+                        class="character-select-back"
+                        onclick="showTitle()"
+                    >
+                        タイトルへ戻る
+                    </button>
+
+                </section>
+
+            </main>
+
+        </div>
+    `;
 
     displayCharacters();
     updateSelectedCharacters();
@@ -41,19 +93,36 @@ function showCharacterSelect() {
         .getElementById("startDeck")
         .addEventListener("click", () => {
 
-            if (gameState.selectedCharacters.length !== 3) {
-                alert("キャラクターを3体選択してください");
+            if (
+                gameState.selectedCharacters.length !== 3
+            ) {
+
+                alert(
+                    "キャラクターを3体選択してください"
+                );
+
                 return;
             }
 
             gameState.deck = [];
+
             showDeckBuilder();
 
         });
 
 }
+
+
+// ===============================
+// キャラクター一覧表示
+// ===============================
+
 function displayCharacters() {
-    const list = document.getElementById("characterList");
+
+    const list =
+        document.getElementById("characterList");
+
+    if (!list) return;
 
     list.innerHTML = "";
 
@@ -61,75 +130,274 @@ function displayCharacters() {
 
         const char = characters[id];
 
-        const card = document.createElement("div");
+        const selected =
+            gameState.selectedCharacters.includes(id);
 
-        card.className = "character";
+        const card =
+            document.createElement("button");
+
+        card.type = "button";
+
+        card.className =
+            "character-select-card" +
+            (selected ? " selected" : "");
+
+        card.onclick = () => {
+
+            selectCharacter(id);
+
+        };
+
+        const imageHtml =
+            char.cardImage
+                ? `
+                    <img
+                        src="${char.cardImage}"
+                        alt="${char.name}"
+                        class="character-select-image"
+                    >
+                `
+                : `
+                    <div class="character-image-placeholder">
+                        ${char.name}
+                    </div>
+                `;
 
         card.innerHTML = `
-            <h3>${char.name}</h3>
-            <p>タイプ：${char.type}</p>
-            <p>HP：${char.hp}</p>
-            <p>呪力：${char.cursedPower}</p>
 
-            <button>選択</button>
+            <div class="character-card-image-area">
+
+                ${imageHtml}
+
+                <div class="character-type-badge type-${char.type}">
+                    ${char.type}
+                </div>
+
+                ${
+                    selected
+                        ? `
+                            <div class="selected-check">
+                                ✓
+                            </div>
+                        `
+                        : ""
+                }
+
+            </div>
+
+
+            <div class="character-select-info">
+
+                <h3>${char.name}</h3>
+
+                <div class="character-mini-stats">
+
+                    <span>
+                        HP ${char.hp}
+                    </span>
+
+                    <span>
+                        初期呪力 ${char.cursedPower}
+                    </span>
+
+                </div>
+
+            </div>
+
         `;
-
-        card.querySelector("button").onclick = () => {
-            selectCharacter(id);
-        };
 
         list.appendChild(card);
 
     }
 
 }
+
+
+// ===============================
+// キャラクター選択・解除
+// ===============================
+
 function selectCharacter(id) {
 
-    if (gameState.selectedCharacters.length >= 3) {
-        alert("キャラクターは3体までです");
+    const selected =
+        gameState.selectedCharacters.includes(id);
+
+    // 選択済みなら解除
+    if (selected) {
+
+        gameState.selectedCharacters =
+            gameState.selectedCharacters.filter(
+                characterId =>
+                    characterId !== id
+            );
+
+        displayCharacters();
+        updateSelectedCharacters();
+
         return;
     }
 
-    if (gameState.selectedCharacters.includes(id)) {
-        alert("このキャラクターは選択済みです");
+    // 3人選択済み
+    if (
+        gameState.selectedCharacters.length >= 3
+    ) {
+
+        alert("キャラクターは3体までです");
+
         return;
     }
 
     gameState.selectedCharacters.push(id);
 
+    displayCharacters();
     updateSelectedCharacters();
 
 }
+
+
+// ===============================
+// 選択中チーム表示
+// ===============================
+
 function updateSelectedCharacters() {
 
-    const area = document.getElementById("selectedCharacters");
+    const area =
+        document.getElementById(
+            "selectedCharacters"
+        );
+
+    const count =
+        document.getElementById(
+            "selectedCount"
+        );
+
+    const startButton =
+        document.getElementById(
+            "startDeck"
+        );
+
+    if (!area) return;
 
     area.innerHTML = "";
 
-    gameState.selectedCharacters.forEach(id => {
+    // 選択数表示
+    if (count) {
 
-        const char = characters[id];
+        count.textContent =
+            gameState.selectedCharacters.length +
+            " / 3";
 
-        const div = document.createElement("div");
+    }
 
-        div.className = "character";
+    // 空き枠も含めて3枠表示
+    for (let index = 0; index < 3; index++) {
 
-        div.innerHTML = `
-            <h3>${char.name}</h3>
-            <button>解除</button>
-        `;
+        const id =
+            gameState.selectedCharacters[index];
 
-        div.querySelector("button").onclick = () => {
+        // キャラクターが選択されている枠
+        if (id) {
 
-            gameState.selectedCharacters =
-                gameState.selectedCharacters.filter(x => x !== id);
+            const char =
+                characters[id];
 
-            updateSelectedCharacters();
+            const imageHtml =
+                char.cardImage
+                    ? `
+                        <img
+                            src="${char.cardImage}"
+                            alt="${char.name}"
+                            class="selected-team-image"
+                        >
+                    `
+                    : `
+                        <div class="selected-image-placeholder">
+                            ${char.name}
+                        </div>
+                    `;
 
-        };
+            area.innerHTML += `
 
-        area.appendChild(div);
+                <div class="selected-team-card">
 
-    });
+                    <div class="selected-slot-number">
+                        ${index + 1}
+                    </div>
+
+                    ${imageHtml}
+
+                    <div class="selected-team-info">
+
+                        <strong>
+                            ${char.name}
+                        </strong>
+
+                        <span>
+                            ${char.type}タイプ
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="remove-character-button"
+                        onclick="removeSelectedCharacter('${id}')"
+                    >
+                        解除
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+
+        // 空き枠
+        else {
+
+            area.innerHTML += `
+
+                <div class="selected-team-card empty">
+
+                    <div class="selected-slot-number">
+                        ${index + 1}
+                    </div>
+
+                    <div class="empty-team-slot">
+                        未選択
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+    // 3人選択でボタン有効
+    if (startButton) {
+
+        startButton.disabled =
+            gameState.selectedCharacters.length !== 3;
+
+    }
+
+}
+
+
+// ===============================
+// 選択解除
+// ===============================
+
+function removeSelectedCharacter(id) {
+
+    gameState.selectedCharacters =
+        gameState.selectedCharacters.filter(
+            characterId =>
+                characterId !== id
+        );
+
+    displayCharacters();
+    updateSelectedCharacters();
 
 }
