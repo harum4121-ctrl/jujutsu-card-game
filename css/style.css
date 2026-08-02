@@ -558,3 +558,525 @@ button {
     box-shadow:0 0 15px rgba(0,0,0,.5);
 
 }
+
+/* ===============================
+   キャラクター選択画面
+================================ */
+
+.character-select-screen {
+    min-height: 100vh;
+    box-sizing: border-box;
+
+    padding: 14px;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(63, 35, 83, 0.75),
+            rgba(10, 7, 15, 0.96) 65%
+        );
+}
+
+
+/* 上部 */
+
+.character-select-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 12px 18px;
+    margin-bottom: 12px;
+
+    border: 1px solid #8058a2;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(22, 14, 30, 0.96),
+            rgba(54, 28, 73, 0.96),
+            rgba(22, 14, 30, 0.96)
+        );
+
+    box-shadow:
+        0 0 18px
+        rgba(161, 91, 214, 0.25);
+}
+
+.character-select-header h1 {
+    margin: 0 0 5px;
+
+    font-size: 24px;
+    letter-spacing: 2px;
+}
+
+.character-select-header p {
+    margin: 0;
+
+    color: #d8c9e3;
+    font-size: 13px;
+}
+
+.select-count-panel {
+    min-width: 90px;
+
+    padding: 8px 14px;
+
+    text-align: center;
+
+    border: 1px solid #9c6bc1;
+    border-radius: 10px;
+
+    background: rgba(10, 7, 15, 0.75);
+}
+
+.select-count-panel span {
+    display: block;
+
+    font-size: 11px;
+    color: #c7afd9;
+}
+
+.select-count-panel strong {
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 22px;
+    color: #ffffff;
+}
+
+
+/* 左右レイアウト */
+
+.character-select-main {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(220px, 28%);
+
+    gap: 12px;
+}
+
+.character-list-section,
+.selected-team-section {
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background: rgba(9, 7, 13, 0.9);
+}
+
+.character-list-section {
+    border: 1px solid #4c4b69;
+}
+
+.selected-team-section {
+    border: 1px solid #7a527f;
+}
+
+.character-list-section h2,
+.selected-team-section h2 {
+    margin: 0 0 10px;
+
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+
+/* キャラクター一覧 */
+
+.character-select-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(110px, 1fr));
+
+    gap: 10px;
+}
+
+.character-select-card {
+    position: relative;
+
+    min-width: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    border: 2px solid #393648;
+    border-radius: 10px;
+
+    color: white;
+
+    background: #13111a;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.character-select-card:active {
+    transform: scale(0.97);
+}
+
+.character-select-card.selected {
+    border-color: #ffd86b;
+
+    box-shadow:
+        0 0 8px #ffc83d,
+        0 0 18px
+        rgba(255, 200, 61, 0.55);
+
+    transform: translateY(-3px);
+}
+
+
+/* カード画像 */
+
+.character-card-image-area {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 2 / 3;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            150deg,
+            #24172e,
+            #09080c
+        );
+}
+
+.character-select-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    display: block;
+}
+
+.character-image-placeholder {
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px;
+
+    text-align: center;
+}
+
+
+/* タイプ */
+
+.character-type-badge {
+    position: absolute;
+
+    top: 6px;
+    left: 6px;
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    color: white;
+
+    box-shadow:
+        0 2px 6px
+        rgba(0, 0, 0, 0.55);
+}
+
+.type-体 {
+    background:
+        linear-gradient(
+            180deg,
+            #bd3e3e,
+            #672121
+        );
+}
+
+.type-術 {
+    background:
+        linear-gradient(
+            180deg,
+            #6348b0,
+            #30205f
+        );
+}
+
+
+/* 選択済みチェック */
+
+.selected-check {
+    position: absolute;
+
+    top: 6px;
+    right: 6px;
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #f5c94e;
+    color: #1c1605;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    box-shadow:
+        0 0 10px
+        rgba(255, 210, 70, 0.8);
+}
+
+
+/* カード下部 */
+
+.character-select-info {
+    padding: 8px;
+}
+
+.character-select-info h3 {
+    margin: 0 0 6px;
+
+    font-size: 14px;
+}
+
+.character-mini-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+
+    font-size: 10px;
+    color: #c9c2d0;
+}
+
+
+/* 選択中チーム */
+
+.selected-team-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+.selected-team-card {
+    position: relative;
+
+    min-height: 90px;
+
+    display: grid;
+
+    grid-template-columns:
+        55px
+        1fr
+        auto;
+
+    align-items: center;
+    gap: 9px;
+
+    padding: 8px;
+
+    border: 1px solid #6e4e78;
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(45, 27, 54, 0.95),
+            rgba(18, 13, 22, 0.95)
+        );
+}
+
+.selected-team-card.empty {
+    opacity: 0.65;
+
+    border-style: dashed;
+
+    background: rgba(18, 15, 22, 0.7);
+}
+
+.selected-slot-number {
+    position: absolute;
+
+    top: 3px;
+    left: 4px;
+
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #72508b;
+    color: white;
+
+    font-size: 11px;
+    font-weight: bold;
+
+    z-index: 2;
+}
+
+.selected-team-image {
+    width: 55px;
+    height: 78px;
+
+    object-fit: cover;
+
+    border-radius: 6px;
+
+    box-shadow:
+        0 3px 8px
+        rgba(0, 0, 0, 0.5);
+}
+
+.selected-image-placeholder {
+    width: 55px;
+    height: 78px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 6px;
+
+    background: #28212e;
+
+    font-size: 10px;
+    text-align: center;
+}
+
+.selected-team-info {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.selected-team-info strong {
+    font-size: 14px;
+}
+
+.selected-team-info span {
+    font-size: 11px;
+    color: #c9b8d3;
+}
+
+.remove-character-button {
+    padding: 7px 9px;
+
+    border: 1px solid #b06a78;
+    border-radius: 6px;
+
+    background: #54232c;
+    color: white;
+
+    font-size: 11px;
+}
+
+.empty-team-slot {
+    grid-column: 1 / 4;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 75px;
+
+    color: #817987;
+}
+
+
+/* 下部ボタン */
+
+.start-deck-button,
+.character-select-back {
+    width: 100%;
+
+    padding: 13px 8px;
+    margin-top: 12px;
+
+    border: none;
+    border-radius: 9px;
+
+    color: white;
+
+    font-weight: bold;
+}
+
+.start-deck-button {
+    background:
+        linear-gradient(
+            180deg,
+            #7b4ba2,
+            #472660
+        );
+
+    box-shadow:
+        0 4px 10px
+        rgba(0, 0, 0, 0.4);
+}
+
+.start-deck-button:disabled {
+    opacity: 0.35;
+
+    box-shadow: none;
+}
+
+.character-select-back {
+    margin-top: 8px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #3d3945,
+            #242129
+        );
+}
+
+
+/* 小さい横画面 */
+
+@media screen and (max-width: 850px) {
+
+    .character-select-screen {
+        min-width: 760px;
+    }
+
+    .character-select-list {
+        grid-template-columns:
+            repeat(5, minmax(95px, 1fr));
+    }
+
+}
