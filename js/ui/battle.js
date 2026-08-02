@@ -261,87 +261,160 @@ function addUltimateCard(id) {
 // ===============================
 
 function showBattleScreen() {
-    
 
     const app = document.getElementById("app");
 
     app.innerHTML = `
-        <div class="battle">
+        <div class="battle-screen">
 
-            <h1>バトル</h1>
-            
-            <p id="fieldName"></p>
+            <!-- 上部情報 -->
+            <header class="battle-header">
 
-            <h2>敵</h2>
-            <div id="enemyCharacters"></div>
+                <div class="field-panel">
+                    <span class="field-label">領域</span>
+                    <strong id="fieldName">なし</strong>
+                </div>
 
-            <hr>
+                <h1 class="battle-title">
+                    呪術カードバトル
+                </h1>
 
-            <h2>味方</h2>
+                <div class="deck-info">
+                    <span>
+                        山札：
+                        <strong id="drawPileCount">
+                            ${gameState.drawPile.length}
+                        </strong>
+                    </span>
 
-            <p>
-                行動選択
-                <span id="actorCount">0</span>/2
-            </p>
+                    <span>
+                        墓地：
+                        <strong id="graveyardCount">
+                            ${gameState.graveyard.length}
+                        </strong>
+                    </span>
+                </div>
 
-            <div id="playerCharacters"></div>
+            </header>
 
-            <button id="startAction">
-                行動開始
-            </button>
 
-            <hr>
+            <!-- 敵エリア -->
+            <section class="enemy-zone">
 
-            <h2>手札</h2>
+                <h2 class="zone-title enemy-title">
+                    ENEMY
+                </h2>
 
-            <div id="hand"></div>
+                <div id="enemyCharacters"
+                     class="enemy-character-area">
+                </div>
 
-            <button id="endTurn">
-                ターン終了
-            </button>
+            </section>
+
+
+            <!-- 中央ライン -->
+            <div class="battle-divider">
+
+                <span>
+                    行動キャラ
+                    <strong id="actorCount">0</strong>
+                    / 2
+                </span>
+
+            </div>
+
+
+            <!-- 味方エリア -->
+            <section class="player-zone">
+
+                <h2 class="zone-title player-title">
+                    PLAYER
+                </h2>
+
+                <div id="playerCharacters"
+                     class="player-character-area">
+                </div>
+
+            </section>
+
+
+            <!-- 手札と操作 -->
+            <footer class="battle-bottom">
+
+                <div class="hand-section">
+
+                    <h2>手札</h2>
+
+                    <div id="hand"
+                         class="hand-area">
+                    </div>
+
+                </div>
+
+
+                <div class="battle-actions">
+
+                    <button
+                        id="startAction"
+                        class="battle-button action-button"
+                    >
+                        行動開始
+                    </button>
+
+                    <button
+                        id="endTurn"
+                        class="battle-button end-button"
+                    >
+                        ターン終了
+                    </button>
+
+                </div>
+
+            </footer>
 
         </div>
     `;
 
-alert("敵表示");
-displayEnemyCharacters();
 
-alert("味方表示");
-displayBattleCharacters();
-
-alert("手札表示");
-displayHand();
-
-alert("ここまでOK");
-
-const fieldText =
-    document.getElementById("fieldName");
-
-fieldText.textContent =
-    gameState.currentField
-        ? "領域：" + gameState.currentField.card.name
-        : "領域：なし";
+    displayEnemyCharacters();
+    displayBattleCharacters();
+    displayHand();
 
 
-    document.getElementById("startAction").onclick = () => {
+    const fieldText =
+        document.getElementById("fieldName");
 
-        if (gameState.selectedActors.length === 0) {
+    fieldText.textContent =
+        gameState.currentField
+            ? gameState.currentField.card.name
+            : "なし";
 
-            alert("行動するキャラクターを選択してください");
-            return;
 
-        }
+    document
+        .getElementById("startAction")
+        .onclick = () => {
 
-        startActionPhase();
+            if (
+                gameState.selectedActors.length === 0
+            ) {
 
-    };
+                alert(
+                    "行動するキャラクターを選択してください"
+                );
 
-    document.getElementById("endTurn").onclick = () => {
+                return;
+            }
 
-        enemyTurn();
+            startActionPhase();
+        };
 
-    };
 
+    document
+        .getElementById("endTurn")
+        .onclick = () => {
+
+            enemyTurn();
+        };
 }
 
 
