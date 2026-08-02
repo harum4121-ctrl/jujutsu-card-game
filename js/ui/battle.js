@@ -438,43 +438,41 @@ function drawCard() {
 // 敵表示
 // ===============================
 
-function displayBattleCharacters() {
+function displayEnemyCharacters() {
 
     const area =
-        document.getElementById("playerCharacters");
+        document.getElementById("enemyCharacters");
 
     if (!area) return;
 
     area.innerHTML = "";
 
-    gameState.battleCharacters.forEach(character => {
-
-        const selected =
-            gameState.selectedActors.includes(character);
-
-        const disabled =
-            character.currentHp <= 0 ||
-            character.hasActed ||
-            character.stun > 0;
+    gameState.enemyCharacters.forEach(enemy => {
 
         const hpRate =
             Math.max(
                 0,
-                character.currentHp /
-                character.maxHp *
+                enemy.currentHp /
+                enemy.maxHp *
                 100
             );
+
+        const maxCursedPower =
+            enemy.maxCursedPower ?? 100;
+
+        const currentCursedPower =
+            enemy.currentCursedPower ?? 0;
 
         const cpRate =
             Math.max(
                 0,
-                character.currentCursedPower /
-                character.maxCursedPower *
+                currentCursedPower /
+                maxCursedPower *
                 100
             );
 
         const statuses =
-            getStatusList(character)
+            getStatusList(enemy)
                 .map(status =>
                     `<span class="status">${status}</span>`
                 )
@@ -482,17 +480,17 @@ function displayBattleCharacters() {
 
         area.innerHTML += `
 
-            <div class="character-panel">
+            <div class="character-panel enemy-panel">
 
                 <div class="character-name">
-                    ${character.name}
+                    ${enemy.name}
                 </div>
 
                 <div>
                     HP：
-                    ${character.currentHp}
+                    ${enemy.currentHp}
                     /
-                    ${character.maxHp}
+                    ${enemy.maxHp}
                 </div>
 
                 <div class="bar">
@@ -504,9 +502,9 @@ function displayBattleCharacters() {
 
                 <div>
                     呪力：
-                    ${character.currentCursedPower}
+                    ${currentCursedPower}
                     /
-                    ${character.maxCursedPower}
+                    ${maxCursedPower}
                 </div>
 
                 <div class="bar">
@@ -520,32 +518,11 @@ function displayBattleCharacters() {
                     ${statuses}
                 </div>
 
-                <button
-                    onclick="toggleActor('${character.id}')"
-                    ${disabled ? "disabled" : ""}
-                >
-                    ${
-                        selected
-                            ? "選択解除"
-                            : "選択"
-                    }
-                </button>
-
             </div>
 
         `;
 
     });
-
-    const actorCount =
-        document.getElementById("actorCount");
-
-    if (actorCount) {
-
-        actorCount.textContent =
-            gameState.selectedActors.length;
-
-    }
 
 }
 
