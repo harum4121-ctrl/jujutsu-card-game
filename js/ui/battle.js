@@ -22,6 +22,7 @@ function startBattle() {
 
             id: id,
             name: data.name,
+            cardImage:data.cardImage,
             type: data.type,
             nailStock: 0,
 
