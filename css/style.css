@@ -154,3 +154,310 @@ button {
     overflow-y: auto;
 
 }
+/* ===============================
+   横画面バトルUI
+================================ */
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(
+            circle at center,
+            #241330 0%,
+            #0d0912 55%,
+            #050407 100%
+        );
+    color: #ffffff;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        sans-serif;
+}
+
+button {
+    font-family: inherit;
+}
+
+.battle-screen {
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 10px;
+
+    display: grid;
+
+    grid-template-rows:
+        auto
+        minmax(110px, 1fr)
+        auto
+        minmax(150px, 1.2fr)
+        minmax(130px, auto);
+
+    gap: 8px;
+
+    background:
+        linear-gradient(
+            rgba(10, 7, 14, 0.82),
+            rgba(10, 7, 14, 0.92)
+        );
+}
+
+
+/* 上部 */
+
+.battle-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+
+    padding: 8px 14px;
+
+    border: 1px solid #6f4a90;
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #17101e,
+            #2a1738,
+            #17101e
+        );
+
+    box-shadow:
+        0 0 14px rgba(145, 79, 197, 0.3);
+}
+
+.battle-title {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.field-panel {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.field-label {
+    padding: 4px 8px;
+
+    border-radius: 5px;
+
+    background: #633583;
+    color: #ffffff;
+
+    font-size: 12px;
+}
+
+.deck-info {
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px;
+
+    font-size: 13px;
+}
+
+
+/* エリア共通 */
+
+.enemy-zone,
+.player-zone {
+    position: relative;
+
+    padding: 10px;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+.enemy-zone {
+    border: 1px solid #873535;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(78, 18, 25, 0.55),
+            rgba(24, 8, 13, 0.88)
+        );
+}
+
+.player-zone {
+    border: 1px solid #375b8e;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(18, 43, 79, 0.58),
+            rgba(8, 17, 32, 0.9)
+        );
+}
+
+.zone-title {
+    position: absolute;
+
+    top: 8px;
+    left: 12px;
+
+    margin: 0;
+
+    font-size: 12px;
+    letter-spacing: 3px;
+    opacity: 0.7;
+}
+
+.enemy-title {
+    color: #ff7b7b;
+}
+
+.player-title {
+    color: #7bb7ff;
+}
+
+
+/* 敵 */
+
+.enemy-character-area {
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* 味方 */
+
+.player-character-area {
+    height: 100%;
+
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(150px, 1fr));
+
+    gap: 10px;
+    align-items: stretch;
+}
+
+
+/* 中央ライン */
+
+.battle-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 30px;
+
+    border-top: 1px solid #6f4a90;
+    border-bottom: 1px solid #6f4a90;
+
+    background: rgba(18, 11, 24, 0.85);
+
+    font-size: 13px;
+}
+
+
+/* 下部 */
+
+.battle-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+
+    min-height: 120px;
+}
+
+.hand-section {
+    min-width: 0;
+
+    padding: 8px;
+
+    border: 1px solid #5e4b75;
+    border-radius: 10px;
+
+    background: rgba(14, 10, 19, 0.9);
+}
+
+.hand-section h2 {
+    margin: 0 0 6px;
+    font-size: 14px;
+}
+
+.hand-area {
+    display: flex;
+    gap: 8px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding-bottom: 5px;
+}
+
+
+/* 操作ボタン */
+
+.battle-actions {
+    width: 135px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.battle-button {
+    width: 100%;
+
+    padding: 14px 10px;
+
+    border: none;
+    border-radius: 9px;
+
+    color: #ffffff;
+
+    font-weight: bold;
+    font-size: 15px;
+
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.35);
+}
+
+.action-button {
+    background:
+        linear-gradient(
+            180deg,
+            #6c3f91,
+            #3f205c
+        );
+}
+
+.end-button {
+    background:
+        linear-gradient(
+            180deg,
+            #923f48,
+            #551e26
+        );
+}
+
+.battle-button:active {
+    transform: translateY(2px);
+}
+
+
+/* 縦画面では案内表示 */
+
+@media screen and (orientation: portrait) {
+
+    .battle-screen {
+        min-width: 760px;
+    }
+
+    body {
+        overflow-x: auto;
+    }
+}
