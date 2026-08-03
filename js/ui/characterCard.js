@@ -1,5 +1,8 @@
 function createCharacterCard(character, options = {}) {
 
+const mode =
+    options.mode ?? "battle";
+
     const currentHp =
         options.currentHp ?? character.hp;
 
