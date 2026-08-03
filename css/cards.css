@@ -1,121 +1,362 @@
-/* ======================================
-   キャラクターカード
-====================================== */
+/* ===============================
+   共通キャラクターカード
+================================ */
 
-.battle-card{
+.character-card {
+    width: 220px;
 
+    padding: 7px;
+
+    border: 2px solid #3f3c48;
+    border-radius: 16px;
+
+    background: rgba(13, 12, 18, 0.95);
+
+    box-shadow:
+        0 7px 18px rgba(0, 0, 0, 0.5);
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        opacity 0.18s ease;
+}
+
+.character-card.selected {
+    border-color: #ffd45c;
+
+    box-shadow:
+        0 0 12px rgba(255, 212, 92, 0.9),
+        0 0 28px rgba(255, 173, 56, 0.55);
+
+    transform: translateY(-4px);
+}
+
+.character-card.acted {
+    opacity: 0.55;
+}
+
+.character-card.defeated {
+    opacity: 0.3;
+    filter: grayscale(100%);
+}
+
+
+.character-card-frame {
     position: relative;
 
-    width: 230px;
-
-    border-radius: 18px;
+    width: 100%;
+    aspect-ratio: 2 / 3;
 
     overflow: hidden;
 
-    background:#161616;
+    border-radius: 11px;
+
+    background: #08080b;
+}
+
+
+.character-card-art {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* 上部ゲージ */
+
+.character-card-top {
+    position: absolute;
+
+    top: 9px;
+    left: 9px;
+    right: 48px;
+
+    z-index: 3;
+}
+
+.character-card-gauge {
+    position: relative;
+
+    height: 18px;
+    margin-bottom: 5px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 6px;
+
+    background: rgba(4, 4, 7, 0.88);
 
     box-shadow:
-        0 8px 20px rgba(0,0,0,.45);
-
-    transition:.2s;
-
+        inset 0 0 5px rgba(0, 0, 0, 0.8);
 }
 
-.battle-card:hover{
+.character-card-gauge-fill {
+    position: absolute;
 
-    transform:translateY(-4px);
+    inset: 0 auto 0 0;
 
+    height: 100%;
+
+    transition: width 0.3s ease;
 }
 
-.card-image{
-
-    width:100%;
-
-    display:block;
-
+.character-card-gauge.hp
+.character-card-gauge-fill {
+    background:
+        linear-gradient(
+            90deg,
+            #85141b,
+            #de3640,
+            #ff626a
+        );
 }
 
-.card-top{
-
-    position:absolute;
-
-    top:10px;
-
-    left:12px;
-
-    right:12px;
-
-    z-index:10;
-
+.character-card-gauge.cp
+.character-card-gauge-fill {
+    background:
+        linear-gradient(
+            90deg,
+            #25328b,
+            #3f68dc,
+            #59a7ff
+        );
 }
 
-.hp-area,
-.cp-area{
+.character-card-gauge span {
+    position: absolute;
 
-    margin-bottom:6px;
+    inset: 0;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    font-size: 11px;
+    font-weight: bold;
+
+    text-shadow:
+        1px 1px 2px black,
+        -1px -1px 2px black;
+
+    z-index: 2;
 }
 
-.bar{
 
-    width:100%;
+/* 状態異常 */
 
-    height:12px;
+.character-card-status-list {
+    position: absolute;
 
-    background:#222;
+    top: 9px;
+    right: 8px;
 
-    border-radius:10px;
+    width: 34px;
 
-    overflow:hidden;
+    display: flex;
+    flex-direction: column;
 
+    gap: 5px;
+
+    z-index: 4;
 }
 
-.hp-fill{
+.character-card-status {
+    position: relative;
 
-    height:100%;
+    width: 34px;
+    height: 34px;
 
-    background:#d73c3c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    clip-path:
+        polygon(
+            25% 5%,
+            75% 5%,
+            100% 50%,
+            75% 95%,
+            25% 95%,
+            0 50%
+        );
+
+    background:
+        radial-gradient(
+            circle,
+            #69458b,
+            #1f142b
+        );
+
+    color: white;
+
+    font-size: 11px;
+    font-weight: bold;
 }
 
-.cp-fill{
+.character-card-status small {
+    position: absolute;
 
-    height:100%;
+    right: 1px;
+    bottom: 1px;
 
-    background:#3b6ee8;
+    width: 13px;
+    height: 13px;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #e53e4f;
+    color: white;
+
+    font-size: 8px;
 }
 
-.card-name{
 
-    position:absolute;
+/* 下部 */
 
-    bottom:34px;
+.character-card-bottom {
+    position: absolute;
 
-    width:100%;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
 
-    text-align:center;
+    padding: 8px 10px;
 
-    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    font-weight:bold;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 8px;
 
-    font-size:18px;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(17, 15, 22, 0.78),
+            rgba(8, 7, 11, 0.94)
+        );
 
+    backdrop-filter: blur(4px);
+
+    z-index: 3;
 }
 
-.card-type{
+.character-card-bottom strong {
+    color: white;
 
-    position:absolute;
+    font-size: 17px;
+    letter-spacing: 1px;
+}
 
-    bottom:10px;
+.character-card-bottom span {
+    margin-top: 2px;
 
-    width:100%;
+    color: #d5cbe0;
 
-    text-align:center;
+    font-size: 11px;
+}
 
-    color:#ddd;
 
-    font-size:14px;
+/* 選択表示 */
+
+.character-card-selected {
+    position: absolute;
+
+    top: 48%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #ffd65e;
+    color: #251a00;
+
+    font-size: 28px;
+    font-weight: bold;
+
+    box-shadow:
+        0 0 15px rgba(255, 214, 94, 0.95);
+
+    z-index: 5;
+}
+
+
+/* 行動済み */
+
+.character-card-acted {
+    position: absolute;
+
+    top: 48%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(-8deg);
+
+    padding: 8px 14px;
+
+    border: 2px solid white;
+    border-radius: 5px;
+
+    background: rgba(7, 7, 10, 0.82);
+    color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 2px;
+
+    z-index: 6;
+}
+
+
+/* 小さい画面 */
+
+@media screen and (max-width: 850px) {
+
+    .character-card {
+        width: 175px;
+    }
+
+    .character-card-gauge {
+        height: 15px;
+    }
+
+    .character-card-gauge span {
+        font-size: 9px;
+    }
+
+    .character-card-status-list {
+        width: 29px;
+    }
+
+    .character-card-status {
+        width: 29px;
+        height: 29px;
+
+        font-size: 9px;
+    }
+
+    .character-card-bottom strong {
+        font-size: 14px;
+    }
 
 }
