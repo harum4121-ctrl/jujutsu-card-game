@@ -2,7 +2,7 @@ const characters = {
 
     yuji: {
         name: "虎杖悠仁",
-        cardImage: "images/cards/yuji.png",
+        cardImage: "images/cards/yuji.png.PNG",
         type: "体",
 
         hp: 320,
