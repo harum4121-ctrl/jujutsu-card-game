@@ -163,48 +163,16 @@ function displayCharacters() {
                     </div>
                 `;
 
-        card.innerHTML = `
-
-            <div class="character-card-image-area">
-
-                ${imageHtml}
-
-                <div class="character-type-badge type-${char.type}">
-                    ${char.type}
-                </div>
-
-                ${
-                    selected
-                        ? `
-                            <div class="selected-check">
-                                ✓
-                            </div>
-                        `
-                        : ""
-                }
-
-            </div>
-
-
-            <div class="character-select-info">
-
-                <h3>${char.name}</h3>
-
-                <div class="character-mini-stats">
-
-                    <span>
-                        HP ${char.hp}
-                    </span>
-
-                    <span>
-                        初期呪力 ${char.cursedPower}
-                    </span>
-
-                </div>
-
-            </div>
-
-        `;
+        card.innerHTML =
+    createCharacterCard(
+        char,
+        {
+            currentHp: char.hp,
+            currentCp: char.cursedPower,
+            selected: selected,
+            statuses: []
+        }
+    );
 
         list.appendChild(card);
 
