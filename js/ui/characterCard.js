@@ -133,6 +133,19 @@ ${
         : ""
 
 }
+${
+    showButton
+        ? `
+            <button
+                class="character-card-button"
+                onclick="${buttonAction}"
+                ${buttonDisabled ? "disabled" : ""}
+            >
+                ${buttonText}
+            </button>
+        `
+        : ""
+}
 
                 ${
     mode === "battle"
