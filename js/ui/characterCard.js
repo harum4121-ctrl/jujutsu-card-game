@@ -122,15 +122,21 @@ const mode =
 
                 <div class="character-card-bottom">
 
-                    <strong>
-                        ${character.name}
-                    </strong>
+    <strong>
+        ${character.name}
+    </strong>
 
-                    <span>
-                        ${character.type}タイプ
-                    </span>
+    ${
+        mode !== "battle"
+            ? `
+                <span>
+                    ${character.type}タイプ
+                </span>
+            `
+            : ""
+    }
 
-                </div>
+</div>
 
 
                 ${
