@@ -57,7 +57,7 @@ const characters = {
 
     megumi: {
         name: "伏黒恵",
-        cardImage: "images/cards/megumi.png",
+        cardImage: "images/cards/megumi.png.PNG",
         type: "術",
 
         hp: 420,
@@ -126,7 +126,7 @@ const characters = {
 
     nobara: {
         name: "釘崎野薔薇",
-        cardImage: "images/cards/nobara.png",
+        cardImage: "images/cards/nobara.png.PNG",
         type: "術",
 
         hp: 320,
@@ -174,7 +174,7 @@ const characters = {
 
     gojo: {
         name: "五条悟",
-        cardImage: "images/cards/gojo.png",
+        cardImage: "images/cards/gojo.png.PNG",
         type: "術",
 
         hp: 400,
@@ -250,7 +250,7 @@ const characters = {
     
         maki: {
         name: "禪院真希",
-        cardImage: "images/cards/maki.png",
+        cardImage: "images/cards/maki.png.PNG",
         type: "体",
 
         hp: 380,
@@ -313,7 +313,7 @@ const characters = {
 
     inumaki: {
         name: "狗巻棘",
-        cardImage: "images/cards/inumaki.png",
+        cardImage: "images/cards/inumaki.png.PNG",
         type: "術",
 
         hp: 350,
@@ -375,7 +375,7 @@ const characters = {
 
     panda: {
         name: "パンダ",
-        cardImage: "images/cards/panda.png",
+        cardImage: "images/cards/panda.png.PNG",
         type: "体",
 
         hp: 400,
@@ -433,7 +433,7 @@ const characters = {
 
     shoko: {
         name: "家入硝子",
-        cardImage: "images/cards/shoko.png",
+        cardImage: "images/cards/shoko.png.PNG",
         type: "術",
 
         hp: 310,
@@ -480,7 +480,7 @@ const characters = {
     
         sukuna: {
         name: "両面宿儺",
-        cardImage: "images/cards/sukuna.png",
+        cardImage: "images/cards/sukuna.png.PNG",
         type: "術",
 
         hp: 400,
@@ -533,7 +533,7 @@ const characters = {
 
     yuta: {
         name: "乙骨憂太",
-        cardImage: "images/cards/yuta.png",
+        cardImage: "images/cards/yuta.png.PNG",
         type: "術",
 
         hp: 370,
