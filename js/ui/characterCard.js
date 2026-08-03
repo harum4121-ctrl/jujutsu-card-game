@@ -82,7 +82,11 @@ const mode =
                     class="character-card-art"
                 >
 
+${
 
+    mode === "battle"
+
+        ? `
                 <div class="character-card-top">
 
                     <div class="character-card-gauge hp">
@@ -97,6 +101,12 @@ const mode =
                         </span>
 
                     </div>
+
+        `
+
+        : ""
+
+}
 
 
                     <div class="character-card-gauge cp">
