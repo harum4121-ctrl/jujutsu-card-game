@@ -1,7 +1,19 @@
 function createCharacterCard(character, options = {}) {
 
-const mode =
+    const mode =
     options.mode ?? "battle";
+    
+    const showButton =
+    options.showButton ?? false;
+
+const buttonText =
+    options.buttonText ?? "";
+
+const buttonDisabled =
+    options.buttonDisabled ?? false;
+
+const buttonAction =
+    options.buttonAction ?? "";
 
     const currentHp =
         options.currentHp ?? character.hp;
