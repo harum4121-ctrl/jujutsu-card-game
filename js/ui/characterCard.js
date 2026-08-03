@@ -102,13 +102,6 @@ ${
 
                     </div>
 
-        `
-
-        : ""
-
-}
-
-
                     <div class="character-card-gauge cp">
 
                         <div
@@ -123,7 +116,11 @@ ${
                     </div>
 
                 </div>
+                `
 
+        : ""
+
+}
 
                 ${
     mode === "battle"
