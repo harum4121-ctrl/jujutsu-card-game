@@ -527,6 +527,85 @@ function displayEnemyCharacters() {
 
 }
 
+function getCardStatuses(character) {
+
+    const statuses = [];
+
+    if ((character.invincible ?? 0) > 0) {
+        statuses.push({
+            icon: "盾",
+            name: "無敵",
+            turn: character.invincible
+        });
+    }
+
+    if ((character.stun ?? 0) > 0) {
+        statuses.push({
+            icon: "痺",
+            name: "スタン",
+            turn: character.stun
+        });
+    }
+
+    if ((character.damageBuff ?? 0) > 0) {
+        statuses.push({
+            icon: "与↑",
+            name: `与ダメージ+${character.damageBuff}`,
+            turn: character.damageBuffTurn
+        });
+    }
+
+    if ((character.damageDown ?? 0) > 0) {
+        statuses.push({
+            icon: "与↓",
+            name: `与ダメージ-${character.damageDown}`,
+            turn: character.damageDownTurn
+        });
+    }
+
+    if ((character.damageTakenUp ?? 0) > 0) {
+        statuses.push({
+            icon: "被↑",
+            name: `被ダメージ+${character.damageTakenUp}`,
+            turn: character.damageTakenUpTurn
+        });
+    }
+
+    if ((character.damageReduction ?? 0) > 0) {
+        statuses.push({
+            icon: "被↓",
+            name: `被ダメージ-${character.damageReduction}`,
+            turn: character.damageReductionTurn
+        });
+    }
+
+    if ((character.taunt ?? 0) > 0) {
+        statuses.push({
+            icon: "挑",
+            name: "攻撃引き付け",
+            turn: character.taunt
+        });
+    }
+
+    if (character.nextSkillFree) {
+        statuses.push({
+            icon: "零",
+            name: "次の消費呪力0",
+            turn: null
+        });
+    }
+
+    if (character.freeUltimate) {
+        statuses.push({
+            icon: "必",
+            name: "必殺カード消費なし",
+            turn: null
+        });
+    }
+
+    return statuses;
+}
+
 // ===============================
 // 味方表示
 // ===============================
