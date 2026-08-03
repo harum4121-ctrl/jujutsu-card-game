@@ -125,9 +125,17 @@ ${
                 </div>
 
 
-                <div class="character-card-status-list">
-                    ${statusHtml}
-                </div>
+                ${
+    mode === "battle"
+        ? `
+            <div class="character-card-status-list">
+
+                ${statusHtml}
+
+            </div>
+        `
+        : ""
+}
 
 
                 <div class="character-card-bottom">
