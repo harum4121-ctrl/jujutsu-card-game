@@ -1080,3 +1080,427 @@ button {
     }
 
 }
+
+/* ===============================
+   バトル用キャラクターカード
+================================ */
+
+.battle-character-card {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px;
+
+    border: 2px solid #4b4a55;
+    border-radius: 12px;
+
+    background: rgba(21, 20, 27, 0.94);
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        opacity 0.18s ease;
+}
+
+
+/* 選択中 */
+
+.battle-character-card.selected {
+    border-color: #ffd75c;
+
+    box-shadow:
+        0 0 10px rgba(255, 215, 92, 0.9),
+        0 0 25px rgba(255, 193, 54, 0.55);
+
+    transform: translateY(-4px);
+}
+
+
+/* 行動済み */
+
+.battle-character-card.acted {
+    opacity: 0.58;
+}
+
+
+/* 戦闘不能 */
+
+.battle-character-card.defeated {
+    opacity: 0.35;
+
+    filter:
+        grayscale(100%);
+}
+
+
+/* カード画像を囲む部分 */
+
+.battle-card-wrapper {
+    position: relative;
+
+    width: 100%;
+    max-width: 245px;
+
+    aspect-ratio: 2 / 3;
+
+    overflow: hidden;
+
+    border-radius: 8px;
+
+    background: #08080b;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.55);
+}
+
+.battle-card-image {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+
+/* ===============================
+   HP・呪力
+================================ */
+
+.card-hp-display,
+.card-cp-display {
+    position: absolute;
+
+    left: 12%;
+    width: 56%;
+
+    z-index: 3;
+}
+
+/*
+カード画像上部の空欄に合わせた位置。
+画像によって少しズレる場合は
+topの数値だけ調整する。
+*/
+
+.card-hp-display {
+    top: 3.8%;
+}
+
+.card-cp-display {
+    top: 10.1%;
+}
+
+.card-gauge-background {
+    position: relative;
+
+    width: 100%;
+    height: clamp(12px, 2.1vw, 21px);
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.48);
+    border-radius: 4px;
+
+    background: rgba(5, 5, 8, 0.88);
+
+    box-shadow:
+        inset 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+.card-gauge-fill {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    height: 100%;
+
+    transition: width 0.35s ease;
+}
+
+.card-hp-fill {
+    background:
+        linear-gradient(
+            90deg,
+            #8b151c,
+            #e53842,
+            #ff6363
+        );
+}
+
+.card-cp-fill {
+    background:
+        linear-gradient(
+            90deg,
+            #213a9c,
+            #416ee3,
+            #58afff
+        );
+}
+
+.card-gauge-text {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #ffffff;
+
+    font-size: clamp(8px, 1.3vw, 14px);
+    font-weight: bold;
+
+    line-height: 1;
+
+    text-shadow:
+        1px 1px 2px #000000,
+        -1px -1px 2px #000000;
+
+    z-index: 2;
+}
+
+
+/* ===============================
+   状態効果スロット
+================================ */
+
+.card-status-area {
+    position: absolute;
+
+    top: 2.7%;
+    right: 3.8%;
+
+    width: 12%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 1.2%;
+
+    z-index: 4;
+}
+
+.card-status-slot {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+
+    /*
+    六角形にする
+    */
+    clip-path:
+        polygon(
+            25% 6%,
+            75% 6%,
+            100% 50%,
+            75% 94%,
+            25% 94%,
+            0 50%
+        );
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(97, 60, 130, 0.96),
+            rgba(20, 12, 29, 0.96)
+        );
+
+    color: white;
+
+    font-weight: bold;
+
+    box-shadow:
+        inset 0 0 8px
+        rgba(255, 255, 255, 0.22);
+}
+
+.card-status-slot.empty {
+    background: transparent;
+}
+
+.status-icon {
+    font-size: clamp(7px, 1.2vw, 13px);
+
+    text-align: center;
+    line-height: 1;
+}
+
+.status-turn {
+    position: absolute;
+
+    right: 3%;
+    bottom: 4%;
+
+    min-width: 12px;
+    height: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #ef3948;
+    color: white;
+
+    font-size: 8px;
+    font-weight: bold;
+
+    box-shadow:
+        0 0 4px black;
+}
+
+
+/* 4個以上の状態効果 */
+
+.remaining-status-count {
+    position: absolute;
+
+    top: 21%;
+    right: 1.5%;
+
+    min-width: 24px;
+    height: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0 4px;
+
+    border-radius: 10px;
+
+    background: rgba(20, 15, 27, 0.92);
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    z-index: 5;
+}
+
+
+/* 選択済みマーク */
+
+.battle-selected-mark {
+    position: absolute;
+
+    top: 24%;
+    right: 4%;
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #ffd552;
+    color: #241a00;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    box-shadow:
+        0 0 10px
+        rgba(255, 213, 82, 0.9);
+
+    z-index: 5;
+}
+
+
+/* 行動済み表示 */
+
+.acted-label {
+    position: absolute;
+
+    top: 45%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(-8deg);
+
+    padding: 7px 13px;
+
+    border: 2px solid #d6d6d6;
+    border-radius: 5px;
+
+    background: rgba(12, 12, 15, 0.82);
+    color: white;
+
+    font-size: clamp(11px, 1.6vw, 18px);
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    z-index: 6;
+}
+
+
+/* 選択ボタン */
+
+.battle-character-select-button {
+    width: 80%;
+
+    padding: 9px 8px;
+
+    border: none;
+    border-radius: 7px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #79519b,
+            #48295f
+        );
+
+    color: white;
+
+    font-weight: bold;
+}
+
+.battle-character-select-button:disabled {
+    opacity: 0.38;
+}
+
+
+/* 小さい横画面 */
+
+@media screen and (max-width: 850px) {
+
+    .battle-character-card {
+        padding: 5px;
+    }
+
+    .battle-card-wrapper {
+        max-width: 190px;
+    }
+
+    .battle-character-select-button {
+        padding: 7px 5px;
+        font-size: 11px;
+    }
+
+}
