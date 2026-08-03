@@ -148,21 +148,6 @@ function displayCharacters() {
 
         };
 
-        const imageHtml =
-            char.cardImage
-                ? `
-                    <img
-                        src="${char.cardImage}"
-                        alt="${char.name}"
-                        class="character-select-image"
-                    >
-                `
-                : `
-                    <div class="character-image-placeholder">
-                        ${char.name}
-                    </div>
-                `;
-
         card.innerHTML =
     createCharacterCard(
         char,
