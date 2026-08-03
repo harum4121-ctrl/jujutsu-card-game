@@ -360,3 +360,39 @@
     }
 
 }
+
+.character-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.character-card-button {
+    width: 80%;
+
+    padding: 9px 8px;
+
+    border: none;
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #78509a,
+            #47275e
+        );
+
+    color: white;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 4px 10px
+        rgba(0, 0, 0, 0.35);
+}
+
+.character-card-button:disabled {
+    opacity: 0.35;
+}
