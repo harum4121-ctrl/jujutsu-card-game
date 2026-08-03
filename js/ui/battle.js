@@ -629,77 +629,175 @@ function displayBattleCharacters() {
             character.hasActed ||
             character.stun > 0;
 
-        const hpRate =
-            Math.max(
-                0,
+        const hpRate = Math.max(
+            0,
+            Math.min(
+                100,
                 character.currentHp /
                 character.maxHp *
                 100
-            );
+            )
+        );
 
-        const cpRate =
-            Math.max(
-                0,
+        const cpRate = Math.max(
+            0,
+            Math.min(
+                100,
                 character.currentCursedPower /
                 character.maxCursedPower *
                 100
-            );
+            )
+        );
 
         const statuses =
-            getStatusList(character)
-                .map(status =>
-                    `<span class="status">${status}</span>`
-                )
-                .join("");
+            getCardStatuses(character);
+
+        // 画像内には3枠あるため、最初の3つを表示
+        const statusSlots = [0, 1, 2]
+            .map(index => {
+
+                const status =
+                    statuses[index];
+
+                if (!status) {
+
+                    return `
+                        <div class="card-status-slot empty"></div>
+                    `;
+                }
+
+                const turnText =
+                    status.turn != null &&
+                    status.turn > 0
+                        ? `<span class="status-turn">${status.turn}</span>`
+                        : "";
+
+                return `
+                    <div
+                        class="card-status-slot"
+                        title="${status.name}"
+                    >
+                        <span class="status-icon">
+                            ${status.icon}
+                        </span>
+
+                        ${turnText}
+                    </div>
+                `;
+
+            })
+            .join("");
+
+        const remainingStatusCount =
+            Math.max(0, statuses.length - 3);
 
         area.innerHTML += `
 
-            <div class="character-panel">
+            <div
+                class="
+                    battle-character-card
+                    ${selected ? "selected" : ""}
+                    ${character.hasActed ? "acted" : ""}
+                    ${character.currentHp <= 0 ? "defeated" : ""}
+                "
+            >
 
-               <img
-    src="${character.cardImage}"
-    class="battle-card"
->
+                <div class="battle-card-wrapper">
 
-<div class="character-name">
+                    <img
+                        src="${character.cardImage}"
+                        alt="${character.name}"
+                        class="battle-card-image"
+                    >
 
-${character.name}
 
-</div>
+                    <!-- HP表示 -->
+                    <div class="card-hp-display">
 
-                <div>
-                    HP：
-                    ${character.currentHp}
-                    /
-                    ${character.maxHp}
+                        <div class="card-gauge-background">
+
+                            <div
+                                class="card-gauge-fill card-hp-fill"
+                                style="width:${hpRate}%"
+                            ></div>
+
+                            <span class="card-gauge-text">
+                                ${character.currentHp}
+                                /
+                                ${character.maxHp}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 呪力表示 -->
+                    <div class="card-cp-display">
+
+                        <div class="card-gauge-background">
+
+                            <div
+                                class="card-gauge-fill card-cp-fill"
+                                style="width:${cpRate}%"
+                            ></div>
+
+                            <span class="card-gauge-text">
+                                ${character.currentCursedPower}
+                                /
+                                ${character.maxCursedPower}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 右側の状態効果3枠 -->
+                    <div class="card-status-area">
+
+                        ${statusSlots}
+
+                    </div>
+
+
+                    ${
+                        remainingStatusCount > 0
+                            ? `
+                                <div class="remaining-status-count">
+                                    +${remainingStatusCount}
+                                </div>
+                            `
+                            : ""
+                    }
+
+
+                    ${
+                        selected
+                            ? `
+                                <div class="battle-selected-mark">
+                                    ✓
+                                </div>
+                            `
+                            : ""
+                    }
+
+
+                    ${
+                        character.hasActed
+                            ? `
+                                <div class="acted-label">
+                                    行動済み
+                                </div>
+                            `
+                            : ""
+                    }
+
                 </div>
 
-                <div class="bar">
-                    <div
-                        class="bar-fill hp"
-                        style="width:${hpRate}%"
-                    ></div>
-                </div>
-
-                <div>
-                    呪力：
-                    ${character.currentCursedPower}
-                    /
-                    ${character.maxCursedPower}
-                </div>
-
-                <div class="bar">
-                    <div
-                        class="bar-fill cp"
-                        style="width:${cpRate}%"
-                    ></div>
-                </div>
-
-                <div class="status-list">
-                    ${statuses}
-                </div>
 
                 <button
+                    class="battle-character-select-button"
                     onclick="toggleActor('${character.id}')"
                     ${disabled ? "disabled" : ""}
                 >
