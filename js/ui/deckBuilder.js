@@ -797,25 +797,7 @@ function deleteDeck(slot) {
     displayDeckSlots();
 
 }
-function getCardDescription(card) {
 
-    if (card.description) {
-        return card.description;
-    }
-
-    if (card.effect?.type) {
-        return card.effect.type;
-    }
-
-    if (Array.isArray(card.effect)) {
-        return card.effect
-            .map(effect => effect.type)
-            .join(" / ");
-    }
-
-    return "効果説明なし";
-
-}
 function updateDeckStats() {
 
     const area =
