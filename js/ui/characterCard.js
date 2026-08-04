@@ -1,25 +1,29 @@
 function createCharacterCard(character, options = {}) {
 
     const mode =
-    options.mode ?? "battle";
-    
-    const showButton =
-    options.showButton ?? false;
-
-const buttonText =
-    options.buttonText ?? "";
-
-const buttonDisabled =
-    options.buttonDisabled ?? false;
-
-const buttonAction =
-    options.buttonAction ?? "";
+        options.mode ?? "battle";
 
     const currentHp =
-        options.currentHp ?? character.hp;
+        options.currentHp ??
+        character.currentHp ??
+        character.hp ??
+        character.maxHp ??
+        0;
 
     const currentCp =
-        options.currentCp ?? character.cursedPower;
+        options.currentCp ??
+        character.currentCursedPower ??
+        character.cursedPower ??
+        0;
+
+    const maxHp =
+        character.maxHp ??
+        character.hp ??
+        1;
+
+    const maxCp =
+        character.maxCursedPower ??
+        100;
 
     const statuses =
         options.statuses ?? [];
@@ -37,9 +41,7 @@ const buttonAction =
         0,
         Math.min(
             100,
-            currentHp /
-            character.maxHp *
-            100
+            currentHp / maxHp * 100
         )
     );
 
@@ -47,44 +49,95 @@ const buttonAction =
         0,
         Math.min(
             100,
-            currentCp /
-            character.maxCursedPower *
-            100
+            currentCp / maxCp * 100
         )
     );
 
     const statusHtml =
-        statuses
-            .slice(0, 3)
-            .map(status => `
-                <div
-                    class="character-card-status"
-                    title="${status.name}"
-                >
-                    <span>${status.icon}</span>
+        statuses.length > 0
+            ? statuses
+                .slice(0, 4)
+                .map(status => `
+                    <div
+                        class="character-card-status"
+                        title="${status.name}"
+                    >
+                        <span class="character-status-icon">
+                            ${status.icon}
+                        </span>
 
-                    ${
-                        status.turn != null
-                            ? `
-                                <small>
-                                    ${status.turn}
-                                </small>
-                            `
-                            : ""
-                    }
-                </div>
-            `)
-            .join("");
+                        ${
+                            status.turn != null &&
+                            status.turn > 0
+                                ? `
+                                    <small>
+                                        ${status.turn}
+                                    </small>
+                                `
+                                : ""
+                        }
+                    </div>
+                `)
+                .join("")
+            : "";
 
     return `
         <div
             class="
                 character-card
+                mode-${mode}
                 ${selected ? "selected" : ""}
                 ${acted ? "acted" : ""}
                 ${defeated ? "defeated" : ""}
             "
         >
+
+            ${
+                mode === "battle" ||
+                mode === "enemy"
+                    ? `
+                        <div class="character-card-battle-info">
+
+                            <div class="character-card-gauge hp">
+
+                                <div
+                                    class="character-card-gauge-fill"
+                                    style="width:${hpRate}%"
+                                ></div>
+
+                                <span>
+                                    HP ${currentHp}/${maxHp}
+                                </span>
+
+                            </div>
+
+                            <div class="character-card-gauge cp">
+
+                                <div
+                                    class="character-card-gauge-fill"
+                                    style="width:${cpRate}%"
+                                ></div>
+
+                                <span>
+                                    呪力 ${currentCp}/${maxCp}
+                                </span>
+
+                            </div>
+
+                            ${
+                                statusHtml
+                                    ? `
+                                        <div class="character-card-status-list">
+                                            ${statusHtml}
+                                        </div>
+                                    `
+                                    : ""
+                            }
+
+                        </div>
+                    `
+                    : ""
+            }
 
             <div class="character-card-frame">
 
@@ -93,91 +146,6 @@ const buttonAction =
                     alt="${character.name}"
                     class="character-card-art"
                 >
-
-${
-
-    mode === "battle"
-
-        ? `
-                <div class="character-card-top">
-
-                    <div class="character-card-gauge hp">
-
-                        <div
-                            class="character-card-gauge-fill"
-                            style="width:${hpRate}%"
-                        ></div>
-
-                        <span>
-                            HP ${currentHp}/${character.maxHp}
-                        </span>
-
-                    </div>
-
-                    <div class="character-card-gauge cp">
-
-                        <div
-                            class="character-card-gauge-fill"
-                            style="width:${cpRate}%"
-                        ></div>
-
-                        <span>
-                            呪力 ${currentCp}/${character.maxCursedPower}
-                        </span>
-
-                    </div>
-
-                </div>
-                `
-
-        : ""
-
-}
-${
-    showButton
-        ? `
-            <button
-                class="character-card-button"
-                onclick="${buttonAction}"
-                ${buttonDisabled ? "disabled" : ""}
-            >
-                ${buttonText}
-            </button>
-        `
-        : ""
-}
-
-                ${
-    mode === "battle"
-        ? `
-            <div class="character-card-status-list">
-
-                ${statusHtml}
-
-            </div>
-        `
-        : ""
-}
-
-
-                <div class="character-card-bottom">
-
-    <strong>
-        ${character.name}
-    </strong>
-
-    ${
-        mode !== "battle"
-            ? `
-                <span>
-                    ${character.type}タイプ
-                </span>
-            `
-            : ""
-    }
-
-</div>
-
 
                 ${
                     selected
@@ -188,7 +156,6 @@ ${
                         `
                         : ""
                 }
-
 
                 ${
                     acted
