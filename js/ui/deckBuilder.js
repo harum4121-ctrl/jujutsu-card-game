@@ -819,3 +819,37 @@ function getCardDescription(card) {
     return "効果説明なし";
 
 }
+function updateDeckStats() {
+
+    const area =
+        document.getElementById("deckStats");
+
+    if (!area) return;
+
+    const counts = {
+        "呪具": 0,
+        "呪物": 0,
+        "サポート": 0,
+        "領域": 0,
+        "必殺": 0
+    };
+
+    gameState.deck.forEach(card => {
+
+        if (counts[card.type] != null) {
+
+            counts[card.type]++;
+
+        }
+
+    });
+
+    area.innerHTML = `
+        <span>呪具 ${counts["呪具"]}</span>
+        <span>呪物 ${counts["呪物"]}</span>
+        <span>支援 ${counts["サポート"]}</span>
+        <span>領域 ${counts["領域"]}</span>
+        <span>必殺 ${counts["必殺"]}</span>
+    `;
+
+}
