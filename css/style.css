@@ -1751,11 +1751,37 @@ topの数値だけ調整する。
 
 .deck-card-item{
 
-    height:120px;
+    width:110px;
+
+    padding:6px;
+
+    border-radius:10px;
+
+    background:#222;
+
+}
+
+.deck-card-image{
+
+    width:100%;
+
+    aspect-ratio:2/3;
+
+    object-fit:cover;
+
+    border-radius:8px;
+
+}
+
+.deck-card-footer{
+
+    margin-top:5px;
 
     display:flex;
 
-    flex-direction:column;
+    justify-content:space-between;
+
+    align-items:center;
 
 }
 
