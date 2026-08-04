@@ -28,14 +28,6 @@ function showDeckBuilder() {
             <button id="startGame">
                 対戦開始
             </button>
-            
-            <button id="saveDeck">
-    デッキ保存
-</button>
-
-<button id="loadDeck">
-    デッキ読込
-</button>
 
             <button id="backCharacter">
                 キャラクター選択へ戻る
