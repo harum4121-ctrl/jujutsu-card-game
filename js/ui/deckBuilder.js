@@ -1,4 +1,11 @@
 function showDeckBuilder() {
+    
+    <button
+    id="randomDeckButton"
+    class="deck-auto-button"
+>
+    おまかせ編成
+</button>
 
     const app = document.getElementById("app");
 
