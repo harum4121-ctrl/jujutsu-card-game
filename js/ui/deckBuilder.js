@@ -257,30 +257,10 @@ function displayAllCards() {
         const div =
             document.createElement("div");
 
-        div.className = "deck-card-item";
+        div.className =
+            "deck-card-item";
 
-div.innerHTML = `
-
-    <img
-        src="${card.image}"
-        class="deck-card-image"
-    >
-
-    <div class="deck-card-footer">
-
-        <span>
-            ${count}/3
-        </span>
-
-        <button
-            ${count >= 3 ? "disabled" : ""}
-        >
-            ＋
-        </button>
-
-    </div>
-
-`;
+        div.innerHTML = `
 
             <div class="deck-card-item-top">
 
@@ -294,7 +274,9 @@ div.innerHTML = `
 
             </div>
 
-            <h3>${card.name}</h3>
+            <h3>
+                ${card.name}
+            </h3>
 
             <button
                 class="add-deck-card-button"
@@ -305,19 +287,23 @@ div.innerHTML = `
 
         `;
 
-        div
-            .querySelector("button")
-            .onclick = () => {
+        const addButton =
+            div.querySelector(
+                ".add-deck-card-button"
+            );
 
-                addCard(card);
+        addButton.onclick = () => {
 
-            };
+            addCard(card);
+
+        };
 
         list.appendChild(div);
 
     });
 
 }
+
 function addCard(card) {
 
     if (gameState.deck.length >= 40) {
