@@ -4,7 +4,7 @@
 
 function startActionPhase() {
     
-    alert("startActionPhase開始");
+alert("③ startActionPhaseに入りました");
 
     gameState.selectedActors =
         gameState.selectedActors.filter(
