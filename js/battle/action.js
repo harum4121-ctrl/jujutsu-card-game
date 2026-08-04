@@ -13,6 +13,8 @@ function startActionPhase() {
 
     if (gameState.selectedActors.length === 0) {
 
+        alert("行動するキャラクターを選択してください");
+
         showBattleScreen();
         return;
 
@@ -20,7 +22,7 @@ function startActionPhase() {
 
     gameState.currentActorIndex = 0;
 
-    openSkillWindow(actor);
+    showSkillSelect();
 
 }
 
