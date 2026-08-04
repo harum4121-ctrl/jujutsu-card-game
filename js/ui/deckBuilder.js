@@ -95,13 +95,6 @@ document
 
     });
     
-    document
-    .getElementById("saveDeck")
-    .onclick = saveDeck;
-
-document
-    .getElementById("loadDeck")
-    .onclick = loadDeck;
 }
 
 function displayAllCards() {
