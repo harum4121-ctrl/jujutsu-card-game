@@ -346,11 +346,18 @@
     overflow: visible;
 }
 
-.character-select-card .character-card {
-    width: 100%;
-    max-width: 115px;
+.character-select-card {
 
-    margin: 0 auto;
+    width: 120px;
+
+    padding: 4px;
+
+}
+
+.character-select-card .character-card {
+
+    width: 100%;
+
 }
 
 
