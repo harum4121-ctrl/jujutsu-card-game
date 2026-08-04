@@ -312,3 +312,123 @@ function loadDeck() {
 
 }
 
+function displayDeckSlots() {
+
+    const area =
+        document.getElementById("deckSaveArea");
+
+    if (!area) return;
+
+    area.innerHTML = "";
+
+    for (let i = 1; i <= 10; i++) {
+
+        const saved =
+            localStorage.getItem(
+                "deck" + i
+            );
+
+        area.innerHTML += `
+            <div class="deck-slot">
+
+                <span>
+                    デッキ${i}
+                </span>
+
+                <button
+                    onclick="saveDeck(${i})"
+                >
+                    保存
+                </button>
+
+                <button
+                    onclick="loadDeck(${i})"
+                >
+                    読込
+                </button>
+
+                <button
+                    onclick="deleteDeck(${i})"
+                >
+                    削除
+                </button>
+
+                ${
+                    saved
+                        ? "✅"
+                        : "－"
+                }
+
+            </div>
+        `;
+
+    }
+
+}
+function saveDeck(slot) {
+
+    localStorage.setItem(
+
+        "deck" + slot,
+
+        JSON.stringify(gameState.deck)
+
+    );
+
+    alert(
+        "デッキ" +
+        slot +
+        "に保存しました！"
+    );
+
+    displayDeckSlots();
+
+}
+function loadDeck(slot) {
+
+    const data =
+        localStorage.getItem(
+            "deck" + slot
+        );
+
+    if (!data) {
+
+        alert("保存されていません");
+
+        return;
+
+    }
+
+    gameState.deck =
+        JSON.parse(data);
+
+    updateDeck();
+
+    alert(
+        "デッキ" +
+        slot +
+        "を読み込みました！"
+    );
+
+}
+function deleteDeck(slot) {
+
+    if (
+        !confirm(
+            "デッキ" +
+            slot +
+            "を削除しますか？"
+        )
+    ) {
+
+        return;
+
+    }
+
+    localStorage.removeItem(
+        "deck" + slot
+    );
+
+    displayDeckSlots();
+
+}
