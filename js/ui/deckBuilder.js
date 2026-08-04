@@ -330,38 +330,99 @@ function addCard(card) {
 }
 function updateDeck() {
 
-    const deckList = document.getElementById("deckList");
+    const deckList =
+        document.getElementById("deckList");
+
+    const deckCount =
+        document.getElementById("deckCount");
+
+    if (!deckList || !deckCount) return;
 
     deckList.innerHTML = "";
 
-    document.getElementById("deckCount").textContent =
+    deckCount.textContent =
         gameState.deck.length;
 
-    gameState.deck.forEach((card, index) => {
+    const groupedDeck = {};
 
-        const div = document.createElement("div");
+    gameState.deck.forEach(card => {
 
-        div.className = "card";
+        if (!groupedDeck[card.id]) {
 
-        div.innerHTML = `
-    <h3>${card.name}</h3>
+            groupedDeck[card.id] = {
+                card: card,
+                count: 0
+            };
 
-    <p>${card.type}</p>
+        }
 
-    <button>削除</button>
-`;
-
-        div.querySelector("button").onclick = () => {
-
-            gameState.deck.splice(index, 1);
-
-            updateDeck();
-
-        };
-
-        deckList.appendChild(div);
+        groupedDeck[card.id].count++;
 
     });
+
+    Object.values(groupedDeck)
+        .forEach(group => {
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "current-deck-card";
+
+            div.innerHTML = `
+
+                <div>
+
+                    <span class="deck-card-type">
+                        ${group.card.type}
+                    </span>
+
+                    <strong>
+                        ${group.card.name}
+                    </strong>
+
+                </div>
+
+                <div class="current-deck-card-actions">
+
+                    <span>
+                        × ${group.count}
+                    </span>
+
+                    <button>
+                        1枚削除
+                    </button>
+
+                </div>
+
+            `;
+
+            div
+                .querySelector("button")
+                .onclick = () => {
+
+                    const index =
+                        gameState.deck.findIndex(
+                            card =>
+                                card.id === group.card.id
+                        );
+
+                    if (index !== -1) {
+
+                        gameState.deck.splice(index, 1);
+
+                        updateDeck();
+                        displayAllCards();
+
+                    }
+
+                };
+
+            deckList.appendChild(div);
+
+        });
+
+    updateDeckStats();
 
 }
 
