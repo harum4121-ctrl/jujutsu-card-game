@@ -143,9 +143,25 @@ function showDeckBuilder() {
         </div>
     `;
 
+    try {
+
     displayAllCards();
     updateDeck();
     displayDeckSlots();
+
+} catch (error) {
+
+    console.error(
+        "デッキ編集画面の表示エラー:",
+        error
+    );
+
+    alert(
+        "デッキ編集画面の表示中にエラーが発生しました。\n" +
+        error.message
+    );
+
+}
 
     document
         .getElementById("startGame")
