@@ -1722,15 +1722,9 @@ if (character.extraActionStun) {
     
     // 状態異常ターン経過
 
-alert(gameState.battleCharacters.length);
-
 gameState.battleCharacters.forEach((character) => {
 
-    alert("updateStatus開始：" + character.name);
-
     updateStatus(character);
-
-    alert("updateStatus終了：" + character.name);
 
 });
 
@@ -1840,8 +1834,7 @@ function useFieldCard() {
     const card = gameState.selectedCard;
 
     const oldField = gameState.currentField;
-    
-    alert(JSON.stringify(gameState.currentField));
+
 
     if (
         oldField &&
