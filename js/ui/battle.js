@@ -395,6 +395,8 @@ function showBattleScreen() {
         .getElementById("startAction")
         .onclick = () => {
 
+alert("① 行動開始ボタンは押せています");
+
             if (
                 gameState.selectedActors.length === 0
             ) {
@@ -405,6 +407,8 @@ function showBattleScreen() {
 
                 return;
             }
+
+alert("② startActionPhaseを呼びます");
 
             startActionPhase();
         };
