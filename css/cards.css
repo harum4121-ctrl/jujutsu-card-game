@@ -30,6 +30,31 @@
         opacity 0.18s ease;
 }
 
+.deck-auto-button {
+    padding: 11px 18px;
+
+    border: 1px solid #b587e0;
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #7951a2,
+            #44275e
+        );
+
+    color: white;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 4px 10px
+        rgba(0, 0, 0, 0.35);
+}
+
+.deck-auto-button:active {
+    transform: translateY(2px);
+}
 
 /* 選択中 */
 
