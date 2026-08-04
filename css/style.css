@@ -1506,3 +1506,36 @@ topの数値だけ調整する。
     }
 
 }
+.deck-slot{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin:8px 0;
+
+    padding:10px;
+
+    background:#2b2b35;
+
+    border-radius:10px;
+
+}
+
+.deck-slot span{
+
+    width:80px;
+
+    font-weight:bold;
+
+}
+
+.deck-slot button{
+
+    margin:0;
+
+    padding:6px 12px;
+
+}
