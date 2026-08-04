@@ -275,10 +275,6 @@ function displayAllCards() {
 
             <h3>${card.name}</h3>
 
-            <p class="deck-card-description">
-                ${getCardDescription(card)}
-            </p>
-
             <button
                 class="add-deck-card-button"
                 ${count >= 3 ? "disabled" : ""}
