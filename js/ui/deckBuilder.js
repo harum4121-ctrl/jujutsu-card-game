@@ -163,3 +163,67 @@ function updateDeck() {
     });
 
 }
+
+function buildRandomDeck() {
+
+    const deckSize = 40;
+    const maxSameCard = 3;
+
+    const availableCards = Object.values(cards);
+
+    if (availableCards.length === 0) {
+        alert("使用できるカードがありません");
+        return;
+    }
+
+    const newDeck = [];
+    const cardCounts = {};
+
+    let safetyCount = 0;
+
+    while (
+        newDeck.length < deckSize &&
+        safetyCount < 10000
+    ) {
+
+        safetyCount++;
+
+        const randomCard =
+            availableCards[
+                Math.floor(
+                    Math.random() *
+                    availableCards.length
+                )
+            ];
+
+        const currentCount =
+            cardCounts[randomCard.id] ?? 0;
+
+        if (currentCount >= maxSameCard) {
+            continue;
+        }
+
+        newDeck.push({
+            ...randomCard
+        });
+
+        cardCounts[randomCard.id] =
+            currentCount + 1;
+
+    }
+
+    if (newDeck.length < deckSize) {
+
+        alert(
+            "カードの種類が足りないため、40枚のデッキを作れませんでした"
+        );
+
+        return;
+    }
+
+    gameState.deck = newDeck;
+
+    alert("おまかせデッキを作成しました！");
+
+    showDeckBuilder();
+}
