@@ -368,7 +368,6 @@ function showEnemySelect() {
 
 function attackEnemy(enemyIndex) {
     
-    alert("attackEnemy開始");
     
     alert(
 
