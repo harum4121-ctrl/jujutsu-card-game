@@ -1635,8 +1635,6 @@ if (!target) {
     const damage =
         calculateDamage(enemy, target, skill);
 
-    alert("calculateDamage OK");
-
     target.currentHp -= damage;
 
     applyEffects(
@@ -1645,7 +1643,6 @@ if (!target) {
         skill.effects
     );
 
-    alert("applyEffects OK");
 
 });
 
@@ -1656,7 +1653,6 @@ if (!target) {
                 "！\n\n味方全体に攻撃！"
             );
             
-            alert("ここまで来た");
 
         }
     });
@@ -1725,9 +1721,6 @@ if (character.extraActionStun) {
     });
     
     // 状態異常ターン経過
-alert("① updateStatus前");
-
-alert(gameState.battleCharacters);
 
 alert(gameState.battleCharacters.length);
 
@@ -1751,12 +1744,9 @@ gameState.enemyCharacters.forEach(enemy => {
 });
 
 gameState.enemyCharacters.forEach(updateStatus);
-alert("② updateStatus後");
 if (checkBattleEnd()) {
     return;
 }
-
-alert("③ checkBattleEnd後");
 
 if (!drawCard()) {
 
@@ -1765,11 +1755,7 @@ if (!drawCard()) {
 
 }
 
-alert("④ drawCard後");
-
 showBattleScreen();
-
-alert("⑤ showBattleScreen後");
 
 }
 
