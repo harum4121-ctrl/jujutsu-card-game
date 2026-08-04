@@ -3,92 +3,200 @@ function showDeckBuilder() {
     const app = document.getElementById("app");
 
     app.innerHTML = `
-        <div class="deck-builder">
+        <div class="deck-builder-screen">
 
-            <h1>デッキ編集</h1>
+            <header class="deck-builder-header">
 
-            <p>
-                デッキ枚数：
-                <span id="deckCount">0</span>
-                /40
-            </p>
+                <div>
+                    <h1>デッキ編集</h1>
 
-            <h2>カード一覧</h2>
+                    <p>
+                        デッキ枚数：
+                        <strong id="deckCount">0</strong>
+                        / 40
+                    </p>
+                </div>
 
-            <div id="cardList"></div>
+                <div class="deck-builder-actions">
 
-<h2>デッキ</h2>
+                    <button
+                        id="randomDeckButton"
+                        class="deck-action-button auto"
+                    >
+                        おまかせ編成
+                    </button>
 
-<div id="deckList"></div>
+                    <button
+                        id="backCharacter"
+                        class="deck-action-button back"
+                    >
+                        キャラクター選択へ戻る
+                    </button>
 
-<h2>保存デッキ</h2>
+                    <button
+                        id="startGame"
+                        class="deck-action-button start"
+                    >
+                        対戦開始
+                    </button>
 
-<div id="deckSaveArea"></div>
+                </div>
 
-            <button id="startGame">
-                対戦開始
-            </button>
+            </header>
 
-            <button id="backCharacter">
-                キャラクター選択へ戻る
-            </button>
-            
-                <button
-    id="randomDeckButton"
-    class="deck-auto-button"
->
-    おまかせ編成
-</button>
+
+            <div class="deck-builder-main">
+
+                <!-- 左側 -->
+                <section class="deck-card-section">
+
+                    <div class="deck-section-header">
+
+                        <h2>カード一覧</h2>
+
+                        <div class="deck-filter-area">
+
+                            <input
+                                id="cardSearch"
+                                type="search"
+                                placeholder="カード名で検索"
+                            >
+
+                            <select id="cardTypeFilter">
+
+                                <option value="all">
+                                    すべて
+                                </option>
+
+                                <option value="呪具">
+                                    呪具
+                                </option>
+
+                                <option value="呪物">
+                                    呪物
+                                </option>
+
+                                <option value="サポート">
+                                    サポート
+                                </option>
+
+                                <option value="領域">
+                                    領域
+                                </option>
+
+                                <option value="必殺">
+                                    必殺
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        id="cardList"
+                        class="deck-card-list"
+                    ></div>
+
+                </section>
+
+
+                <!-- 右側 -->
+                <section class="current-deck-section">
+
+                    <div class="deck-section-header">
+
+                        <h2>現在のデッキ</h2>
+
+                        <div id="deckStats"></div>
+
+                    </div>
+
+                    <div
+                        id="deckList"
+                        class="current-deck-list"
+                    ></div>
+
+                </section>
+
+            </div>
+
+
+            <section class="saved-deck-section">
+
+                <h2>保存デッキ</h2>
+
+                <div
+                    id="deckSaveArea"
+                    class="deck-save-grid"
+                ></div>
+
+            </section>
 
         </div>
     `;
 
     displayAllCards();
-
     updateDeck();
-    
     displayDeckSlots();
-document
-    .getElementById("startGame")
-    .addEventListener("click", () => {
 
-        if (gameState.deck.length !== 40) {
-            alert("デッキを40枚作成してください");
-            return;
-        }
-
-    console.log("対戦開始ボタン押された");
-    showEnemySelectScreen();
-
-    });
     document
-    .getElementById("backCharacter")
-    .addEventListener("click", () => {
+        .getElementById("startGame")
+        .addEventListener("click", () => {
 
-        gameState.deck = [];
+            if (gameState.deck.length !== 40) {
 
-        showCharacterSelect();
+                alert("デッキを40枚作成してください");
+                return;
 
-    });
+            }
+
+            showEnemySelectScreen();
+
+        });
+
     document
-    .getElementById("randomDeckButton")
-    .addEventListener("click", () => {
+        .getElementById("backCharacter")
+        .addEventListener("click", () => {
 
-        const confirmed =
-            confirm(
+            gameState.deck = [];
+
+            showCharacterSelect();
+
+        });
+
+    document
+        .getElementById("randomDeckButton")
+        .addEventListener("click", () => {
+
+            const confirmed = confirm(
                 "現在のデッキを消して、おまかせで40枚編成しますか？"
             );
 
-        if (!confirmed) {
-            return;
-        }
+            if (!confirmed) return;
 
-        buildRandomDeck();
+            buildRandomDeck();
 
-    });
-    
+        });
+
+    document
+        .getElementById("cardSearch")
+        .addEventListener("input", () => {
+
+            displayAllCards();
+
+        });
+
+    document
+        .getElementById("cardTypeFilter")
+        .addEventListener("change", () => {
+
+            displayAllCards();
+
+        });
+
 }
-
 function displayAllCards() {
 
     const list = document.getElementById("cardList");
