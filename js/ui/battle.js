@@ -634,6 +634,8 @@ function displayBattleCharacters() {
 
         wrapper.className =
             "character-card-wrapper";
+            
+            wrapper.style.width = "130px";
 
         wrapper.innerHTML = `
 
