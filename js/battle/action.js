@@ -977,14 +977,6 @@ if (
 
 actor.hasActed = true;
 
-alert(
-
-        actor.name + " acted:",
-
-        actor.hasActed
-
-    );
-
 gameState.currentActorIndex++;
 
 
