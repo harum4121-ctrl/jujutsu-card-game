@@ -96,9 +96,11 @@ function displayAllCards() {
         cards.ultimate
     ];
 
-    groups.forEach(group => {
+groups.forEach(group => {
 
-        group.forEach(card => {
+    if (!Array.isArray(group)) return;
+
+    group.forEach(card => {
 
             const div = document.createElement("div");
 
