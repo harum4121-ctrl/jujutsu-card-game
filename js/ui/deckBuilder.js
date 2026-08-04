@@ -259,7 +259,28 @@ function displayAllCards() {
 
         div.className = "deck-card-item";
 
-        div.innerHTML = `
+div.innerHTML = `
+
+    <img
+        src="${card.image}"
+        class="deck-card-image"
+    >
+
+    <div class="deck-card-footer">
+
+        <span>
+            ${count}/3
+        </span>
+
+        <button
+            ${count >= 3 ? "disabled" : ""}
+        >
+            ＋
+        </button>
+
+    </div>
+
+`;
 
             <div class="deck-card-item-top">
 
