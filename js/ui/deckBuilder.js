@@ -1,316 +1,6 @@
-function showDeckBuilder() {
-
-    const app = document.getElementById("app");
-
-    app.innerHTML = `
-        <div class="deck-builder">
-
-            <h1>デッキ編集</h1>
-
-            <p>
-                デッキ枚数：
-                <span id="deckCount">0</span>
-                /40
-            </p>
-
-            <h2>カード一覧</h2>
-
-            <div id="cardList"></div>
-
-            <h2>デッキ</h2>
-            
-            <h2>デッキ保存</h2>
-
-<div id="deckSaveArea"></div>
-
-            <div id="deckList"></div>
-
-            <button id="startGame">
-                対戦開始
-            </button>
-            
-            <button id="saveDeck">
-    デッキ保存
-</button>
-
-<button id="loadDeck">
-    デッキ読込
-</button>
-
-            <button id="backCharacter">
-                キャラクター選択へ戻る
-            </button>
-            
-                <button
-    id="randomDeckButton"
-    class="deck-auto-button"
->
-    おまかせ編成
-</button>
-
-        </div>
-    `;
-
-    displayAllCards();
-
-    updateDeck();
-    
-    displayDeckSlots();
-document
-    .getElementById("startGame")
-    .addEventListener("click", () => {
-
-        if (gameState.deck.length !== 40) {
-            alert("デッキを40枚作成してください");
-            return;
-        }
-
-    console.log("対戦開始ボタン押された");
-    showEnemySelectScreen();
-
-    });
-    document
-    .getElementById("backCharacter")
-    .addEventListener("click", () => {
-
-        gameState.deck = [];
-
-        showCharacterSelect();
-
-    });
-    document
-    .getElementById("randomDeckButton")
-    .addEventListener("click", () => {
-
-        const confirmed =
-            confirm(
-                "現在のデッキを消して、おまかせで40枚編成しますか？"
-            );
-
-        if (!confirmed) {
-            return;
-        }
-
-        buildRandomDeck();
-
-    });
-    
-    document
-    .getElementById("saveDeck")
-    .onclick = saveDeck;
-
-document
-    .getElementById("loadDeck")
-    .onclick = loadDeck;
-}
-
-function displayAllCards() {
-
-    const list = document.getElementById("cardList");
-
-    list.innerHTML = "";
-
-    const groups = [
-        cards.equipment,
-        cards.cursedObjects,
-        cards.support,
-        cards.domains,
-        cards.ultimate
-    ];
-
-groups.forEach(group => {
-
-    if (!Array.isArray(group)) return;
-
-    group.forEach(card => {
-
-            const div = document.createElement("div");
-
-            div.className = "card";
-
-            div.innerHTML = `
-                <h3>${card.name}</h3>
-                <p>${card.type}</p>
-
-                <button>追加</button>
-            `;
-
-            div.querySelector("button").onclick = () => {
-
-                addCard(card);
-
-            };
-
-            list.appendChild(div);
-
-        });
-
-    });
-
-}
-function addCard(card) {
-
-    if (gameState.deck.length >= 40) {
-
-        alert("デッキは40枚までです。");
-
-        return;
-
-    }
-
-    const count = gameState.deck.filter(
-        c => c.id === card.id
-    ).length;
-
-    if (count >= 3) {
-
-        alert("同名カードは3枚までです。");
-
-        return;
-
-    }
-
-    gameState.deck.push(card);
-
-    updateDeck();
-
-}
-function updateDeck() {
-
-    const deckList = document.getElementById("deckList");
-
-    deckList.innerHTML = "";
-
-    document.getElementById("deckCount").textContent =
-        gameState.deck.length;
-
-    gameState.deck.forEach((card, index) => {
-
-        const div = document.createElement("div");
-
-        div.className = "card";
-
-        div.innerHTML = `
-    <h3>${card.name}</h3>
-
-    <p>${card.type}</p>
-
-    <button>削除</button>
-`;
-
-        div.querySelector("button").onclick = () => {
-
-            gameState.deck.splice(index, 1);
-
-            updateDeck();
-
-        };
-
-        deckList.appendChild(div);
-
-    });
-
-}
-
-function buildRandomDeck() {
-
-    const deckSize = 40;
-    const maxSameCard = 3;
-
-    const availableCards = [
-        ...(cards.equipment ?? []),
-        ...(cards.cursedObjects ?? []),
-        ...(cards.support ?? []),
-        ...(cards.domains ?? []),
-        ...(cards.ultimate ?? [])
-    ];
-
-    if (availableCards.length === 0) {
-
-        alert("使用できるカードがありません");
-        return;
-
-    }
-
-    const maximumDeckSize =
-        availableCards.length * maxSameCard;
-
-    if (maximumDeckSize < deckSize) {
-
-        alert(
-            "カードの種類が足りないため、40枚のデッキを作れません"
-        );
-
-        return;
-
-    }
-
-    const newDeck = [];
-    const cardCounts = {};
-
-    while (newDeck.length < deckSize) {
-
-        const randomIndex =
-            Math.floor(
-                Math.random() *
-                availableCards.length
-            );
-
-        const randomCard =
-            availableCards[randomIndex];
-
-        const currentCount =
-            cardCounts[randomCard.id] ?? 0;
-
-        if (currentCount >= maxSameCard) {
-            continue;
-        }
-
-        newDeck.push(randomCard);
-
-        cardCounts[randomCard.id] =
-            currentCount + 1;
-
-    }
-
-    gameState.deck = newDeck;
-
-    updateDeck();
-
-    alert("おまかせデッキを作成しました！");
-}
-function saveDeck() {
-
-    localStorage.setItem(
-        "savedDeck",
-        JSON.stringify(gameState.deck)
-    );
-
-    alert("デッキを保存しました！");
-
-}
-
-function loadDeck() {
-
-    const savedDeck =
-        localStorage.getItem("savedDeck");
-
-    if (!savedDeck) {
-
-        alert("保存されたデッキがありません");
-
-        return;
-
-    }
-
-    gameState.deck =
-        JSON.parse(savedDeck);
-
-    updateDeck();
-
-    alert("デッキを読み込みました！");
-
-}
+// ===============================
+// 保存デッキ一覧
+// ===============================
 
 function displayDeckSlots() {
 
@@ -321,43 +11,91 @@ function displayDeckSlots() {
 
     area.innerHTML = "";
 
-    for (let i = 1; i <= 10; i++) {
+    for (let slot = 1; slot <= 10; slot++) {
 
-        const saved =
+        const data =
             localStorage.getItem(
-                "deck" + i
+                "deck" + slot
             );
+
+        if (data) {
+
+            let saveData;
+
+            try {
+
+                saveData =
+                    JSON.parse(data);
+
+            } catch (error) {
+
+                console.error(
+                    "保存デッキの読込失敗:",
+                    error
+                );
+
+                localStorage.removeItem(
+                    "deck" + slot
+                );
+
+                saveData = null;
+
+            }
+
+            if (saveData) {
+
+                const cardCount =
+                    Array.isArray(saveData.cards)
+                        ? saveData.cards.length
+                        : 0;
+
+                area.innerHTML += `
+                    <div class="deck-slot">
+
+                        <span>
+                            ${slot}. ${saveData.name}
+                            （${cardCount}枚）
+                        </span>
+
+                        <button
+                            onclick="loadDeck(${slot})"
+                        >
+                            読込
+                        </button>
+
+                        <button
+                            onclick="saveDeck(${slot})"
+                        >
+                            上書き
+                        </button>
+
+                        <button
+                            onclick="deleteDeck(${slot})"
+                        >
+                            削除
+                        </button>
+
+                    </div>
+                `;
+
+                continue;
+
+            }
+
+        }
 
         area.innerHTML += `
             <div class="deck-slot">
 
                 <span>
-                    デッキ${i}
+                    ${slot}. 未保存
                 </span>
 
                 <button
-                    onclick="saveDeck(${i})"
+                    onclick="saveDeck(${slot})"
                 >
                     保存
                 </button>
-
-                <button
-                    onclick="loadDeck(${i})"
-                >
-                    読込
-                </button>
-
-                <button
-                    onclick="deleteDeck(${i})"
-                >
-                    削除
-                </button>
-
-                ${
-                    saved
-                        ? "✅"
-                        : "－"
-                }
 
             </div>
         `;
@@ -365,174 +103,205 @@ function displayDeckSlots() {
     }
 
 }
-function saveDeck(slot){
 
-    if(gameState.deck.length !== 40){
 
-        alert("40枚のデッキのみ保存できます");
+// ===============================
+// デッキ保存
+// ===============================
 
-        return;
+function saveDeck(slot) {
 
-    }
+    if (gameState.deck.length !== 40) {
 
-    const deckName = prompt(
-
-        "デッキ名を入力してください",
-
-        "デッキ" + slot
-
-    );
-
-    if(deckName === null){
+        alert(
+            "40枚のデッキのみ保存できます"
+        );
 
         return;
 
     }
+
+    const oldData =
+        localStorage.getItem(
+            "deck" + slot
+        );
+
+    if (oldData) {
+
+        const confirmed =
+            confirm(
+                "この保存枠を上書きしますか？"
+            );
+
+        if (!confirmed) return;
+
+    }
+
+    let defaultName =
+        "デッキ" + slot;
+
+    if (oldData) {
+
+        try {
+
+            const parsed =
+                JSON.parse(oldData);
+
+            if (parsed.name) {
+
+                defaultName =
+                    parsed.name;
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "既存デッキ名の取得失敗:",
+                error
+            );
+
+        }
+
+    }
+
+    const inputName =
+        prompt(
+            "デッキ名を入力してください",
+            defaultName
+        );
+
+    if (inputName === null) return;
+
+    const deckName =
+        inputName.trim() ||
+        defaultName;
 
     const saveData = {
 
         name: deckName,
 
-        cards: [...gameState.deck]
+        cards:
+            gameState.deck.map(
+                card => ({ ...card })
+            )
 
     };
 
     localStorage.setItem(
-
         "deck" + slot,
-
         JSON.stringify(saveData)
-
     );
 
     displayDeckSlots();
-
-};
 
     alert(
-        "デッキ" +
-        slot +
-        "に保存しました！"
+        deckName +
+        "を保存しました！"
     );
-
-    displayDeckSlots();
 
 }
-function loadDeck(slot){
 
-    const data = localStorage.getItem(
 
-        "deck" + slot
+// ===============================
+// デッキ読込
+// ===============================
 
-    );
+function loadDeck(slot) {
 
-    if(!data){
+    const data =
+        localStorage.getItem(
+            "deck" + slot
+        );
 
-        alert("保存されていません");
+    if (!data) {
+
+        alert(
+            "この枠にはデッキが保存されていません"
+        );
 
         return;
 
     }
 
-    const saveData = JSON.parse(data);
+    try {
 
-    gameState.deck = [...saveData.cards];
+        const saveData =
+            JSON.parse(data);
 
-    updateDeck();
+        if (
+            !saveData ||
+            !Array.isArray(saveData.cards)
+        ) {
 
-}
-function deleteDeck(slot){
-
-    if(!confirm("削除しますか？")){
-
-        return;
-
-    }
-
-    localStorage.removeItem(
-
-        "deck" + slot
-
-    );
-
-    displayDeckSlots();
-
-}
-function displayDeckSlots(){
-
-    const area =
-        document.getElementById("deckSaveArea");
-
-    area.innerHTML = "";
-
-    for(let i=1;i<=10;i++){
-
-        const data =
-            localStorage.getItem(
-                "deck"+i
+            alert(
+                "保存データが正しくありません"
             );
 
-        if(data){
-
-            const save =
-                JSON.parse(data);
-
-            area.innerHTML += `
-
-<div class="deck-slot">
-
-    <span>
-
-        ${i}. ${save.name}
-
-    </span>
-
-    <button onclick="loadDeck(${i})">
-
-        読込
-
-    </button>
-
-    <button onclick="saveDeck(${i})">
-
-        上書き
-
-    </button>
-
-    <button onclick="deleteDeck(${i})">
-
-        削除
-
-    </button>
-
-</div>
-
-`;
-
-        }else{
-
-            area.innerHTML += `
-
-<div class="deck-slot">
-
-    <span>
-
-        ${i}. 未保存
-
-    </span>
-
-    <button onclick="saveDeck(${i})">
-
-        保存
-
-    </button>
-
-</div>
-
-`;
+            return;
 
         }
 
+        gameState.deck =
+            saveData.cards.map(
+                card => ({ ...card })
+            );
+
+        updateDeck();
+
+        alert(
+            saveData.name +
+            "を読み込みました！"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "デッキ読込エラー:",
+            error
+        );
+
+        alert(
+            "デッキの読み込みに失敗しました"
+        );
+
     }
+
+}
+
+
+// ===============================
+// 保存デッキ削除
+// ===============================
+
+function deleteDeck(slot) {
+
+    const data =
+        localStorage.getItem(
+            "deck" + slot
+        );
+
+    if (!data) {
+
+        alert(
+            "この枠にはデッキが保存されていません"
+        );
+
+        return;
+
+    }
+
+    const confirmed =
+        confirm(
+            "保存デッキを削除しますか？"
+        );
+
+    if (!confirmed) return;
+
+    localStorage.removeItem(
+        "deck" + slot
+    );
+
+    displayDeckSlots();
 
 }
