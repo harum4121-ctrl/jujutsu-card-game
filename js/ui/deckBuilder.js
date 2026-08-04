@@ -1,11 +1,4 @@
 function showDeckBuilder() {
-    
-    <button
-    id="randomDeckButton"
-    class="deck-auto-button"
->
-    おまかせ編成
-</button>
 
     const app = document.getElementById("app");
 
@@ -35,6 +28,13 @@ function showDeckBuilder() {
             <button id="backCharacter">
                 キャラクター選択へ戻る
             </button>
+            
+                <button
+    id="randomDeckButton"
+    class="deck-auto-button"
+>
+    おまかせ編成
+</button>
 
         </div>
     `;
@@ -64,7 +64,6 @@ document
         showCharacterSelect();
 
     });
-    
     document
     .getElementById("randomDeckButton")
     .addEventListener("click", () => {
@@ -81,7 +80,6 @@ document
         buildRandomDeck();
 
     });
-    
 }
 
 function displayAllCards() {
