@@ -20,7 +20,7 @@ function startActionPhase() {
 
     gameState.currentActorIndex = 0;
 
-    showSkillSelect();
+    openSkillWindow(actor);
 
 }
 
