@@ -223,24 +223,48 @@ function displayAllCards() {
             : "all";
 
     const allCards = [
-        ...(cards.equipment ?? []),
-        ...(cards.cursedObjects ?? []),
-        ...(cards.support ?? []),
-        ...(cards.domains ?? []),
-        ...(cards.ultimate ?? [])
-    ];
+        ...(Array.isArray(cards.equipment)
+            ? cards.equipment
+            : []),
+
+        ...(Array.isArray(cards.cursedObjects)
+            ? cards.cursedObjects
+            : []),
+
+        ...(Array.isArray(cards.support)
+            ? cards.support
+            : []),
+
+        ...(Array.isArray(cards.domains)
+            ? cards.domains
+            : []),
+
+        ...(Array.isArray(cards.ultimate)
+            ? cards.ultimate
+            : [])
+    ].filter(card =>
+        card &&
+        typeof card === "object" &&
+        card.id != null
+    );
 
     const filteredCards =
         allCards.filter(card => {
 
+            const cardName =
+                String(card.name ?? "");
+
+            const cardType =
+                String(card.type ?? "");
+
             const matchesName =
-                card.name
+                cardName
                     .toLowerCase()
                     .includes(searchText);
 
             const matchesType =
                 selectedType === "all" ||
-                card.type === selectedType;
+                cardType === selectedType;
 
             return matchesName && matchesType;
 
@@ -251,6 +275,7 @@ function displayAllCards() {
         const count =
             gameState.deck.filter(
                 deckCard =>
+                    deckCard &&
                     deckCard.id === card.id
             ).length;
 
@@ -261,11 +286,10 @@ function displayAllCards() {
             "deck-card-item";
 
         div.innerHTML = `
-
             <div class="deck-card-item-top">
 
                 <span class="deck-card-type">
-                    ${card.type}
+                    ${card.type ?? "不明"}
                 </span>
 
                 <span class="deck-card-count">
@@ -275,7 +299,7 @@ function displayAllCards() {
             </div>
 
             <h3>
-                ${card.name}
+                ${card.name ?? "名前なし"}
             </h3>
 
             <button
@@ -284,7 +308,6 @@ function displayAllCards() {
             >
                 追加
             </button>
-
         `;
 
         const addButton =
@@ -293,9 +316,7 @@ function displayAllCards() {
             );
 
         addButton.onclick = () => {
-
             addCard(card);
-
         };
 
         list.appendChild(div);
