@@ -418,14 +418,15 @@ function saveDeck(slot){
     displayDeckSlots();
 
 }
-function loadDeck(slot) {
+function loadDeck(slot){
 
-    const data =
-        localStorage.getItem(
-            "deck" + slot
-        );
+    const data = localStorage.getItem(
 
-    if (!data) {
+        "deck" + slot
+
+    );
+
+    if(!data){
 
         alert("保存されていません");
 
@@ -433,16 +434,11 @@ function loadDeck(slot) {
 
     }
 
-    gameState.deck =
-        JSON.parse(data);
+    const saveData = JSON.parse(data);
+
+    gameState.deck = [...saveData.cards];
 
     updateDeck();
-
-    alert(
-        "デッキ" +
-        slot +
-        "を読み込みました！"
-    );
 
 }
 function deleteDeck(slot) {
