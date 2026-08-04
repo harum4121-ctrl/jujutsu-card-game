@@ -331,16 +331,18 @@ button {
 /* 味方 */
 
 .player-character-area {
-    height: 100%;
 
-    display: grid;
-    grid-template-columns:
-        repeat(3, minmax(150px, 1fr));
+    display: flex;
 
-    gap: 10px;
-    align-items: stretch;
+    justify-content: center;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    flex-wrap: nowrap;
+
 }
-
 
 /* 中央ライン */
 
