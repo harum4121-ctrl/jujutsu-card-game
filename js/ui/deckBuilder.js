@@ -325,7 +325,8 @@ function addCard(card) {
 
     gameState.deck.push(card);
 
-    updateDeck();
+updateDeck();
+displayAllCards();
 
 }
 function updateDeck() {
