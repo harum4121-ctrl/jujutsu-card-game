@@ -1,4 +1,10 @@
 function showDeckBuilder() {
+    
+    if (!Array.isArray(gameState.deck)) {
+
+        gameState.deck = [];
+
+    }
 
     const app = document.getElementById("app");
 
