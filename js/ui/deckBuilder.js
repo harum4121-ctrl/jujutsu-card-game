@@ -265,3 +265,13 @@ function buildRandomDeck() {
 
     alert("おまかせデッキを作成しました！");
 }
+function saveDeck() {
+
+    localStorage.setItem(
+        "savedDeck",
+        JSON.stringify(gameState.deck)
+    );
+
+    alert("デッキを保存しました！");
+
+}
