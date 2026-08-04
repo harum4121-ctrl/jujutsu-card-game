@@ -193,32 +193,47 @@ function buildRandomDeck() {
     const deckSize = 40;
     const maxSameCard = 3;
 
-    const availableCards = Object.values(cards);
+    const availableCards = [
+        ...(cards.equipment ?? []),
+        ...(cards.cursedObjects ?? []),
+        ...(cards.support ?? []),
+        ...(cards.domains ?? []),
+        ...(cards.ultimate ?? [])
+    ];
 
     if (availableCards.length === 0) {
+
         alert("使用できるカードがありません");
         return;
+
+    }
+
+    const maximumDeckSize =
+        availableCards.length * maxSameCard;
+
+    if (maximumDeckSize < deckSize) {
+
+        alert(
+            "カードの種類が足りないため、40枚のデッキを作れません"
+        );
+
+        return;
+
     }
 
     const newDeck = [];
     const cardCounts = {};
 
-    let safetyCount = 0;
+    while (newDeck.length < deckSize) {
 
-    while (
-        newDeck.length < deckSize &&
-        safetyCount < 10000
-    ) {
-
-        safetyCount++;
+        const randomIndex =
+            Math.floor(
+                Math.random() *
+                availableCards.length
+            );
 
         const randomCard =
-            availableCards[
-                Math.floor(
-                    Math.random() *
-                    availableCards.length
-                )
-            ];
+            availableCards[randomIndex];
 
         const currentCount =
             cardCounts[randomCard.id] ?? 0;
@@ -227,27 +242,16 @@ function buildRandomDeck() {
             continue;
         }
 
-        newDeck.push({
-            ...randomCard
-        });
+        newDeck.push(randomCard);
 
         cardCounts[randomCard.id] =
             currentCount + 1;
 
     }
 
-    if (newDeck.length < deckSize) {
-
-        alert(
-            "カードの種類が足りないため、40枚のデッキを作れませんでした"
-        );
-
-        return;
-    }
-
     gameState.deck = newDeck;
 
-    alert("おまかせデッキを作成しました！");
+    updateDeck();
 
-    showDeckBuilder();
+    alert("おまかせデッキを作成しました！");
 }
