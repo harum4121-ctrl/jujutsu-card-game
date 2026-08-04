@@ -64,9 +64,8 @@ document
         showCharacterSelect();
 
     });
-}
-
-document
+    
+    document
     .getElementById("randomDeckButton")
     .addEventListener("click", () => {
 
@@ -82,6 +81,8 @@ document
         buildRandomDeck();
 
     });
+    
+}
 
 function displayAllCards() {
 
