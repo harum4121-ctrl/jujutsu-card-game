@@ -3,17 +3,25 @@
 ================================ */
 
 .character-card {
-    width: 220px;
+    width: 100%;
+    min-width: 0;
 
-    padding: 7px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+
+    padding: 5px;
 
     border: 2px solid #3f3c48;
-    border-radius: 16px;
+    border-radius: 12px;
 
-    background: rgba(13, 12, 18, 0.95);
+    background: rgba(13, 12, 18, 0.96);
 
     box-shadow:
-        0 7px 18px rgba(0, 0, 0, 0.5);
+        0 5px 14px rgba(0, 0, 0, 0.5);
 
     transition:
         transform 0.18s ease,
@@ -22,15 +30,21 @@
         opacity 0.18s ease;
 }
 
+
+/* 選択中 */
+
 .character-card.selected {
     border-color: #ffd45c;
 
     box-shadow:
-        0 0 12px rgba(255, 212, 92, 0.9),
-        0 0 28px rgba(255, 173, 56, 0.55);
+        0 0 9px rgba(255, 212, 92, 0.9),
+        0 0 20px rgba(255, 173, 56, 0.5);
 
-    transform: translateY(-4px);
+    transform: translateY(-3px);
 }
+
+
+/* 行動済み・戦闘不能 */
 
 .character-card.acted {
     opacity: 0.55;
@@ -42,6 +56,10 @@
 }
 
 
+/* ===============================
+   カード画像
+================================ */
+
 .character-card-frame {
     position: relative;
 
@@ -50,11 +68,10 @@
 
     overflow: hidden;
 
-    border-radius: 11px;
+    border-radius: 8px;
 
     background: #08080b;
 }
-
 
 .character-card-art {
     width: 100%;
@@ -63,44 +80,48 @@
     display: block;
 
     object-fit: cover;
+
+    user-select: none;
+    pointer-events: none;
 }
 
 
-/* 上部ゲージ */
+/* ===============================
+   HP・呪力・状態効果
+   カード画像より上に表示
+================================ */
 
-.character-card-top {
-    position: absolute;
+.character-card-battle-info {
+    width: 100%;
 
-    top: 9px;
-    left: 9px;
-    right: 48px;
+    display: flex;
+    flex-direction: column;
 
-    z-index: 3;
+    gap: 4px;
 }
 
 .character-card-gauge {
     position: relative;
 
-    height: 18px;
-    margin-bottom: 5px;
+    width: 100%;
+    height: 15px;
 
     overflow: hidden;
 
-    border: 1px solid rgba(255, 255, 255, 0.65);
-    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 5px;
 
-    background: rgba(4, 4, 7, 0.88);
+    background: rgba(4, 4, 7, 0.95);
 
-    box-shadow:
-        inset 0 0 5px rgba(0, 0, 0, 0.8);
+    box-sizing: border-box;
 }
 
 .character-card-gauge-fill {
     position: absolute;
 
-    inset: 0 auto 0 0;
-
-    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
 
     transition: width 0.3s ease;
 }
@@ -138,7 +159,7 @@
 
     color: white;
 
-    font-size: 11px;
+    font-size: 9px;
     font-weight: bold;
 
     text-shadow:
@@ -149,43 +170,34 @@
 }
 
 
-/* 状態異常 */
+/* 状態効果 */
 
 .character-card-status-list {
-    position: absolute;
-
-    top: 9px;
-    right: 8px;
-
-    width: 34px;
+    min-height: 25px;
 
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 
-    gap: 5px;
+    gap: 4px;
 
-    z-index: 4;
+    overflow-x: auto;
 }
 
 .character-card-status {
     position: relative;
 
-    width: 34px;
-    height: 34px;
+    flex: 0 0 25px;
+
+    width: 25px;
+    height: 25px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    clip-path:
-        polygon(
-            25% 5%,
-            75% 5%,
-            100% 50%,
-            75% 95%,
-            25% 95%,
-            0 50%
-        );
+    border: 1px solid #8966aa;
+    border-radius: 6px;
 
     background:
         radial-gradient(
@@ -195,16 +207,19 @@
         );
 
     color: white;
+}
 
-    font-size: 11px;
+.character-status-icon {
+    font-size: 8px;
     font-weight: bold;
+    line-height: 1;
 }
 
 .character-card-status small {
     position: absolute;
 
-    right: 1px;
-    bottom: 1px;
+    right: -3px;
+    bottom: -3px;
 
     width: 13px;
     height: 13px;
@@ -222,64 +237,18 @@
 }
 
 
-/* 下部 */
-
-.character-card-bottom {
-    position: absolute;
-
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-
-    padding: 8px 10px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    border-radius: 8px;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(17, 15, 22, 0.78),
-            rgba(8, 7, 11, 0.94)
-        );
-
-    backdrop-filter: blur(4px);
-
-    z-index: 3;
-}
-
-.character-card-bottom strong {
-    color: white;
-
-    font-size: 17px;
-    letter-spacing: 1px;
-}
-
-.character-card-bottom span {
-    margin-top: 2px;
-
-    color: #d5cbe0;
-
-    font-size: 11px;
-}
-
-
-/* 選択表示 */
+/* ===============================
+   選択・行動済み表示
+================================ */
 
 .character-card-selected {
     position: absolute;
 
-    top: 48%;
-    left: 50%;
+    top: 8px;
+    right: 8px;
 
-    transform: translate(-50%, -50%);
-
-    width: 44px;
-    height: 44px;
+    width: 30px;
+    height: 30px;
 
     display: flex;
     justify-content: center;
@@ -290,29 +259,24 @@
     background: #ffd65e;
     color: #251a00;
 
-    font-size: 28px;
+    font-size: 19px;
     font-weight: bold;
 
     box-shadow:
-        0 0 15px rgba(255, 214, 94, 0.95);
-
-    z-index: 5;
+        0 0 10px rgba(255, 214, 94, 0.95);
 }
-
-
-/* 行動済み */
 
 .character-card-acted {
     position: absolute;
 
-    top: 48%;
+    top: 50%;
     left: 50%;
 
     transform:
         translate(-50%, -50%)
         rotate(-8deg);
 
-    padding: 8px 14px;
+    padding: 6px 10px;
 
     border: 2px solid white;
     border-radius: 5px;
@@ -320,62 +284,35 @@
     background: rgba(7, 7, 10, 0.82);
     color: white;
 
-    font-size: 15px;
+    font-size: 12px;
     font-weight: bold;
-    letter-spacing: 2px;
 
-    z-index: 6;
+    white-space: nowrap;
 }
 
 
-/* 小さい画面 */
-
-@media screen and (max-width: 850px) {
-
-    .character-card {
-        width: 175px;
-    }
-
-    .character-card-gauge {
-        height: 15px;
-    }
-
-    .character-card-gauge span {
-        font-size: 9px;
-    }
-
-    .character-card-status-list {
-        width: 29px;
-    }
-
-    .character-card-status {
-        width: 29px;
-        height: 29px;
-
-        font-size: 9px;
-    }
-
-    .character-card-bottom strong {
-        font-size: 14px;
-    }
-
-}
+/* ===============================
+   カード外側のボタン
+================================ */
 
 .character-card-wrapper {
+    width: 100%;
+    min-width: 0;
+
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    gap: 8px;
+    gap: 6px;
 }
 
 .character-card-button {
-    width: 80%;
+    width: 82%;
 
-    padding: 9px 8px;
+    padding: 7px 5px;
 
     border: none;
-    border-radius: 8px;
+    border-radius: 7px;
 
     background:
         linear-gradient(
@@ -386,13 +323,93 @@
 
     color: white;
 
+    font-size: 11px;
     font-weight: bold;
-
-    box-shadow:
-        0 4px 10px
-        rgba(0, 0, 0, 0.35);
 }
 
 .character-card-button:disabled {
     opacity: 0.35;
+}
+
+
+/* ===============================
+   キャラクター選択画面のサイズ
+================================ */
+
+.character-select-list {
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+}
+
+.character-select-card {
+    min-width: 0;
+
+    padding: 3px;
+
+    overflow: visible;
+}
+
+.character-select-card .character-card {
+    width: 100%;
+    max-width: 115px;
+
+    margin: 0 auto;
+}
+
+
+/* ===============================
+   バトル画面のサイズ
+================================ */
+
+.player-character-area {
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    align-items: start;
+}
+
+.player-character-area
+.character-card-wrapper {
+    max-width: 155px;
+
+    margin: 0 auto;
+}
+
+.enemy-character-area
+.character-card-wrapper {
+    max-width: 145px;
+
+    margin: 0 auto;
+}
+
+
+/* 横幅が小さいスマホ */
+
+@media screen and (max-width: 850px) {
+
+    .character-select-card
+    .character-card {
+        max-width: 100px;
+    }
+
+    .player-character-area
+    .character-card-wrapper {
+        max-width: 130px;
+    }
+
+    .character-card-gauge {
+        height: 13px;
+    }
+
+    .character-card-gauge span {
+        font-size: 8px;
+    }
+
+    .character-card-status {
+        flex-basis: 22px;
+
+        width: 22px;
+        height: 22px;
+    }
+
 }
