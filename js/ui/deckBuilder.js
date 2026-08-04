@@ -54,6 +54,8 @@ function showDeckBuilder() {
     displayAllCards();
 
     updateDeck();
+    
+    displayDeckSlots();
 document
     .getElementById("startGame")
     .addEventListener("click", () => {
