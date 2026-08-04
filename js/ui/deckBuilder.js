@@ -365,15 +365,49 @@ function displayDeckSlots() {
     }
 
 }
-function saveDeck(slot) {
+function saveDeck(slot){
+
+    if(gameState.deck.length !== 40){
+
+        alert("40枚のデッキのみ保存できます");
+
+        return;
+
+    }
+
+    const deckName = prompt(
+
+        "デッキ名を入力してください",
+
+        "デッキ" + slot
+
+    );
+
+    if(deckName === null){
+
+        return;
+
+    }
+
+    const saveData = {
+
+        name: deckName,
+
+        cards: [...gameState.deck]
+
+    };
 
     localStorage.setItem(
 
         "deck" + slot,
 
-        JSON.stringify(gameState.deck)
+        JSON.stringify(saveData)
 
     );
+
+    displayDeckSlots();
+
+};
 
     alert(
         "デッキ" +
