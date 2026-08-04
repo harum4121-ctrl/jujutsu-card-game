@@ -298,8 +298,14 @@
 .character-card-wrapper{
 
     width:130px;
+    max-width:130px;
+    min-width:130px;
 
     flex:0 0 130px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 
 }
 
