@@ -65,6 +65,24 @@ document
 
     });
 }
+
+document
+    .getElementById("randomDeckButton")
+    .addEventListener("click", () => {
+
+        const confirmed =
+            confirm(
+                "現在のデッキを消して、おまかせで40枚編成しますか？"
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+        buildRandomDeck();
+
+    });
+
 function displayAllCards() {
 
     const list = document.getElementById("cardList");
