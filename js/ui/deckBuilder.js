@@ -441,22 +441,18 @@ function loadDeck(slot){
     updateDeck();
 
 }
-function deleteDeck(slot) {
+function deleteDeck(slot){
 
-    if (
-        !confirm(
-            "デッキ" +
-            slot +
-            "を削除しますか？"
-        )
-    ) {
+    if(!confirm("削除しますか？")){
 
         return;
 
     }
 
     localStorage.removeItem(
+
         "deck" + slot
+
     );
 
     displayDeckSlots();
