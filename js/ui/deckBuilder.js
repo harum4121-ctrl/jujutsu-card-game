@@ -199,44 +199,104 @@ function showDeckBuilder() {
 }
 function displayAllCards() {
 
-    const list = document.getElementById("cardList");
+    const list =
+        document.getElementById("cardList");
+
+    if (!list) return;
 
     list.innerHTML = "";
 
-    const groups = [
-        cards.equipment,
-        cards.cursedObjects,
-        cards.support,
-        cards.domains,
-        cards.ultimate
+    const searchInput =
+        document.getElementById("cardSearch");
+
+    const filterInput =
+        document.getElementById("cardTypeFilter");
+
+    const searchText =
+        searchInput
+            ? searchInput.value.trim().toLowerCase()
+            : "";
+
+    const selectedType =
+        filterInput
+            ? filterInput.value
+            : "all";
+
+    const allCards = [
+        ...(cards.equipment ?? []),
+        ...(cards.cursedObjects ?? []),
+        ...(cards.support ?? []),
+        ...(cards.domains ?? []),
+        ...(cards.ultimate ?? [])
     ];
 
-groups.forEach(group => {
+    const filteredCards =
+        allCards.filter(card => {
 
-    if (!Array.isArray(group)) return;
+            const matchesName =
+                card.name
+                    .toLowerCase()
+                    .includes(searchText);
 
-    group.forEach(card => {
+            const matchesType =
+                selectedType === "all" ||
+                card.type === selectedType;
 
-            const div = document.createElement("div");
+            return matchesName && matchesType;
 
-            div.className = "card";
+        });
 
-            div.innerHTML = `
-                <h3>${card.name}</h3>
-                <p>${card.type}</p>
+    filteredCards.forEach(card => {
 
-                <button>追加</button>
-            `;
+        const count =
+            gameState.deck.filter(
+                deckCard =>
+                    deckCard.id === card.id
+            ).length;
 
-            div.querySelector("button").onclick = () => {
+        const div =
+            document.createElement("div");
+
+        div.className = "deck-card-item";
+
+        div.innerHTML = `
+
+            <div class="deck-card-item-top">
+
+                <span class="deck-card-type">
+                    ${card.type}
+                </span>
+
+                <span class="deck-card-count">
+                    ${count} / 3
+                </span>
+
+            </div>
+
+            <h3>${card.name}</h3>
+
+            <p class="deck-card-description">
+                ${getCardDescription(card)}
+            </p>
+
+            <button
+                class="add-deck-card-button"
+                ${count >= 3 ? "disabled" : ""}
+            >
+                追加
+            </button>
+
+        `;
+
+        div
+            .querySelector("button")
+            .onclick = () => {
 
                 addCard(card);
 
             };
 
-            list.appendChild(div);
-
-        });
+        list.appendChild(div);
 
     });
 
