@@ -1632,8 +1632,6 @@ if (!target) {
 
             playersAlive.forEach((target, index) => {
 
-    alert("攻撃対象 " + index + " : " + target.name);
-
     const damage =
         calculateDamage(enemy, target, skill);
 
