@@ -458,3 +458,81 @@ function deleteDeck(slot){
     displayDeckSlots();
 
 }
+function displayDeckSlots(){
+
+    const area =
+        document.getElementById("deckSaveArea");
+
+    area.innerHTML = "";
+
+    for(let i=1;i<=10;i++){
+
+        const data =
+            localStorage.getItem(
+                "deck"+i
+            );
+
+        if(data){
+
+            const save =
+                JSON.parse(data);
+
+            area.innerHTML += `
+
+<div class="deck-slot">
+
+    <span>
+
+        ${i}. ${save.name}
+
+    </span>
+
+    <button onclick="loadDeck(${i})">
+
+        読込
+
+    </button>
+
+    <button onclick="saveDeck(${i})">
+
+        上書き
+
+    </button>
+
+    <button onclick="deleteDeck(${i})">
+
+        削除
+
+    </button>
+
+</div>
+
+`;
+
+        }else{
+
+            area.innerHTML += `
+
+<div class="deck-slot">
+
+    <span>
+
+        ${i}. 未保存
+
+    </span>
+
+    <button onclick="saveDeck(${i})">
+
+        保存
+
+    </button>
+
+</div>
+
+`;
+
+        }
+
+    }
+
+}
