@@ -17,13 +17,13 @@ function showDeckBuilder() {
 
             <div id="cardList"></div>
 
-            <h2>デッキ</h2>
-            
-            <h2>デッキ保存</h2>
+<h2>デッキ</h2>
+
+<div id="deckList"></div>
+
+<h2>保存デッキ</h2>
 
 <div id="deckSaveArea"></div>
-
-            <div id="deckList"></div>
 
             <button id="startGame">
                 対戦開始
