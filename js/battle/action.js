@@ -3,6 +3,8 @@
 // ===============================
 
 function startActionPhase() {
+    
+    alert("startActionPhase開始");
 
     gameState.selectedActors =
         gameState.selectedActors.filter(
