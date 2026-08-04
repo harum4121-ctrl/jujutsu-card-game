@@ -1784,10 +1784,17 @@ topの数値だけ調整する。
     font-size: 10px;
 }
 
-.deck-card-item h3 {
-    margin: 7px 0 5px;
+.deck-card-item h3{
 
-    font-size: 13px;
+    height:34px;
+
+    margin:8px 0;
+
+    font-size:13px;
+
+    line-height:17px;
+
+    overflow:hidden;
 }
 
 .deck-card-description {
