@@ -275,3 +275,26 @@ function saveDeck() {
     alert("デッキを保存しました！");
 
 }
+
+function loadDeck() {
+
+    const savedDeck =
+        localStorage.getItem("savedDeck");
+
+    if (!savedDeck) {
+
+        alert("保存されたデッキがありません");
+
+        return;
+
+    }
+
+    gameState.deck =
+        JSON.parse(savedDeck);
+
+    updateDeck();
+
+    alert("デッキを読み込みました！");
+
+}
+
