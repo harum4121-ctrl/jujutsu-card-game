@@ -1578,7 +1578,6 @@ if (
 
         // 次はここから攻撃処理を書く
         // 攻撃対象
-alert("宿儺は " + skill.name + " を選択");
         if (skill.target === "単体") {
 
             let target =
