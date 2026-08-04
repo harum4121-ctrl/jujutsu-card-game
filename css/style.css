@@ -1572,3 +1572,426 @@ topの数値だけ調整する。
     padding:6px 12px;
 
 }
+/* ===============================
+   デッキ編集画面
+================================ */
+
+.deck-builder-screen {
+    min-height: 100vh;
+    box-sizing: border-box;
+
+    padding: 12px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #291633,
+            #0b0810 70%
+        );
+
+    color: white;
+}
+
+.deck-builder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 12px 16px;
+    margin-bottom: 12px;
+
+    border: 1px solid #77548d;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #17101e,
+            #352042,
+            #17101e
+        );
+}
+
+.deck-builder-header h1 {
+    margin: 0 0 4px;
+
+    text-align: left;
+    font-size: 23px;
+}
+
+.deck-builder-header p {
+    margin: 0;
+
+    color: #d5c7df;
+}
+
+.deck-builder-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.deck-action-button {
+    margin: 0;
+
+    padding: 9px 13px;
+
+    border: none;
+    border-radius: 8px;
+
+    color: white;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.deck-action-button.auto {
+    background:
+        linear-gradient(
+            #7951a2,
+            #45295d
+        );
+}
+
+.deck-action-button.back {
+    background:
+        linear-gradient(
+            #4b4852,
+            #29262f
+        );
+}
+
+.deck-action-button.start {
+    background:
+        linear-gradient(
+            #3a7a56,
+            #1d4b33
+        );
+}
+
+
+/* 左右2カラム */
+
+.deck-builder-main {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.1fr)
+        minmax(280px, 0.9fr);
+
+    gap: 12px;
+}
+
+.deck-card-section,
+.current-deck-section,
+.saved-deck-section {
+    padding: 12px;
+
+    border: 1px solid #514461;
+    border-radius: 12px;
+
+    background: rgba(12, 10, 17, 0.93);
+}
+
+.deck-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+}
+
+.deck-section-header h2,
+.saved-deck-section h2 {
+    margin: 0;
+
+    font-size: 16px;
+}
+
+.deck-filter-area {
+    display: flex;
+    gap: 7px;
+}
+
+.deck-filter-area input,
+.deck-filter-area select {
+    min-width: 0;
+
+    padding: 7px 9px;
+
+    border: 1px solid #6b567e;
+    border-radius: 7px;
+
+    background: #17121d;
+    color: white;
+
+    font-size: 12px;
+}
+
+
+/* カード一覧 */
+
+.deck-card-list {
+    max-height: 520px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 8px;
+
+    overflow-y: auto;
+
+    padding-right: 3px;
+}
+
+.deck-card-item {
+    min-width: 0;
+
+    padding: 9px;
+
+    border: 1px solid #4f4658;
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #26202d,
+            #151219
+        );
+
+    box-sizing: border-box;
+}
+
+.deck-card-item-top {
+    display: flex;
+    justify-content: space-between;
+
+    gap: 6px;
+}
+
+.deck-card-type {
+    padding: 3px 6px;
+
+    border-radius: 5px;
+
+    background: #62427a;
+
+    color: #ffffff;
+
+    font-size: 9px;
+}
+
+.deck-card-count {
+    color: #d6c7df;
+
+    font-size: 10px;
+}
+
+.deck-card-item h3 {
+    margin: 7px 0 5px;
+
+    font-size: 13px;
+}
+
+.deck-card-description {
+    min-height: 32px;
+
+    margin: 0 0 8px;
+
+    overflow: hidden;
+
+    color: #bbb0c2;
+
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.add-deck-card-button {
+    width: 100%;
+
+    margin: 0;
+
+    padding: 7px;
+
+    border: none;
+    border-radius: 6px;
+
+    background:
+        linear-gradient(
+            #7850a0,
+            #44265b
+        );
+
+    color: white;
+
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.add-deck-card-button:disabled {
+    opacity: 0.35;
+}
+
+
+/* 現在のデッキ */
+
+.current-deck-list {
+    max-height: 520px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+
+    overflow-y: auto;
+}
+
+.current-deck-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 9px;
+
+    border: 1px solid #494150;
+    border-radius: 8px;
+
+    background: #1a171e;
+}
+
+.current-deck-card strong {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 12px;
+}
+
+.current-deck-card-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    white-space: nowrap;
+}
+
+.current-deck-card-actions span {
+    font-size: 11px;
+}
+
+.current-deck-card-actions button {
+    margin: 0;
+
+    padding: 5px 8px;
+
+    border: 1px solid #a66470;
+    border-radius: 6px;
+
+    background: #55242c;
+    color: white;
+
+    font-size: 10px;
+}
+
+#deckStats {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+    font-size: 9px;
+    color: #c9bccf;
+}
+
+
+/* 保存デッキ */
+
+.saved-deck-section {
+    margin-top: 12px;
+}
+
+.deck-save-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 8px;
+
+    margin-top: 10px;
+}
+
+.deck-slot {
+    min-width: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 8px;
+
+    border: 1px solid #594b67;
+    border-radius: 8px;
+
+    background: #1b1721;
+}
+
+.deck-slot span {
+    width: 100%;
+
+    overflow: hidden;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.deck-slot button {
+    flex: 1;
+
+    min-width: 0;
+
+    margin: 0;
+    padding: 5px 4px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #58386e;
+    color: white;
+
+    font-size: 9px;
+}
+
+
+/* 小さい横画面 */
+
+@media screen and (max-width: 850px) {
+
+    .deck-builder-screen {
+        min-width: 760px;
+    }
+
+    .deck-card-list {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .deck-save-grid {
+        grid-template-columns:
+            repeat(5, minmax(120px, 1fr));
+    }
+
+}
