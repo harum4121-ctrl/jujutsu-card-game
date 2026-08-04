@@ -1749,22 +1749,14 @@ topの数値だけ調整する。
     padding-right: 3px;
 }
 
-.deck-card-item {
-    min-width: 0;
+.deck-card-item{
 
-    padding: 9px;
+    height:120px;
 
-    border: 1px solid #4f4658;
-    border-radius: 9px;
+    display:flex;
 
-    background:
-        linear-gradient(
-            180deg,
-            #26202d,
-            #151219
-        );
+    flex-direction:column;
 
-    box-sizing: border-box;
 }
 
 .deck-card-item-top {
