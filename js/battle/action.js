@@ -951,7 +951,7 @@ if (
     actor.extraActionUsed = true;
     actor.extraAction = false;
 
-    showSkillSelect();
+    openSkillWindow(actor);
 
     return;
 
