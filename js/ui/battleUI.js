@@ -58,38 +58,50 @@ function openSkillWindow(actor) {
                     insufficientPower;
 
                 return `
-                    <button
-                        class="skill-popup-button"
-                        onclick="selectPopupSkill(${index})"
-                        ${unavailable ? "disabled" : ""}
-                    >
-                        <strong>
-                            ${skill.name}
-                        </strong>
+<div
+    class="
+        skill-card
+        ${unavailable ? "disabled" : ""}
+    "
+    onclick="${
+        unavailable
+            ? ""
+            : `selectPopupSkill(${index})`
+    }"
+>
 
-                        <span>
-                            ${skill.attackType}
-                            ／
-                            ${skill.target}
-                        </span>
+    <div class="skill-top">
 
-                        <small>
-                            消費呪力 ${cost}
+        <span class="skill-name">
 
-                            ${
-                                skill.costCard
-                                    ? ` ／ 必殺カード ${skill.costCard}枚`
-                                    : ""
-                            }
+            ${skill.name}
 
-                            ${
-                                ct > 0
-                                    ? ` ／ CT ${ct}`
-                                    : ""
-                            }
-                        </small>
-                    </button>
-                `;
+        </span>
+
+        <span class="skill-cost">
+
+            ${cost}
+
+        </span>
+
+    </div>
+
+    <div class="skill-info">
+
+        ${skill.attackType}
+        ／
+        ${skill.target}
+
+        ${
+            ct > 0
+                ? `　CT:${ct}`
+                : ""
+        }
+
+    </div>
+
+</div>
+`;
 
             })
             .join("");
