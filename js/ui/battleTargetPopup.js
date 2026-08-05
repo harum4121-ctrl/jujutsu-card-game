@@ -1,9 +1,19 @@
 function openTargetWindow() {
 
-    const window =
+    const targetWindow =
         document.getElementById("targetWindow");
 
-    window.innerHTML = `
+    if (!targetWindow) {
+
+        console.error(
+            "targetWindowが見つかりません"
+        );
+
+        return;
+
+    }
+
+    targetWindow.innerHTML = `
         <h2>対象を選択</h2>
     `;
 
@@ -11,21 +21,18 @@ function openTargetWindow() {
 
         if (enemy.currentHp <= 0) return;
 
-        window.innerHTML += `
+        targetWindow.innerHTML += `
             <button
                 onclick="selectTarget(${index})"
             >
                 ${enemy.name}
-                HP
-                ${enemy.currentHp}
-                /
-                ${enemy.maxHp}
+                HP ${enemy.currentHp}/${enemy.maxHp}
             </button>
         `;
 
     });
 
-    window.innerHTML += `
+    targetWindow.innerHTML += `
         <button
             onclick="closeTargetWindow()"
         >
@@ -33,22 +40,6 @@ function openTargetWindow() {
         </button>
     `;
 
-    window.classList.remove("hidden");
-
-}
-
-function closeTargetWindow() {
-
-    document
-        .getElementById("targetWindow")
-        .classList.add("hidden");
-
-}
-
-function selectTarget(index) {
-
-    closeTargetWindow();
-
-    attackEnemy(index);
+    targetWindow.classList.remove("hidden");
 
 }
