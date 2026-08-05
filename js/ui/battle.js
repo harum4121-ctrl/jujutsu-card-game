@@ -1931,3 +1931,40 @@ function getStatusList(character){
     return list;
 
 }
+
+function showDamage(targetId, value, heal = false){
+
+    const target =
+        document.getElementById(targetId);
+
+    if(!target) return;
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "damage-number";
+
+    if(heal){
+
+        div.classList.add("damage-heal");
+
+        div.textContent =
+            "+" + value;
+
+    }else{
+
+        div.textContent =
+            "-" + value;
+
+    }
+
+    target.appendChild(div);
+
+    setTimeout(()=>{
+
+        div.remove();
+
+    },800);
+
+}
