@@ -1625,6 +1625,12 @@ if (!target) {
                 calculateDamage(enemy, target, skill);
 
             target.currentHp -= damage;
+            
+            showDamage(
+    "player" + index,
+    damage
+);
+
             target.lastSingleDamage = damage;
             if (target.currentHp < 0) {
 
@@ -1660,6 +1666,11 @@ if (!target) {
         calculateDamage(enemy, target, skill);
 
     target.currentHp -= damage;
+    
+    showDamage(
+    "enemy0",
+    damage
+);
 
     applyEffects(
         enemy,
