@@ -632,7 +632,7 @@ function displayBattleCharacters() {
 
     area.innerHTML = "";
 
-    gameState.battleCharacters.forEach(character => {
+gameState.battleCharacters.forEach((character, index) => {
 
         const selected =
             gameState.selectedActors.includes(character);
