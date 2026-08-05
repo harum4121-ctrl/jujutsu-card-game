@@ -1952,14 +1952,12 @@ function getStatusList(character){
 
 }
 
-function showDamage(targetId, value, heal = false){
+function showDamage(targetId, value, heal = false) {
 
     const target =
         document.getElementById(targetId);
-        
-        alert(target ? "見つかった" : "見つからない");
 
-    if(!target) return;
+    if (!target) return;
 
     const div =
         document.createElement("div");
@@ -1967,28 +1965,23 @@ function showDamage(targetId, value, heal = false){
     div.className =
         "damage-number";
 
-    if(heal){
+    if (heal) {
 
         div.classList.add("damage-heal");
+        div.textContent = "+" + value;
 
-        div.textContent =
-            "+" + value;
+    } else {
 
-    }else{
-
-        div.textContent =
-            "-" + value;
+        div.textContent = "-" + value;
 
     }
 
     target.appendChild(div);
-    
-    alert(div.outerHTML);
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
         div.remove();
 
-    },800);
+    }, 800);
 
 }
