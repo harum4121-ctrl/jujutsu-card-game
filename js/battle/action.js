@@ -376,6 +376,14 @@ function showEnemySelect() {
 // ===============================
 
 function attackEnemy(enemyIndex) {
+    
+    console.log(
+
+        "敵選択成功",
+
+        enemyIndex
+
+    );
 
     const actor =
         gameState.selectedActors[
