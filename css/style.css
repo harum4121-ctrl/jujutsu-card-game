@@ -2054,3 +2054,57 @@ topの数値だけ調整する。
     display:none;
 
 }
+
+/* ===============================
+   スキルウィンドウ
+================================ */
+
+.skill-window{
+
+    position:fixed;
+
+    left:50%;
+    bottom:20px;
+
+    transform:translateX(-50%);
+
+    width:360px;
+
+    max-width:90vw;
+
+    background:#1d1b24;
+
+    border:2px solid #7553a0;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    z-index:1000;
+
+    box-shadow:
+        0 0 20px rgba(0,0,0,.6);
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+.skill-window h2{
+
+    margin-top:0;
+
+    text-align:center;
+
+}
+
+.skill-window button{
+
+    width:100%;
+
+    margin-top:8px;
+
+}
