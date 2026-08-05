@@ -118,45 +118,34 @@ console.log(actor.cardImage);
     const ultimate =
         actorData.ultimate;
         
-        <div class="skill-window-character">
+        
 
-    <img
-    src="${actor.cardImage}"
-    alt="${actor.name}"
-    onerror="this.style.border='3px solid red'; console.log(this.src);"
-/>
+windowElement.innerHTML = `
 
-    <div class="skill-window-character-info">
+    <div class="skill-window-character">
 
-        <div class="skill-window-character-name">
+        <img
+            src="${actor.cardImage}"
+            alt="${actor.name}"
+        >
 
-            ${actor.name}
+        <div class="skill-window-character-info">
 
-        </div>
+            <div class="skill-window-character-name">
+                ${actor.name}
+            </div>
 
-        <div class="skill-window-hp">
+            <div class="skill-window-hp">
+                HP ${actor.currentHp}/${actor.maxHp}
+            </div>
 
-            HP
-            ${actor.currentHp}
-            /
-            ${actor.maxHp}
-
-        </div>
-
-        <div class="skill-window-cp">
-
-            呪力
-            ${actor.currentCursedPower}
-            /
-            ${actor.maxCursedPower}
+            <div class="skill-window-cp">
+                呪力 ${actor.currentCursedPower}/${actor.maxCursedPower}
+            </div>
 
         </div>
 
     </div>
-
-</div>
-
-    windowElement.innerHTML = `
 
         <div class="skill-window-header">
 
