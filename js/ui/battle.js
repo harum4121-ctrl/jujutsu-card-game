@@ -1671,7 +1671,7 @@ showDamage(
     target.currentHp -= damage;
     
     showDamage(
-    "enemy0",
+    "player" + index,
     damage
 );
 
