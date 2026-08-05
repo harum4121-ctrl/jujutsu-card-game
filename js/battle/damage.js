@@ -22,10 +22,77 @@ else if (skill.attacks) {
         damage *= skill.hits;
     }
 
-    // 永続攻撃アップ
-    damage += actor.attackBonus ?? 0;
-    
-    if (actor.doubleNextDamage) {
+// 永続攻撃アップ
+damage += actor.attackBonus ?? 0;
+
+// 一時的な与ダメアップ
+damage += actor.damageBuff ?? 0;
+
+// 与ダメージダウン
+damage -= actor.damageDown ?? 0;
+
+// 被ダメージアップ
+damage += target.damageTakenUp ?? 0;
+
+// ダメージ軽減
+damage -= target.damageReduction ?? 0;
+
+// 領域効果
+if (gameState.currentField) {
+
+    switch (gameState.currentField.card.id) {
+
+        case "curtain":
+            damage -= 10;
+            break;
+
+        case "sendai_barrier":
+            if (actor.type === "術") {
+                damage += 10;
+            }
+            break;
+
+        case "tokyo_barrier":
+            if (actor.type === "体") {
+                damage += 10;
+            }
+            break;
+
+        case "tokyo_jujutsu_high":
+            damage -= 30;
+            break;
+
+    }
+
+}
+
+// 呪具
+if (actor.equipment) {
+
+    actor.equipment.forEach(card => {
+
+        if (!card.effect) return;
+
+        switch (card.effect.type) {
+
+            case "meleeDamageUp":
+
+                if (skill.attackType === "近接") {
+
+                    damage += card.effect.value;
+
+                }
+
+                break;
+
+        }
+
+    });
+
+}
+
+// 次の攻撃2倍
+if (actor.doubleNextDamage) {
 
     damage *= 2;
 
@@ -33,11 +100,19 @@ else if (skill.attacks) {
 
 }
 
-    if (damage < 0) {
-        damage = 0;
-    }
+// 無敵
+if (
+    target.invincible > 0 &&
+    actor.ignoreInvincible <= 0
+) {
 
-    return damage;
+    damage = 0;
+
+}
+
+damage = Math.max(0, damage);
+
+return damage;
 
 }
 
