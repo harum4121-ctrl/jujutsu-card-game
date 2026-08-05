@@ -936,61 +936,101 @@ function healAllCharacters() {
 
 function nextActor() {
 
-
     const actor =
-    gameState.selectedActors[
-        gameState.currentActorIndex
-    ];
+        gameState.selectedActors[
+            gameState.currentActorIndex
+        ];
 
-// 受胎九相図 二番
-if (
-    actor.extraAction &&
-    !actor.extraActionUsed
-) {
+    if (!actor) {
 
-    actor.extraActionUsed = true;
-    actor.extraAction = false;
+        gameState.selectedActors = [];
+        gameState.selectedSkill = null;
 
-    openSkillWindow(actor);
+        showBattleScreen();
+        return;
 
-    return;
-
-}
-
-actor.hasActed = true;
-
-gameState.currentActorIndex++;
+    }
 
 
-    if (checkBattleEnd()) {
+    // ===============================
+    // 追加行動
+    // ===============================
 
+    if (
+        actor.extraAction &&
+        !actor.extraActionUsed
+    ) {
+
+        actor.extraActionUsed = true;
+        actor.extraAction = false;
+
+        // 前の技を消す
+        gameState.selectedSkill = null;
+
+        // 敵選択画面からバトル画面へ戻す
+        showBattleScreen();
+
+        // バトル画面生成後にスキル画面を開く
+        openSkillWindow(actor);
 
         return;
 
     }
 
-if (
-    gameState.currentActorIndex <
-    gameState.selectedActors.length
-) {
 
-    const nextCharacter =
-        gameState.selectedActors[
-            gameState.currentActorIndex
-        ];
+    // 現在のキャラクターを行動済みにする
+    actor.hasActed = true;
 
-    openSkillWindow(nextCharacter);
+    // 前の技を消す
+    gameState.selectedSkill = null;
 
-} else {
+    // 次のキャラクターへ
+    gameState.currentActorIndex++;
+
+
+    // 勝敗確認
+    if (checkBattleEnd()) {
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 2人目が残っている場合
+    // ===============================
+
+    if (
+        gameState.currentActorIndex <
+        gameState.selectedActors.length
+    ) {
+
+        const nextCharacter =
+            gameState.selectedActors[
+                gameState.currentActorIndex
+            ];
+
+        // 敵選択画面からバトル画面へ戻す
+        showBattleScreen();
+
+        // 2人目のスキルポップアップを開く
+        openSkillWindow(nextCharacter);
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 全員の行動終了
+    // ===============================
 
     gameState.selectedActors = [];
+    gameState.selectedSkill = null;
 
     enemyTurn();
 
 }
-
-}
-
 
 // ===============================
 // 領域効果
