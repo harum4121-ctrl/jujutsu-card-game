@@ -493,7 +493,7 @@ gameState.enemyCharacters.forEach((enemy, index) => {
 
 <div
     class="character-panel enemy-panel"
-    id="enemy0"
+    id="enemy${index}"
 >
 
                 <div class="character-name">
