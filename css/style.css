@@ -2266,3 +2266,135 @@ topの数値だけ調整する。
 
     color: white;
 }
+/* ===============================
+   スキルカード
+================================ */
+
+.skill-window{
+
+    position:fixed;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:min(420px,95vw);
+
+    background:#18141f;
+
+    border:2px solid #6b4a93;
+
+    border-radius:16px;
+
+    padding:16px;
+
+    z-index:9999;
+
+    box-shadow:0 0 30px rgba(0,0,0,.7);
+
+}
+
+.skill-window.hidden{
+
+    display:none;
+
+}
+
+.skill-title{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    margin-bottom:12px;
+
+    text-align:center;
+
+}
+
+.skill-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.skill-card{
+
+    border:1px solid #555;
+
+    border-radius:12px;
+
+    background:#25202d;
+
+    padding:12px;
+
+    cursor:pointer;
+
+    transition:.15s;
+
+}
+
+.skill-card:hover{
+
+    transform:scale(1.02);
+
+    border-color:#9b73db;
+
+}
+
+.skill-card.disabled{
+
+    opacity:.45;
+
+    pointer-events:none;
+
+}
+
+.skill-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:6px;
+
+}
+
+.skill-name{
+
+    font-weight:bold;
+
+    font-size:17px;
+
+}
+
+.skill-cost{
+
+    color:#7fc7ff;
+
+    font-size:14px;
+
+}
+
+.skill-info{
+
+    font-size:13px;
+
+    color:#cfcfcf;
+
+}
+
+.skill-close{
+
+    width:100%;
+
+    margin-top:15px;
+
+}
