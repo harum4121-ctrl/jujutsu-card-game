@@ -2459,3 +2459,72 @@ topの数値だけ調整する。
     font-size:15px;
 
 }
+/* ===============================
+   ダメージ表示
+================================ */
+
+.damage-number{
+
+    position:absolute;
+
+    left:50%;
+    top:45%;
+
+    transform:translate(-50%,-50%);
+
+    color:#ff5050;
+
+    font-size:38px;
+
+    font-weight:bold;
+
+    text-shadow:
+        2px 2px 4px #000;
+
+    pointer-events:none;
+
+    animation:damageFloat .8s forwards;
+
+    z-index:9999;
+
+}
+
+.damage-heal{
+
+    color:#63ff7a;
+
+}
+
+@keyframes damageFloat{
+
+    0%{
+
+        opacity:0;
+
+        transform:
+            translate(-50%,0)
+            scale(.6);
+
+    }
+
+    20%{
+
+        opacity:1;
+
+        transform:
+            translate(-50%,-10px)
+            scale(1.2);
+
+    }
+
+    100%{
+
+        opacity:0;
+
+        transform:
+            translate(-50%,-70px)
+            scale(1);
+
+    }
+
+}
