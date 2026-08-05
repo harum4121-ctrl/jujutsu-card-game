@@ -491,7 +491,10 @@ function displayEnemyCharacters() {
 
         area.innerHTML += `
 
-            <div class="character-panel enemy-panel">
+<div
+    class="character-panel enemy-panel"
+    id="enemy0"
+>
 
                 <div class="character-name">
                     ${enemy.name}
