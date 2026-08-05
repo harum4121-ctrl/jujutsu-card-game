@@ -432,6 +432,11 @@ function attackEnemy(enemyIndex) {
 
     enemy.currentHp -= damage;
     
+    showDamage(
+    "enemy" + enemyIndex,
+    damage
+);
+    
     enemy.lastSingleDamage = damage;
 
     if (enemy.currentHp < 0) {
