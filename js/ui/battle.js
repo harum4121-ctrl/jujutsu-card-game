@@ -681,6 +681,14 @@ function displayBattleCharacters() {
             toggleActor(character.id);
 
         };
+        
+        wrapper.querySelector(
+    ".character-card"
+).onclick = () => {
+
+    openSkillWindow(character);
+
+};
 
         area.appendChild(wrapper);
 
