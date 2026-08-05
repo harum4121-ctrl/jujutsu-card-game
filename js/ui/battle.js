@@ -378,6 +378,11 @@ function showBattleScreen() {
     class="skill-window hidden"
 ></div>
 
+<div
+    id="targetWindow"
+    class="skill-window hidden"
+></div>
+
         </div>
     `;
 
