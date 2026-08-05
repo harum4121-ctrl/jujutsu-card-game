@@ -458,7 +458,7 @@ function displayEnemyCharacters() {
 
     area.innerHTML = "";
 
-    gameState.enemyCharacters.forEach(enemy => {
+gameState.enemyCharacters.forEach((enemy, index) => {
 
         const hpRate =
             Math.max(
