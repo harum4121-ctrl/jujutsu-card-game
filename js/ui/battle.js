@@ -1626,8 +1626,11 @@ if (!target) {
 
             target.currentHp -= damage;
             
-            showDamage(
-    "player" + index,
+            const targetIndex =
+    gameState.battleCharacters.indexOf(target);
+
+showDamage(
+    "player" + targetIndex,
     damage
 );
 
