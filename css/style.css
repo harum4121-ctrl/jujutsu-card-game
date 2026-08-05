@@ -2528,3 +2528,7 @@ topの数値だけ調整する。
     }
 
 }
+.character-card-wrapper,
+.character-panel {
+    position: relative;
+}
