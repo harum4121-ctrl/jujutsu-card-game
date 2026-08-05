@@ -2398,3 +2398,64 @@ topの数値だけ調整する。
     margin-top:15px;
 
 }
+/* スキルウィンドウ上部 */
+
+.skill-window-character{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    margin-bottom:15px;
+
+    padding-bottom:12px;
+
+    border-bottom:1px solid #444;
+
+}
+
+.skill-window-character img{
+
+    width:80px;
+
+    border-radius:10px;
+
+    box-shadow:0 0 12px rgba(0,0,0,.5);
+
+}
+
+.skill-window-character-info{
+
+    flex:1;
+
+}
+
+.skill-window-character-name{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    margin-bottom:8px;
+
+}
+
+.skill-window-hp{
+
+    color:#ff7373;
+
+    font-size:15px;
+
+    margin-bottom:3px;
+
+}
+
+.skill-window-cp{
+
+    color:#6ab5ff;
+
+    font-size:15px;
+
+}
