@@ -535,17 +535,6 @@ if (
 
 }
 
-    alert(
-        actor.name +
-        " の " +
-        skill.name +
-        "！\n\n" +
-        enemy.name +
-        " に " +
-        damage +
-        " ダメージ！"
-    );
-
     // 自傷
     if (skill.selfDamage) {
 
@@ -573,7 +562,11 @@ if (
 
     }
 
+    setTimeout(() => {
+
     nextActor();
+
+}, 900);
 
 }
 
