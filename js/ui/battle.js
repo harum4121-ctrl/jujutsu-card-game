@@ -1979,6 +1979,8 @@ function showDamage(targetId, value, heal = false) {
     }
 
     target.appendChild(div);
+    
+    target.style.border = "5px solid red";
 
     setTimeout(() => {
 
