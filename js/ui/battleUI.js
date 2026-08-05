@@ -125,9 +125,13 @@ windowElement.innerHTML = `
     <div class="skill-window-character">
 
         <img
-            src="${actor.cardImage}"
-            alt="${actor.name}"
-        >
+    src="${actor.cardImage}"
+    alt="${actor.name}"
+    onerror="
+        this.outerHTML =
+        '<div style=&quot;width:80px;height:120px;border:2px solid red;display:flex;align-items:center;justify-content:center;font-size:12px;text-align:center;&quot;>画像エラー<br>${actor.cardImage}</div>';
+    "
+>
 
         <div class="skill-window-character-info">
 
