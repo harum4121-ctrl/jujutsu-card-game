@@ -646,7 +646,10 @@ function displayBattleCharacters() {
             document.createElement("div");
 
         wrapper.className =
-            "character-card-wrapper";
+    "character-card-wrapper";
+
+wrapper.id =
+    "player" + index;
 
         wrapper.innerHTML = `
 
