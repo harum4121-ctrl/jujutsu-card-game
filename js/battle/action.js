@@ -3,28 +3,33 @@
 // ===============================
 
 function startActionPhase() {
-    
-alert("③ startActionPhaseに入りました");
 
     gameState.selectedActors =
         gameState.selectedActors.filter(
             character =>
                 character.currentHp > 0 &&
-                !character.hasActed
+                !character.hasActed &&
+                character.stun <= 0
         );
 
     if (gameState.selectedActors.length === 0) {
 
-        alert("行動するキャラクターを選択してください");
+        alert(
+            "行動できるキャラクターを選択してください"
+        );
 
-        showBattleScreen();
         return;
 
     }
 
     gameState.currentActorIndex = 0;
 
-    showSkillSelect();
+    const actor =
+        gameState.selectedActors[
+            gameState.currentActorIndex
+        ];
+
+    openSkillWindow(actor);
 
 }
 
