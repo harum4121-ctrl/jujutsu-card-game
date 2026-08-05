@@ -25,6 +25,9 @@ function openSkillWindow(actor) {
 
     const actorData =
         characters[actor.id];
+        
+        console.log(actor);
+console.log(actor.cardImage);
 
     if (!actorData) {
 
@@ -118,9 +121,10 @@ function openSkillWindow(actor) {
         <div class="skill-window-character">
 
     <img
-        src="${actor.cardImage}"
-        alt="${actor.name}"
-    >
+    src="${actor.cardImage}"
+    alt="${actor.name}"
+    onerror="this.style.border='3px solid red'; console.log(this.src);"
+/>
 
     <div class="skill-window-character-info">
 
