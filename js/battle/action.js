@@ -936,6 +936,11 @@ function healAllCharacters() {
 
 function nextActor() {
 
+alert(
+    "nextActor : " +
+    gameState.currentActorIndex
+);
+
     const actor =
         gameState.selectedActors[
             gameState.currentActorIndex
