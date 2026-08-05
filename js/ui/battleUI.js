@@ -37,7 +37,7 @@ function openSkillWindow(actor) {
 
     }
 
-    const skillButtons =
+    const skillCards =
         actorData.skills
             .map((skill, index) => {
 
@@ -53,55 +53,61 @@ function openSkillWindow(actor) {
                     !actor.nextSkillFree &&
                     actor.currentCursedPower < cost;
 
-                const unavailable =
+                const disabled =
                     ct > 0 ||
                     insufficientPower;
 
                 return `
-<div
-    class="
-        skill-card
-        ${unavailable ? "disabled" : ""}
-    "
-    onclick="${
-        unavailable
-            ? ""
-            : `selectPopupSkill(${index})`
-    }"
->
+                    <div
+                        class="
+                            skill-card
+                            ${disabled ? "disabled" : ""}
+                        "
+                        ${
+                            disabled
+                                ? ""
+                                : `onclick="selectPopupSkill(${index})"`
+                        }
+                    >
 
-    <div class="skill-top">
+                        <div class="skill-top">
 
-        <span class="skill-name">
+                            <span class="skill-name">
 
-            ${skill.name}
+                                ${skill.name}
 
-        </span>
+                            </span>
 
-        <span class="skill-cost">
+                            <span class="skill-cost">
 
-            ${cost}
+                                ${cost}
 
-        </span>
+                            </span>
 
-    </div>
+                        </div>
 
-    <div class="skill-info">
+                        <div class="skill-info">
 
-        ${skill.attackType}
-        ／
-        ${skill.target}
+                            ${skill.attackType}
+                            ／
+                            ${skill.target}
 
-        ${
-            ct > 0
-                ? `　CT:${ct}`
-                : ""
-        }
+                            ${
+                                skill.costCard
+                                    ? ` ／ 必殺${skill.costCard}`
+                                    : ""
+                            }
 
-    </div>
+                            ${
+                                ct > 0
+                                    ? ` ／ CT:${ct}`
+                                    : ""
+                            }
 
-</div>
-`;
+                        </div>
+
+                    </div>
+                `;
 
             })
             .join("");
@@ -110,6 +116,7 @@ function openSkillWindow(actor) {
         actorData.ultimate;
 
     windowElement.innerHTML = `
+
         <div class="skill-window-header">
 
             <h2>
@@ -128,44 +135,65 @@ function openSkillWindow(actor) {
         <div class="skill-window-resources">
 
             <span>
-                HP ${actor.currentHp}/${actor.maxHp}
+
+                HP
+                ${actor.currentHp}
+                /
+                ${actor.maxHp}
+
             </span>
 
             <span>
+
                 呪力
                 ${actor.currentCursedPower}
                 /
                 ${actor.maxCursedPower}
+
             </span>
 
         </div>
 
-        <div class="skill-popup-list">
+        <div class="skill-list">
 
-            ${skillButtons}
+            ${skillCards}
 
             <div
-    class="skill-card ultimate-card"
-    onclick="selectPopupUltimate()"
->
+                class="skill-card ultimate-card"
+                onclick="selectPopupUltimate()"
+            >
 
-                <strong>
-                    ${ultimate.name}
-                </strong>
+                <div class="skill-top">
 
-                <span>
-                    必殺技
+                    <span class="skill-name">
+
+                        ★ ${ultimate.name}
+
+                    </span>
+
+                    <span class="skill-cost">
+
+                        必殺
+
+                    </span>
+
+                </div>
+
+                <div class="skill-info">
+
+                    ${ultimate.attackType}
                     ／
                     ${ultimate.target}
-                </span>
 
-                <small>
-                    必殺カード
+                    ／ 必殺カード
                     ${ultimate.costCard ?? 0}枚
-                </small>
-            </button>
+
+                </div>
+
+            </div>
 
         </div>
+
     `;
 
     windowElement.classList.remove("hidden");
