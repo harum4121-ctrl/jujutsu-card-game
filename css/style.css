@@ -2213,3 +2213,56 @@ topの数値だけ調整する。
 .skill-popup-button:disabled {
     opacity: 0.35;
 }
+
+.target-popup-button {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 7px 0;
+    padding: 11px 13px;
+
+    border: 1px solid #8d4f59;
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #46252c,
+            #26161b
+        );
+
+    color: white;
+}
+
+.target-popup-button strong {
+    font-size: 14px;
+}
+
+.target-popup-button span {
+    font-size: 11px;
+    color: #dbc5c8;
+}
+
+.target-popup-back {
+    width: 100%;
+
+    margin-top: 10px;
+    padding: 10px;
+
+    border: 1px solid #645b6e;
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #403a48,
+            #25222a
+        );
+
+    color: white;
+}
