@@ -144,10 +144,11 @@ function openSkillWindow(actor) {
 
             ${skillButtons}
 
-            <button
-                class="skill-popup-button ultimate"
-                onclick="selectPopupUltimate()"
-            >
+            <div
+    class="skill-card ultimate-card"
+    onclick="selectPopupUltimate()"
+>
+
                 <strong>
                     ${ultimate.name}
                 </strong>
