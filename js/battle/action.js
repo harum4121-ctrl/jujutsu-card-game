@@ -228,7 +228,7 @@ if (skill.name === "無下限呪術") {
 
 }
     // 単体攻撃
-    showEnemySelect();
+    openTargetWindow();
 
 }
 // ===============================
@@ -307,7 +307,7 @@ function selectUltimate() {
 
     }
 
-    showEnemySelect();
+    openTargetWindow();
 
 }
 
