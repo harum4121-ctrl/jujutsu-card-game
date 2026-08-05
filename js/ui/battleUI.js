@@ -114,6 +114,43 @@ function openSkillWindow(actor) {
 
     const ultimate =
         actorData.ultimate;
+        
+        <div class="skill-window-character">
+
+    <img
+        src="${actor.cardImage}"
+        alt="${actor.name}"
+    >
+
+    <div class="skill-window-character-info">
+
+        <div class="skill-window-character-name">
+
+            ${actor.name}
+
+        </div>
+
+        <div class="skill-window-hp">
+
+            HP
+            ${actor.currentHp}
+            /
+            ${actor.maxHp}
+
+        </div>
+
+        <div class="skill-window-cp">
+
+            呪力
+            ${actor.currentCursedPower}
+            /
+            ${actor.maxCursedPower}
+
+        </div>
+
+    </div>
+
+</div>
 
     windowElement.innerHTML = `
 
