@@ -1663,24 +1663,26 @@ showDamage(
         // 全体攻撃
         else if (skill.target === "全体") {
 
-            playersAlive.forEach((target, index) => {
+playersAlive.forEach((target) => {
 
     const damage =
         calculateDamage(enemy, target, skill);
 
     target.currentHp -= damage;
-    
+
+    const targetIndex =
+        gameState.battleCharacters.indexOf(target);
+
     showDamage(
-    "player" + index,
-    damage
-);
+        "player" + targetIndex,
+        damage
+    );
 
     applyEffects(
         enemy,
         target,
         skill.effects
     );
-
 
 });
 
