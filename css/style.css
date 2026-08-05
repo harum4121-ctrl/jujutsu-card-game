@@ -2532,3 +2532,64 @@ topの数値だけ調整する。
 .character-panel {
     position: relative;
 }
+
+.character-card{
+    position:relative;
+}
+
+.damage-number{
+
+    position:absolute;
+
+    left:50%;
+    top:45%;
+
+    transform:translate(-50%,-50%);
+
+    font-size:36px;
+
+    font-weight:bold;
+
+    color:#ff4040;
+
+    text-shadow:
+        2px 2px 5px black;
+
+    pointer-events:none;
+
+    z-index:9999;
+
+    animation:damagePop .8s forwards;
+
+}
+
+.damage-heal{
+
+    color:#50ff80;
+
+}
+
+@keyframes damagePop{
+
+    0%{
+
+        opacity:0;
+        transform:translate(-50%,0) scale(.6);
+
+    }
+
+    20%{
+
+        opacity:1;
+        transform:translate(-50%,-10px) scale(1.2);
+
+    }
+
+    100%{
+
+        opacity:0;
+        transform:translate(-50%,-60px) scale(1);
+
+    }
+
+}
