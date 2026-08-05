@@ -1,118 +1,184 @@
 function calculateDamage(actor, target, skill) {
 
-    let damage = 0;
+    if (!actor || !target || !skill) {
 
-if (skill.damage != null) {
+        console.error(
+            "calculateDamageの引数不足",
+            { actor, target, skill }
+        );
 
-    damage = skill.damage;
+        return 0;
 
-}
-else if (skill.attacks) {
-
-    skill.attacks.forEach(attack => {
-
-        damage += attack.damage;
-
-    });
-
-}
-
-    // 多段攻撃
-    if (skill.hits) {
-        damage *= skill.hits;
     }
 
-// 永続攻撃アップ
-damage += actor.attackBonus ?? 0;
+    let damage = 0;
 
-// 一時的な与ダメアップ
-damage += actor.damageBuff ?? 0;
 
-// 与ダメージダウン
-damage -= actor.damageDown ?? 0;
+    // ===============================
+    // 基礎ダメージ
+    // ===============================
 
-// 被ダメージアップ
-damage += target.damageTakenUp ?? 0;
+    if (skill.damage != null) {
 
-// ダメージ軽減
-damage -= target.damageReduction ?? 0;
+        damage = Number(skill.damage) || 0;
 
-// 領域効果
-if (gameState.currentField) {
+    } else if (Array.isArray(skill.attacks)) {
 
-    switch (gameState.currentField.card.id) {
+        damage = skill.attacks.reduce(
+            (total, attack) =>
+                total + (Number(attack.damage) || 0),
+            0
+        );
 
+    }
+
+
+    // 多段攻撃
+    if (skill.hits != null) {
+
+        damage *= Number(skill.hits) || 1;
+
+    }
+
+
+    // ===============================
+    // 攻撃側の補正
+    // ===============================
+
+    // 永続与ダメージアップ
+    damage += Number(actor.attackBonus) || 0;
+
+    // 一時的な与ダメージアップ
+    damage += Number(actor.damageBuff) || 0;
+
+    // 与ダメージダウン
+    damage -= Number(actor.damageDown) || 0;
+
+
+    // ===============================
+    // 防御側の補正
+    // ===============================
+
+    // 被ダメージアップ
+    damage += Number(target.damageTakenUp) || 0;
+
+    // ダメージ軽減
+    damage -= Number(target.damageReduction) || 0;
+
+
+    // ===============================
+    // 領域効果
+    // ===============================
+
+    const fieldId =
+        gameState.currentField?.card?.id;
+
+    switch (fieldId) {
+
+        // 帳
         case "curtain":
+
             damage -= 10;
             break;
 
+
+        // 仙台結界
         case "sendai_barrier":
+
             if (actor.type === "術") {
                 damage += 10;
             }
+
             break;
 
+
+        // 東京結界
         case "tokyo_barrier":
+
             if (actor.type === "体") {
                 damage += 10;
             }
+
             break;
 
+
+        // 東京都立呪術高等専門学校
         case "tokyo_jujutsu_high":
+
             damage -= 30;
             break;
 
     }
 
-}
 
-// 呪具
-if (actor.equipment) {
+    // ===============================
+    // 呪具効果
+    // ===============================
 
-    actor.equipment.forEach(card => {
+    if (Array.isArray(actor.equipment)) {
 
-        if (!card.effect) return;
+        actor.equipment.forEach(card => {
 
-        switch (card.effect.type) {
+            const effects =
+                Array.isArray(card.effect)
+                    ? card.effect
+                    : card.effect
+                        ? [card.effect]
+                        : [];
 
-            case "meleeDamageUp":
+            effects.forEach(effect => {
 
-                if (skill.attackType === "近接") {
+                if (
+                    effect.type === "meleeDamageUp" &&
+                    skill.attackType === "近接"
+                ) {
 
-                    damage += card.effect.value;
+                    damage +=
+                        Number(effect.value) || 0;
 
                 }
 
-                break;
+            });
 
-        }
+        });
 
-    });
+    }
 
-}
 
-// 次の攻撃2倍
-if (actor.doubleNextDamage) {
+    // ===============================
+    // 次の攻撃を2倍
+    // ===============================
 
-    damage *= 2;
+    if (actor.doubleNextDamage) {
 
-    actor.doubleNextDamage = false;
+        damage *= 2;
 
-}
+        actor.doubleNextDamage = false;
 
-// 無敵
-if (
-    target.invincible > 0 &&
-    actor.ignoreInvincible <= 0
-) {
+    }
 
-    damage = 0;
 
-}
+    // ===============================
+    // 無敵
+    // ===============================
 
-damage = Math.max(0, damage);
+    if (
+        (target.invincible ?? 0) > 0 &&
+        (actor.ignoreInvincible ?? 0) <= 0
+    ) {
 
-return damage;
+        damage = 0;
+
+    }
+
+
+    // 最低0ダメージ
+    damage = Math.max(
+        0,
+        Math.floor(damage)
+    );
+
+    return damage;
 
 }
 
