@@ -1982,6 +1982,8 @@ function showDamage(targetId, value, heal = false){
     }
 
     target.appendChild(div);
+    
+    alert(div.outerHTML);
 
     setTimeout(()=>{
 
