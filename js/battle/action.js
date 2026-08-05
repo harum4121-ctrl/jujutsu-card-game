@@ -969,26 +969,25 @@ gameState.currentActorIndex++;
 
     }
 
-    if (
+if (
+    gameState.currentActorIndex <
+    gameState.selectedActors.length
+) {
 
-        gameState.currentActorIndex <
+    const nextCharacter =
+        gameState.selectedActors[
+            gameState.currentActorIndex
+        ];
 
-        gameState.selectedActors.length
+    openSkillWindow(nextCharacter);
 
-    ) {
+} else {
 
-
-        showSkillSelect();
-
-    } else {
-
-
-        gameState.selectedActors = [];
+    gameState.selectedActors = [];
 
     enemyTurn();
 
-
-    }
+}
 
 }
 
