@@ -1956,6 +1956,8 @@ function showDamage(targetId, value, heal = false){
 
     const target =
         document.getElementById(targetId);
+        
+        alert(target ? "見つかった" : "見つからない");
 
     if(!target) return;
 
