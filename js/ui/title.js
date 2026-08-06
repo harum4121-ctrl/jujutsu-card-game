@@ -175,3 +175,154 @@ function showTitle() {
         });
 
 }
+function showRules() {
+
+    const app =
+        document.getElementById("app");
+
+    app.innerHTML = `
+        <div class="rules-screen">
+
+            <header class="rules-header">
+
+                <h1>
+                    ゲームルール
+                </h1>
+
+                <button
+                    id="closeRulesButton"
+                    class="rules-close-button"
+                >
+                    ×
+                </button>
+
+            </header>
+
+
+            <main class="rules-content">
+
+                <section class="rule-section">
+
+                    <h2>
+                        バトル準備
+                    </h2>
+
+                    <p>
+                        キャラクターを3体選択し、
+                        40枚のデッキを作成します。
+                    </p>
+
+                    <p>
+                        同名カードはデッキに
+                        3枚まで入れられます。
+                    </p>
+
+                </section>
+
+
+                <section class="rule-section">
+
+                    <h2>
+                        ターンの進行
+                    </h2>
+
+                    <ol>
+                        <li>
+                            山札からカードを1枚引く
+                        </li>
+
+                        <li>
+                            手札からカードを使用する
+                        </li>
+
+                        <li>
+                            味方キャラクターを最大2体選び、
+                            それぞれ行動する
+                        </li>
+
+                        <li>
+                            ターンを終了する
+                        </li>
+                    </ol>
+
+                </section>
+
+
+                <section class="rule-section">
+
+                    <h2>
+                        勝利条件
+                    </h2>
+
+                    <p>
+                        相手キャラクターをすべて倒すか、
+                        相手の山札がなくなれば勝利です。
+                    </p>
+
+                </section>
+
+
+                <section class="rule-section">
+
+                    <h2>
+                        必殺技
+                    </h2>
+
+                    <p>
+                        必殺技を使用するときは、
+                        指定された枚数の必殺カードを消費します。
+                    </p>
+
+                </section>
+
+
+                <section class="rule-section">
+
+                    <h2>
+                        領域カード
+                    </h2>
+
+                    <p>
+                        場に存在できる領域カードは、
+                        敵味方を合わせて1枚だけです。
+                    </p>
+
+                    <p>
+                        領域を展開してから2ターン経過すると、
+                        新しい領域で上書きできます。
+                    </p>
+
+                </section>
+
+            </main>
+
+
+            <button
+                id="rulesBackButton"
+                class="rules-back-button"
+            >
+                タイトルへ戻る
+            </button>
+
+        </div>
+    `;
+
+
+    document
+        .getElementById("closeRulesButton")
+        .addEventListener("click", () => {
+
+            showTitle();
+
+        });
+
+
+    document
+        .getElementById("rulesBackButton")
+        .addEventListener("click", () => {
+
+            showTitle();
+
+        });
+
+}
