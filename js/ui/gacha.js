@@ -845,24 +845,3 @@ function playGachaAnimation(result) {
     }, 700);
 
 }
-
-<div id="gachaAnimation" class="gacha-animation hidden">
-
-    <div id="gachaFlash"></div>
-
-    <div id="gachaCard">
-
-        <div id="gachaCardBack">
-            ?
-        </div>
-
-        <img
-            id="gachaCardImage"
-            src=""
-        >
-
-    </div>
-
-    <div id="gachaRarity"></div>
-
-</div>
