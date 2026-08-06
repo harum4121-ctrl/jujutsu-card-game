@@ -677,7 +677,7 @@ function showGachaAnimation(results) {
 
     setTimeout(() => {
 
-        showGachaResult(results);
+showGachaAnimation(results);
 
     },2500);
 
