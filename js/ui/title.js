@@ -140,6 +140,13 @@ function showTitle() {
 
         });
 
+document
+    .getElementById("gachaButton")
+    .addEventListener("click", () => {
+
+        showGachaScreen();
+
+    });
 
     // デッキ編集
     document
