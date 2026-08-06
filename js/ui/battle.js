@@ -651,6 +651,8 @@ gameState.battleCharacters.forEach((character, index) => {
 wrapper.id =
     "player" + index;
 
+alert(wrapper.id);
+
         wrapper.innerHTML = `
 
             ${createCharacterCard(
