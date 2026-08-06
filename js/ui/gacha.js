@@ -630,3 +630,55 @@ function showGachaResult(results) {
         };
 
 }
+// ===============================
+// ガチャ演出
+// ===============================
+
+function showGachaAnimation(results) {
+
+    const app =
+        document.getElementById("app");
+
+    const highest =
+        getHighestRarity(results);
+
+    app.innerHTML = `
+
+<div class="gacha-animation">
+
+    <div
+        id="gachaAura"
+        class="gacha-aura ${highest.toLowerCase()}"
+    ></div>
+
+    <div id="gachaOrb">
+
+        ☯
+
+    </div>
+
+    <div id="gachaText">
+
+        呪力を解放中...
+
+    </div>
+
+</div>
+
+`;
+
+    setTimeout(() => {
+
+        document
+            .getElementById("gachaOrb")
+            .classList.add("open");
+
+    },1000);
+
+    setTimeout(() => {
+
+        showGachaResult(results);
+
+    },2500);
+
+}
