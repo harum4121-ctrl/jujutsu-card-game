@@ -639,49 +639,132 @@ function showGachaAnimation(results) {
     const app =
         document.getElementById("app");
 
+    if (
+        !Array.isArray(results) ||
+        results.length === 0
+    ) {
+
+        alert("ガチャ結果を取得できませんでした");
+
+        showGachaScreen();
+
+        return;
+
+    }
+
     const highest =
         getHighestRarity(results);
 
     app.innerHTML = `
+        <div
+            class="
+                gacha-animation
+                rarity-animation-${highest.toLowerCase()}
+            "
+        >
 
-<div class="gacha-animation">
+            <div
+                id="gachaAura"
+                class="
+                    gacha-aura
+                    ${highest.toLowerCase()}
+                "
+            ></div>
 
-    <div
-        id="gachaAura"
-        class="gacha-aura ${highest.toLowerCase()}"
-    ></div>
+            <div id="gachaFlash"></div>
 
-    <div id="gachaOrb">
+            <div id="summonCircle"></div>
 
-        ☯
+            <div id="gachaOrb">
+                ☯
+            </div>
 
-    </div>
+            <div id="gachaText">
+                呪力を解放中…
+            </div>
 
-    <div id="gachaText">
+            <button
+                id="gachaSkipButton"
+                class="gacha-skip-button"
+            >
+                スキップ
+            </button>
 
-        呪力を解放中...
+        </div>
+    `;
 
-    </div>
+    let finished = false;
 
-</div>
+    const finishAnimation = () => {
 
-`;
+        if (finished) return;
+
+        finished = true;
+
+        showGachaResult(results);
+
+    };
+
+    const orb =
+        document.getElementById("gachaOrb");
+
+    const flash =
+        document.getElementById("gachaFlash");
+
+    const text =
+        document.getElementById("gachaText");
+
+    const skipButton =
+        document.getElementById(
+            "gachaSkipButton"
+        );
+
+    if (skipButton) {
+
+        skipButton.onclick =
+            finishAnimation;
+
+    }
 
     setTimeout(() => {
 
-        document
-            .getElementById("gachaOrb")
-            .classList.add("open");
+        if (orb) {
 
-    },1000);
+            orb.classList.add("open");
+
+        }
+
+        if (text) {
+
+            text.textContent =
+                highest === "LR" ||
+                highest === "CHARACTER"
+                    ? "強大な呪力を感知…！"
+                    : "呪力を解放中…";
+
+        }
+
+    }, 700);
 
     setTimeout(() => {
 
-showGachaAnimation(results);
+        if (flash) {
 
-    },2500);
+            flash.classList.add(
+                "gacha-flash-active"
+            );
+
+        }
+
+    }, 1500);
+
+    setTimeout(
+        finishAnimation,
+        2500
+    );
 
 }
+
 function getHighestRarity(results){
 
     const order = [
