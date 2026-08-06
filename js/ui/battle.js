@@ -1623,6 +1623,11 @@ if (!target) {
 
             const damage =
                 calculateDamage(enemy, target, skill);
+                
+                showEnemySkillMessage(
+    enemy.name,
+    skill.name
+);
 
             target.currentHp -= damage;
             
@@ -1656,6 +1661,11 @@ playersAlive.forEach((target) => {
 
     const damage =
         calculateDamage(enemy, target, skill);
+        
+        showEnemySkillMessage(
+    enemy.name,
+    skill.name
+);
 
     target.currentHp -= damage;
 
