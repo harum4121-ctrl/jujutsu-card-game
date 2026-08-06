@@ -288,7 +288,7 @@ rarity: "SR",
     id: "retry",
 
     name: "やり直しだ",
-
+rarity: "SSR",
     type: "サポート",
 
     target: "味方単体",
@@ -302,6 +302,7 @@ rarity: "SR",
         id: "no_regret",
         name: "生き様で後悔はしたくない",
         type: "サポート",
+        rarity: "SR",
         target: "味方単体",
         effect: {
             type: "damageReduction",
@@ -314,7 +315,7 @@ rarity: "SR",
     id: "power_battle",
 
     name: "火力勝負といこう",
-
+rarity: "SSR",
     type: "サポート",
     target: "味方単体",
 
@@ -328,7 +329,7 @@ rarity: "SR",
     name: "今はただ君に感謝を",
     type: "サポート",
     target: "味方単体",
-
+rarity: "SSR",
     hpLimit: 100,
 
     effect: {
@@ -346,7 +347,7 @@ rarity: "SR",
         id: "curtain",
 
         name: "帳",
-
+rarity: "N",
         type: "領域",
 
         effect: {
@@ -359,7 +360,7 @@ rarity: "SR",
         id: "sendai_barrier",
 
         name: "仙台結界",
-
+rarity: "SR",
         type: "領域",
 
         effect: {
@@ -372,7 +373,7 @@ rarity: "SR",
         id: "tokyo_barrier",
 
         name: "東京結界",
-
+rarity: "SR",
         type: "領域",
 
         effect: {
@@ -385,7 +386,7 @@ rarity: "SR",
         id: "tokyo_jujutsu_high",
 
         name: "東京都立呪術高等専門学校",
-
+rarity: "SR",
         type: "領域",
 
         effect: [
