@@ -57,7 +57,7 @@ function createDefaultCollection() {
 
         cards: {},
 
-        currency: 900000
+        currency: 3000
 
     };
 
