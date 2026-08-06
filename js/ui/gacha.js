@@ -634,38 +634,274 @@ function showGachaResult(results) {
 // ガチャ演出
 // ===============================
 
-showGachaAnimation
+function showGachaAnimation(results) {
 
-function getHighestRarity(results){
+    const app =
+        document.getElementById("app");
 
-    const order = [
+    if (
+        !Array.isArray(results) ||
+        results.length === 0
+    ) {
 
-        "N",
-        "R",
-        "SR",
-        "SSR",
-        "UR",
-        "LR",
-        "CHARACTER"
+        alert(
+            "ガチャ結果を取得できませんでした"
+        );
 
-    ];
+        showGachaScreen();
 
-    let highest = "N";
+        return;
 
-    results.forEach(result=>{
+    }
 
-        if(
-            order.indexOf(result.rarity)
+    const highest =
+        getHighestRarity(results);
+
+    const rarityClass =
+        highest.toLowerCase();
+
+    const particleHtml =
+        Array.from(
+            { length: 28 },
+            () => {
+
+                const left =
+                    Math.floor(
+                        Math.random() * 100
+                    );
+
+                const delay =
+                    (
+                        Math.random() * 1.8
+                    ).toFixed(2);
+
+                const duration =
+                    (
+                        1.6 +
+                        Math.random() * 1.8
+                    ).toFixed(2);
+
+                const size =
+                    Math.floor(
+                        4 +
+                        Math.random() * 8
+                    );
+
+                return `
+                    <span
+                        class="gacha-particle"
+                        style="
+                            left:${left}%;
+                            width:${size}px;
+                            height:${size}px;
+                            animation-delay:${delay}s;
+                            animation-duration:${duration}s;
+                        "
+                    ></span>
+                `;
+
+            }
+        ).join("");
+
+    app.innerHTML = `
+        <div
+            class="
+                deluxe-gacha-animation
+                rarity-animation-${rarityClass}
+            "
+        >
+
+            <div class="gacha-dark-overlay"></div>
+
+            <div class="gacha-particle-field">
+                ${particleHtml}
+            </div>
+
+            <div
+                id="gachaEnergyRingOuter"
+                class="gacha-energy-ring outer"
+            ></div>
+
+            <div
+                id="gachaEnergyRingInner"
+                class="gacha-energy-ring inner"
+            ></div>
+
+            <div
+                id="gachaCore"
+                class="
+                    gacha-core
+                    rarity-${rarityClass}
+                "
             >
-            order.indexOf(highest)
-        ){
+                <span>呪</span>
+            </div>
 
-            highest = result.rarity;
+            <div
+                id="gachaCrack"
+                class="gacha-screen-crack"
+            ></div>
+
+            <div
+                id="gachaWhiteFlash"
+                class="gacha-white-flash"
+            ></div>
+
+            <div
+                id="gachaRarityReveal"
+                class="
+                    gacha-rarity-reveal
+                    rarity-${rarityClass}
+                "
+            >
+                ${highest}
+            </div>
+
+            <div
+                id="gachaAnimationText"
+                class="gacha-animation-text"
+            >
+                呪力が集まっている…
+            </div>
+
+            <button
+                id="gachaSkipButton"
+                class="gacha-skip-button"
+            >
+                スキップ
+            </button>
+
+        </div>
+    `;
+
+    let finished = false;
+
+    const finishAnimation = () => {
+
+        if (finished) return;
+
+        finished = true;
+
+        showGachaResult(results);
+
+    };
+
+    const animation =
+        document.querySelector(
+            ".deluxe-gacha-animation"
+        );
+
+    const core =
+        document.getElementById(
+            "gachaCore"
+        );
+
+    const outerRing =
+        document.getElementById(
+            "gachaEnergyRingOuter"
+        );
+
+    const innerRing =
+        document.getElementById(
+            "gachaEnergyRingInner"
+        );
+
+    const crack =
+        document.getElementById(
+            "gachaCrack"
+        );
+
+    const flash =
+        document.getElementById(
+            "gachaWhiteFlash"
+        );
+
+    const rarityReveal =
+        document.getElementById(
+            "gachaRarityReveal"
+        );
+
+    const text =
+        document.getElementById(
+            "gachaAnimationText"
+        );
+
+    const skipButton =
+        document.getElementById(
+            "gachaSkipButton"
+        );
+
+    if (skipButton) {
+
+        skipButton.onclick =
+            finishAnimation;
+
+    }
+
+    setTimeout(() => {
+
+        core?.classList.add("charge");
+
+        outerRing?.classList.add(
+            "charge"
+        );
+
+        innerRing?.classList.add(
+            "charge"
+        );
+
+        if (text) {
+
+            text.textContent =
+                highest === "LR" ||
+                highest === "CHARACTER"
+                    ? "異常な呪力を感知…！"
+                    : "呪力を解放する…";
 
         }
 
-    });
+    }, 700);
 
-    return highest;
+    setTimeout(() => {
+
+        crack?.classList.add(
+            "active"
+        );
+
+        animation?.classList.add(
+            "gacha-impact"
+        );
+
+    }, 1750);
+
+    setTimeout(() => {
+
+        flash?.classList.add(
+            "active"
+        );
+
+    }, 2250);
+
+    setTimeout(() => {
+
+        rarityReveal?.classList.add(
+            "active"
+        );
+
+        if (text) {
+
+            text.textContent =
+                highest === "CHARACTER"
+                    ? "NEW CHARACTER"
+                    : "召喚成功";
+
+        }
+
+    }, 2750);
+
+    setTimeout(
+        finishAnimation,
+        4300
+    );
 
 }
