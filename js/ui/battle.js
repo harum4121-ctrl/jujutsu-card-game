@@ -1759,11 +1759,15 @@ gameState.battleCharacters.forEach((character) => {
 });
 
 gameState.enemyCharacters.forEach(enemy => {
-    alert(
-        enemy.name +
-        " stun=" +
-        enemy.stun
-    );
+
+    if (enemy.stun > 0) {
+
+        alert(
+            enemy.name +
+            " はスタン状態です！"
+        );
+
+    }
 
 });
 
