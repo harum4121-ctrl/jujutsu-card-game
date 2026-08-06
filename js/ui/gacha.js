@@ -682,3 +682,36 @@ function showGachaAnimation(results) {
     },2500);
 
 }
+function getHighestRarity(results){
+
+    const order = [
+
+        "N",
+        "R",
+        "SR",
+        "SSR",
+        "UR",
+        "LR",
+        "CHARACTER"
+
+    ];
+
+    let highest = "N";
+
+    results.forEach(result=>{
+
+        if(
+            order.indexOf(result.rarity)
+            >
+            order.indexOf(highest)
+        ){
+
+            highest = result.rarity;
+
+        }
+
+    });
+
+    return highest;
+
+}
