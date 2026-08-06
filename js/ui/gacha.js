@@ -715,6 +715,103 @@ function getHighestRarity(results){
     return highest;
 
 }
+
+function playGachaAnimation(result){
+
+    const animation =
+        document.getElementById("gachaAnimation");
+
+    const flash =
+        document.getElementById("gachaFlash");
+
+    const back =
+        document.getElementById("gachaCardBack");
+
+    const image =
+        document.getElementById("gachaCardImage");
+
+    const rarity =
+        document.getElementById("gachaRarity");
+
+    animation.classList.remove("hidden");
+
+    back.style.display="flex";
+    image.style.display="none";
+
+    rarity.textContent="";
+
+    flash.animate(
+
+        [
+
+            {opacity:0},
+
+            {opacity:1},
+
+            {opacity:0}
+
+        ],
+
+        {
+
+            duration:600
+
+        }
+
+    );
+
+    setTimeout(()=>{
+
+        back.style.display="none";
+
+        image.style.display="block";
+
+        image.src=result.image;
+
+        rarity.textContent=result.rarity;
+
+        switch(result.rarity){
+
+            case "LR":
+
+                rarity.style.color="gold";
+
+                break;
+
+            case "UR":
+
+                rarity.style.color="red";
+
+                break;
+
+            case "SSR":
+
+                rarity.style.color="yellow";
+
+                break;
+
+            case "SR":
+
+                rarity.style.color="violet";
+
+                break;
+
+            case "R":
+
+                rarity.style.color="skyblue";
+
+                break;
+
+            default:
+
+                rarity.style.color="white";
+
+        }
+
+    },700);
+
+}
+
 <div id="gachaAnimation" class="gacha-animation hidden">
 
     <div id="gachaFlash"></div>
