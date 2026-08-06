@@ -1791,7 +1791,11 @@ if (!drawCard()) {
 
 }
 
-showBattleScreen();
+setTimeout(() => {
+
+    showBattleScreen();
+
+}, 900);
 
 }
 
