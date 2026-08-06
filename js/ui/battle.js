@@ -1649,17 +1649,6 @@ showDamage(
                 skill.effects
             );
 
-            alert(
-                enemy.name +
-                " の " +
-                skill.name +
-                "！\n\n" +
-                target.name +
-                " に " +
-                damage +
-                " ダメージ！"
-            );
-
         }
 
         // 全体攻撃
@@ -1687,15 +1676,6 @@ playersAlive.forEach((target) => {
     );
 
 });
-
-            alert(
-                enemy.name +
-                " の " +
-                skill.name +
-                "！\n\n味方全体に攻撃！"
-            );
-            
-
         }
     });
     
