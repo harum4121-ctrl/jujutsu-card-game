@@ -2654,3 +2654,78 @@ topの数値だけ調整する。
     }
 
 }
+/* ===============================
+   画面上に直接表示するダメージ数字
+================================ */
+
+.floating-damage {
+    position: fixed;
+
+    transform:
+        translate(-50%, -50%);
+
+    color: #ff4242;
+
+    font-size: 42px;
+    font-weight: 900;
+
+    line-height: 1;
+
+    text-shadow:
+        2px 2px 0 #000,
+        -2px 2px 0 #000,
+        2px -2px 0 #000,
+        -2px -2px 0 #000,
+        0 0 10px #ff3030;
+
+    pointer-events: none;
+
+    z-index: 999999;
+
+    animation:
+        floatingDamageAnimation
+        1s ease-out forwards;
+}
+
+.floating-damage.heal {
+    color: #57ff7a;
+
+    text-shadow:
+        2px 2px 0 #000,
+        -2px 2px 0 #000,
+        2px -2px 0 #000,
+        -2px -2px 0 #000,
+        0 0 10px #46ff68;
+}
+
+@keyframes floatingDamageAnimation {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -20%)
+            scale(0.5);
+    }
+
+    20% {
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(1.25);
+    }
+
+    65% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -140%)
+            scale(1);
+    }
+
+}
