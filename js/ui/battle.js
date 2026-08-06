@@ -1992,3 +1992,26 @@ function showDamage(targetId, value, heal = false) {
     }, 1000);
 
 }
+
+function showEnemySkillMessage(enemyName, skillName) {
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "enemy-skill-message";
+
+    message.innerHTML = `
+        <span>${enemyName}</span>
+        <strong>${skillName}</strong>
+    `;
+
+    document.body.appendChild(message);
+
+    setTimeout(() => {
+
+        message.remove();
+
+    }, 1200);
+
+}
