@@ -6,7 +6,7 @@ const cards = {
             id: "heavenly_spear",
 
             name: "天逆鉾",
-
+rarity: "LR",
             type: "呪具",
 
             effect: {
@@ -24,7 +24,7 @@ const cards = {
             id: "slaughter_blade",
 
             name: "屠坐魔",
-
+rarity: "R",
             type: "呪具",
 
             effect: {
@@ -38,7 +38,7 @@ const cards = {
             id: "black_rope",
 
             name: "黒縄",
-
+rarity: "SR",
             type: "呪具",
 
             effect: {
@@ -56,7 +56,7 @@ const cards = {
             id: "speaker",
 
             name: "蛇の目と牙のスピーカー",
-
+rarity: "UR",
             type: "呪具",
 
             effect: {
@@ -78,7 +78,7 @@ const cards = {
     id: "sukunas_finger",
 
     name: "宿儺の指",
-
+rarity: "UR",
     type: "呪物",
 
     target: "味方単体",
@@ -93,7 +93,7 @@ const cards = {
     id: "death_painting_1",
 
     name: "受胎九相図 一番",
-
+rarity: "SSR",
     type: "呪物",
 
     target: "敵全体",
@@ -114,7 +114,7 @@ const cards = {
     id: "death_painting_2",
 
     name: "受胎九相図 二番",
-
+rarity: "SSR",
     type: "呪物",
 
     target: "味方単体",
@@ -128,7 +128,7 @@ const cards = {
             id: "death_painting_3",
 
             name: "受胎九相図 三番",
-
+rarity: "SSR",
             type: "呪物",
             
             target: "味方単体",
@@ -143,7 +143,7 @@ const cards = {
             id: "prison_realm",
 
             name: "獄門疆",
-
+rarity: "LR",
             type: "呪物",
 
             target: "敵単体",
@@ -180,7 +180,7 @@ const cards = {
     id: "challenger",
 
     name: "そっちが挑戦者だから",
-
+rarity: "LR",
     type: "サポート",
 
     target: "味方単体",
@@ -197,7 +197,7 @@ const cards = {
         name: "呪いの王",
         type: "サポート",
         target: "敵全体",
-
+rarity: "UR",
         effect: {
             type: "allCursedPowerDown",
             value: 30
@@ -208,7 +208,7 @@ const cards = {
     id: "domain_amplification",
     name: "領域展延",
     type: "サポート",
-
+rarity: "SR",
     target: "味方単体",
 
     effect: {
@@ -221,6 +221,7 @@ const cards = {
         id: "we_are_the_strongest",
         name: "私たちは最強なんだ",
         type: "サポート",
+        rarity: "SSR",
         target: "味方2体",
         effect: {
             type: "damageReduction",
@@ -237,6 +238,7 @@ const cards = {
         id: "big_brother",
         name: "全力でお兄ちゃんを遂行する！",
         type: "サポート",
+        rarity: "UR",
         target: "味方全体",
         effect: {
             type: "cursedUp",
@@ -248,7 +250,7 @@ const cards = {
         id: "not_words",
         name: "ここまで来たら言葉じゃねぇだろ！",
         type: "サポート",
-
+rarity: "UR",
         effect: {
             type: "searchUltimate"
         }
@@ -257,7 +259,7 @@ const cards = {
    {
     id: "save_people",
     name: "俺は不平等に人を助ける",
-
+rarity: "SR",
     type: "サポート",
     target: "味方単体",
 
@@ -271,6 +273,7 @@ const cards = {
         id: "endure",
         name: "耐えろ！",
         type: "サポート",
+        rarity: "N",
         target: "味方全体",
         effect: {
             type: "allDamageReduction",
