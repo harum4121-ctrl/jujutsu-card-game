@@ -733,6 +733,15 @@ function playGachaAnimation(result){
     const rarity =
         document.getElementById("gachaRarity");
 
+const card =
+    document.getElementById("gachaCard");
+
+card.classList.remove("gacha-flip");
+
+void card.offsetWidth;
+
+card.classList.add("gacha-flip");
+
     animation.classList.remove("hidden");
 
     back.style.display="flex";
