@@ -46,6 +46,21 @@ function showTitle() {
 
                 <nav class="title-menu">
 
+<button
+    id="gachaButton"
+    class="title-menu-button gacha"
+>
+
+    <span class="title-button-label">
+        GACHA
+    </span>
+
+    <small>
+        キャラクター・カードを獲得
+    </small>
+
+</button>
+
                     <button
                         id="battleButton"
                         class="title-menu-button battle"
