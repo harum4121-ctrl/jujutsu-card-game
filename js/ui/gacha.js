@@ -716,13 +716,16 @@ function getHighestRarity(results){
 
 }
 
-function playGachaAnimation(result){
+function playGachaAnimation(result) {
 
     const animation =
         document.getElementById("gachaAnimation");
 
     const flash =
         document.getElementById("gachaFlash");
+
+    const card =
+        document.getElementById("gachaCard");
 
     const back =
         document.getElementById("gachaCardBack");
@@ -733,80 +736,113 @@ function playGachaAnimation(result){
     const rarity =
         document.getElementById("gachaRarity");
 
-const card =
-    document.getElementById("gachaCard");
+    if (
+        !animation ||
+        !flash ||
+        !card ||
+        !back ||
+        !image ||
+        !rarity
+    ) {
 
-card.classList.remove("gacha-flip");
+        console.error(
+            "ガチャ演出用の要素が見つかりません"
+        );
 
-void card.offsetWidth;
+        return;
 
-card.classList.add("gacha-flip");
+    }
 
-    animation.classList.remove("hidden");
-
-    back.style.display="flex";
-    image.style.display="none";
-
-    rarity.textContent="";
-
-    flash.animate(
-
-        [
-
-            {opacity:0},
-
-            {opacity:1},
-
-            {opacity:0}
-
-        ],
-
-        {
-
-            duration:600
-
-        }
-
+    animation.classList.remove(
+        "hidden",
+        "shake",
+        "lr-background"
     );
 
-    setTimeout(()=>{
+    back.style.display = "flex";
+    image.style.display = "none";
 
-        back.style.display="none";
+    rarity.textContent = "";
 
-        image.style.display="block";
+    card.classList.remove("gacha-flip");
 
-        image.src=result.image;
+    void card.offsetWidth;
 
-        rarity.textContent=result.rarity;
+    card.classList.add("gacha-flip");
 
-        switch(result.rarity){
+    flash.animate(
+        [
+            { opacity: 0 },
+            { opacity: 1 },
+            { opacity: 0 }
+        ],
+        {
+            duration: 600
+        }
+    );
 
-case "LR":
-    rarity.style.color="#ffef5e";
-    break;
+    setTimeout(() => {
 
-case "UR":
-    rarity.style.color="#ff4242";
-    break;
+        back.style.display = "none";
 
-case "SSR":
-    rarity.style.color="#ffd700";
-    break;
+        image.style.display = "block";
 
-case "SR":
-    rarity.style.color="#b75cff";
-    break;
+        image.src =
+            result.image ?? "";
 
-case "R":
-    rarity.style.color="#58b8ff";
-    break;
+        rarity.textContent =
+            result.rarity ?? "N";
 
-default:
-    rarity.style.color="white";
+        switch (result.rarity) {
+
+            case "LR":
+
+                rarity.style.color =
+                    "#ffef5e";
+
+                animation.classList.add(
+                    "shake",
+                    "lr-background"
+                );
+
+                break;
+
+            case "UR":
+
+                rarity.style.color =
+                    "#ff4242";
+
+                break;
+
+            case "SSR":
+
+                rarity.style.color =
+                    "#ffd700";
+
+                break;
+
+            case "SR":
+
+                rarity.style.color =
+                    "#b75cff";
+
+                break;
+
+            case "R":
+
+                rarity.style.color =
+                    "#58b8ff";
+
+                break;
+
+            default:
+
+                rarity.style.color =
+                    "white";
 
         }
 
-    },700);
+    }, 700);
 
 }
 
