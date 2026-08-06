@@ -1942,12 +1942,8 @@ function getStatusList(character){
 
 function showDamage(targetId, value, heal = false) {
 
-alert(targetId);
-
     const target =
         document.getElementById(targetId);
-
-alert(target ? "取得成功" : "取得失敗");
 
     if (!target) return;
 
