@@ -781,39 +781,28 @@ card.classList.add("gacha-flip");
 
         switch(result.rarity){
 
-            case "LR":
+case "LR":
+    rarity.style.color="#ffef5e";
+    break;
 
-                rarity.style.color="gold";
+case "UR":
+    rarity.style.color="#ff4242";
+    break;
 
-                break;
+case "SSR":
+    rarity.style.color="#ffd700";
+    break;
 
-            case "UR":
+case "SR":
+    rarity.style.color="#b75cff";
+    break;
 
-                rarity.style.color="red";
+case "R":
+    rarity.style.color="#58b8ff";
+    break;
 
-                break;
-
-            case "SSR":
-
-                rarity.style.color="yellow";
-
-                break;
-
-            case "SR":
-
-                rarity.style.color="violet";
-
-                break;
-
-            case "R":
-
-                rarity.style.color="skyblue";
-
-                break;
-
-            default:
-
-                rarity.style.color="white";
+default:
+    rarity.style.color="white";
 
         }
 
