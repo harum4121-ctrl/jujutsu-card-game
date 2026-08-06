@@ -4118,3 +4118,104 @@ topの数値だけ調整する。
     }
 
 }
+/* =========================
+   ガチャ演出
+========================= */
+
+.gacha-animation{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.92);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    z-index:99999;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+#gachaFlash{
+
+    position:absolute;
+
+    inset:0;
+
+    background:white;
+
+    opacity:0;
+
+}
+
+#gachaCard{
+
+    width:230px;
+
+    height:330px;
+
+    perspective:1000px;
+
+}
+
+#gachaCardBack{
+
+    width:100%;
+
+    height:100%;
+
+    background:#222;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:16px;
+
+    font-size:70px;
+
+    font-weight:bold;
+
+    box-shadow:0 0 40px rgba(255,255,255,.2);
+
+}
+
+#gachaCardImage{
+
+    width:100%;
+
+    display:none;
+
+    border-radius:16px;
+
+}
+
+#gachaRarity{
+
+    margin-top:30px;
+
+    font-size:50px;
+
+    font-weight:bold;
+
+    color:white;
+
+    text-shadow:0 0 25px white;
+
+}
