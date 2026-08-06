@@ -409,7 +409,7 @@ ultimate: [
         id: "ultimate_card",
 
         name: "必殺カード",
-
+rarity: "LR",
         type: "必殺"
     }
 
