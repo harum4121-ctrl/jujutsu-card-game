@@ -114,6 +114,9 @@ function loadCollection() {
         saveCollection();
 
     }
+    
+    gameState.collection.currency = 9999999;
+saveCollection();
 
 }
 
