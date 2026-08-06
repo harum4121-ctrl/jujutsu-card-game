@@ -3945,3 +3945,176 @@ topの数値だけ調整する。
     }
 
 }
+/* ===============================
+   ガチャ演出
+================================ */
+
+.gacha-animation{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#09070f;
+
+    overflow:hidden;
+
+}
+
+.gacha-aura{
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    filter:blur(25px);
+
+    animation:
+
+        auraPulse
+
+        1s infinite alternate;
+
+}
+
+.gacha-aura.n{
+
+    background:#4aa3ff;
+
+}
+
+.gacha-aura.r{
+
+    background:#57c56d;
+
+}
+
+.gacha-aura.sr{
+
+    background:#a14cff;
+
+}
+
+.gacha-aura.ssr{
+
+    background:#ffd24d;
+
+}
+
+.gacha-aura.ur{
+
+    background:#ff5555;
+
+}
+
+.gacha-aura.lr,
+
+.gacha-aura.character{
+
+    background:
+
+        linear-gradient(
+
+            45deg,
+
+            red,
+
+            orange,
+
+            yellow,
+
+            green,
+
+            cyan,
+
+            blue,
+
+            violet
+
+        );
+
+}
+
+@keyframes auraPulse{
+
+    from{
+
+        transform:scale(.8);
+
+        opacity:.5;
+
+    }
+
+    to{
+
+        transform:scale(1.4);
+
+        opacity:1;
+
+    }
+
+}
+
+#gachaOrb{
+
+    font-size:90px;
+
+    z-index:5;
+
+    transition:.7s;
+
+}
+
+#gachaOrb.open{
+
+    transform:
+
+        scale(1.8)
+
+        rotate(360deg);
+
+}
+
+#gachaText{
+
+    margin-top:30px;
+
+    font-size:24px;
+
+    letter-spacing:3px;
+
+    animation:
+
+        fadeText
+
+        1s infinite alternate;
+
+}
+
+@keyframes fadeText{
+
+    from{
+
+        opacity:.3;
+
+    }
+
+    to{
+
+        opacity:1;
+
+    }
+
+}
