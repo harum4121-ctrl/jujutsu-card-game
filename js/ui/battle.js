@@ -1945,31 +1945,40 @@ function showDamage(targetId, value, heal = false) {
 
     if (!target) return;
 
-    const div =
+    const rect =
+        target.getBoundingClientRect();
+
+    const damageElement =
         document.createElement("div");
 
-    div.className =
-        "damage-number";
+    damageElement.className =
+        heal
+            ? "floating-damage heal"
+            : "floating-damage";
 
-    if (heal) {
+    damageElement.textContent =
+        heal
+            ? "+" + value
+            : "-" + value;
 
-        div.classList.add("damage-heal");
-        div.textContent = "+" + value;
+    damageElement.style.left =
+        rect.left +
+        rect.width / 2 +
+        "px";
 
-    } else {
+    damageElement.style.top =
+        rect.top +
+        rect.height / 2 +
+        "px";
 
-        div.textContent = "-" + value;
-
-    }
-
-    target.appendChild(div);
-    
-    target.style.border = "5px solid red";
+    document.body.appendChild(
+        damageElement
+    );
 
     setTimeout(() => {
 
-        div.remove();
+        damageElement.remove();
 
-    }, 800);
+    }, 1000);
 
 }
