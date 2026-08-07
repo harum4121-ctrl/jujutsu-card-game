@@ -4268,11 +4268,7 @@ topの数値だけ調整する。
 100%{transform:translate(0);}
 
 }
-if(result.rarity==="LR"){
 
-    animation.classList.add("shake");
-
-}
 .lr-background{
 
 background:
@@ -4302,13 +4298,6 @@ background-position:0%;
 100%{
 background-position:100%;
 }
-
-}
-animation.classList.remove("lr-background");
-
-if(result.rarity==="LR"){
-
-    animation.classList.add("lr-background");
 
 }
 
