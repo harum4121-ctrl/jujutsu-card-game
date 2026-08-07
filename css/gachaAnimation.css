@@ -1233,30 +1233,6 @@
     object-fit:cover;
 
 }
-/* CHARACTERだけ専用調整 */
-
-#gachaRarity.character {
-
-    left: 50% !important;
-    top: 50% !important;
-
-    width: 100% !important;
-
-    font-size: 56px !important;
-    letter-spacing: 1px !important;
-
-    text-align: center !important;
-
-    transform:
-        translate(-50%, -50%)
-        scale(1) !important;
-
-    transform-origin:
-        center center !important;
-
-    white-space: nowrap !important;
-
-}
 #gachaRarity.character.show {
 
     transform:
