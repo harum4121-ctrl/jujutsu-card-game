@@ -53,22 +53,74 @@ function createDefaultCollection() {
 
     return {
 
-        characters:{
+        // ===============================
+        // 初期所持キャラクター
+        // ===============================
 
-            yuji:1,
-            megumi:1,
-            nobara:1
+        characters: {
+
+            yuji: 1,
+            megumi: 1,
+            nobara: 1
 
         },
 
-        cards: {},
+
+        // ===============================
+        // 初期所持カード
+        // ===============================
+
+        cards: {
+
+            // 呪具
+            slaughter_blade: 2,
+            black_rope: 2,
+            speaker: 1,
+
+
+            // 呪物
+            sukunas_finger: 1,
+            death_painting_1: 2,
+            death_painting_2: 2,
+            death_painting_3: 2,
+
+
+            // サポート
+            king_of_curses: 1,
+            domain_amplification: 2,
+            we_are_the_strongest: 2,
+            big_brother: 1,
+            not_words: 1,
+            save_people: 2,
+            endure: 2,
+            retry: 2,
+            no_regret: 2,
+            power_battle: 2,
+            thank_you: 2,
+
+
+            // 領域
+            curtain: 2,
+            sendai_barrier: 2,
+            tokyo_barrier: 2,
+            tokyo_jujutsu_high: 2,
+
+
+            // 必殺
+            ultimate_card: 1
+
+        },
+
+
+        // ===============================
+        // 初期コイン
+        // ===============================
 
         currency: 3000
 
     };
 
 }
-
 // 所持データを読み込む
 function loadCollection() {
 
