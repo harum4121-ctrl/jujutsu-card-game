@@ -1091,21 +1091,21 @@
    カード演出
 ========================================= */
 
-.gacha-card-container{
+.gacha-card-container {
 
-    position:absolute;
+    position: absolute;
 
-    left:50%;
-    top:50%;
+    left: 50%;
+    top: 58%;
 
-    width:230px;
-    height:330px;
+    width: 210px;
+    height: 300px;
 
     transform:
-        translate(-50%,-50%)
+        translate(-50%, -50%)
         perspective(1200px);
 
-    z-index:30;
+    z-index: 30;
 
 }
 
