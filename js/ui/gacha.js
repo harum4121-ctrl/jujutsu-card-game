@@ -288,7 +288,7 @@ function performGacha(count) {
 
     saveCollection();
 
-showGachaAnimation(results);
+playCinematicGacha(results);
 
 }
 
