@@ -4537,3 +4537,28 @@ scale(1);
 }
 
 }
+
+#gachaRarity {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 0 16px;
+
+    text-align: center;
+
+    white-space: nowrap;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.3);
+
+    transform-origin: center center;
+
+}
