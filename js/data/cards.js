@@ -372,7 +372,7 @@ rarity: "SR",
     {
         id: "tokyo_barrier",
 
-        name: "東京結界",
+        name: "東京第一結界",
 rarity: "SR",
         type: "領域",
 
