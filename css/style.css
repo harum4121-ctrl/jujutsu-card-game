@@ -4445,3 +4445,44 @@ opacity:.6;
 
     z-index: 20;
 }
+/* ===============================
+   未所持キャラクター
+================================ */
+
+.character-select-card.locked{
+
+    filter: grayscale(100%);
+
+    opacity:.45;
+
+}
+
+.character-lock{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:64px;
+
+    background:rgba(0,0,0,.45);
+
+}
+
+.not-owned{
+
+    color:#ff7d7d;
+
+    text-align:center;
+
+    font-size:12px;
+
+    margin:4px 0;
+
+}
