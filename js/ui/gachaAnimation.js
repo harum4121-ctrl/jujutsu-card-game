@@ -93,6 +93,31 @@ function playCinematicGacha(results) {
         呪力を集束中…
 
     </div>
+    
+    <div class="gacha-card-container">
+
+    <div
+        class="gacha-card"
+        id="gachaCard">
+
+        <div class="card-back">
+
+            呪
+
+        </div>
+
+        <div class="card-front">
+
+            <img
+                id="gachaCardImage"
+                src=""
+            >
+
+        </div>
+
+    </div>
+
+</div>
 
     <button
         class="gacha-cinematic-skip"
