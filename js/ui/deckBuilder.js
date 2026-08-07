@@ -428,32 +428,105 @@ function displayAllCards() {
 
 function addCard(card) {
 
+    // ===============================
+    // 40枚制限
+    // ===============================
+
     if (gameState.deck.length >= 40) {
 
-        alert("デッキは40枚までです。");
+        alert(
+            "デッキは40枚までです。"
+        );
 
         return;
 
     }
 
-    const count = gameState.deck.filter(
-        c => c.id === card.id
-    ).length;
 
-    if (count >= 3) {
+    // ===============================
+    // 現在デッキに入っている枚数
+    // ===============================
 
-        alert("同名カードは3枚までです。");
+    const deckCount =
+        gameState.deck.filter(
+            c =>
+                c &&
+                c.id === card.id
+        ).length;
+
+
+    // ===============================
+    // 所持枚数
+    // ===============================
+
+    const ownedCount =
+        getOwnedCardCount(
+            card.id
+        );
+
+
+    // ===============================
+    // 未所持
+    // ===============================
+
+    if (ownedCount <= 0) {
+
+        alert(
+            "このカードを所持していません。"
+        );
 
         return;
 
     }
+
+
+    // ===============================
+    // 所持枚数制限
+    // ===============================
+
+    if (deckCount >= ownedCount) {
+
+        alert(
+            "所持している枚数以上はデッキに入れられません。"
+        );
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 同名3枚制限
+    // ===============================
+
+    if (deckCount >= 3) {
+
+        alert(
+            "同名カードは3枚までです。"
+        );
+
+        return;
+
+    }
+
+
+    // ===============================
+    // デッキへ追加
+    // ===============================
 
     gameState.deck.push(card);
 
-updateDeck();
-displayAllCards();
+
+    // ===============================
+    // 表示更新
+    // ===============================
+
+    updateDeck();
+
+    displayAllCards();
 
 }
+
 function updateDeck() {
 
     const deckList =
