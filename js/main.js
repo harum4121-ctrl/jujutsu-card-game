@@ -33,6 +33,8 @@ const gameState = {
 
 // ゲーム開始
 window.onload = () => {
+    
+    giveInitialOwnedCards();
 
     loadCollection();
 
