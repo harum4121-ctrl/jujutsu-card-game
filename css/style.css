@@ -4458,47 +4458,49 @@ rarityBurst
 
 }
 
-@keyframes rarityShake{
+@keyframes rarityShake {
 
-0%{
+    0% {
+        transform:
+            translate(-50%, -50%)
+            scale(1)
+            rotate(0deg);
+    }
 
-transform:
-translate(-50%,-50%)
-scale(1);
+    20% {
+        transform:
+            translate(-50%, -50%)
+            scale(1.05)
+            rotate(-2deg);
+    }
 
-}
+    40% {
+        transform:
+            translate(-50%, -50%)
+            scale(1.1)
+            rotate(2deg);
+    }
 
-20%{
+    60% {
+        transform:
+            translate(-50%, -50%)
+            scale(1.05)
+            rotate(-1deg);
+    }
 
-transform:
-translate(-48%,-50%)
-scale(1.05);
+    80% {
+        transform:
+            translate(-50%, -50%)
+            scale(1.08)
+            rotate(1deg);
+    }
 
-}
-
-40%{
-
-transform:
-translate(-52%,-50%)
-scale(1.1);
-
-}
-
-60%{
-
-transform:
-translate(-49%,-50%)
-scale(1.05);
-
-}
-
-100%{
-
-transform:
-translate(-50%,-50%)
-scale(1);
-
-}
+    100% {
+        transform:
+            translate(-50%, -50%)
+            scale(1)
+            rotate(0deg);
+    }
 
 }
 
