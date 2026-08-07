@@ -4370,22 +4370,6 @@ animation-duration:.5s;
 
 }
 
-@keyframes summonCircleRotation {
-
-    from {
-        transform:
-            rotate(0deg)
-            scale(0.8);
-    }
-
-    to {
-        transform:
-            rotate(360deg)
-            scale(1.15);
-    }
-
-}
-
 .gacha-skip-button {
     position: fixed;
 
