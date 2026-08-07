@@ -244,6 +244,11 @@ function displayAllCards() {
             ? filterInput.value
             : "all";
 
+
+    // ===============================
+    // 全カード取得
+    // ===============================
+
     const allCards = [
         ...(Array.isArray(cards.equipment)
             ? cards.equipment
@@ -270,6 +275,11 @@ function displayAllCards() {
         card.id != null
     );
 
+
+    // ===============================
+    // 検索・種類フィルター
+    // ===============================
+
     const filteredCards =
         allCards.filter(card => {
 
@@ -288,18 +298,44 @@ function displayAllCards() {
                 selectedType === "all" ||
                 cardType === selectedType;
 
-            return matchesName && matchesType;
+            return (
+                matchesName &&
+                matchesType
+            );
 
         });
 
+
+    // ===============================
+    // カード表示
+    // ===============================
+
     filteredCards.forEach(card => {
 
-        const count =
+        // デッキに入っている枚数
+        const deckCount =
             gameState.deck.filter(
                 deckCard =>
                     deckCard &&
                     deckCard.id === card.id
             ).length;
+
+
+        // 所持枚数
+        const ownedCount =
+            getOwnedCardCount(
+                card.id
+            );
+
+
+        // 実際にデッキへ入れられる上限
+        // 所持数と3枚制限の小さい方
+        const usableLimit =
+            Math.min(
+                ownedCount,
+                3
+            );
+
 
         const div =
             document.createElement("div");
@@ -307,7 +343,19 @@ function displayAllCards() {
         div.className =
             "deck-card-item";
 
+
+        // 未所持ならクラス追加
+        if (ownedCount <= 0) {
+
+            div.classList.add(
+                "not-owned-card"
+            );
+
+        }
+
+
         div.innerHTML = `
+
             <div class="deck-card-item-top">
 
                 <span class="deck-card-type">
@@ -315,31 +363,62 @@ function displayAllCards() {
                 </span>
 
                 <span class="deck-card-count">
-                    ${count} / 3
+                    ${deckCount} / ${usableLimit}
                 </span>
 
             </div>
+
 
             <h3>
                 ${card.name ?? "名前なし"}
             </h3>
 
+
+            <div class="deck-owned-count">
+
+                所持 ×${ownedCount}
+
+            </div>
+
+
             <button
                 class="add-deck-card-button"
-                ${count >= 3 ? "disabled" : ""}
+
+                ${
+                    ownedCount <= 0 ||
+                    deckCount >= usableLimit ||
+                    gameState.deck.length >= 40
+
+                        ? "disabled"
+                        : ""
+                }
             >
-                追加
+
+                ${
+                    ownedCount <= 0
+                        ? "未所持"
+                        : deckCount >= usableLimit
+                            ? "上限"
+                            : "追加"
+                }
+
             </button>
+
         `;
+
 
         const addButton =
             div.querySelector(
                 ".add-deck-card-button"
             );
 
+
         addButton.onclick = () => {
+
             addCard(card);
+
         };
+
 
         list.appendChild(div);
 
