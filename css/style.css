@@ -4562,3 +4562,28 @@ scale(1);
     transform-origin: center center;
 
 }
+
+#gachaRarity.character {
+
+    font-size: clamp(
+        42px,
+        11vw,
+        82px
+    );
+
+    letter-spacing: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            white,
+            gold,
+            white
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+}
