@@ -4864,22 +4864,19 @@ animation-duration:.5s;
 
     from{
         transform:
-            scale(1)
-            rotate(0deg);
+            scale(1);
 
         opacity:.35;
     }
 
     to{
         transform:
-            scale(1.25)
-            rotate(360deg);
+            scale(1.25);
 
         opacity:.75;
     }
 
 }
-
 
 /* CHARACTER */
 
