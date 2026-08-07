@@ -128,10 +128,14 @@ function displayCharacters() {
 
     for (const id in characters) {
 
-        const char = characters[id];
+        const char =
+            characters[id];
 
         const selected =
             gameState.selectedCharacters.includes(id);
+
+        const owned =
+            ownsCharacter(id);
 
         const card =
             document.createElement("button");
@@ -140,24 +144,55 @@ function displayCharacters() {
 
         card.className =
             "character-select-card" +
-            (selected ? " selected" : "");
+            (selected ? " selected" : "") +
+            (!owned ? " locked" : "");
 
-        card.onclick = () => {
+        // 未所持ならボタンを無効化
+        card.disabled =
+            !owned;
 
-            selectCharacter(id);
+        // 所持しているキャラだけ選択可能
+        if (owned) {
 
-        };
+            card.onclick = () => {
 
-        card.innerHTML =
-    createCharacterCard(
-        char,
-        {
-            currentHp: char.hp,
-            currentCp: char.cursedPower,
-            selected: selected,
-            statuses: []
+                selectCharacter(id);
+
+            };
+
         }
-    );
+
+        card.innerHTML = `
+
+            ${createCharacterCard(
+                char,
+                {
+                    currentHp: char.hp,
+                    currentCp: char.cursedPower,
+                    selected: selected,
+                    statuses: []
+                }
+            )}
+
+            ${
+                !owned
+                    ? `
+                        <div class="character-lock-overlay">
+
+                            <div class="character-lock-icon">
+                                🔒
+                            </div>
+
+                            <strong>
+                                未所持
+                            </strong>
+
+                        </div>
+                    `
+                    : ""
+            }
+
+        `;
 
         list.appendChild(card);
 
