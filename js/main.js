@@ -53,7 +53,15 @@ function createDefaultCollection() {
 
     return {
 
-        characters: {},
+        characters:{
+
+            yuji:1,
+
+            megumi:1,
+
+            nobara:1
+
+        },
 
         cards: {},
 
