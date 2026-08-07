@@ -864,6 +864,6 @@ if (upgraded) {
 
         showGachaResult(results);
 
-    },6000);
+    },7000);
 
 }
