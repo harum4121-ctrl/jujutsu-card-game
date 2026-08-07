@@ -656,8 +656,7 @@ function showGachaAnimation(results){
 
     <div id="gachaFlash"></div>
 
-    <div id="gachaRarity">
-    </div>
+    <div id="gachaFinalGlow"></div>
 
     <div id="gachaText">
         呪力を集束中...
@@ -674,98 +673,322 @@ function showGachaAnimation(results){
 
 `;
 
+    let finished = false;
+
+    const finish = () => {
+
+        if (finished) return;
+
+        finished = true;
+
+        showGachaResult(results);
+
+    };
+
     document
         .getElementById("gachaSkip")
-        .onclick = () => {
-
-            showGachaResult(results);
-
-        };
+        .onclick = finish;
 
 
+    // ===============================
+    // 0 ～ 1.5秒
+    // 全レア共通
+    // ===============================
 
-    // 1.5秒
     setTimeout(()=>{
 
-        document
-            .getElementById("gachaText")
-            .textContent =
-            "術式展開";
+        const text =
+            document.getElementById(
+                "gachaText"
+            );
 
-        document
-            .getElementById("summonCircle")
-            .classList.add("fast");
+        const circle =
+            document.getElementById(
+                "summonCircle"
+            );
+
+        if (text) {
+
+            text.textContent =
+                "術式展開";
+
+        }
+
+        if (circle) {
+
+            circle.classList.add(
+                "fast"
+            );
+
+        }
 
     },1500);
 
 
-
+    // ===============================
     // 3秒
+    // 雷＋画面揺れ
+    // まだ全レア共通
+    // ===============================
+
     setTimeout(()=>{
 
-        document
-            .getElementById("gachaLightning")
-            .classList.add("active");
+        const lightning =
+            document.getElementById(
+                "gachaLightning"
+            );
 
-        document
-            .querySelector(".gacha-animation")
-            .classList.add("shake");
+        const animation =
+            document.querySelector(
+                ".gacha-animation"
+            );
+
+        if (lightning) {
+
+            lightning.classList.add(
+                "active"
+            );
+
+        }
+
+        if (animation) {
+
+            animation.classList.add(
+                "shake"
+            );
+
+        }
 
     },3000);
 
 
-
+    // ===============================
     // 4秒
+    // ヒビ
+    // ===============================
+
     setTimeout(()=>{
 
-        document
-            .getElementById("gachaCrack")
-            .classList.add("active");
+        const crack =
+            document.getElementById(
+                "gachaCrack"
+            );
+
+        if (crack) {
+
+            crack.classList.add(
+                "active"
+            );
+
+        }
 
     },4000);
 
 
+    // ===============================
+    // 4.7秒
+    // 白フラッシュ
+    // ===============================
 
-    // 4.8秒
     setTimeout(()=>{
 
-        document
-            .getElementById("gachaFlash")
-            .classList.add("gacha-flash-active");
+        const flash =
+            document.getElementById(
+                "gachaFlash"
+            );
 
-    },4800);
+        if (flash) {
 
+            flash.classList.add(
+                "gacha-flash-active"
+            );
 
+        }
 
-// ===============================
-// 5.2秒
-// 最高レア時のみ振動
-// レアリティ文字は表示しない
-// ===============================
-
-setTimeout(()=>{
-
-    if(
-        highest === "LR"
-        ||
-        highest === "CHARACTER"
-    ){
-
-        navigator.vibrate?.(
-            [150,80,150]
-        );
-
-    }
-
-},5200);
+    },4700);
 
 
+    // ===============================
+    // 5.0秒
+    // ここで初めてレア度による分岐
+    // ===============================
 
-    //6秒
     setTimeout(()=>{
 
-        showGachaResult(results);
+        const glow =
+            document.getElementById(
+                "gachaFinalGlow"
+            );
 
-    },7000);
+        const animation =
+            document.querySelector(
+                ".gacha-animation"
+            );
+
+        const text =
+            document.getElementById(
+                "gachaText"
+            );
+
+        if (!glow) return;
+
+
+        // まず共通クラスを除去
+        glow.className = "";
+
+
+        // N～SR
+        if (
+            highest === "N" ||
+            highest === "R" ||
+            highest === "SR"
+        ) {
+
+            glow.classList.add(
+                "final-purple"
+            );
+
+        }
+
+
+        // SSR
+        else if (
+            highest === "SSR"
+        ) {
+
+            glow.classList.add(
+                "final-gold"
+            );
+
+            animation?.classList.add(
+                "medium-impact"
+            );
+
+        }
+
+
+        // UR
+        else if (
+            highest === "UR"
+        ) {
+
+            glow.classList.add(
+                "final-red"
+            );
+
+            animation?.classList.add(
+                "strong-impact"
+            );
+
+            navigator.vibrate?.(
+                [80,50,120]
+            );
+
+        }
+
+
+        // LR
+        else if (
+            highest === "LR"
+        ) {
+
+            glow.classList.add(
+                "final-rainbow"
+            );
+
+            animation?.classList.add(
+                "legend-impact"
+            );
+
+            if (text) {
+
+                text.textContent =
+                    "呪力が暴走している…！";
+
+            }
+
+            navigator.vibrate?.(
+                [120,60,120,60,180]
+            );
+
+        }
+
+
+        // CHARACTER
+        else if (
+            highest === "CHARACTER"
+        ) {
+
+            glow.classList.add(
+                "final-character"
+            );
+
+            animation?.classList.add(
+                "legend-impact"
+            );
+
+            if (text) {
+
+                text.textContent =
+                    "特異な呪力を感知…";
+
+            }
+
+            navigator.vibrate?.(
+                [150,70,200]
+            );
+
+        }
+
+    },5000);
+
+
+    // ===============================
+    // 5.4秒
+    // LR / CHARACTERだけ追加衝撃
+    // ===============================
+
+    setTimeout(()=>{
+
+        if (
+            highest !== "LR" &&
+            highest !== "CHARACTER"
+        ) {
+
+            return;
+
+        }
+
+        const flash =
+            document.getElementById(
+                "gachaFlash"
+            );
+
+        if (flash) {
+
+            flash.classList.remove(
+                "gacha-flash-active"
+            );
+
+            void flash.offsetWidth;
+
+            flash.classList.add(
+                "gacha-flash-active"
+            );
+
+        }
+
+    },5400);
+
+
+    // ===============================
+    // 6秒
+    // 結果画面
+    // ===============================
+
+    setTimeout(
+        finish,
+        6000
+    );
 
 }
