@@ -280,3 +280,53 @@ const INITIAL_OWNED_CARDS = {
     ultimate_card: 1
 
 };
+
+// ===============================
+// 初期所持カードを配布
+// ===============================
+
+function giveInitialOwnedCards() {
+
+    // すでに初期配布済みなら何もしない
+    const alreadyReceived =
+        localStorage.getItem(
+            "initialCardsReceived"
+        );
+
+    if (alreadyReceived === "true") {
+
+        return;
+
+    }
+
+
+    // 初期カードを追加
+    for (
+        const [cardId, amount]
+        of Object.entries(INITIAL_OWNED_CARDS)
+    ) {
+
+        addOwnedCard(
+            cardId,
+            amount
+        );
+
+    }
+
+
+    // 配布済みにする
+    localStorage.setItem(
+        "initialCardsReceived",
+        "true"
+    );
+
+
+    // 所持データ保存
+    saveCollection();
+
+
+    console.log(
+        "初期所持カードを配布しました"
+    );
+
+}
