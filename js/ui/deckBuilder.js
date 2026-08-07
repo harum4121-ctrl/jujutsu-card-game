@@ -1019,6 +1019,7 @@ function loadDeck(slot) {
             "deck" + slot
         );
 
+
     if (!data) {
 
         alert(
@@ -1029,14 +1030,18 @@ function loadDeck(slot) {
 
     }
 
+
     try {
 
         const saveData =
             JSON.parse(data);
 
+
         if (
             !saveData ||
-            !Array.isArray(saveData.cards)
+            !Array.isArray(
+                saveData.cards
+            )
         ) {
 
             alert(
@@ -1047,17 +1052,128 @@ function loadDeck(slot) {
 
         }
 
+
+        // ===============================
+        // 保存デッキ内の枚数を確認
+        // ===============================
+
+        const savedCounts = {};
+
+
+        saveData.cards.forEach(card => {
+
+            if (!card || !card.id) {
+
+                return;
+
+            }
+
+            savedCounts[card.id] =
+                (
+                    savedCounts[
+                        card.id
+                    ] ?? 0
+                ) + 1;
+
+        });
+
+
+        // ===============================
+        // 所持枚数チェック
+        // ===============================
+
+        for (
+            const cardId
+            in savedCounts
+        ) {
+
+            const requiredCount =
+                savedCounts[
+                    cardId
+                ];
+
+
+            const ownedCount =
+                getOwnedCardCount(
+                    cardId
+                );
+
+
+            if (
+                requiredCount >
+                ownedCount
+            ) {
+
+                const card =
+                    saveData.cards.find(
+                        card =>
+                            card.id ===
+                            cardId
+                    );
+
+
+                alert(
+                    "このデッキは読み込めません。\n\n" +
+                    "「" +
+                    (
+                        card?.name ??
+                        cardId
+                    ) +
+                    "」が不足しています。\n\n" +
+
+                    "必要：" +
+                    requiredCount +
+                    "枚\n" +
+
+                    "所持：" +
+                    ownedCount +
+                    "枚"
+                );
+
+
+                return;
+
+            }
+
+
+            // 念のため3枚制限も確認
+            if (
+                requiredCount > 3
+            ) {
+
+                alert(
+                    "保存デッキに同名カードが4枚以上含まれています。"
+                );
+
+                return;
+
+            }
+
+        }
+
+
+        // ===============================
+        // 問題なければ読込
+        // ===============================
+
         gameState.deck =
             saveData.cards.map(
-                card => ({ ...card })
+                card => ({
+                    ...card
+                })
             );
 
+
         updateDeck();
+
+        displayAllCards();
+
 
         alert(
             saveData.name +
             "を読み込みました！"
         );
+
 
     } catch (error) {
 
@@ -1066,6 +1182,7 @@ function loadDeck(slot) {
             error
         );
 
+
         alert(
             "デッキの読み込みに失敗しました"
         );
@@ -1073,7 +1190,6 @@ function loadDeck(slot) {
     }
 
 }
-
 
 // ===============================
 // 保存デッキ削除
