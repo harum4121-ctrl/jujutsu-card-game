@@ -352,3 +352,39 @@ setTimeout(()=>{
     );
 
 }
+// =====================================
+// 最高レアリティ取得
+// =====================================
+
+function getHighestRarity(results) {
+
+    const rarityOrder = {
+        N: 0,
+        R: 1,
+        SR: 2,
+        SSR: 3,
+        UR: 4,
+        LR: 5,
+        CHARACTER: 6
+    };
+
+    let highest = "N";
+
+    results.forEach(result => {
+
+        const rarity =
+            result.rarity ?? "N";
+
+        if (
+            (rarityOrder[rarity] ?? 0) >
+            (rarityOrder[highest] ?? 0)
+        ) {
+
+            highest = rarity;
+
+        }
+
+    });
+
+    return highest;
+}
