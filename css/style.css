@@ -4563,27 +4563,19 @@ rarityBurst
 
 }
 
-#gachaRarity.character {
+#gachaRarity.character{
 
-    font-size: clamp(
-        42px,
-        11vw,
-        82px
-    );
+    font-size:60px;
 
-    letter-spacing: 2px;
+    left:50%;
 
-    background:
-        linear-gradient(
-            90deg,
-            white,
-            gold,
-            white
-        );
+    transform:
+        translateX(-50%);
 
-    -webkit-background-clip: text;
-    background-clip: text;
+    width:100%;
 
-    -webkit-text-fill-color: transparent;
+    text-align:center;
+
+    letter-spacing:2px;
 
 }
