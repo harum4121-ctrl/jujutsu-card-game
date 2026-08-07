@@ -5047,3 +5047,42 @@ animation-duration:.5s;
     }
 
 }
+
+/* ===============================
+   デッキ編集・所持カード表示
+================================ */
+
+.deck-owned-count {
+
+    margin: 5px 0 8px;
+
+    color: #d7c6df;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+}
+
+
+/* 未所持カード */
+
+.deck-card-item.not-owned-card {
+
+    opacity: 0.45;
+
+    filter: grayscale(80%);
+
+}
+
+
+/* 未所持カードのボタン */
+
+.deck-card-item.not-owned-card
+.add-deck-card-button {
+
+    background: #39343d;
+
+    color: #8e8792;
+
+}
