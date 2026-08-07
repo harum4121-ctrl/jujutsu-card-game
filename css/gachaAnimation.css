@@ -813,11 +813,11 @@
     opacity: 0;
 
     font-size:
-        clamp(
-            72px,
-            20vw,
-            165px
-        );
+    clamp(
+        45px,
+        11vw,
+        90px
+    );
 
     font-weight: 1000;
 
