@@ -628,9 +628,15 @@ function updateDeck() {
 function buildRandomDeck() {
 
     const deckSize = 40;
+
     const maxSameCard = 3;
 
-    const availableCards = [
+
+    // ===============================
+    // 全カード
+    // ===============================
+
+    const allCards = [
         ...(cards.equipment ?? []),
         ...(cards.cursedObjects ?? []),
         ...(cards.support ?? []),
@@ -638,30 +644,88 @@ function buildRandomDeck() {
         ...(cards.ultimate ?? [])
     ];
 
+
+    // ===============================
+    // 所持カードだけ取得
+    // ===============================
+
+    const availableCards =
+        allCards.filter(card => {
+
+            if (!card || !card.id) {
+
+                return false;
+
+            }
+
+            return (
+                getOwnedCardCount(
+                    card.id
+                ) > 0
+            );
+
+        });
+
+
     if (availableCards.length === 0) {
 
-        alert("使用できるカードがありません");
-        return;
-
-    }
-
-    const maximumDeckSize =
-        availableCards.length * maxSameCard;
-
-    if (maximumDeckSize < deckSize) {
-
         alert(
-            "カードの種類が足りないため、40枚のデッキを作れません"
+            "使用できるカードを1枚も所持していません"
         );
 
         return;
 
     }
 
+
+    // ===============================
+    // 所持カードだけで最大何枚組めるか
+    // ===============================
+
+    let maximumDeckSize = 0;
+
+    availableCards.forEach(card => {
+
+        const ownedCount =
+            getOwnedCardCount(
+                card.id
+            );
+
+        maximumDeckSize +=
+            Math.min(
+                ownedCount,
+                maxSameCard
+            );
+
+    });
+
+
+    if (maximumDeckSize < deckSize) {
+
+        alert(
+            "所持カードが足りないため、40枚のデッキを作れません。\n" +
+            "現在使用できるカード：" +
+            maximumDeckSize +
+            "枚"
+        );
+
+        return;
+
+    }
+
+
+    // ===============================
+    // デッキ作成
+    // ===============================
+
     const newDeck = [];
+
     const cardCounts = {};
 
-    while (newDeck.length < deckSize) {
+
+    while (
+        newDeck.length < deckSize
+    ) {
 
         const randomIndex =
             Math.floor(
@@ -669,29 +733,76 @@ function buildRandomDeck() {
                 availableCards.length
             );
 
+
         const randomCard =
-            availableCards[randomIndex];
+            availableCards[
+                randomIndex
+            ];
+
 
         const currentCount =
-            cardCounts[randomCard.id] ?? 0;
+            cardCounts[
+                randomCard.id
+            ] ?? 0;
 
-        if (currentCount >= maxSameCard) {
+
+        const ownedCount =
+            getOwnedCardCount(
+                randomCard.id
+            );
+
+
+        // このカードを入れられる最大枚数
+        const cardLimit =
+            Math.min(
+                ownedCount,
+                maxSameCard
+            );
+
+
+        // 上限なら別カードを抽選
+        if (
+            currentCount >=
+            cardLimit
+        ) {
+
             continue;
+
         }
 
-        newDeck.push(randomCard);
 
-        cardCounts[randomCard.id] =
+        newDeck.push(
+            randomCard
+        );
+
+
+        cardCounts[
+            randomCard.id
+        ] =
             currentCount + 1;
 
     }
 
-    gameState.deck = newDeck;
+
+    // ===============================
+    // 完成
+    // ===============================
+
+    gameState.deck =
+        newDeck;
+
 
     updateDeck();
 
-    alert("おまかせデッキを作成しました！");
+    displayAllCards();
+
+
+    alert(
+        "所持カードからおまかせデッキを作成しました！"
+    );
+
 }
+
 // ===============================
 // 保存デッキ一覧
 // ===============================
