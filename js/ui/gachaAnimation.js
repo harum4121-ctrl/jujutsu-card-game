@@ -37,7 +37,7 @@ function playCinematicGacha(results) {
         class="gacha-energy-core"
         id="energyCore">
 
-        <span>呪</span>
+        <span>〇</span>
 
     </div>
 
