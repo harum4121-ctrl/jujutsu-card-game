@@ -56,9 +56,7 @@ function createDefaultCollection() {
         characters:{
 
             yuji:1,
-
             megumi:1,
-
             nobara:1
 
         },
@@ -70,7 +68,6 @@ function createDefaultCollection() {
     };
 
 }
-
 
 // 所持データを読み込む
 function loadCollection() {
