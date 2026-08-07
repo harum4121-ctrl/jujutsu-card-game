@@ -288,20 +288,7 @@ function performGacha(count) {
 
     saveCollection();
 
-if (
-    typeof playCinematicGacha !== "function"
-) {
-
-    alert(
-        "playCinematicGacha が読み込まれていません"
-    );
-
-    return;
-}
-
-alert("ガチャ演出を開始します");
-
-playCinematicGacha(results);
+showGachaAnimation(results);
 
 }
 
