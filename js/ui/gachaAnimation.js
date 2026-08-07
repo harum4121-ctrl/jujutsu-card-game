@@ -145,18 +145,6 @@ function createParticles() {
 }
 function startCinematic(results){
     
-    const card =
-    document.getElementById(
-        "gachaCard"
-    );
-
-const cardImage =
-    document.getElementById(
-        "gachaCardImage"
-    );
-    
-    
-
     const core =
         document.getElementById(
             "energyCore"
