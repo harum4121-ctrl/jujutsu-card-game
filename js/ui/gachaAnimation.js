@@ -205,13 +205,37 @@ const cardImage =
 setTimeout(()=>{
 
     const first =
+
         results[0];
 
     cardImage.src =
+
         first.image || "";
 
+    // LR・CHARACTERならスマホを振動
+
+    if(
+
+        first.rarity==="LR"
+
+        ||
+
+        first.rarity==="CHARACTER"
+
+    ){
+
+        navigator.vibrate?.(
+
+            [150,80,150]
+
+        );
+
+    }
+
     card.classList.add(
+
         "fly"
+
     );
 
 },3600);
