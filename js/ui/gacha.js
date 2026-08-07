@@ -647,274 +647,147 @@ function showGachaResult(results) {
 // ガチャ演出
 // ===============================
 
-function showGachaAnimation(results) {
+function showGachaAnimation(results){
 
     const app =
         document.getElementById("app");
 
-    if (
-        !Array.isArray(results) ||
-        results.length === 0
-    ) {
-
-        alert(
-            "ガチャ結果を取得できませんでした"
-        );
-
-        showGachaScreen();
-
-        return;
-
-    }
-
     const highest =
         getHighestRarity(results);
 
-    const rarityClass =
-        highest.toLowerCase();
-
-    const particleHtml =
-        Array.from(
-            { length: 28 },
-            () => {
-
-                const left =
-                    Math.floor(
-                        Math.random() * 100
-                    );
-
-                const delay =
-                    (
-                        Math.random() * 1.8
-                    ).toFixed(2);
-
-                const duration =
-                    (
-                        1.6 +
-                        Math.random() * 1.8
-                    ).toFixed(2);
-
-                const size =
-                    Math.floor(
-                        4 +
-                        Math.random() * 8
-                    );
-
-                return `
-                    <span
-                        class="gacha-particle"
-                        style="
-                            left:${left}%;
-                            width:${size}px;
-                            height:${size}px;
-                            animation-delay:${delay}s;
-                            animation-duration:${duration}s;
-                        "
-                    ></span>
-                `;
-
-            }
-        ).join("");
-
     app.innerHTML = `
-        <div
-            class="
-                deluxe-gacha-animation
-                rarity-animation-${rarityClass}
-            "
-        >
 
-            <div class="gacha-dark-overlay"></div>
+<div class="gacha-animation">
 
-            <div class="gacha-particle-field">
-                ${particleHtml}
-            </div>
+    <div id="gachaBackground"></div>
 
-            <div
-                id="gachaEnergyRingOuter"
-                class="gacha-energy-ring outer"
-            ></div>
+    <div id="summonCircle"></div>
 
-            <div
-                id="gachaEnergyRingInner"
-                class="gacha-energy-ring inner"
-            ></div>
+    <div id="gachaLightning"></div>
 
-            <div
-                id="gachaCore"
-                class="
-                    gacha-core
-                    rarity-${rarityClass}
-                "
-            >
-                <span>呪</span>
-            </div>
+    <div id="gachaCrack"></div>
 
-            <div
-                id="gachaCrack"
-                class="gacha-screen-crack"
-            ></div>
+    <div id="gachaFlash"></div>
 
-            <div
-                id="gachaWhiteFlash"
-                class="gacha-white-flash"
-            ></div>
+    <div id="gachaRarity">
+    </div>
 
-            <div
-                id="gachaRarityReveal"
-                class="
-                    gacha-rarity-reveal
-                    rarity-${rarityClass}
-                "
-            >
-                ${highest}
-            </div>
+    <div id="gachaText">
+        呪力を集束中...
+    </div>
 
-            <div
-                id="gachaAnimationText"
-                class="gacha-animation-text"
-            >
-                呪力が集まっている…
-            </div>
+    <button
+        id="gachaSkip"
+        class="gacha-skip-button"
+    >
+        SKIP
+    </button>
 
-            <button
-                id="gachaSkipButton"
-                class="gacha-skip-button"
-            >
-                スキップ
-            </button>
+</div>
 
-        </div>
-    `;
+`;
 
-    let finished = false;
+    document
+        .getElementById("gachaSkip")
+        .onclick = () => {
 
-    const finishAnimation = () => {
+            showGachaResult(results);
 
-        if (finished) return;
+        };
 
-        finished = true;
+
+
+    // 1.5秒
+    setTimeout(()=>{
+
+        document
+            .getElementById("gachaText")
+            .textContent =
+            "術式展開";
+
+        document
+            .getElementById("summonCircle")
+            .classList.add("fast");
+
+    },1500);
+
+
+
+    // 3秒
+    setTimeout(()=>{
+
+        document
+            .getElementById("gachaLightning")
+            .classList.add("active");
+
+        document
+            .querySelector(".gacha-animation")
+            .classList.add("shake");
+
+    },3000);
+
+
+
+    // 4秒
+    setTimeout(()=>{
+
+        document
+            .getElementById("gachaCrack")
+            .classList.add("active");
+
+    },4000);
+
+
+
+    // 4.8秒
+    setTimeout(()=>{
+
+        document
+            .getElementById("gachaFlash")
+            .classList.add("gacha-flash-active");
+
+    },4800);
+
+
+
+    //5.2秒
+    setTimeout(()=>{
+
+        const rarity =
+            document.getElementById("gachaRarity");
+
+        rarity.textContent =
+            highest;
+
+        rarity.classList.add(
+            highest.toLowerCase()
+        );
+
+        rarity.classList.add(
+            "show"
+        );
+
+        if(
+            highest==="LR"
+            ||
+            highest==="CHARACTER"
+        ){
+
+            navigator.vibrate?.(
+                [150,80,150]
+            );
+
+        }
+
+    },5200);
+
+
+
+    //6秒
+    setTimeout(()=>{
 
         showGachaResult(results);
 
-    };
-
-    const animation =
-        document.querySelector(
-            ".deluxe-gacha-animation"
-        );
-
-    const core =
-        document.getElementById(
-            "gachaCore"
-        );
-
-    const outerRing =
-        document.getElementById(
-            "gachaEnergyRingOuter"
-        );
-
-    const innerRing =
-        document.getElementById(
-            "gachaEnergyRingInner"
-        );
-
-    const crack =
-        document.getElementById(
-            "gachaCrack"
-        );
-
-    const flash =
-        document.getElementById(
-            "gachaWhiteFlash"
-        );
-
-    const rarityReveal =
-        document.getElementById(
-            "gachaRarityReveal"
-        );
-
-    const text =
-        document.getElementById(
-            "gachaAnimationText"
-        );
-
-    const skipButton =
-        document.getElementById(
-            "gachaSkipButton"
-        );
-
-    if (skipButton) {
-
-        skipButton.onclick =
-            finishAnimation;
-
-    }
-
-    setTimeout(() => {
-
-        core?.classList.add("charge");
-
-        outerRing?.classList.add(
-            "charge"
-        );
-
-        innerRing?.classList.add(
-            "charge"
-        );
-
-        if (text) {
-
-            text.textContent =
-                highest === "LR" ||
-                highest === "CHARACTER"
-                    ? "異常な呪力を感知…！"
-                    : "呪力を解放する…";
-
-        }
-
-    }, 700);
-
-    setTimeout(() => {
-
-        crack?.classList.add(
-            "active"
-        );
-
-        animation?.classList.add(
-            "gacha-impact"
-        );
-
-    }, 1750);
-
-    setTimeout(() => {
-
-        flash?.classList.add(
-            "active"
-        );
-
-    }, 2250);
-
-    setTimeout(() => {
-
-        rarityReveal?.classList.add(
-            "active"
-        );
-
-        if (text) {
-
-            text.textContent =
-                highest === "CHARACTER"
-                    ? "NEW CHARACTER"
-                    : "召喚成功";
-
-        }
-
-    }, 2750);
-
-    setTimeout(
-        finishAnimation,
-        4300
-    );
+    },6000);
 
 }
