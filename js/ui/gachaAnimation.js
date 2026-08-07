@@ -165,52 +165,6 @@ function startCinematic(results){
             "flash"
         );
 
-setTimeout(()=>{
-
-    const first =
-
-        results[0];
-
-    cardImage.src =
-
-        first.image || "";
-
-    // LR・CHARACTERならスマホを振動
-
-    if(
-
-        first.rarity==="LR"
-
-        ||
-
-        first.rarity==="CHARACTER"
-
-    ){
-
-        navigator.vibrate?.(
-
-            [150,80,150]
-
-        );
-
-    }
-
-    card.classList.add(
-
-        "fly"
-
-    );
-
-},3600);
-
-setTimeout(()=>{
-
-    card.classList.add(
-        "flip"
-    );
-
-},4700);
-
     const rarity =
         document.getElementById(
             "rarityTitle"
