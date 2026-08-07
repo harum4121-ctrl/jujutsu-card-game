@@ -5086,3 +5086,707 @@ animation-duration:.5s;
     color: #8e8792;
 
 }
+/* ===============================
+   敵選択画面
+================================ */
+
+.enemy-select-screen {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    padding: 14px;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(126, 28, 38, 0.25),
+            transparent 38%
+        ),
+        linear-gradient(
+            145deg,
+            #090609,
+            #1b0b0e 52%,
+            #050405
+        );
+
+}
+
+
+/* ===============================
+   背景エフェクト
+================================ */
+
+.enemy-select-background-effect {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(15px);
+
+    opacity: 0.55;
+
+}
+
+.enemy-effect-one {
+
+    width: 360px;
+    height: 360px;
+
+    top: -180px;
+    right: -100px;
+
+    border:
+        2px solid
+        rgba(190, 48, 59, 0.25);
+
+    box-shadow:
+        inset 0 0 80px
+        rgba(166, 35, 48, 0.18),
+        0 0 80px
+        rgba(143, 25, 36, 0.15);
+
+    animation:
+        enemyBackgroundMove
+        6s ease-in-out
+        infinite alternate;
+
+}
+
+.enemy-effect-two {
+
+    width: 430px;
+    height: 430px;
+
+    left: -200px;
+    bottom: -220px;
+
+    border:
+        2px solid
+        rgba(115, 38, 48, 0.2);
+
+    box-shadow:
+        inset 0 0 90px
+        rgba(125, 29, 41, 0.16);
+
+    animation:
+        enemyBackgroundMove
+        8s ease-in-out
+        infinite alternate-reverse;
+
+}
+
+
+@keyframes enemyBackgroundMove {
+
+    from {
+
+        transform:
+            translate(0, 0)
+            scale(0.95);
+
+    }
+
+    to {
+
+        transform:
+            translate(20px, -15px)
+            scale(1.08);
+
+    }
+
+}
+
+
+/* ===============================
+   ヘッダー
+================================ */
+
+.enemy-select-header {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: grid;
+
+    grid-template-columns:
+        auto 1fr auto;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 11px 15px;
+
+    border:
+        1px solid
+        rgba(165, 69, 79, 0.65);
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(30, 12, 16, 0.97),
+            rgba(67, 22, 29, 0.97),
+            rgba(28, 11, 15, 0.97)
+        );
+
+    box-shadow:
+        0 6px 25px
+        rgba(0, 0, 0, 0.45);
+
+}
+
+.enemy-select-header p {
+
+    margin: 0 0 2px;
+
+    color: #c4828a;
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+    letter-spacing: 4px;
+
+}
+
+.enemy-select-header h1 {
+
+    margin: 0;
+
+    text-align: left;
+
+    font-size: 22px;
+
+    letter-spacing: 2px;
+
+}
+
+
+.enemy-select-back {
+
+    width: 40px;
+    height: 40px;
+
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+
+    background:
+        rgba(77, 37, 43, 0.9);
+
+    color: white;
+
+    font-size: 21px;
+
+}
+
+
+.enemy-select-header-mark {
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border:
+        1px solid
+        rgba(200, 92, 101, 0.45);
+
+    border-radius: 50%;
+
+    background:
+        rgba(35, 13, 17, 0.8);
+
+    color: #e48189;
+
+    font-size: 20px;
+
+}
+
+
+/* ===============================
+   説明
+================================ */
+
+.enemy-select-message {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin: 14px 0 10px;
+
+    text-align: center;
+
+}
+
+.enemy-select-message span {
+
+    color: #b45d67;
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+    letter-spacing: 5px;
+
+}
+
+.enemy-select-message p {
+
+    margin: 4px 0 0;
+
+    color: #cbbdc0;
+
+    font-size: 12px;
+
+}
+
+
+/* ===============================
+   敵一覧
+================================ */
+
+.enemy-select-list {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: min(1000px, 100%);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(170px, 1fr)
+        );
+
+    gap: 12px;
+
+    margin: 0 auto;
+
+}
+
+
+/* ===============================
+   敵カード
+================================ */
+
+.enemy-select-card {
+
+    position: relative;
+
+    min-width: 0;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        #67373d;
+
+    border-radius: 13px;
+
+    background:
+        #120c0e;
+
+    color: white;
+
+    text-align: left;
+
+    box-shadow:
+        0 8px 20px
+        rgba(0, 0, 0, 0.45);
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+
+}
+
+
+/* タップ */
+
+.enemy-select-card:active {
+
+    transform:
+        translateY(3px)
+        scale(0.97);
+
+    border-color:
+        #dc626d;
+
+}
+
+
+/* ===============================
+   カードオーラ
+================================ */
+
+.enemy-card-aura {
+
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    left: 50%;
+    top: 30%;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        rgba(178, 39, 51, 0.15);
+
+    filter: blur(28px);
+
+    pointer-events: none;
+
+    z-index: 1;
+
+}
+
+
+/* ===============================
+   カード上部
+================================ */
+
+.enemy-card-header {
+
+    position: absolute;
+
+    top: 7px;
+    left: 7px;
+    right: 7px;
+
+    z-index: 5;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.enemy-number {
+
+    padding: 4px 7px;
+
+    border-radius: 5px;
+
+    background:
+        rgba(13, 8, 10, 0.82);
+
+    color: #df9298;
+
+    font-size: 8px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+}
+
+.enemy-danger {
+
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(93, 26, 33, 0.9);
+
+    color: #ff8992;
+
+    font-size: 13px;
+
+}
+
+
+/* ===============================
+   敵画像
+================================ */
+
+.enemy-select-image-area {
+
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio:
+        4 / 3;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #34171c,
+            #0b0809
+        );
+
+}
+
+.enemy-select-image {
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform
+        0.35s ease;
+
+}
+
+.enemy-select-card:active
+.enemy-select-image {
+
+    transform:
+        scale(1.05);
+
+}
+
+
+.enemy-select-no-image {
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    color:
+        rgba(255, 255, 255, 0.18);
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+}
+
+
+.enemy-image-gradient {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            transparent 50%,
+            rgba(12, 6, 8, 0.92)
+        );
+
+    pointer-events: none;
+
+}
+
+
+/* ===============================
+   敵情報
+================================ */
+
+.enemy-select-info {
+
+    position: relative;
+
+    z-index: 3;
+
+    padding: 10px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #1b1013,
+            #100b0d
+        );
+
+}
+
+
+.enemy-label {
+
+    color: #bd606a;
+
+    font-size: 8px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+}
+
+
+.enemy-select-info h2 {
+
+    margin:
+        3px 0
+        9px;
+
+    font-size: 17px;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* ===============================
+   HP・タイプ
+================================ */
+
+.enemy-select-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 6px;
+
+}
+
+.enemy-select-stats div {
+
+    padding: 6px 8px;
+
+    border:
+        1px solid
+        #463036;
+
+    border-radius: 6px;
+
+    background:
+        rgba(10, 7, 8, 0.65);
+
+}
+
+.enemy-select-stats span {
+
+    display: block;
+
+    color: #9e8589;
+
+    font-size: 7px;
+
+    letter-spacing: 1px;
+
+}
+
+.enemy-select-stats strong {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: #f0e6e7;
+
+    font-size: 12px;
+
+}
+
+
+/* ===============================
+   戦闘ボタン風表示
+================================ */
+
+.enemy-battle-label {
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 9px;
+
+    padding:
+        7px 9px;
+
+    border-top:
+        1px solid
+        #48282e;
+
+    color: #e2a0a6;
+
+}
+
+.enemy-battle-label span {
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+}
+
+.enemy-battle-label strong {
+
+    font-size: 22px;
+
+    line-height: 1;
+
+}
+
+
+/* ===============================
+   小さい横画面
+================================ */
+
+@media screen and (max-width: 850px) {
+
+    .enemy-select-screen {
+
+        min-width: 760px;
+
+    }
+
+    .enemy-select-list {
+
+        grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(145px, 1fr)
+            );
+
+    }
+
+}
