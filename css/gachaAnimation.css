@@ -1233,67 +1233,6 @@
     object-fit:cover;
 
 }
-#gachaRarity.character.show {
-
-    transform:
-        translate(-50%, -50%)
-        scale(1) !important;
-
-}
-
-#gachaRarity.character.upgrade {
-
-    animation:
-        characterRarityShake
-        .6s !important;
-
-}
-
-#gachaRarity.character.upgradeEnd {
-
-    animation:
-        characterRarityBurst
-        .7s !important;
-
-}
-@keyframes characterRarityShake {
-
-    0% {
-        transform:
-            translate(-50%, -50%)
-            scale(1)
-            rotate(0deg);
-    }
-
-    25% {
-        transform:
-            translate(-50%, -50%)
-            scale(1.03)
-            rotate(-1deg);
-    }
-
-    50% {
-        transform:
-            translate(-50%, -50%)
-            scale(1.06)
-            rotate(1deg);
-    }
-
-    75% {
-        transform:
-            translate(-50%, -50%)
-            scale(1.03)
-            rotate(-1deg);
-    }
-
-    100% {
-        transform:
-            translate(-50%, -50%)
-            scale(1)
-            rotate(0deg);
-    }
-
-}
 
 @keyframes characterRarityBurst {
 
