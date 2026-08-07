@@ -741,7 +741,84 @@ function showGachaAnimation(results){
     setTimeout(()=>{
 
         const rarity =
-            document.getElementById("gachaRarity");
+    document.getElementById("gachaRarity");
+
+let displayRarity =
+    highest;
+
+
+// ----------------------
+// 昇格演出
+// ----------------------
+
+let upgraded = false;
+
+if (highest === "SSR") {
+
+    if (Math.random() < 0.25) {
+
+        displayRarity = "SR";
+        upgraded = true;
+
+    }
+
+}
+
+else if (highest === "UR") {
+
+    if (Math.random() < 0.35) {
+
+        displayRarity = "SSR";
+        upgraded = true;
+
+    }
+
+}
+
+else if (highest === "LR") {
+
+    if (Math.random() < 0.50) {
+
+        displayRarity = "UR";
+        upgraded = true;
+
+    }
+
+}
+
+
+// 最初の表示
+rarity.textContent =
+    displayRarity;
+
+rarity.className =
+    "";
+
+rarity.classList.add(
+    displayRarity.toLowerCase()
+);
+
+rarity.classList.add(
+    "show");
+
+
+// ----------------------
+// 昇格
+// ----------------------
+
+if (upgraded) {
+
+    setTimeout(()=>{
+
+        rarity.classList.add(
+            "upgrade"
+        );
+
+    },700);
+
+    setTimeout(()=>{
+
+        rarity.className="";
 
         rarity.textContent =
             highest;
@@ -753,6 +830,18 @@ function showGachaAnimation(results){
         rarity.classList.add(
             "show"
         );
+
+        rarity.classList.add(
+            "upgradeEnd"
+        );
+
+        navigator.vibrate?.(
+            [100,80,180]
+        );
+
+    },1300);
+
+}
 
         if(
             highest==="LR"
