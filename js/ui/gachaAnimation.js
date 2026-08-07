@@ -169,6 +169,18 @@ function createParticles() {
 
 }
 function startCinematic(results){
+    
+    const card =
+    document.getElementById(
+        "gachaCard"
+    );
+
+const cardImage =
+    document.getElementById(
+        "gachaCardImage"
+    );
+    
+    
 
     const core =
         document.getElementById(
@@ -189,6 +201,28 @@ function startCinematic(results){
         document.getElementById(
             "flash"
         );
+
+setTimeout(()=>{
+
+    const first =
+        results[0];
+
+    cardImage.src =
+        first.image || "";
+
+    card.classList.add(
+        "fly"
+    );
+
+},3600);
+
+setTimeout(()=>{
+
+    card.classList.add(
+        "flip"
+    );
+
+},4700);
 
     const rarity =
         document.getElementById(
@@ -289,7 +323,7 @@ function startCinematic(results){
 
         finish,
 
-        5200
+        6500
 
     );
 
