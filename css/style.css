@@ -4695,3 +4695,358 @@ animation-duration:.5s;
     }
 
 }
+/* ===============================
+   ガチャ終盤レア度演出
+================================ */
+
+#gachaFinalGlow{
+
+    position:absolute;
+
+    inset:0;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:12;
+
+}
+
+
+/* N～SR */
+
+#gachaFinalGlow.final-purple{
+
+    animation:
+        finalPurpleGlow
+        .9s ease-out forwards;
+
+}
+
+@keyframes finalPurpleGlow{
+
+    0%{
+        opacity:0;
+    }
+
+    40%{
+        opacity:.45;
+    }
+
+    100%{
+        opacity:.15;
+    }
+
+}
+
+.final-purple{
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(166,88,235,.75),
+            transparent 58%
+        );
+
+}
+
+
+/* SSR */
+
+#gachaFinalGlow.final-gold{
+
+    animation:
+        finalGoldGlow
+        .9s ease-out forwards;
+
+}
+
+@keyframes finalGoldGlow{
+
+    0%{
+        opacity:0;
+    }
+
+    35%{
+        opacity:.9;
+    }
+
+    100%{
+        opacity:.25;
+    }
+
+}
+
+.final-gold{
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,211,73,.95),
+            rgba(155,99,10,.35),
+            transparent 68%
+        );
+
+}
+
+
+/* UR */
+
+#gachaFinalGlow.final-red{
+
+    animation:
+        finalRedGlow
+        .9s ease-out forwards;
+
+}
+
+@keyframes finalRedGlow{
+
+    0%{
+        opacity:0;
+    }
+
+    30%{
+        opacity:1;
+    }
+
+    55%{
+        opacity:.5;
+    }
+
+    100%{
+        opacity:.2;
+    }
+
+}
+
+.final-red{
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,65,65,1),
+            rgba(130,0,0,.5),
+            transparent 70%
+        );
+
+}
+
+
+/* LR */
+
+#gachaFinalGlow.final-rainbow{
+
+    opacity:1;
+
+    background:
+        conic-gradient(
+            from 0deg,
+            #ff4545,
+            #ffd84a,
+            #57e89b,
+            #53c8ff,
+            #bd69ff,
+            #ff62b9,
+            #ff4545
+        );
+
+    mix-blend-mode:screen;
+
+    animation:
+        finalRainbowGlow
+        .85s linear infinite;
+
+}
+
+@keyframes finalRainbowGlow{
+
+    from{
+        transform:
+            scale(1)
+            rotate(0deg);
+
+        opacity:.35;
+    }
+
+    to{
+        transform:
+            scale(1.25)
+            rotate(360deg);
+
+        opacity:.75;
+    }
+
+}
+
+
+/* CHARACTER */
+
+#gachaFinalGlow.final-character{
+
+    opacity:1;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,255,255,1) 0%,
+            rgba(255,224,118,.75) 22%,
+            rgba(176,96,255,.4) 48%,
+            transparent 72%
+        );
+
+    animation:
+        finalCharacterGlow
+        .8s ease-in-out infinite alternate;
+
+}
+
+@keyframes finalCharacterGlow{
+
+    from{
+
+        opacity:.35;
+
+        transform:
+            scale(.9);
+
+    }
+
+    to{
+
+        opacity:.85;
+
+        transform:
+            scale(1.15);
+
+    }
+
+}
+
+
+/* SSRくらい */
+
+.medium-impact{
+
+    animation:
+        mediumImpact
+        .35s;
+
+}
+
+@keyframes mediumImpact{
+
+    0%{
+        transform:translate(0);
+    }
+
+    30%{
+        transform:translate(-4px,2px);
+    }
+
+    60%{
+        transform:translate(4px,-2px);
+    }
+
+    100%{
+        transform:translate(0);
+    }
+
+}
+
+
+/* UR */
+
+.strong-impact{
+
+    animation:
+        strongImpact
+        .45s;
+
+}
+
+@keyframes strongImpact{
+
+    0%{
+        transform:translate(0);
+    }
+
+    20%{
+        transform:translate(-8px,4px);
+    }
+
+    40%{
+        transform:translate(8px,-4px);
+    }
+
+    60%{
+        transform:translate(-6px,3px);
+    }
+
+    80%{
+        transform:translate(5px,-2px);
+    }
+
+    100%{
+        transform:translate(0);
+    }
+
+}
+
+
+/* LR・CHARACTER */
+
+.legend-impact{
+
+    animation:
+        legendImpact
+        .6s;
+
+}
+
+@keyframes legendImpact{
+
+    0%{
+        transform:
+            translate(0)
+            scale(1);
+    }
+
+    15%{
+        transform:
+            translate(-10px,5px)
+            scale(1.01);
+    }
+
+    30%{
+        transform:
+            translate(10px,-6px)
+            scale(1.02);
+    }
+
+    45%{
+        transform:
+            translate(-8px,4px)
+            scale(1.01);
+    }
+
+    60%{
+        transform:
+            translate(7px,-3px)
+            scale(1.02);
+    }
+
+    80%{
+        transform:
+            translate(-4px,2px)
+            scale(1.01);
+    }
+
+    100%{
+        transform:
+            translate(0)
+            scale(1);
+    }
+
+}
