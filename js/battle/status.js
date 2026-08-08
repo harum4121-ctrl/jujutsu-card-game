@@ -132,6 +132,18 @@ if (effect.chance != null) {
     target.lastSingleDamage = 0;
 
     break;
+    
+    case "burnChanceBuff":
+
+    if (!user) break;
+
+    user.burnChanceBonus =
+        effect.value ?? 0;
+
+    user.burnChanceBonusTurn =
+        effect.duration ?? 0;
+
+    break;
 
             // 与ダメアップ
             case "damageBuff":
