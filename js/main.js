@@ -1,4 +1,38 @@
+// ===============================
+// エラーを画面に表示
+// ===============================
 
+window.onerror = function(
+    message,
+    source,
+    lineno,
+    colno,
+    error
+) {
+
+    alert(
+        "JavaScriptエラー\n\n" +
+        "内容：" + message +
+        "\n\n行：" + lineno +
+        "\n列：" + colno
+    );
+
+    return false;
+
+};
+
+
+window.addEventListener(
+    "unhandledrejection",
+    function(event) {
+
+        alert(
+            "Promiseエラー\n\n" +
+            String(event.reason)
+        );
+
+    }
+);
 // データ確認
 console.log(characters);
 
