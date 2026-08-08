@@ -1541,6 +1541,26 @@ function enemyTurn() {
 
         enemy.turnCount++;
         
+        // ===============================
+// 敵スキルCT減少
+// ===============================
+
+for (const key in enemy.cooldowns) {
+
+    if (enemy.cooldowns[key] > 0) {
+
+        enemy.cooldowns[key]--;
+
+        if (enemy.cooldowns[key] <= 0) {
+
+            delete enemy.cooldowns[key];
+
+        }
+
+    }
+
+}
+        
 // スタン中なら行動できない
 if (enemy.stun > 0) {
 
