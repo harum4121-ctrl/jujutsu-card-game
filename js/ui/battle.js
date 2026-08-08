@@ -113,6 +113,10 @@ gameState.enemyCharacters = [
 damageBuff: 0,
 damageBuffTurn: 0,
 
+// 火傷付与率アップ
+burnChanceBonus: 0,
+burnChanceBonusTurn: 0,
+
 damageReduction: 0,
 damageReductionTurn: 0,
 
