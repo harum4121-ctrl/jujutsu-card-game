@@ -5790,3 +5790,339 @@ animation-duration:.5s;
     }
 
 }
+
+/* ===============================
+   敵選択画面
+================================ */
+
+.enemy-select-screen {
+
+    min-height: 100vh;
+
+    box-sizing: border-box;
+
+    padding: 20px;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            rgba(110, 28, 38, 0.35),
+            transparent 40%
+        ),
+        linear-gradient(
+            145deg,
+            #090609,
+            #1c0b10 55%,
+            #050405
+        );
+
+}
+
+
+/* ===============================
+   ヘッダー
+================================ */
+
+.enemy-select-header {
+
+    text-align: center;
+
+    margin-bottom: 22px;
+
+}
+
+.enemy-select-header h1 {
+
+    margin: 4px 0 6px;
+
+    font-size: 30px;
+
+    letter-spacing: 4px;
+
+}
+
+.enemy-select-header p {
+
+    margin: 0;
+
+    color: #c8b9bd;
+
+    font-size: 12px;
+
+}
+
+.enemy-select-subtitle {
+
+    color: #d15c69 !important;
+
+    font-size: 10px !important;
+
+    font-weight: bold;
+
+    letter-spacing: 5px;
+
+}
+
+
+/* ===============================
+   敵一覧
+================================ */
+
+.enemy-select-list {
+
+    width: min(900px, 100%);
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 15px;
+
+}
+
+
+/* ===============================
+   敵カード
+================================ */
+
+.enemy-select-card {
+
+    min-width: 0;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    border: 2px solid #55323a;
+    border-radius: 14px;
+
+    background: #140d10;
+
+    color: white;
+
+    text-align: left;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.5);
+
+    transition:
+        transform .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease;
+
+}
+
+.enemy-select-card:active {
+
+    transform: scale(.97);
+
+    border-color: #c54b59;
+
+    box-shadow:
+        0 0 25px
+        rgba(200, 55, 70, .45);
+
+}
+
+
+/* ===============================
+   敵画像
+================================ */
+
+.enemy-select-image-area {
+
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 10;
+
+    overflow: hidden;
+
+    background: #080608;
+
+}
+
+.enemy-select-image {
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+}
+
+
+/* 下側を暗くする */
+
+.enemy-image-dark {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            transparent 45%,
+            rgba(5, 3, 4, .92)
+        );
+
+    pointer-events: none;
+
+}
+
+
+/* ===============================
+   名前
+================================ */
+
+.enemy-name-overlay {
+
+    position: absolute;
+
+    left: 14px;
+    bottom: 12px;
+
+    z-index: 2;
+
+}
+
+.enemy-name-overlay span {
+
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: #e36b76;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+}
+
+.enemy-name-overlay strong {
+
+    display: block;
+
+    font-size: 23px;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 2px 5px black;
+
+}
+
+
+/* ===============================
+   下部
+================================ */
+
+.enemy-select-info {
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 13px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #211216,
+            #100b0d
+        );
+
+}
+
+.enemy-hp {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+.enemy-hp span {
+
+    color: #e45c68;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+}
+
+.enemy-hp strong {
+
+    font-size: 17px;
+
+}
+
+
+/* BATTLE */
+
+.enemy-battle-label {
+
+    color: #d7c8cb;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+}
+
+.enemy-battle-label span {
+
+    margin-left: 5px;
+
+    color: #ef6975;
+
+    font-size: 18px;
+
+}
+
+
+/* ===============================
+   戻るボタン
+================================ */
+
+.enemy-select-back {
+
+    width: min(400px, 100%);
+
+    display: block;
+
+    margin: 20px auto 0;
+
+    padding: 12px;
+
+    border: 1px solid #55454a;
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            #3b3135,
+            #211a1d
+        );
+
+    color: white;
+
+    font-size: 12px;
+
+}
