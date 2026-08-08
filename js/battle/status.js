@@ -6,17 +6,41 @@ function applyEffects(user, target, effects) {
     effects.forEach(effect => {
 
     // ===============================
-    // 効果発動確率
-    // ===============================
-    if (effect.chance != null) {
+// 効果発動確率
+// ===============================
 
-        const roll = Math.random() * 100;
+if (effect.chance != null) {
 
-        if (roll >= effect.chance) {
-            return;
-        }
+    let finalChance =
+        effect.chance;
+
+    // 火傷の場合だけ
+    // 使用者の火傷付与率アップを加算
+    if (
+        effect.type === "burn" &&
+        user
+    ) {
+
+        finalChance +=
+            user.burnChanceBonus ?? 0;
 
     }
+
+    // 最大100%
+    finalChance =
+        Math.min(
+            100,
+            finalChance
+        );
+
+    const roll =
+        Math.random() * 100;
+
+    if (roll >= finalChance) {
+        return;
+    }
+
+}
 
     switch (effect.type) {
             
