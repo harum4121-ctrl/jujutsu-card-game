@@ -144,6 +144,19 @@ function calculateDamage(actor, target, skill) {
 
     }
 
+// ===============================
+// 火傷状態への追加ダメージ
+// ===============================
+
+if (
+    (skill.bonusDamageIfBurn ?? 0) > 0 &&
+    (target.burnTurn ?? 0) > 0
+) {
+
+    damage +=
+        Number(skill.bonusDamageIfBurn) || 0;
+
+}
 
     // ===============================
     // 次の攻撃を2倍
