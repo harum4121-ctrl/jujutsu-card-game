@@ -27,7 +27,7 @@ const enemies = {
 
     name: "漏瑚",
 
-    image: "images/enemies/jogo.png.PNG",
+    image: "images/cards/jogo.png.PNG",
 
     hp: 600,
 
