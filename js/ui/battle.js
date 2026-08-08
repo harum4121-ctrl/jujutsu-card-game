@@ -1952,11 +1952,23 @@ function getStatusList(character){
 
     if(character.taunt>0){
 
-        list.push("🎯挑発");
+    list.push("🎯挑発");
 
-    }
+}
 
-    return list;
+if ((character.burnTurn ?? 0) > 0) {
+
+    list.push(
+        "🔥火傷 " +
+        character.burnDamage +
+        "ダメージ / " +
+        character.burnTurn +
+        "T"
+    );
+
+}
+
+return list;
 
 }
 
