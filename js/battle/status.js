@@ -135,6 +135,32 @@ function applyEffects(user, target, effects) {
                     effect.duration ?? 0;
 
                 break;
+                
+                // ===============================
+// 火傷
+// ===============================
+case "burn":
+
+    if (!target) break;
+
+    target.burnDamage =
+        target.burnDamage ?? 0;
+
+    target.burnTurn =
+        target.burnTurn ?? 0;
+
+    // 火傷ダメージは重ね掛け可能
+    target.burnDamage +=
+        effect.value ?? 0;
+
+    // 残りターンは長い方を採用
+    target.burnTurn =
+        Math.max(
+            target.burnTurn,
+            effect.duration ?? 1
+        );
+
+    break;
 
             // スタン
             case "stun":
