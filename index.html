@@ -30,7 +30,19 @@
 <script src="js/ui/battleTargetPopup.js"></script>
 <script src="js/ui/battleUI.js"></script>
 <script src="js/ui/deckBuilder.js"></script>
+<script>
+    alert("battle.jsを読み込む直前");
+</script>
+
 <script src="js/ui/battle.js"></script>
+
+<script>
+    alert(
+        "battle.js読込後\n" +
+        "startBattle = " +
+        typeof startBattle
+    );
+</script>
 <script src="js/ui/enemySelect.js"></script>
 
 <script src="js/battle/battleResult.js"></script>
