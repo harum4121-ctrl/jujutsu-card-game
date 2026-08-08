@@ -5,7 +5,20 @@ function applyEffects(user, target, effects) {
 
     effects.forEach(effect => {
 
-        switch (effect.type) {
+    // ===============================
+    // 効果発動確率
+    // ===============================
+    if (effect.chance != null) {
+
+        const roll = Math.random() * 100;
+
+        if (roll >= effect.chance) {
+            return;
+        }
+
+    }
+
+    switch (effect.type) {
             
             case "skillCostZero":
 
