@@ -1792,6 +1792,35 @@ gameState.enemyCharacters.forEach(enemy => {
 
 });
 
+// ===============================
+// ターン終了時の持続ダメージ
+// ===============================
+
+// 味方
+gameState.battleCharacters.forEach(
+    (character, index) => {
+
+        processDamageOverTime(
+            character,
+            "player" + index
+        );
+
+    }
+);
+
+
+// 敵
+gameState.enemyCharacters.forEach(
+    (enemy, index) => {
+
+        processDamageOverTime(
+            enemy,
+            "enemy" + index
+        );
+
+    }
+);
+
 gameState.enemyCharacters.forEach(updateStatus);
 if (checkBattleEnd()) {
     return;
