@@ -1985,6 +1985,99 @@ return list;
 
 }
 
+// ===============================
+// 火傷付与
+// ===============================
+
+function applyBurn(
+    target,
+    damage,
+    duration
+) {
+
+    if (!target) return;
+
+    // 初期化
+    target.burnDamage =
+        target.burnDamage ?? 0;
+
+    target.burnTurn =
+        target.burnTurn ?? 0;
+
+
+    // 火傷ダメージは加算
+    target.burnDamage += damage;
+
+
+    // 持続ターンは長い方を採用
+    target.burnTurn =
+        Math.max(
+            target.burnTurn,
+            duration
+        );
+
+}
+
+// ===============================
+// 持続ダメージ処理
+// ===============================
+
+function processDamageOverTime(
+    character,
+    targetId
+) {
+
+    if (!character) return;
+
+    if (character.currentHp <= 0) {
+        return;
+    }
+
+
+    // ===============================
+    // 火傷
+    // ===============================
+
+    if (
+        (character.burnTurn ?? 0) > 0 &&
+        (character.burnDamage ?? 0) > 0
+    ) {
+
+        const damage =
+            character.burnDamage;
+
+        character.currentHp -= damage;
+
+
+        if (character.currentHp < 0) {
+
+            character.currentHp = 0;
+
+        }
+
+
+        showDamage(
+            targetId,
+            damage
+        );
+
+
+        // 残りターン減少
+        character.burnTurn--;
+
+
+        // 火傷終了
+        if (character.burnTurn <= 0) {
+
+            character.burnTurn = 0;
+            character.burnDamage = 0;
+
+        }
+
+    }
+
+}
+
 function showDamage(targetId, value, heal = false) {
 
     const target =
