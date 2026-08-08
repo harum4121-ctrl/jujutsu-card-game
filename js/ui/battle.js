@@ -624,6 +624,19 @@ function getCardStatuses(character) {
         });
     }
 
+if ((character.burnTurn ?? 0) > 0) {
+
+    statuses.push({
+        icon: "🔥",
+        name:
+            "火傷 " +
+            character.burnDamage +
+            "ダメージ",
+        turn: character.burnTurn
+    });
+
+}
+
     return statuses;
 }
 
