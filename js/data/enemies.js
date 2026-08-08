@@ -26,7 +26,7 @@ const enemies = {
     jogo: {
 
         name: "漏瑚",
-
+image: "images/enemies/jogo.png",
         hp: 600,
 
         attack: 60,
