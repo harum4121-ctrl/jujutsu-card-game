@@ -13,6 +13,7 @@ window.onerror = function(
     alert(
         "JavaScriptエラー\n\n" +
         "内容：" + message +
+        "\n\nファイル：" + source +
         "\n\n行：" + lineno +
         "\n列：" + colno
     );
@@ -20,7 +21,6 @@ window.onerror = function(
     return false;
 
 };
-
 
 window.addEventListener(
     "unhandledrejection",
