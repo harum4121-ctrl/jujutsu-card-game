@@ -1583,35 +1583,46 @@ if (
 
 } else {
 
-    // 使用可能な通常技だけ集める
-    let usable = [];
+// ===============================
+// 使用可能な通常技を集める
+// ===============================
 
-    if (!enemy.sealedSkills[0]) {
+let usable = [];
 
-        usable.push({
-            skill: enemy.skills[0],
-            weight: 40
-        });
+const skillWeights = [
+    40,
+    40,
+    20
+];
 
+enemy.skills.forEach((normalSkill, index) => {
+
+    if (!normalSkill) return;
+
+    // スキル封印中
+    if (enemy.sealedSkills[index]) {
+        return;
     }
 
-    if (!enemy.sealedSkills[1]) {
-
-        usable.push({
-            skill: enemy.skills[1],
-            weight: 40
-        });
-
+    // CT中
+    if (
+        (enemy.cooldowns[index] ?? 0) > 0
+    ) {
+        return;
     }
 
-    if (!enemy.sealedSkills[2]) {
+    usable.push({
 
-        usable.push({
-            skill: enemy.skills[2],
-            weight: 20
-        });
+        skill: normalSkill,
 
-    }
+        index: index,
+
+        weight:
+            skillWeights[index] ?? 10
+
+    });
+
+});
 
     if (usable.length === 0) {
 
