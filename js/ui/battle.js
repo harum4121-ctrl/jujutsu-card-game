@@ -1727,56 +1727,69 @@ showDamage(
 
         }
 
+                // ===============================
         // 全体攻撃
+        // ===============================
         else if (skill.target === "全体") {
 
-playersAlive.forEach((target) => {
+            showEnemySkillMessage(
+                enemy.name,
+                skill.name
+            );
 
-    const damage =
-        calculateDamage(enemy, target, skill);
-        
-        showEnemySkillMessage(
-    enemy.name,
-    skill.name
-);
+            playersAlive.forEach((target) => {
 
-    target.currentHp -= damage;
+                const damage =
+                    calculateDamage(
+                        enemy,
+                        target,
+                        skill
+                    );
 
-    const targetIndex =
-        gameState.battleCharacters.indexOf(target);
+                target.currentHp -= damage;
 
-    showDamage(
-        "player" + targetIndex,
-        damage
-    );
+                if (target.currentHp < 0) {
+                    target.currentHp = 0;
+                }
 
-    applyEffects(
-        enemy,
-        target,
-        skill.effects
-    );
+                const targetIndex =
+                    gameState.battleCharacters.indexOf(
+                        target
+                    );
 
-}
+                showDamage(
+                    "player" + targetIndex,
+                    damage
+                );
 
-// ===============================
-// 自身対象スキル
-// ===============================
+                applyEffects(
+                    enemy,
+                    target,
+                    skill.effects
+                );
 
-else if (skill.target === "自身") {
+            });
 
-    showEnemySkillMessage(
-        enemy.name,
-        skill.name
-    );
-
-    applyEffects(
-        enemy,
-        enemy,
-        skill.effects
-    );
-
-});
         }
+
+        // ===============================
+        // 自身対象スキル
+        // ===============================
+        else if (skill.target === "自身") {
+
+            showEnemySkillMessage(
+                enemy.name,
+                skill.name
+            );
+
+            applyEffects(
+                enemy,
+                enemy,
+                skill.effects
+            );
+
+        }
+
     });
     
     // ===============================
