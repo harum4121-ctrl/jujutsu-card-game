@@ -1,130 +1,98 @@
 function showEnemySelectScreen() {
 
-    const app =
-        document.getElementById("app");
+    const app = document.getElementById("app");
 
-    let enemyCards = "";
+    let html = `
+
+        <div class="enemy-select-screen">
+
+            <header class="enemy-select-header">
+
+                <p class="enemy-select-subtitle">
+                    SELECT ENEMY
+                </p>
+
+                <h1>
+                    敵を選択
+                </h1>
+
+                <p>
+                    対戦する敵を選んでください
+                </p>
+
+            </header>
 
 
-    // ===============================
-    // 敵一覧
-    // ===============================
+            <div class="enemy-select-list">
+
+    `;
+
 
     for (const id in enemies) {
 
-        const enemy =
-            enemies[id];
+        const enemy = enemies[id];
 
-        const imageHtml =
-            enemy.cardImage
-                ? `
-                    <img
-                        src="${enemy.cardImage}"
-                        alt="${enemy.name}"
-                        class="enemy-select-image"
-                    >
-                `
-                : `
-                    <div class="enemy-select-no-image">
-                        ENEMY
-                    </div>
-                `;
-
-
-        enemyCards += `
+        html += `
 
             <button
-                type="button"
                 class="enemy-select-card"
                 onclick="selectEnemy('${id}')"
             >
 
-                <!-- 背景エフェクト -->
-                <div class="enemy-card-aura"></div>
-
-
-                <!-- 上部 -->
-                <div class="enemy-card-header">
-
-                    <span class="enemy-number">
-                        TARGET
-                    </span>
-
-                    <span class="enemy-danger">
-                        ⚠
-                    </span>
-
-                </div>
-
-
-                <!-- キャラクター画像 -->
                 <div class="enemy-select-image-area">
 
-                    ${imageHtml}
+                    ${
+                        enemy.image
+                            ? `
+                                <img
+                                    src="${enemy.image}"
+                                    alt="${enemy.name}"
+                                    class="enemy-select-image"
+                                >
+                            `
+                            : `
+                                <div class="enemy-image-placeholder">
+                                    ${enemy.name}
+                                </div>
+                            `
+                    }
 
-                    <div class="enemy-image-gradient"></div>
+                    <div class="enemy-image-dark"></div>
+
+
+                    <div class="enemy-name-overlay">
+
+                        <span>
+                            ENEMY
+                        </span>
+
+                        <strong>
+                            ${enemy.name}
+                        </strong>
+
+                    </div>
 
                 </div>
 
 
-                <!-- 敵情報 -->
                 <div class="enemy-select-info">
 
-                    <span class="enemy-label">
-                        ENEMY
-                    </span>
+                    <div class="enemy-hp">
 
-                    <h2>
-                        ${enemy.name}
-                    </h2>
+                        <span>
+                            HP
+                        </span>
 
-
-                    <div class="enemy-select-stats">
-
-                        <div>
-
-                            <span>
-                                HP
-                            </span>
-
-                            <strong>
-                                ${enemy.hp}
-                            </strong>
-
-                        </div>
-
-
-                        ${
-                            enemy.type
-                                ? `
-                                    <div>
-
-                                        <span>
-                                            TYPE
-                                        </span>
-
-                                        <strong>
-                                            ${enemy.type}
-                                        </strong>
-
-                                    </div>
-                                `
-                                : ""
-                        }
+                        <strong>
+                            ${enemy.hp}
+                        </strong>
 
                     </div>
 
 
                     <div class="enemy-battle-label">
-
-                        <span>
-                            この敵と戦う
-                        </span>
-
-                        <strong>
-                            ›
-                        </strong>
-
+                        BATTLE
+                        <span>›</span>
                     </div>
 
                 </div>
@@ -136,96 +104,32 @@ function showEnemySelectScreen() {
     }
 
 
-    // ===============================
-    // 画面
-    // ===============================
-
-    app.innerHTML = `
-
-        <div class="enemy-select-screen">
-
-
-            <!-- 背景演出 -->
-
-            <div
-                class="
-                    enemy-select-background-effect
-                    enemy-effect-one
-                "
-            ></div>
-
-            <div
-                class="
-                    enemy-select-background-effect
-                    enemy-effect-two
-                "
-            ></div>
-
-
-            <!-- ヘッダー -->
-
-            <header class="enemy-select-header">
-
-                <button
-                    type="button"
-                    class="enemy-select-back"
-                    onclick="showDeckBuilder()"
-                >
-                    ←
-                </button>
-
-
-                <div>
-
-                    <p>
-                        BATTLE TARGET
-                    </p>
-
-                    <h1>
-                        対戦相手選択
-                    </h1>
-
-                </div>
-
-
-                <div class="enemy-select-header-mark">
-                    ⚔
-                </div>
-
-            </header>
-
-
-            <!-- 説明 -->
-
-            <div class="enemy-select-message">
-
-                <span>
-                    SELECT YOUR ENEMY
-                </span>
-
-                <p>
-                    戦う相手を選択してください
-                </p>
+    html += `
 
             </div>
 
 
-            <!-- 敵一覧 -->
-
-            <main class="enemy-select-list">
-
-                ${enemyCards}
-
-            </main>
-
+            <button
+                class="enemy-select-back"
+                onclick="showDeckBuilder()"
+            >
+                デッキ編集へ戻る
+            </button>
 
         </div>
 
     `;
 
+
+    app.innerHTML = html;
+
 }
 
 
+
+// ===============================
+// 敵決定
+// ===============================
 
 function selectEnemy(id) {
 
