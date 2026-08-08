@@ -1655,6 +1655,20 @@ enemy.skills.forEach((normalSkill, index) => {
 
 }
 
+// ===============================
+// 使用した敵スキルにCTを設定
+// ===============================
+
+if (
+    skillIndex !== null &&
+    (skill.cooldown ?? 0) > 0
+) {
+
+    enemy.cooldowns[skillIndex] =
+        skill.cooldown;
+
+}
+
         // 次はここから攻撃処理を書く
         // 攻撃対象
         if (skill.target === "単体") {
