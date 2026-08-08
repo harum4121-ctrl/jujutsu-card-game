@@ -1571,6 +1571,7 @@ if (enemy.stun > 0) {
 }
 
         let skill = null;
+        let skillIndex = null;
 
 // 5ターンごとなら必殺技を優先
 if (
