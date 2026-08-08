@@ -5,7 +5,7 @@ const enemies = {
         sukuna: {
 
     name: "両面宿儺",
-    image: "images/enemies/2sukuna.png.PNG",
+    image: "images/cards/2sukuna.png.PNG",
     hp: 800,
 
     attack: 100,
@@ -26,7 +26,7 @@ const enemies = {
     jogo: {
 
         name: "漏瑚",
-        image: "images/enemies/jogo.png.PNG",
+        image: "images/cards/jogo.png.PNG",
         hp: 600,
 
         attack: 60,
@@ -41,7 +41,7 @@ const enemies = {
     mahito: {
 
         name: "真人",
-        image: "images/enemies/mahito.png.PNG",
+        image: "images/cards/mahito.png.PNG",
         hp: 500,
 
         attack: 45,
