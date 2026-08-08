@@ -1640,16 +1640,18 @@ enemy.skills.forEach((normalSkill, index) => {
 
     for (const s of usable) {
 
-        if (r < s.weight) {
+    if (r < s.weight) {
 
-            skill = s.skill;
-            break;
+        skill = s.skill;
+        skillIndex = s.index;
 
-        }
-
-        r -= s.weight;
+        break;
 
     }
+
+    r -= s.weight;
+
+}
 
 }
 
