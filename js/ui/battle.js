@@ -1756,6 +1756,25 @@ playersAlive.forEach((target) => {
         skill.effects
     );
 
+}
+
+// ===============================
+// 自身対象スキル
+// ===============================
+
+else if (skill.target === "自身") {
+
+    showEnemySkillMessage(
+        enemy.name,
+        skill.name
+    );
+
+    applyEffects(
+        enemy,
+        enemy,
+        skill.effects
+    );
+
 });
         }
     });
