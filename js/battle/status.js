@@ -360,7 +360,25 @@ function updateStatus(character) {
 
     }
     
+    // ===============================
+// 火傷付与率アップ
+// ===============================
 
+if (
+    (character.burnChanceBonusTurn ?? 0) > 0
+) {
+
+    character.burnChanceBonusTurn--;
+
+    if (
+        character.burnChanceBonusTurn === 0
+    ) {
+
+        character.burnChanceBonus = 0;
+
+    }
+
+}
 
     if ((character.ignoreInvincible ?? 0) > 0) {
         character.ignoreInvincible--;
