@@ -60,6 +60,10 @@ invincible: 0,
 stun: 0,
 taunt: 0,
 
+// 火傷
+burnDamage: 0,
+burnTurn: 0,
+
 skillCostDown: 0,
 nextSkillFree: false,
 freeUltimate: false,
@@ -122,6 +126,10 @@ ignoreInvincible: 0,
 
 invincible: 0,
 stun: 0,
+
+// 火傷
+burnDamage: 0,
+burnTurn: 0,
 
 skillCostDown: 0
 
