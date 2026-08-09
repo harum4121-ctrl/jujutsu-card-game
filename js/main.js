@@ -47,7 +47,12 @@ const gameState = {
     selectedActors: [],
     selectedSupportTargets: [],
     currentField: null,
-    selectedSupportTargets: [],
+
+    // ===============================
+    // バトルモード
+    // normal / boss / challenge
+    // ===============================
+    battleMode: null,
 
     selectedEnemy: "",
 
@@ -62,8 +67,6 @@ const gameState = {
     enemy: null
 
 };
-
-
 
 // ゲーム開始
 window.onload = () => {
