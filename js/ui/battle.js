@@ -2932,6 +2932,24 @@ function showEnemySkillMessage(enemyName, skillName) {
 // ===============================
 
 function normalEnemyTurn() {
+    
+    // ===============================
+    // AIドロー
+    // ===============================
+
+    if (
+
+        !drawNormalEnemyCard()
+
+    ) {
+
+        // AIの山札切れ
+
+        showBattleResult("win");
+
+        return;
+
+    }
 
     // ===============================
     // 生存している敵を取得
