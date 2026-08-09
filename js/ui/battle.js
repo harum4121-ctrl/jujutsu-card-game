@@ -92,11 +92,10 @@ gameState.enemyCharacters = [];
 
 if (gameState.battleMode === "normal") {
 
-    gameState.selectedEnemyCharacters.forEach(id => {
+    gameState.normalEnemyTeam.forEach(id => {
 
         const data =
             characters[id];
-
 
         gameState.enemyCharacters.push({
 
