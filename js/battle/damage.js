@@ -54,6 +54,20 @@ function calculateDamage(actor, target, skill) {
     // 与ダメージダウン
     damage -= Number(actor.damageDown) || 0;
 
+// ===============================
+// 状態異常による追加ダメージ
+// ===============================
+
+// 火傷状態の相手に追加ダメージ
+if (
+    (skill.bonusDamageIfBurn ?? 0) > 0 &&
+    (target.burnTurn ?? 0) > 0
+) {
+
+    damage +=
+        Number(skill.bonusDamageIfBurn) || 0;
+
+}
 
     // ===============================
     // 防御側の補正
