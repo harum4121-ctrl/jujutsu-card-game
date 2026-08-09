@@ -3268,6 +3268,316 @@ const selected =
 
 }
 
+// ===============================
+// 通常バトル
+// AIスキル選択
+// ===============================
+
+function selectNormalEnemySkill(
+    enemy,
+    usableSkills
+) {
+
+    const allies =
+        gameState.enemyCharacters.filter(
+            character =>
+                character.currentHp > 0
+        );
+
+
+    const players =
+        gameState.battleCharacters.filter(
+            character =>
+                character.currentHp > 0
+        );
+
+
+    // ===============================
+    // 各スキルに点数をつける
+    // ===============================
+
+    const scoredSkills =
+        usableSkills.map(data => {
+
+            const skill =
+                data.skill;
+
+            let score =
+                Math.random() * 20;
+
+
+            // ===============================
+            // 回復技
+            // ===============================
+
+            if (
+                (skill.heal ?? 0) > 0
+            ) {
+
+                // 味方単体回復
+                if (
+                    skill.target ===
+                    "味方単体"
+                ) {
+
+                    const injured =
+                        allies.filter(
+                            ally =>
+                                ally.currentHp <
+                                ally.maxHp
+                        );
+
+
+                    // 誰も減っていないなら
+                    // かなり使いにくくする
+                    if (
+                        injured.length === 0
+                    ) {
+
+                        score -= 100;
+
+                    }
+
+                    else {
+
+                        const lowest =
+                            injured.reduce(
+                                (a, b) =>
+                                    (
+                                        a.currentHp /
+                                        a.maxHp
+                                    ) <
+                                    (
+                                        b.currentHp /
+                                        b.maxHp
+                                    )
+                                        ? a
+                                        : b
+                            );
+
+
+                        const hpRate =
+                            lowest.currentHp /
+                            lowest.maxHp;
+
+
+                        if (hpRate <= 0.3) {
+
+                            score += 100;
+
+                        }
+
+                        else if (
+                            hpRate <= 0.5
+                        ) {
+
+                            score += 70;
+
+                        }
+
+                        else {
+
+                            score += 35;
+
+                        }
+
+                    }
+
+                }
+
+
+                // ===============================
+                // 味方全体回復
+                // ===============================
+
+                else if (
+                    skill.target ===
+                    "味方全体"
+                ) {
+
+                    const injuredCount =
+                        allies.filter(
+                            ally =>
+                                ally.currentHp <
+                                ally.maxHp
+                        ).length;
+
+
+                    if (
+                        injuredCount === 0
+                    ) {
+
+                        score -= 100;
+
+                    }
+
+                    else {
+
+                        score +=
+                            injuredCount * 35;
+
+                    }
+
+                }
+
+
+                // ===============================
+                // 自己回復
+                // ===============================
+
+                else if (
+                    skill.target ===
+                    "自身"
+                ) {
+
+                    const hpRate =
+                        enemy.currentHp /
+                        enemy.maxHp;
+
+
+                    if (hpRate >= 0.9) {
+
+                        score -= 100;
+
+                    }
+
+                    else if (
+                        hpRate <= 0.4
+                    ) {
+
+                        score += 80;
+
+                    }
+
+                    else {
+
+                        score += 30;
+
+                    }
+
+                }
+
+            }
+
+
+            // ===============================
+            // 攻撃技
+            // ===============================
+
+            if (
+                (skill.damage ?? 0) > 0
+            ) {
+
+                score += 25;
+
+
+                // 全体攻撃は
+                // 敵が多いほど評価
+                if (
+                    skill.target ===
+                    "全体"
+                ) {
+
+                    score +=
+                        players.length * 10;
+
+                }
+
+
+                // ダメージが高いほど
+                // 少し評価
+                score +=
+                    skill.damage / 10;
+
+            }
+
+
+            // ===============================
+            // 補助技
+            // ===============================
+
+            if (
+                Array.isArray(
+                    skill.effects
+                ) &&
+                skill.effects.length > 0
+            ) {
+
+                score += 20;
+
+            }
+
+
+            // ===============================
+            // 自身強化
+            // ===============================
+
+            if (
+                skill.target === "自身" &&
+                (skill.damage ?? 0) <= 0 &&
+                (skill.heal ?? 0) <= 0
+            ) {
+
+                score += 25;
+
+            }
+
+
+            // ===============================
+            // 呪力を節約
+            // ===============================
+
+            const cost =
+                skill.cost ?? 0;
+
+
+            if (
+                enemy.currentCursedPower <
+                enemy.maxCursedPower * 0.35
+            ) {
+
+                score -=
+                    cost * 0.5;
+
+            }
+
+
+            return {
+
+                ...data,
+
+                score: score
+
+            };
+
+        });
+
+
+    // ===============================
+    // 点数順
+    // ===============================
+
+    scoredSkills.sort(
+        (a, b) =>
+            b.score - a.score
+    );
+
+
+    console.log(
+        enemy.name +
+        " AIスキル候補:",
+        scoredSkills.map(data => ({
+            name: data.skill.name,
+            score: Math.round(
+                data.score
+            )
+        }))
+    );
+
+
+    return scoredSkills[0];
+
+}
 
 // ===============================
 // 通常バトル
