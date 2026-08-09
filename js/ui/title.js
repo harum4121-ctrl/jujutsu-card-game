@@ -136,7 +136,7 @@ function showTitle() {
             gameState.selectedCharacters = [];
             gameState.deck = [];
 
-            showCharacterSelect();
+            showBattleModeSelect();
 
         });
 
