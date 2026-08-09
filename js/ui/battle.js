@@ -572,16 +572,55 @@ function showBattleScreen() {
             <!-- 敵エリア -->
             <section class="enemy-zone">
 
-                <h2 class="zone-title enemy-title">
-                    ENEMY
-                </h2>
+    <h2 class="zone-title enemy-title">
+        ENEMY
+    </h2>
 
-                <div id="enemyCharacters"
-                     class="enemy-character-area">
+    ${
+        gameState.battleMode === "normal"
+            ? `
+                <div class="enemy-deck-info">
+
+                    <span>
+                        山札：
+                        <strong>
+                            ${
+                                gameState.enemyDrawPile
+                                    ?.length ?? 0
+                            }
+                        </strong>
+                    </span>
+
+                    <span>
+                        手札：
+                        <strong>
+                            ${
+                                gameState.enemyHand
+                                    ?.length ?? 0
+                            }
+                        </strong>
+                    </span>
+
+                    <span>
+                        墓地：
+                        <strong>
+                            ${
+                                gameState.enemyGraveyard
+                                    ?.length ?? 0
+                            }
+                        </strong>
+                    </span>
+
                 </div>
+            `
+            : ""
+    }
 
-            </section>
+    <div id="enemyCharacters"
+         class="enemy-character-area">
+    </div>
 
+</section>
 
             <!-- 中央ライン -->
             <div class="battle-divider">
