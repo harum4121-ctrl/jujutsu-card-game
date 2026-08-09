@@ -3596,13 +3596,11 @@ function executeNormalEnemySkill(
         );
 
 
-    if (
-        alivePlayers.length === 0
-    ) {
-
-        return;
-
-    }
+    const aliveAllies =
+        gameState.enemyCharacters.filter(
+            character =>
+                character.currentHp > 0
+        );
 
 
     // ===============================
@@ -3612,6 +3610,15 @@ function executeNormalEnemySkill(
     if (
         skill.target === "単体"
     ) {
+
+        if (
+            alivePlayers.length === 0
+        ) {
+
+            return;
+
+        }
+
 
         let target =
             alivePlayers.find(
@@ -3677,6 +3684,16 @@ function executeNormalEnemySkill(
         );
 
 
+        // ===============================
+        // 狗巻の自傷
+        // ===============================
+
+        applyNormalEnemySelfDamage(
+            enemy,
+            skill
+        );
+
+
         return;
 
     }
@@ -3737,60 +3754,228 @@ function executeNormalEnemySkill(
         );
 
 
+        // 狗巻などの自傷
+        applyNormalEnemySelfDamage(
+            enemy,
+            skill
+        );
+
+
         return;
 
     }
 
 
     // ===============================
-    // 自身対象
+    // 敵全体
+    //
+    // AIから見た「敵」は
+    // プレイヤー側
+    // ===============================
+
+    if (
+        skill.target === "敵全体"
+    ) {
+
+        alivePlayers.forEach(
+            target => {
+
+                applyEffects(
+                    enemy,
+                    target,
+                    skill.effects ?? []
+                );
+
+            }
+        );
+
+
+        applyNormalEnemySelfDamage(
+            enemy,
+            skill
+        );
+
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 自身
     // ===============================
 
     if (
         skill.target === "自身"
     ) {
 
-        // 回復技
+        // ===============================
+        // 自己回復
+        // ===============================
+
         if (
             (skill.heal ?? 0) > 0
         ) {
 
-            const oldHp =
-                enemy.currentHp;
-
-
-            enemy.currentHp =
-                Math.min(
-                    enemy.maxHp,
-                    enemy.currentHp +
-                    skill.heal
-                );
-
-
-            const healAmount =
-                enemy.currentHp -
-                oldHp;
-
-
-            const enemyIndex =
-                gameState.enemyCharacters.indexOf(
-                    enemy
-                );
-
-
-            showDamage(
-                "enemy" + enemyIndex,
-                healAmount,
-                "heal"
+            healNormalEnemy(
+                enemy,
+                skill.heal
             );
 
         }
 
 
+        // ===============================
+        // 自身への効果
+        // ===============================
+
         applyEffects(
             enemy,
             enemy,
             skill.effects ?? []
+        );
+
+
+        applyNormalEnemySelfDamage(
+            enemy,
+            skill
+        );
+
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 味方単体
+    // ===============================
+
+    if (
+        skill.target ===
+        "味方単体"
+    ) {
+
+        if (
+            aliveAllies.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        // ===============================
+        // HP割合が一番低い味方
+        // ===============================
+
+        let target =
+            aliveAllies[0];
+
+
+        aliveAllies.forEach(
+            ally => {
+
+                const allyHpRate =
+                    ally.currentHp /
+                    ally.maxHp;
+
+
+                const targetHpRate =
+                    target.currentHp /
+                    target.maxHp;
+
+
+                if (
+                    allyHpRate <
+                    targetHpRate
+                ) {
+
+                    target = ally;
+
+                }
+
+            }
+        );
+
+
+        // ===============================
+        // 回復
+        // ===============================
+
+        if (
+            (skill.heal ?? 0) > 0
+        ) {
+
+            healNormalEnemy(
+                target,
+                skill.heal
+            );
+
+        }
+
+
+        // ===============================
+        // その他の効果
+        // ===============================
+
+        applyEffects(
+            enemy,
+            target,
+            skill.effects ?? []
+        );
+
+
+        applyNormalEnemySelfDamage(
+            enemy,
+            skill
+        );
+
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 味方全体
+    // ===============================
+
+    if (
+        skill.target ===
+        "味方全体"
+    ) {
+
+        aliveAllies.forEach(
+            target => {
+
+                // 回復
+                if (
+                    (skill.heal ?? 0) > 0
+                ) {
+
+                    healNormalEnemy(
+                        target,
+                        skill.heal
+                    );
+
+                }
+
+
+                // バフなど
+                applyEffects(
+                    enemy,
+                    target,
+                    skill.effects ?? []
+                );
+
+            }
+        );
+
+
+        applyNormalEnemySelfDamage(
+            enemy,
+            skill
         );
 
 
@@ -3800,6 +3985,128 @@ function executeNormalEnemySkill(
 
 }
 
+// ===============================
+// 通常バトル
+// AIキャラクター回復
+// ===============================
+
+function healNormalEnemy(
+    target,
+    value
+) {
+
+    if (!target) return;
+
+
+    if (
+        target.currentHp <= 0
+    ) {
+
+        return;
+
+    }
+
+
+    const beforeHp =
+        target.currentHp;
+
+
+    target.currentHp =
+        Math.min(
+            target.maxHp,
+            target.currentHp +
+            value
+        );
+
+
+    const healAmount =
+        target.currentHp -
+        beforeHp;
+
+
+    if (
+        healAmount <= 0
+    ) {
+
+        return;
+
+    }
+
+
+    const index =
+        gameState.enemyCharacters.indexOf(
+            target
+        );
+
+
+    if (
+        index !== -1
+    ) {
+
+        showDamage(
+            "enemy" + index,
+            healAmount,
+            "heal"
+        );
+
+    }
+
+}
+
+// ===============================
+// 通常バトル
+// AI側の自傷ダメージ
+// ===============================
+
+function applyNormalEnemySelfDamage(
+    enemy,
+    skill
+) {
+
+    const selfDamage =
+        skill.selfDamage ?? 0;
+
+
+    if (
+        selfDamage <= 0
+    ) {
+
+        return;
+
+    }
+
+
+    enemy.currentHp -=
+        selfDamage;
+
+
+    if (
+        enemy.currentHp < 0
+    ) {
+
+        enemy.currentHp = 0;
+
+    }
+
+
+    const index =
+        gameState.enemyCharacters.indexOf(
+            enemy
+        );
+
+
+    if (
+        index !== -1
+    ) {
+
+        showDamage(
+            "enemy" + index,
+            selfDamage
+        );
+
+    }
+
+}
 
 // ===============================
 // 通常バトル
