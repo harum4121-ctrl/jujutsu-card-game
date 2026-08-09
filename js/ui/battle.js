@@ -2913,3 +2913,736 @@ function showEnemySkillMessage(enemyName, skillName) {
     }, 1200);
 
 }
+// ===============================
+// 通常バトル
+// AIターン
+// ===============================
+
+function normalEnemyTurn() {
+
+    // ===============================
+    // 生存している敵を取得
+    // ===============================
+
+    const aliveEnemies =
+        gameState.enemyCharacters.filter(
+            enemy =>
+                enemy.currentHp > 0
+        );
+
+
+    // ===============================
+    // 生存している味方を取得
+    // ===============================
+
+    const alivePlayers =
+        gameState.battleCharacters.filter(
+            character =>
+                character.currentHp > 0
+        );
+
+
+    // ===============================
+    // 勝敗確認
+    // ===============================
+
+    if (aliveEnemies.length === 0) {
+
+        showBattleResult("win");
+
+        return;
+
+    }
+
+
+    if (alivePlayers.length === 0) {
+
+        showBattleResult("lose");
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 敵をシャッフル
+    // ===============================
+
+    const shuffledEnemies =
+        [...aliveEnemies].sort(
+            () =>
+                Math.random() - 0.5
+        );
+
+
+    // ===============================
+    // 最大2人を行動者にする
+    // ===============================
+
+    const actingEnemies =
+        shuffledEnemies.slice(
+            0,
+            Math.min(
+                2,
+                shuffledEnemies.length
+            )
+        );
+
+
+    console.log(
+        "AI行動キャラ:",
+        actingEnemies.map(
+            enemy => enemy.name
+        )
+    );
+
+
+    // ===============================
+    // 順番に行動
+    // ===============================
+
+    normalEnemyAct(
+        actingEnemies,
+        0
+    );
+
+}
+
+
+// ===============================
+// 通常バトル
+// AIキャラクターを順番に行動
+// ===============================
+
+function normalEnemyAct(
+    actingEnemies,
+    actorIndex
+) {
+
+    // ===============================
+    // 全員行動終了
+    // ===============================
+
+    if (
+        actorIndex >=
+        actingEnemies.length
+    ) {
+
+        finishNormalEnemyTurn();
+
+        return;
+
+    }
+
+
+    const enemy =
+        actingEnemies[
+            actorIndex
+        ];
+
+
+    // ===============================
+    // 戦闘不能なら次へ
+    // ===============================
+
+    if (
+        !enemy ||
+        enemy.currentHp <= 0
+    ) {
+
+        normalEnemyAct(
+            actingEnemies,
+            actorIndex + 1
+        );
+
+        return;
+
+    }
+
+
+    // ===============================
+    // スタン中
+    // ===============================
+
+    if (
+        (enemy.stun ?? 0) > 0
+    ) {
+
+        showEnemySkillMessage(
+            enemy.name,
+            "行動不能"
+        );
+
+
+        setTimeout(() => {
+
+            normalEnemyAct(
+                actingEnemies,
+                actorIndex + 1
+            );
+
+        }, 900);
+
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 使用可能スキル取得
+    // ===============================
+
+    const usableSkills = [];
+
+
+    enemy.skills.forEach(
+        (skill, index) => {
+
+            if (!skill) return;
+
+
+            // CT中
+            if (
+                (
+                    enemy.cooldowns[
+                        index
+                    ] ?? 0
+                ) > 0
+            ) {
+
+                return;
+
+            }
+
+
+            // 呪力不足
+            const cost =
+                skill.cost ?? 0;
+
+
+            if (
+                (
+                    enemy.currentCursedPower ??
+                    0
+                ) < cost
+            ) {
+
+                return;
+
+            }
+
+
+            usableSkills.push({
+
+                skill: skill,
+
+                index: index
+
+            });
+
+        }
+    );
+
+
+    // ===============================
+    // 使用できる技がない
+    // ===============================
+
+    if (
+        usableSkills.length === 0
+    ) {
+
+        showEnemySkillMessage(
+            enemy.name,
+            "行動できない"
+        );
+
+
+        setTimeout(() => {
+
+            normalEnemyAct(
+                actingEnemies,
+                actorIndex + 1
+            );
+
+        }, 900);
+
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 今回はランダムで技を選択
+    // ===============================
+
+    const selected =
+        usableSkills[
+            Math.floor(
+                Math.random() *
+                usableSkills.length
+            )
+        ];
+
+
+    const skill =
+        selected.skill;
+
+
+    const skillIndex =
+        selected.index;
+
+
+    // ===============================
+    // 呪力消費
+    // ===============================
+
+    enemy.currentCursedPower -=
+        skill.cost ?? 0;
+
+
+    if (
+        enemy.currentCursedPower < 0
+    ) {
+
+        enemy.currentCursedPower = 0;
+
+    }
+
+
+    // ===============================
+    // CT設定
+    // ===============================
+
+    if (
+        (skill.ct ?? 0) > 0
+    ) {
+
+        enemy.cooldowns[
+            skillIndex
+        ] =
+            skill.ct;
+
+    }
+
+
+    // ===============================
+    // スキル名表示
+    // ===============================
+
+    showEnemySkillMessage(
+        enemy.name,
+        skill.name
+    );
+
+
+    // ===============================
+    // スキル実行
+    // ===============================
+
+    executeNormalEnemySkill(
+        enemy,
+        skill
+    );
+
+
+    // ===============================
+    // 次の敵へ
+    // ===============================
+
+    setTimeout(() => {
+
+        if (checkBattleEnd()) {
+
+            return;
+
+        }
+
+
+        normalEnemyAct(
+            actingEnemies,
+            actorIndex + 1
+        );
+
+    }, 1000);
+
+}
+
+
+// ===============================
+// 通常バトル
+// AIスキル実行
+// ===============================
+
+function executeNormalEnemySkill(
+    enemy,
+    skill
+) {
+
+    const alivePlayers =
+        gameState.battleCharacters.filter(
+            character =>
+                character.currentHp > 0
+        );
+
+
+    if (
+        alivePlayers.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 単体攻撃
+    // ===============================
+
+    if (
+        skill.target === "単体"
+    ) {
+
+        let target =
+            alivePlayers.find(
+                character =>
+                    (character.taunt ?? 0) > 0
+            );
+
+
+        if (!target) {
+
+            target =
+                alivePlayers[
+                    Math.floor(
+                        Math.random() *
+                        alivePlayers.length
+                    )
+                ];
+
+        }
+
+
+        const damage =
+            calculateDamage(
+                enemy,
+                target,
+                skill
+            );
+
+
+        target.currentHp -=
+            damage;
+
+
+        if (
+            target.currentHp < 0
+        ) {
+
+            target.currentHp = 0;
+
+        }
+
+
+        const targetIndex =
+            gameState.battleCharacters.indexOf(
+                target
+            );
+
+
+        showDamage(
+            "player" + targetIndex,
+            damage
+        );
+
+
+        target.lastSingleDamage =
+            damage;
+
+
+        applyEffects(
+            enemy,
+            target,
+            skill.effects ?? []
+        );
+
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 全体攻撃
+    // ===============================
+
+    if (
+        skill.target === "全体"
+    ) {
+
+        alivePlayers.forEach(
+            target => {
+
+                const damage =
+                    calculateDamage(
+                        enemy,
+                        target,
+                        skill
+                    );
+
+
+                target.currentHp -=
+                    damage;
+
+
+                if (
+                    target.currentHp < 0
+                ) {
+
+                    target.currentHp = 0;
+
+                }
+
+
+                const targetIndex =
+                    gameState.battleCharacters.indexOf(
+                        target
+                    );
+
+
+                showDamage(
+                    "player" +
+                    targetIndex,
+                    damage
+                );
+
+
+                applyEffects(
+                    enemy,
+                    target,
+                    skill.effects ?? []
+                );
+
+            }
+        );
+
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 自身対象
+    // ===============================
+
+    if (
+        skill.target === "自身"
+    ) {
+
+        // 回復技
+        if (
+            (skill.heal ?? 0) > 0
+        ) {
+
+            const oldHp =
+                enemy.currentHp;
+
+
+            enemy.currentHp =
+                Math.min(
+                    enemy.maxHp,
+                    enemy.currentHp +
+                    skill.heal
+                );
+
+
+            const healAmount =
+                enemy.currentHp -
+                oldHp;
+
+
+            const enemyIndex =
+                gameState.enemyCharacters.indexOf(
+                    enemy
+                );
+
+
+            showDamage(
+                "enemy" + enemyIndex,
+                healAmount,
+                "heal"
+            );
+
+        }
+
+
+        applyEffects(
+            enemy,
+            enemy,
+            skill.effects ?? []
+        );
+
+
+        return;
+
+    }
+
+}
+
+
+// ===============================
+// 通常バトル
+// AIターン終了
+// ===============================
+
+function finishNormalEnemyTurn() {
+
+    // ===============================
+    // AI側CT減少
+    // ===============================
+
+    gameState.enemyCharacters.forEach(
+        enemy => {
+
+            for (
+                const key
+                in enemy.cooldowns
+            ) {
+
+                if (
+                    enemy.cooldowns[key] > 0
+                ) {
+
+                    enemy.cooldowns[key]--;
+
+                }
+
+
+                if (
+                    enemy.cooldowns[key] <= 0
+                ) {
+
+                    delete enemy.cooldowns[
+                        key
+                    ];
+
+                }
+
+            }
+
+        }
+    );
+
+
+    // ===============================
+    // プレイヤー呪力回復
+    // ===============================
+
+    gameState.battleCharacters.forEach(
+        character => {
+
+            if (
+                character.currentHp <= 0
+            ) {
+
+                return;
+
+            }
+
+
+            character.currentCursedPower =
+                Math.min(
+
+                    character.maxCursedPower,
+
+                    character.currentCursedPower +
+                    character.cursedPowerRecovery
+
+                );
+
+
+            // 行動状態リセット
+            character.hasActed =
+                false;
+
+        }
+    );
+
+
+    // ===============================
+    // 選択キャラを解除
+    // ===============================
+
+    gameState.selectedActors = [];
+
+
+    // ===============================
+    // プレイヤーCT減少
+    // ===============================
+
+    gameState.battleCharacters.forEach(
+        character => {
+
+            for (
+                const key
+                in character.cooldowns
+            ) {
+
+                if (
+                    character.cooldowns[key] > 0
+                ) {
+
+                    character.cooldowns[key]--;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    // ===============================
+    // 勝敗確認
+    // ===============================
+
+    if (
+        checkBattleEnd()
+    ) {
+
+        return;
+
+    }
+
+
+    // ===============================
+    // ドロー
+    // ===============================
+
+    if (
+        !drawCard()
+    ) {
+
+        showBattleResult(
+            "lose"
+        );
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 画面更新
+    // ===============================
+
+    setTimeout(() => {
+
+        showBattleScreen();
+
+    }, 700);
+
+}
