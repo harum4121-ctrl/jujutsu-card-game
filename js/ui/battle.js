@@ -1697,9 +1697,88 @@ if (!target) {
 
 }
 
-            const damage =
-                calculateDamage(enemy, target, skill);
-                
+let damage;
+
+
+// ===============================
+// 真人「無為転変」
+// ===============================
+
+if (
+    skill.currentHpRatioDamage != null
+) {
+
+    damage =
+        Math.floor(
+            target.currentHp *
+            skill.currentHpRatioDamage
+        );
+
+}
+
+
+// ===============================
+// 真人「変形打撃」
+// ===============================
+
+else if (
+    skill.mahitoStrike &&
+    enemy.transformation
+) {
+
+    const transformation =
+        enemy.transformation;
+
+
+    // 基本ダメージ
+    damage =
+        transformation.damage *
+        (transformation.hits ?? 1);
+
+
+    // 攻撃側バフ
+    damage +=
+        Number(enemy.attackBonus) || 0;
+
+    damage +=
+        Number(enemy.damageBuff) || 0;
+
+    damage -=
+        Number(enemy.damageDown) || 0;
+
+
+    // 防御側補正
+    damage +=
+        Number(target.damageTakenUp) || 0;
+
+    damage -=
+        Number(target.damageReduction) || 0;
+
+
+    damage =
+        Math.max(
+            0,
+            Math.floor(damage)
+        );
+
+}
+
+
+// ===============================
+// 通常攻撃
+// ===============================
+
+else {
+
+    damage =
+        calculateDamage(
+            enemy,
+            target,
+            skill
+        );
+
+}
+                            
                 showEnemySkillMessage(
     enemy.name,
     skill.name
