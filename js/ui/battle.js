@@ -135,7 +135,10 @@ stun: 0,
 burnDamage: 0,
 burnTurn: 0,
 
-skillCostDown: 0
+skillCostDown: 0,
+
+// 真人「変形」
+transformation: null
 
     }
 
