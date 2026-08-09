@@ -2168,12 +2168,11 @@ function processDamageOverTime(
 
         }
 
-
         showDamage(
-            targetId,
-            damage
-        );
-
+    targetId,
+    damage,
+    "burn"
+);
 
         // 残りターン減少
         character.burnTurn--;
