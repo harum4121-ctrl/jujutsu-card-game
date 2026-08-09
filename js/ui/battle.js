@@ -1776,22 +1776,85 @@ showDamage(
         }
 
         // ===============================
-        // 自身対象スキル
-        // ===============================
-        else if (skill.target === "自身") {
+// 自身対象スキル
+// ===============================
+else if (skill.target === "自身") {
 
-            showEnemySkillMessage(
-                enemy.name,
-                skill.name
-            );
+    showEnemySkillMessage(
+        enemy.name,
+        skill.name
+    );
 
-            applyEffects(
-                enemy,
-                enemy,
-                skill.effects
-            );
 
-        }
+    // ===============================
+    // 真人「変形」
+    // ===============================
+
+    if (skill.mahitoTransform) {
+
+        const transformations = [
+
+            {
+                id: "bladeArm",
+                name: "刃腕",
+                damage: 50,
+                hits: 1
+            },
+
+            {
+                id: "giantFist",
+                name: "巨大拳",
+                damage: 70,
+                hits: 1
+            },
+
+            {
+                id: "multiArm",
+                name: "多腕攻撃",
+                damage: 25,
+                hits: 3
+            },
+
+            {
+                id: "spikeArm",
+                name: "棘腕",
+                damage: 40,
+                hits: 1,
+                damageTakenUp: 20,
+                damageTakenUpTurn: 2
+            }
+
+        ];
+
+
+        // 4種類からランダム
+        enemy.transformation =
+            transformations[
+                Math.floor(
+                    Math.random() *
+                    transformations.length
+                )
+            ];
+
+
+        alert(
+            enemy.name +
+            " が変形した！\n" +
+            "次の打撃：" +
+            enemy.transformation.name
+        );
+
+    }
+
+
+    // 通常の自身効果
+    applyEffects(
+        enemy,
+        enemy,
+        skill.effects
+    );
+
+}
 
     });
     
