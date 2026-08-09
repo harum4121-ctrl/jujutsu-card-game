@@ -6168,3 +6168,19 @@ animation-duration:.5s;
     }
 
 }
+
+/* ===============================
+   火傷ダメージ
+================================ */
+
+.floating-damage.burn {
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 4px #000,
+        0 0 8px #000;
+
+}
