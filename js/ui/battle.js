@@ -3397,12 +3397,14 @@ const selected =
 
 
     const skill =
-        selected.skill;
+    selected.skill;
+
+const skillIndex =
+    selected.index;
 
 
-    const skillIndex =
-        selected.index;
-
+const isUltimate =
+    selected.isUltimate === true;
 
     // ===============================
     // 呪力消費
