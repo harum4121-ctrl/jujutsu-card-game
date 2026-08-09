@@ -1861,18 +1861,45 @@ if (
 
             playersAlive.forEach((target) => {
 
-                const damage =
-                    calculateDamage(
-                        enemy,
-                        target,
-                        skill
-                    );
+    let damage;
 
-                target.currentHp -= damage;
 
-                if (target.currentHp < 0) {
-                    target.currentHp = 0;
-                }
+    // ===============================
+    // 真人
+    // 領域展開「自閉円頓裹」
+    // ===============================
+
+    if (
+        skill.executeHp != null &&
+        target.currentHp <= skill.executeHp
+    ) {
+
+        // 残りHPを全部ダメージにする
+        damage =
+            target.currentHp;
+
+    }
+
+    else {
+
+        damage =
+            calculateDamage(
+                enemy,
+                target,
+                skill
+            );
+
+    }
+
+
+    target.currentHp -= damage;
+
+
+    if (target.currentHp < 0) {
+
+        target.currentHp = 0;
+
+    }
 
                 const targetIndex =
                     gameState.battleCharacters.indexOf(
