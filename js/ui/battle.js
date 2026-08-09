@@ -2191,7 +2191,11 @@ function processDamageOverTime(
 
 }
 
-function showDamage(targetId, value, heal = false) {
+function showDamage(
+    targetId,
+    value,
+    type = "normal"
+) {
 
     const target =
         document.getElementById(targetId);
@@ -2205,28 +2209,82 @@ function showDamage(targetId, value, heal = false) {
         document.createElement("div");
 
     damageElement.className =
-        heal
-            ? "floating-damage heal"
-            : "floating-damage";
+        "floating-damage";
 
-    damageElement.textContent =
-        heal
-            ? "+" + value
-            : "-" + value;
+
+    // ===============================
+    // 表示タイプ
+    // ===============================
+
+    switch (type) {
+
+        case "heal":
+
+            damageElement.classList.add(
+                "heal"
+            );
+
+            damageElement.textContent =
+                "+" + value;
+
+            break;
+
+
+        case "burn":
+
+            damageElement.classList.add(
+                "burn"
+            );
+
+            damageElement.textContent =
+                "🔥 -" + value;
+
+            break;
+
+
+        default:
+
+            damageElement.textContent =
+                "-" + value;
+
+            break;
+
+    }
+
+
+    // ===============================
+    // 表示位置
+    // ===============================
+
+    let left =
+        rect.left +
+        rect.width / 2;
+
+    let top =
+        rect.top +
+        rect.height / 2;
+
+
+    // 火傷だけ右上へ
+    if (type === "burn") {
+
+        left += 35;
+        top -= 25;
+
+    }
+
 
     damageElement.style.left =
-        rect.left +
-        rect.width / 2 +
-        "px";
+        left + "px";
 
     damageElement.style.top =
-        rect.top +
-        rect.height / 2 +
-        "px";
+        top + "px";
+
 
     document.body.appendChild(
         damageElement
     );
+
 
     setTimeout(() => {
 
