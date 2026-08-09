@@ -3175,16 +3175,14 @@ function normalEnemyAct(
 
 
     // ===============================
-    // 今回はランダムで技を選択
-    // ===============================
+// AIが使用スキルを選択
+// ===============================
 
-    const selected =
-        usableSkills[
-            Math.floor(
-                Math.random() *
-                usableSkills.length
-            )
-        ];
+const selected =
+    selectNormalEnemySkill(
+        enemy,
+        usableSkills
+    );
 
 
     const skill =
