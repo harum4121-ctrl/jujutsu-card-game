@@ -2014,12 +2014,7 @@ else if (skill.target === "自身") {
             ];
 
 
-        alert(
-            enemy.name +
-            " が変形した！\n" +
-            "次の打撃：" +
-            enemy.transformation.name
-        );
+        
 
     }
 
