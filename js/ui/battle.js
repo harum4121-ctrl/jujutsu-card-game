@@ -5472,3 +5472,308 @@ function executeNormalEnemyCard(
 
 }
 
+// ===============================
+// 通常バトル
+// AIカード効果
+// ===============================
+
+function applyNormalEnemyCardEffects(
+    card,
+    target
+) {
+
+    const effects =
+        Array.isArray(card.effect)
+            ? card.effect
+            : [card.effect];
+
+
+    effects.forEach(effect => {
+
+        if (!effect) return;
+
+
+        switch (
+            effect.type
+        ) {
+
+            // ===============================
+            // 呪力回復
+            // ===============================
+
+            case "cursedUp":
+
+                target.currentCursedPower =
+                    Math.min(
+                        target.maxCursedPower,
+                        target.currentCursedPower +
+                        effect.value
+                    );
+
+                break;
+
+
+            // ===============================
+            // 回復
+            // ===============================
+
+            case "heal":
+
+                healNormalEnemy(
+                    target,
+                    effect.value
+                );
+
+                break;
+
+
+            // ===============================
+            // 挑発
+            // ===============================
+
+            case "taunt":
+
+                target.taunt =
+                    Math.max(
+                        target.taunt ?? 0,
+                        effect.duration ?? 1
+                    );
+
+                break;
+
+
+            // ===============================
+            // 無敵無視
+            // ===============================
+
+            case "ignoreInvincible":
+
+                target.ignoreInvincible =
+                    Math.max(
+                        target.ignoreInvincible ?? 0,
+                        effect.duration ?? 1
+                    );
+
+                break;
+
+
+            // ===============================
+            // ダメージ軽減
+            // ===============================
+
+            case "damageReduction":
+
+                target.damageReduction =
+                    (
+                        target.damageReduction ??
+                        0
+                    )
+                    +
+                    effect.value;
+
+
+                target.damageReductionTurn =
+                    Math.max(
+                        target.damageReductionTurn ??
+                        0,
+                        effect.duration ?? 1
+                    );
+
+                break;
+
+
+            // ===============================
+            // 全体ダメージ軽減
+            // ===============================
+
+            case "allDamageReduction":
+
+                target.damageReduction =
+                    (
+                        target.damageReduction ??
+                        0
+                    )
+                    +
+                    effect.value;
+
+
+                target.damageReductionTurn =
+                    Math.max(
+                        target.damageReductionTurn ??
+                        0,
+                        effect.duration ?? 1
+                    );
+
+                break;
+
+
+            // ===============================
+            // 次のスキル消費0
+            // ===============================
+
+            case "skillCostZero":
+
+                target.nextSkillFree =
+                    true;
+
+                break;
+
+
+            // ===============================
+            // 必殺カード消費なし
+            // ===============================
+
+            case "freeUltimate":
+
+                target.freeUltimate =
+                    true;
+
+                break;
+
+
+            // ===============================
+            // 追加行動
+            // ===============================
+
+            case "extraAction":
+
+                target.extraAction =
+                    true;
+
+                break;
+
+
+            // ===============================
+            // 次のダメージ2倍
+            // ===============================
+
+            case "doubleNextDamage":
+
+                target.doubleNextDamage =
+                    true;
+
+                break;
+
+
+            // ===============================
+            // 前回単体ダメージ回復
+            // ===============================
+
+            case "recoverPreviousSingleDamage":
+
+                const recover =
+                    target.lastSingleDamage ??
+                    0;
+
+
+                if (
+                    recover > 0
+                ) {
+
+                    healNormalEnemy(
+                        target,
+                        recover
+                    );
+
+
+                    target.lastSingleDamage =
+                        0;
+
+                }
+
+                break;
+
+
+            // ===============================
+            // スタン
+            // ===============================
+
+            case "stun":
+
+                target.stun =
+                    Math.max(
+                        target.stun ?? 0,
+                        effect.duration ?? 1
+                    );
+
+                break;
+
+
+            // ===============================
+            // 無敵
+            // ===============================
+
+            case "invincible":
+
+                target.invincible =
+                    Math.max(
+                        target.invincible ?? 0,
+                        effect.duration ?? 1
+                    );
+
+                break;
+
+
+            // ===============================
+            // 相手全体呪力減少系
+            // ===============================
+
+            case "allCursedPowerDown":
+
+                target.currentCursedPower =
+                    Math.max(
+                        0,
+                        target.currentCursedPower -
+                        effect.value
+                    );
+
+                break;
+
+        }
+
+    });
+
+}
+
+// ===============================
+// 通常バトル
+// AIカード使用表示
+// ===============================
+
+function showEnemyCardMessage(
+    cardName
+) {
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+
+    message.className =
+        "enemy-skill-message";
+
+
+    message.innerHTML = `
+
+        <span>AIがカードを使用</span>
+
+        <strong>
+            ${cardName}
+        </strong>
+
+    `;
+
+
+    document.body.appendChild(
+        message
+    );
+
+
+    setTimeout(() => {
+
+        message.remove();
+
+    }, 1200);
+
+}
