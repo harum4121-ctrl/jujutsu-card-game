@@ -3422,6 +3422,81 @@ const isUltimate =
 
     }
 
+// ===============================
+// 必殺カード消費
+// ===============================
+
+const requiredUltimateCards =
+    skill.costCard ?? 0;
+
+
+if (
+    requiredUltimateCards > 0
+) {
+
+    const consumedCards = [];
+
+
+    for (
+        let i = 0;
+        i < requiredUltimateCards;
+        i++
+    ) {
+
+        const cardIndex =
+            gameState.enemyHand.findIndex(
+                card =>
+                    card &&
+                    card.id ===
+                    "ultimate_card"
+            );
+
+
+        // 念のため
+        if (cardIndex === -1) {
+
+            break;
+
+        }
+
+
+        const consumedCard =
+            gameState.enemyHand.splice(
+                cardIndex,
+                1
+            )[0];
+
+
+        consumedCards.push(
+            consumedCard
+        );
+
+    }
+
+
+    // ===============================
+    // 使用した必殺カードを墓地へ
+    // ===============================
+
+    consumedCards.forEach(
+        card => {
+
+            gameState.enemyGraveyard.push(
+                card
+            );
+
+        }
+    );
+
+
+    console.log(
+        enemy.name +
+        " が必殺カードを " +
+        consumedCards.length +
+        "枚消費"
+    );
+
+}
 
     // ===============================
     // CT設定
