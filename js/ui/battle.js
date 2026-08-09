@@ -3219,62 +3219,142 @@ function normalEnemyAct(
 
     }
 
-
     // ===============================
-    // 使用可能スキル取得
-    // ===============================
+// 使用可能スキル取得
+// 通常技 + 必殺技
+// ===============================
 
-    const usableSkills = [];
-
-
-    enemy.skills.forEach(
-        (skill, index) => {
-
-            if (!skill) return;
+const usableSkills = [];
 
 
-            // CT中
-            if (
-                (
-                    enemy.cooldowns[
-                        index
-                    ] ?? 0
-                ) > 0
-            ) {
+// ===============================
+// AI手札の必殺カード枚数
+// ===============================
 
-                return;
-
-            }
-
-
-            // 呪力不足
-            const cost =
-                skill.cost ?? 0;
+const ultimateCardCount =
+    Array.isArray(gameState.enemyHand)
+        ? gameState.enemyHand.filter(
+            card =>
+                card &&
+                card.id === "ultimate_card"
+        ).length
+        : 0;
 
 
-            if (
-                (
-                    enemy.currentCursedPower ??
-                    0
-                ) < cost
-            ) {
+// ===============================
+// 通常スキル
+// ===============================
 
-                return;
+enemy.skills.forEach(
+    (skill, index) => {
 
-            }
+        if (!skill) return;
 
 
-            usableSkills.push({
+        // ===============================
+        // CT中
+        // ===============================
 
-                skill: skill,
+        if (
+            (
+                enemy.cooldowns[index] ??
+                0
+            ) > 0
+        ) {
 
-                index: index
-
-            });
+            return;
 
         }
-    );
 
+
+        // ===============================
+        // 呪力不足
+        // ===============================
+
+        const cost =
+            skill.cost ?? 0;
+
+
+        if (
+            (
+                enemy.currentCursedPower ??
+                0
+            ) < cost
+        ) {
+
+            return;
+
+        }
+
+
+        // ===============================
+        // 必殺カードが必要な通常技
+        //
+        // 例：
+        // 乙骨「黒閃」
+        // ===============================
+
+        const requiredCards =
+            skill.costCard ?? 0;
+
+
+        if (
+            ultimateCardCount <
+            requiredCards
+        ) {
+
+            return;
+
+        }
+
+
+        usableSkills.push({
+
+            skill: skill,
+
+            index: index,
+
+            isUltimate: false
+
+        });
+
+    }
+);
+
+
+// ===============================
+// 必殺技
+// ===============================
+
+if (enemy.ultimate) {
+
+    const ultimate =
+        enemy.ultimate;
+
+
+    const requiredCards =
+        ultimate.costCard ?? 0;
+
+
+    // 必殺カードが足りている
+    if (
+        ultimateCardCount >=
+        requiredCards
+    ) {
+
+        usableSkills.push({
+
+            skill: ultimate,
+
+            index: null,
+
+            isUltimate: true
+
+        });
+
+    }
+
+}
 
     // ===============================
     // 使用できる技がない
