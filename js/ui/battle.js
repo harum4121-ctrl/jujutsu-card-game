@@ -1806,6 +1806,46 @@ showDamage(
                 target,
                 skill.effects
             );
+            
+            // ===============================
+// 真人「変形打撃」の追加効果
+// ===============================
+
+if (
+    skill.mahitoStrike &&
+    enemy.transformation
+) {
+
+    const transformation =
+        enemy.transformation;
+
+
+    // ===============================
+    // 棘腕
+    // ===============================
+
+    if (
+        transformation.id === "spikeArm"
+    ) {
+
+        target.damageTakenUp =
+            (target.damageTakenUp ?? 0)
+            +
+            transformation.damageTakenUp;
+
+        target.damageTakenUpTurn =
+            transformation.damageTakenUpTurn;
+
+    }
+
+
+    // ===============================
+    // 打撃を使用したので変形解除
+    // ===============================
+
+    enemy.transformation = null;
+
+}
 
         }
 
