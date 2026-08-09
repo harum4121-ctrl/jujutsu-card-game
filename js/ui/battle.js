@@ -407,6 +407,19 @@ for (let i = 0; i < 5; i++) {
 
 }
 
+// ===============================
+// 通常バトル
+// AIデッキ初期化
+// ===============================
+
+if (
+    gameState.battleMode === "normal"
+) {
+
+    initializeNormalEnemyDeck();
+
+}
+
 // 行動状態リセット
 gameState.battleCharacters.forEach(character => {
 
