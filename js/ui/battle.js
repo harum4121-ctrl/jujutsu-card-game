@@ -1607,17 +1607,48 @@ enemy.skills.forEach((normalSkill, index) => {
 
     if (!normalSkill) return;
 
+
+    // ===============================
     // スキル封印中
+    // ===============================
+
     if (enemy.sealedSkills[index]) {
         return;
     }
 
+
+    // ===============================
     // CT中
+    // ===============================
+
     if (
         (enemy.cooldowns[index] ?? 0) > 0
     ) {
         return;
     }
+
+
+    // ===============================
+    // 真人「変形」
+    //
+    // すでに変形している場合、
+    // もう一度「変形」は使わない
+    // ===============================
+
+    if (
+        enemy.id === "mahito" &&
+        enemy.transformation &&
+        normalSkill.mahitoTransform
+    ) {
+
+        return;
+
+    }
+
+
+    // ===============================
+    // 使用候補に追加
+    // ===============================
 
     usable.push({
 
