@@ -169,21 +169,17 @@ function selectBattleMode(mode) {
 
     gameState.battleMode = mode;
 
-
     // ===============================
-    // 通常バトル
-    // ===============================
+// 通常バトル
+// ===============================
 
-    if (mode === "normal") {
+if (mode === "normal") {
 
-        alert(
-            "通常バトルは現在準備中です！"
-        );
+    showNormalBattleTeamSelect();
 
-        return;
+    return;
 
-    }
-
+}
 
     // ===============================
     // ボスバトル
