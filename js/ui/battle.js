@@ -3592,7 +3592,91 @@ function selectNormalEnemySkill(
 
             let score =
                 Math.random() * 20;
+                
+                // ===============================
+// 必殺技
+// ===============================
 
+if (
+    data.isUltimate === true
+) {
+
+    // 必殺技は基本的に高評価
+    score += 100;
+
+
+    // ===============================
+    // 攻撃必殺
+    // ===============================
+
+    if (
+        (skill.damage ?? 0) > 0
+    ) {
+
+        score +=
+            skill.damage / 5;
+
+    }
+
+
+    // ===============================
+    // 回復必殺
+    // 家入など
+    // ===============================
+
+    if (
+        (skill.heal ?? 0) > 0
+    ) {
+
+        const injured =
+            allies.filter(
+                ally =>
+                    ally.currentHp <
+                    ally.maxHp
+            );
+
+
+        // 誰もダメージを受けていない
+        if (
+            injured.length === 0
+        ) {
+
+            score -= 150;
+
+        }
+
+        else {
+
+            const lowest =
+                getLowestHpNormalEnemy(
+                    injured
+                );
+
+
+            const hpRate =
+                lowest.currentHp /
+                lowest.maxHp;
+
+
+            if (hpRate <= 0.3) {
+
+                score += 100;
+
+            }
+
+            else if (
+                hpRate <= 0.5
+            ) {
+
+                score += 60;
+
+            }
+
+        }
+
+    }
+
+}
 
             // ===============================
             // 回復技
