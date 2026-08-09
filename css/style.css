@@ -6184,3 +6184,309 @@ animation-duration:.5s;
         0 0 8px #000;
 
 }
+/* ===============================
+   バトルモード選択
+================================ */
+
+.battle-mode-screen {
+
+    min-height: 100vh;
+
+    box-sizing: border-box;
+
+    padding:
+        50px
+        20px
+        80px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #252525 0%,
+            #111 45%,
+            #050505 100%
+        );
+
+    color: white;
+
+}
+
+
+/* ===============================
+   ヘッダー
+================================ */
+
+.battle-mode-header {
+
+    text-align: center;
+
+    margin-bottom: 40px;
+
+}
+
+
+.battle-mode-small {
+
+    margin: 0;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+
+    opacity: 0.6;
+
+}
+
+
+.battle-mode-header h1 {
+
+    margin:
+        8px
+        0;
+
+    font-size: 32px;
+
+}
+
+
+.battle-mode-description {
+
+    margin: 0;
+
+    opacity: 0.65;
+
+}
+
+
+/* ===============================
+   モード一覧
+================================ */
+
+.battle-mode-list {
+
+    width: 100%;
+
+    max-width: 650px;
+
+    margin:
+        0
+        auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+}
+
+
+/* ===============================
+   モードカード
+================================ */
+
+.battle-mode-card {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 130px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    border-radius: 18px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.15);
+
+    background:
+        rgba(255,255,255,0.06);
+
+    color: white;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s,
+        background 0.2s,
+        border 0.2s;
+
+}
+
+
+.battle-mode-card:active {
+
+    transform:
+        scale(0.97);
+
+}
+
+
+/* ===============================
+   アイコン
+================================ */
+
+.battle-mode-icon {
+
+    flex-shrink: 0;
+
+    width: 70px;
+
+    height: 70px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    font-size: 34px;
+
+}
+
+
+/* ===============================
+   テキスト
+================================ */
+
+.battle-mode-content {
+
+    flex: 1;
+
+}
+
+
+.battle-mode-type {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.5;
+
+}
+
+
+.battle-mode-content h2 {
+
+    margin:
+        0
+        0
+        7px;
+
+    font-size: 21px;
+
+}
+
+
+.battle-mode-content p {
+
+    margin: 0;
+
+    line-height: 1.6;
+
+    font-size: 13px;
+
+    opacity: 0.65;
+
+}
+
+
+/* ===============================
+   矢印
+================================ */
+
+.battle-mode-arrow {
+
+    font-size: 34px;
+
+    opacity: 0.45;
+
+}
+
+
+/* ===============================
+   モード別アクセント
+================================ */
+
+.normal-mode {
+
+    border-left:
+        4px solid
+        #4da3ff;
+
+}
+
+
+.boss-mode {
+
+    border-left:
+        4px solid
+        #ff3b3b;
+
+}
+
+
+.challenge-mode {
+
+    border-left:
+        4px solid
+        #ff9d2e;
+
+}
+
+
+/* ===============================
+   戻る
+================================ */
+
+.battle-mode-back {
+
+    display: block;
+
+    margin:
+        35px
+        auto
+        0;
+
+    padding:
+        12px
+        28px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.2);
+
+    border-radius: 999px;
+
+    background:
+        transparent;
+
+    color: white;
+
+    font-size: 14px;
+
+}
