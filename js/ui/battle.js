@@ -78,72 +78,315 @@ extraActionStun: false
 
     });
 
+// ===============================
 // 敵生成
-const enemy =
-    enemies[gameState.selectedEnemy];
+// ===============================
 
-gameState.enemyCharacters = [
+gameState.enemyCharacters = [];
 
-    {
 
-        id: gameState.selectedEnemy,
+// ===============================
+// 通常バトル
+// 3人のAIキャラクターを生成
+// ===============================
 
-        name: enemy.name,
+if (gameState.battleMode === "normal") {
 
-        maxHp: enemy.hp,
-        currentHp: enemy.hp,
+    gameState.selectedEnemyCharacters.forEach(id => {
 
-        attack: enemy.attack,
+        const data =
+            characters[id];
 
-        maxCursedPower: enemy.maxCursedPower,
-        currentCursedPower: enemy.cursedPower,
-        cursedPowerRecovery: enemy.cursedPowerRecovery,
 
-        skills: enemy.skills ?? [],
-        ultimate: enemy.ultimate ?? null,
+        gameState.enemyCharacters.push({
 
-        cooldowns: {},
-        
-        sealedSkills: {},
+            id: id,
 
-        turnCount: 0,
+            name: data.name,
 
-        attackBonus: 0,
+            cardImage: data.cardImage,
 
-damageBuff: 0,
-damageBuffTurn: 0,
+            type: data.type,
 
-// 火傷付与率アップ
-burnChanceBonus: 0,
-burnChanceBonusTurn: 0,
 
-damageReduction: 0,
-damageReductionTurn: 0,
+            // ===============================
+            // HP
+            // ===============================
 
-damageDown: 0,
-damageDownTurn: 0,
+            maxHp: data.hp,
 
-damageTakenUp: 0,
-damageTakenUpTurn: 0,
-lastSingleDamage: 0,
-ignoreInvincible: 0,
+            currentHp: data.hp,
 
-invincible: 0,
-stun: 0,
 
-// 火傷
-burnDamage: 0,
-burnTurn: 0,
+            // ===============================
+            // 呪力
+            // ===============================
 
-skillCostDown: 0,
+            maxCursedPower:
+                data.maxCursedPower,
 
-// 真人「変形」
-transformation: null
+            currentCursedPower:
+                data.cursedPower,
 
-    }
+            cursedPowerRecovery:
+                data.cursedPowerRecovery,
 
-];
 
+            // ===============================
+            // スキル
+            // ===============================
+
+            skills:
+                data.skills ?? [],
+
+            ultimate:
+                data.ultimate ?? null,
+
+
+            // ===============================
+            // 行動関係
+            // ===============================
+
+            cooldowns: {},
+
+            sealedSkills: {},
+
+            turnCount: 0,
+
+            hasActed: false,
+
+
+            // ===============================
+            // 攻撃補正
+            // ===============================
+
+            attackBonus: 0,
+
+            damageBuff: 0,
+
+            damageBuffTurn: 0,
+
+            damageDown: 0,
+
+            damageDownTurn: 0,
+
+
+            // ===============================
+            // 防御補正
+            // ===============================
+
+            damageReduction: 0,
+
+            damageReductionTurn: 0,
+
+            damageTakenUp: 0,
+
+            damageTakenUpTurn: 0,
+
+
+            // ===============================
+            // その他
+            // ===============================
+
+            lastSingleDamage: 0,
+
+            ignoreInvincible: 0,
+
+            invincible: 0,
+
+            stun: 0,
+
+            taunt: 0,
+
+
+            // ===============================
+            // 火傷
+            // ===============================
+
+            burnDamage: 0,
+
+            burnTurn: 0,
+
+            burnChanceBonus: 0,
+
+            burnChanceBonusTurn: 0,
+
+
+            // ===============================
+            // 呪力補正
+            // ===============================
+
+            skillCostDown: 0,
+
+
+            // ===============================
+            // 真人
+            // ===============================
+
+            transformation: null
+
+        });
+
+    });
+
+}
+
+
+// ===============================
+// ボスバトル
+// 今までの敵生成
+// ===============================
+
+else {
+
+    const enemy =
+        enemies[
+            gameState.selectedEnemy
+        ];
+
+
+    gameState.enemyCharacters = [
+
+        {
+
+            id:
+                gameState.selectedEnemy,
+
+            name:
+                enemy.name,
+
+
+            // ===============================
+            // HP
+            // ===============================
+
+            maxHp:
+                enemy.hp,
+
+            currentHp:
+                enemy.hp,
+
+
+            // ===============================
+            // ボス攻撃力
+            // ===============================
+
+            attack:
+                enemy.attack,
+
+
+            // ===============================
+            // 呪力
+            // ===============================
+
+            maxCursedPower:
+                enemy.maxCursedPower,
+
+            currentCursedPower:
+                enemy.cursedPower,
+
+            cursedPowerRecovery:
+                enemy.cursedPowerRecovery,
+
+
+            // ===============================
+            // スキル
+            // ===============================
+
+            skills:
+                enemy.skills ?? [],
+
+            ultimate:
+                enemy.ultimate ?? null,
+
+
+            // ===============================
+            // 行動関係
+            // ===============================
+
+            cooldowns: {},
+
+            sealedSkills: {},
+
+            turnCount: 0,
+
+            hasActed: false,
+
+
+            // ===============================
+            // 攻撃補正
+            // ===============================
+
+            attackBonus: 0,
+
+            damageBuff: 0,
+
+            damageBuffTurn: 0,
+
+            damageDown: 0,
+
+            damageDownTurn: 0,
+
+
+            // ===============================
+            // 防御補正
+            // ===============================
+
+            damageReduction: 0,
+
+            damageReductionTurn: 0,
+
+            damageTakenUp: 0,
+
+            damageTakenUpTurn: 0,
+
+
+            // ===============================
+            // その他
+            // ===============================
+
+            lastSingleDamage: 0,
+
+            ignoreInvincible: 0,
+
+            invincible: 0,
+
+            stun: 0,
+
+            taunt: 0,
+
+
+            // ===============================
+            // 火傷
+            // ===============================
+
+            burnDamage: 0,
+
+            burnTurn: 0,
+
+            burnChanceBonus: 0,
+
+            burnChanceBonusTurn: 0,
+
+
+            // ===============================
+            // 呪力補正
+            // ===============================
+
+            skillCostDown: 0,
+
+
+            // ===============================
+            // 真人「変形」
+            // ===============================
+
+            transformation: null
+
+        }
+
+    ];
+
+}
 
     // デッキ作成
     gameState.drawPile = [...gameState.deck];
