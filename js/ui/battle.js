@@ -2965,37 +2965,41 @@ function showEnemySkillMessage(enemyName, skillName) {
     }, 1200);
 
 }
+
 // ===============================
 // 通常バトル
 // AIターン
 // ===============================
 
 function normalEnemyTurn() {
-    
+
     // ===============================
     // AIドロー
     // ===============================
 
     if (
-
         !drawNormalEnemyCard()
-
     ) {
 
         // AIの山札切れ
-
         showBattleResult("win");
 
         return;
 
     }
-    
+
+
     // ===============================
     // AIカード使用
     // 1ターン最大1枚
+    //
+    // true  = カードを使用した
+    // false = 使用しなかった
     // ===============================
 
-    useNormalEnemyCard();
+    const usedCard =
+        useNormalEnemyCard();
+
 
     // ===============================
     // 生存している敵を取得
@@ -3023,7 +3027,9 @@ function normalEnemyTurn() {
     // 勝敗確認
     // ===============================
 
-    if (aliveEnemies.length === 0) {
+    if (
+        aliveEnemies.length === 0
+    ) {
 
         showBattleResult("win");
 
@@ -3032,7 +3038,9 @@ function normalEnemyTurn() {
     }
 
 
-    if (alivePlayers.length === 0) {
+    if (
+        alivePlayers.length === 0
+    ) {
 
         showBattleResult("lose");
 
@@ -3075,16 +3083,62 @@ function normalEnemyTurn() {
 
 
     // ===============================
-    // 順番に行動
+    // AIキャラクター行動開始
     // ===============================
 
-    normalEnemyAct(
-        actingEnemies,
-        0
-    );
+    const startEnemyAction = () => {
+
+        // 待っている間に
+        // 勝敗が決まっていないか確認
+        if (
+            checkBattleEnd()
+        ) {
+
+            return;
+
+        }
+
+
+        normalEnemyAct(
+            actingEnemies,
+            0
+        );
+
+    };
+
+
+    // ===============================
+    // カードを使用した場合
+    //
+    // カード表示が1200msなので
+    // 1300ms待ってから行動開始
+    // ===============================
+
+    if (
+        usedCard
+    ) {
+
+        setTimeout(
+            startEnemyAction,
+            1300
+        );
+
+    }
+
+
+    // ===============================
+    // カードを使わなかった場合
+    //
+    // すぐ行動開始
+    // ===============================
+
+    else {
+
+        startEnemyAction();
+
+    }
 
 }
-
 
 // ===============================
 // 通常バトル
