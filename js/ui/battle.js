@@ -2190,44 +2190,138 @@ function processDamageOverTime(
 
 }
 
+// ===============================
+// ダメージ表示キュー
+// ===============================
+
+const damageDisplayQueues = {};
+
+
+// ===============================
+// ダメージ表示
+// ===============================
+
 function showDamage(
     targetId,
     value,
     type = "normal"
 ) {
 
+    // 対象ごとのキューを作る
+    if (!damageDisplayQueues[targetId]) {
+
+        damageDisplayQueues[targetId] = {
+            queue: [],
+            playing: false
+        };
+
+    }
+
+
+    const data =
+        damageDisplayQueues[targetId];
+
+
+    // 表示待ちに追加
+    data.queue.push({
+        value: value,
+        type: type
+    });
+
+
+    // まだ再生中でなければ開始
+    if (!data.playing) {
+
+        playDamageQueue(targetId);
+
+    }
+
+}
+
+
+// ===============================
+// キューを順番に表示
+// ===============================
+
+function playDamageQueue(targetId) {
+
+    const data =
+        damageDisplayQueues[targetId];
+
+    if (!data) return;
+
+
+    // 全部表示し終わった
+    if (data.queue.length === 0) {
+
+        data.playing = false;
+
+        return;
+
+    }
+
+
+    data.playing = true;
+
+
+    const damageData =
+        data.queue.shift();
+
+
+    displayDamageNumber(
+        targetId,
+        damageData.value,
+        damageData.type
+    );
+
+
+    // 次のダメージを少し待って表示
+    setTimeout(() => {
+
+        playDamageQueue(targetId);
+
+    }, 650);
+
+}
+
+
+// ===============================
+// 実際の数字を表示
+// ===============================
+
+function displayDamageNumber(
+    targetId,
+    value,
+    type
+) {
+
     const target =
         document.getElementById(targetId);
 
-    if (!target) return;
+    if (!target) {
+
+        return;
+
+    }
+
 
     const rect =
         target.getBoundingClientRect();
 
+
     const damageElement =
         document.createElement("div");
+
 
     damageElement.className =
         "floating-damage";
 
 
     // ===============================
-    // 表示タイプ
+    // ダメージ種類
     // ===============================
 
     switch (type) {
-
-        case "heal":
-
-            damageElement.classList.add(
-                "heal"
-            );
-
-            damageElement.textContent =
-                "+" + value;
-
-            break;
-
 
         case "burn":
 
@@ -2237,6 +2331,18 @@ function showDamage(
 
             damageElement.textContent =
                 "🔥 -" + value;
+
+            break;
+
+
+        case "heal":
+
+            damageElement.classList.add(
+                "heal"
+            );
+
+            damageElement.textContent =
+                "+" + value;
 
             break;
 
@@ -2255,29 +2361,18 @@ function showDamage(
     // 表示位置
     // ===============================
 
-    let left =
-        rect.left +
-        rect.width / 2;
-
-    let top =
-        rect.top +
-        rect.height / 2;
-
-
-    // 火傷だけ右上へ
-    if (type === "burn") {
-
-        left += 35;
-        top -= 25;
-
-    }
-
-
     damageElement.style.left =
-        left + "px";
+        (
+            rect.left +
+            rect.width / 2
+        ) + "px";
+
 
     damageElement.style.top =
-        top + "px";
+        (
+            rect.top +
+            rect.height / 2
+        ) + "px";
 
 
     document.body.appendChild(
@@ -2285,11 +2380,15 @@ function showDamage(
     );
 
 
+    // ===============================
+    // 削除
+    // ===============================
+
     setTimeout(() => {
 
         damageElement.remove();
 
-    }, 1000);
+    }, 600);
 
 }
 
