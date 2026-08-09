@@ -164,19 +164,105 @@ function showDeckBuilder() {
 }
 
     document
-        .getElementById("startGame")
-        .addEventListener("click", () => {
+    .getElementById("startGame")
+    .addEventListener("click", () => {
 
-            if (gameState.deck.length !== 40) {
+        // ===============================
+        // デッキ枚数確認
+        // ===============================
 
-                alert("デッキを40枚作成してください");
+        if (gameState.deck.length !== 40) {
+
+            alert(
+                "デッキを40枚作成してください"
+            );
+
+            return;
+
+        }
+
+
+        // ===============================
+        // 通常バトル
+        // ===============================
+
+        if (
+            gameState.battleMode === "normal"
+        ) {
+
+            // AIチームが選択されているか確認
+            if (
+                !Array.isArray(
+                    gameState.normalEnemyTeam
+                ) ||
+                gameState.normalEnemyTeam.length !== 3
+            ) {
+
+                alert(
+                    "対戦相手のチームが正しく選択されていません"
+                );
+
+                showNormalBattleTeamSelect();
+
                 return;
 
             }
 
+
+            // ボス選択を挟まず
+            // そのまま3対3を開始
+            startBattle();
+
+            return;
+
+        }
+
+
+        // ===============================
+        // ボスバトル
+        // ===============================
+
+        if (
+            gameState.battleMode === "boss"
+        ) {
+
+            // 今まで通り
+            // 宿儺・漏瑚・真人の選択へ
             showEnemySelectScreen();
 
-        });
+            return;
+
+        }
+
+
+        // ===============================
+        // チャレンジバトル
+        // ===============================
+
+        if (
+            gameState.battleMode === "challenge"
+        ) {
+
+            alert(
+                "チャレンジバトルは現在準備中です！"
+            );
+
+            return;
+
+        }
+
+
+        // ===============================
+        // モード未選択
+        // ===============================
+
+        alert(
+            "バトルモードが選択されていません"
+        );
+
+        showBattleModeSelect();
+
+    });
 
     document
         .getElementById("backCharacter")
