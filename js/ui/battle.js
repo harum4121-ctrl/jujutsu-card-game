@@ -4261,3 +4261,256 @@ function finishNormalEnemyTurn() {
     }, 700);
 
 }
+
+// ===============================
+// 通常バトル
+// AIデッキ作成
+// ===============================
+
+function createNormalEnemyDeck() {
+
+    // ===============================
+    // 全カード取得
+    // ===============================
+
+    const allCards = [
+
+        ...(Array.isArray(cards.equipment)
+            ? cards.equipment
+            : []),
+
+        ...(Array.isArray(cards.cursedObjects)
+            ? cards.cursedObjects
+            : []),
+
+        ...(Array.isArray(cards.support)
+            ? cards.support
+            : []),
+
+        ...(Array.isArray(cards.domains)
+            ? cards.domains
+            : []),
+
+        ...(Array.isArray(cards.ultimate)
+            ? cards.ultimate
+            : [])
+
+    ].filter(card =>
+        card &&
+        typeof card === "object" &&
+        card.id != null
+    );
+
+
+    // ===============================
+    // カードがない場合
+    // ===============================
+
+    if (allCards.length === 0) {
+
+        console.error(
+            "AIデッキに使用できるカードがありません"
+        );
+
+        return [];
+
+    }
+
+
+    // ===============================
+    // AIデッキ
+    // ===============================
+
+    const deck = [];
+
+    const cardCounts = {};
+
+
+    // ===============================
+    // 40枚になるまで追加
+    // 同名カード最大3枚
+    // ===============================
+
+    while (deck.length < 40) {
+
+        // まだ3枚未満のカードだけ
+        const availableCards =
+            allCards.filter(card => {
+
+                const count =
+                    cardCounts[card.id] ?? 0;
+
+                return count < 3;
+
+            });
+
+
+        // ===============================
+        // 40枚作れない場合
+        // ===============================
+
+        if (
+            availableCards.length === 0
+        ) {
+
+            console.error(
+                "AIデッキを40枚作れません。" +
+                "カード種類が不足しています。"
+            );
+
+            break;
+
+        }
+
+
+        // ===============================
+        // ランダム選択
+        // ===============================
+
+        const card =
+            availableCards[
+                Math.floor(
+                    Math.random() *
+                    availableCards.length
+                )
+            ];
+
+
+        deck.push(card);
+
+
+        cardCounts[card.id] =
+            (cardCounts[card.id] ?? 0)
+            + 1;
+
+    }
+
+
+    return deck;
+
+}
+
+
+// ===============================
+// 通常バトル
+// AIデッキ初期化
+// ===============================
+
+function initializeNormalEnemyDeck() {
+
+    const deck =
+        createNormalEnemyDeck();
+
+
+    // ===============================
+    // シャッフル
+    // ===============================
+
+    gameState.enemyDrawPile =
+        [...deck].sort(
+            () =>
+                Math.random() - 0.5
+        );
+
+
+    gameState.enemyHand = [];
+
+    gameState.enemyGraveyard = [];
+
+
+    // ===============================
+    // 初手5枚
+    // ===============================
+
+    for (
+        let i = 0;
+        i < 5;
+        i++
+    ) {
+
+        if (
+            !drawNormalEnemyCard()
+        ) {
+
+            break;
+
+        }
+
+    }
+
+
+    console.log(
+        "AIデッキ初期化完了"
+    );
+
+    console.log(
+        "AI山札:",
+        gameState.enemyDrawPile.length
+    );
+
+    console.log(
+        "AI手札:",
+        gameState.enemyHand.map(
+            card => card.name
+        )
+    );
+
+}
+
+
+// ===============================
+// 通常バトル
+// AIドロー
+// ===============================
+
+function drawNormalEnemyCard() {
+
+    if (
+        !Array.isArray(
+            gameState.enemyDrawPile
+        )
+    ) {
+
+        return false;
+
+    }
+
+
+    if (
+        gameState.enemyDrawPile.length === 0
+    ) {
+
+        return false;
+
+    }
+
+
+    const card =
+        gameState.enemyDrawPile.shift();
+
+
+    if (
+        !Array.isArray(
+            gameState.enemyHand
+        )
+    ) {
+
+        gameState.enemyHand = [];
+
+    }
+
+
+    gameState.enemyHand.push(
+        card
+    );
+
+
+    console.log(
+        "AIドロー:",
+        card.name
+    );
+
+
+    return true;
+
+}
