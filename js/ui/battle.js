@@ -4591,3 +4591,884 @@ function drawNormalEnemyCard() {
     return true;
 
 }
+
+// ===============================
+// 通常バトル
+// AIカード使用
+// ===============================
+
+function useNormalEnemyCard() {
+
+    if (
+        !Array.isArray(
+            gameState.enemyHand
+        )
+    ) {
+
+        return false;
+
+    }
+
+
+    // ===============================
+    // 使用候補を作る
+    // ===============================
+
+    const candidates = [];
+
+
+    gameState.enemyHand.forEach(
+        (card, index) => {
+
+            if (!card) return;
+
+
+            const score =
+                getNormalEnemyCardScore(
+                    card
+                );
+
+
+            // 使用不可
+            if (
+                score === null
+            ) {
+
+                return;
+
+            }
+
+
+            candidates.push({
+
+                card: card,
+
+                index: index,
+
+                score: score
+
+            });
+
+        }
+    );
+
+
+    // ===============================
+    // 使用できるカードなし
+    // ===============================
+
+    if (
+        candidates.length === 0
+    ) {
+
+        console.log(
+            "AIはカードを使用しません"
+        );
+
+        return false;
+
+    }
+
+
+    // ===============================
+    // 点数が高い順
+    // ===============================
+
+    candidates.sort(
+        (a, b) =>
+            b.score - a.score
+    );
+
+
+    const selected =
+        candidates[0];
+
+
+    // ===============================
+    // 点数が低ければ温存
+    // ===============================
+
+    if (
+        selected.score < 20
+    ) {
+
+        console.log(
+            "AIはカードを温存しました"
+        );
+
+        return false;
+
+    }
+
+
+    console.log(
+        "AIカード使用:",
+        selected.card.name,
+        "評価:",
+        selected.score
+    );
+
+
+    // ===============================
+    // 実際に使用
+    // ===============================
+
+    const success =
+        executeNormalEnemyCard(
+            selected.card
+        );
+
+
+    if (!success) {
+
+        return false;
+
+    }
+
+
+    // ===============================
+    // 手札から削除
+    // ===============================
+
+    gameState.enemyHand.splice(
+        selected.index,
+        1
+    );
+
+
+    // ===============================
+    // 墓地へ
+    // ===============================
+
+    if (
+        !Array.isArray(
+            gameState.enemyGraveyard
+        )
+    ) {
+
+        gameState.enemyGraveyard = [];
+
+    }
+
+
+    gameState.enemyGraveyard.push(
+        selected.card
+    );
+
+
+    showEnemyCardMessage(
+        selected.card.name
+    );
+
+
+    return true;
+
+}
+
+// ===============================
+// 通常バトル
+// AIカード評価
+// ===============================
+
+function getNormalEnemyCardScore(
+    card
+) {
+
+    const allies =
+        gameState.enemyCharacters.filter(
+            character =>
+                character.currentHp > 0
+        );
+
+
+    const players =
+        gameState.battleCharacters.filter(
+            character =>
+                character.currentHp > 0
+        );
+
+
+    if (
+        allies.length === 0 ||
+        players.length === 0
+    ) {
+
+        return null;
+
+    }
+
+
+    // ===============================
+    // 今回まだ使わないカード
+    // ===============================
+
+    if (
+        card.type === "必殺" ||
+        card.type === "呪具" ||
+        card.type === "領域"
+    ) {
+
+        return null;
+
+    }
+
+
+    // 必殺カード検索も後で対応
+    if (
+        card.id === "not_words"
+    ) {
+
+        return null;
+
+    }
+
+
+    let score =
+        Math.random() * 10;
+
+
+    // ===============================
+    // 回復
+    // ===============================
+
+    if (
+        card.id === "save_people"
+    ) {
+
+        const injured =
+            allies.filter(
+                ally =>
+                    ally.currentHp <
+                    ally.maxHp
+            );
+
+
+        if (
+            injured.length === 0
+        ) {
+
+            return null;
+
+        }
+
+
+        const lowest =
+            getLowestHpNormalEnemy(
+                injured
+            );
+
+
+        const hpRate =
+            lowest.currentHp /
+            lowest.maxHp;
+
+
+        if (hpRate <= 0.3) {
+
+            score += 100;
+
+        }
+
+        else if (
+            hpRate <= 0.5
+        ) {
+
+            score += 70;
+
+        }
+
+        else {
+
+            score += 30;
+
+        }
+
+
+        return score;
+
+    }
+
+
+    // ===============================
+    // やり直しだ
+    // ===============================
+
+    if (
+        card.id === "retry"
+    ) {
+
+        const target =
+            allies.find(
+                ally =>
+                    (ally.lastSingleDamage ?? 0)
+                    > 0
+            );
+
+
+        if (!target) {
+
+            return null;
+
+        }
+
+
+        score += 60;
+
+        return score;
+
+    }
+
+
+    // ===============================
+    // 今はただ君に感謝を
+    // HP100以下が必要
+    // ===============================
+
+    if (
+        card.id === "thank_you"
+    ) {
+
+        const target =
+            allies.find(
+                ally =>
+                    ally.currentHp <= 100
+            );
+
+
+        if (!target) {
+
+            return null;
+
+        }
+
+
+        score += 90;
+
+        return score;
+
+    }
+
+
+    // ===============================
+    // 獄門疆
+    // ===============================
+
+    if (
+        card.id === "prison_realm"
+    ) {
+
+        score += 75;
+
+        return score;
+
+    }
+
+
+    // ===============================
+    // 受胎九相図 二番
+    // ===============================
+
+    if (
+        card.id === "death_painting_2"
+    ) {
+
+        score += 55;
+
+        return score;
+
+    }
+
+
+    // ===============================
+    // 受胎九相図 三番
+    // ===============================
+
+    if (
+        card.id === "death_painting_3"
+    ) {
+
+        score += 60;
+
+        return score;
+
+    }
+
+
+    // ===============================
+    // 私たちは最強なんだ
+    // ===============================
+
+    if (
+        card.id === "we_are_the_strongest"
+    ) {
+
+        if (
+            allies.length < 2
+        ) {
+
+            return null;
+
+        }
+
+
+        score += 55;
+
+        return score;
+
+    }
+
+
+    // ===============================
+    // 呪力回復系
+    // ===============================
+
+    if (
+        card.id === "challenger" ||
+        card.id === "big_brother"
+    ) {
+
+        const needsCursedPower =
+            allies.some(
+                ally =>
+                    ally.currentCursedPower <
+                    ally.maxCursedPower
+            );
+
+
+        if (
+            !needsCursedPower
+        ) {
+
+            return null;
+
+        }
+
+
+        score += 45;
+
+        return score;
+
+    }
+
+
+    // ===============================
+    // 相手呪力減少
+    // ===============================
+
+    if (
+        card.id === "king_of_curses" ||
+        card.id === "death_painting_1"
+    ) {
+
+        score += 50;
+
+        return score;
+
+    }
+
+
+    // ===============================
+    // 防御カード
+    // ===============================
+
+    if (
+        card.id === "endure" ||
+        card.id === "no_regret"
+    ) {
+
+        score += 40;
+
+        return score;
+
+    }
+
+
+    // ===============================
+    // その他の今回対応カード
+    // ===============================
+
+    if (
+        card.id === "sukunas_finger" ||
+        card.id === "domain_amplification" ||
+        card.id === "power_battle"
+    ) {
+
+        score += 30;
+
+        return score;
+
+    }
+
+
+    return null;
+
+}
+
+// ===============================
+// AI側
+// HP割合が一番低いキャラ
+// ===============================
+
+function getLowestHpNormalEnemy(
+    characters
+) {
+
+    if (
+        !characters ||
+        characters.length === 0
+    ) {
+
+        return null;
+
+    }
+
+
+    return characters.reduce(
+        (lowest, character) => {
+
+            const lowestRate =
+                lowest.currentHp /
+                lowest.maxHp;
+
+
+            const characterRate =
+                character.currentHp /
+                character.maxHp;
+
+
+            return (
+                characterRate <
+                lowestRate
+            )
+                ? character
+                : lowest;
+
+        }
+    );
+
+}
+
+// ===============================
+// 通常バトル
+// AIカード効果実行
+// ===============================
+
+function executeNormalEnemyCard(
+    card
+) {
+
+    const allies =
+        gameState.enemyCharacters.filter(
+            character =>
+                character.currentHp > 0
+        );
+
+
+    const players =
+        gameState.battleCharacters.filter(
+            character =>
+                character.currentHp > 0
+        );
+
+
+    if (
+        allies.length === 0 ||
+        players.length === 0
+    ) {
+
+        return false;
+
+    }
+
+
+    // ===============================
+    // 味方単体
+    // ===============================
+
+    if (
+        card.target === "味方単体"
+    ) {
+
+        let target = null;
+
+
+        // 回復
+        if (
+            card.id === "save_people"
+        ) {
+
+            const injured =
+                allies.filter(
+                    ally =>
+                        ally.currentHp <
+                        ally.maxHp
+                );
+
+
+            if (
+                injured.length === 0
+            ) {
+
+                return false;
+
+            }
+
+
+            target =
+                getLowestHpNormalEnemy(
+                    injured
+                );
+
+        }
+
+
+        // やり直しだ
+        else if (
+            card.id === "retry"
+        ) {
+
+            const possibleTargets =
+                allies.filter(
+                    ally =>
+                        (ally.lastSingleDamage ?? 0)
+                        > 0
+                );
+
+
+            if (
+                possibleTargets.length === 0
+            ) {
+
+                return false;
+
+            }
+
+
+            target =
+                getLowestHpNormalEnemy(
+                    possibleTargets
+                );
+
+        }
+
+
+        // HP100以下
+        else if (
+            card.id === "thank_you"
+        ) {
+
+            const possibleTargets =
+                allies.filter(
+                    ally =>
+                        ally.currentHp <= 100
+                );
+
+
+            if (
+                possibleTargets.length === 0
+            ) {
+
+                return false;
+
+            }
+
+
+            target =
+                getLowestHpNormalEnemy(
+                    possibleTargets
+                );
+
+        }
+
+
+        // その他
+        else {
+
+            target =
+                allies[
+                    Math.floor(
+                        Math.random() *
+                        allies.length
+                    )
+                ];
+
+        }
+
+
+        if (!target) {
+
+            return false;
+
+        }
+
+
+        applyNormalEnemyCardEffects(
+            card,
+            target
+        );
+
+
+        return true;
+
+    }
+
+
+    // ===============================
+    // 味方2体
+    // ===============================
+
+    if (
+        card.target === "味方2体"
+    ) {
+
+        if (
+            allies.length < 2
+        ) {
+
+            return false;
+
+        }
+
+
+        const shuffled =
+            [...allies].sort(
+                () =>
+                    Math.random() - 0.5
+            );
+
+
+        shuffled
+            .slice(0, 2)
+            .forEach(target => {
+
+                applyNormalEnemyCardEffects(
+                    card,
+                    target
+                );
+
+            });
+
+
+        return true;
+
+    }
+
+
+    // ===============================
+    // 味方全体
+    // ===============================
+
+    if (
+        card.target === "味方全体"
+    ) {
+
+        allies.forEach(target => {
+
+            applyNormalEnemyCardEffects(
+                card,
+                target
+            );
+
+        });
+
+
+        return true;
+
+    }
+
+
+    // ===============================
+    // 敵単体
+    // ===============================
+
+    if (
+        card.target === "敵単体"
+    ) {
+
+        const target =
+            players[
+                Math.floor(
+                    Math.random() *
+                    players.length
+                )
+            ];
+
+
+        applyNormalEnemyCardEffects(
+            card,
+            target
+        );
+
+
+        return true;
+
+    }
+
+
+    // ===============================
+    // 敵全体
+    // ===============================
+
+    if (
+        card.target === "敵全体"
+    ) {
+
+        // 受胎九相図 一番だけ
+        // 敵↓ + 味方↑ の両方がある
+        if (
+            card.id ===
+            "death_painting_1"
+        ) {
+
+            players.forEach(
+                target => {
+
+                    target.currentCursedPower =
+                        Math.max(
+                            0,
+                            target.currentCursedPower -
+                            10
+                        );
+
+                }
+            );
+
+
+            allies.forEach(
+                target => {
+
+                    target.currentCursedPower =
+                        Math.min(
+                            target.maxCursedPower,
+                            target.currentCursedPower +
+                            10
+                        );
+
+                }
+            );
+
+
+            return true;
+
+        }
+
+
+        players.forEach(target => {
+
+            applyNormalEnemyCardEffects(
+                card,
+                target
+            );
+
+        });
+
+
+        return true;
+
+    }
+
+
+    return false;
+
+}
+
